@@ -1,0 +1,38 @@
+name: Android app tests in Github emulator
+on: [push, pull_request]
+jobs:
+  Tests-in-Github-emulator:
+    runs-on: macos-latest
+
+    steps:
+        - name: Pull the project into the runner
+          uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 16.20.1
+        
+        - name: Install
+          run:
+            npm install
+            npm install -g appium@next
+            npx appium -v
+            npx appium &>/dev/null &
+            npx appium driver install uiautomator2
+
+        - name: Run tests
+          uses: reactivecircus/android-emulator-runner@v2
+          with:
+            api-level: 29
+            #api-level: 32
+            #target: google_apis
+            #arch: x86_64
+            #profile: Nexus 6
+            script: npx wdio config/wdio.android.conf.js
+        
+        - name: Upload reports
+          uses: actions/upload-artifact@v3
+          with:
+            name: Test-Reports
+            path: view_shots
+          if: always()
+        
