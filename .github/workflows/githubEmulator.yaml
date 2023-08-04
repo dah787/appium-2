@@ -33,6 +33,6 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: Test-Reports
-            path: view_shots
+            path: _view_shots
           if: always()
         
