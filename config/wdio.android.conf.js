@@ -51,8 +51,9 @@ config.capabilities = [{
   // "appium:deviceName": "Pixel 6 v.13",
   // "appium:platformVersion": "13.0",
   // "appium:deviceName": "Pixel XL v.13",
-  "appium:platformVersion": "13.0",
-  "appium:deviceName": "Pixel 7 v.13", //fgh
+  // "appium:platformVersion": "13.0",
+  "appium:deviceName": "Pixel 7 v.13",
+  "appium:platformVersion": "14.0",
 
   "appium:automationName": "UiAutomator2",
   "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.17.1-debug.apk"),
