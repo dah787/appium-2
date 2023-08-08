@@ -29,8 +29,8 @@ config.specs = [
 // Capabilities
 // ============
 config.capabilities = [{
-  "appium:language": "ru",
-  'appium:locale': 'RU',
+  "appium:language": "uk",
+  'appium:locale': 'UA',
 
   "appium:deviceType": "phone",
   // "browserVersion": "73.0-phone-1",
