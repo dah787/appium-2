@@ -29,8 +29,8 @@ config.specs = [
 // Capabilities
 // ============
 config.capabilities = [{
-  "appium:language": "uk",
-  'appium:locale': 'UA',
+  "appium:language": "ru",
+  'appium:locale': 'RU',
 
   "appium:deviceType": "phone",
   // "browserVersion": "73.0-phone-1",
@@ -55,7 +55,7 @@ config.capabilities = [{
   // "appium:platformVersion": "13.0",
   // "appium:deviceName": "Pixel XL v.13",
   "appium:platformVersion": "13.0",
-  "appium:deviceName": "Pixel 7 v.13", // 1080*2400, 420 dpi, 6.31"
+  "appium:deviceName": "Pixel 7 v.13",  // 1080*2400, 420 dpi, 6.31"
   // "appium:platformVersion": "14.0",
 
   "appium:automationName": "UiAutomator2",
