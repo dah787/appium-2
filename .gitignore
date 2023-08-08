@@ -1,2 +1,5 @@
 node_modules
 .env
+_results_
+allure-report
+allure-results
