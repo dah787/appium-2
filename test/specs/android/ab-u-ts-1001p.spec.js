@@ -9,7 +9,7 @@ const HomeM   = require('../../screens/android/ab-home.screen');          // Hom
 const HProfM  = require('../../screens/android/ab-home-profile.screen');  // Home-Profile screen Model
 const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
 
-describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230724| > Тестов 4 (выполнены частично 1) <', () => {
+describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230808| > Тестов 4 (выполнены частично 1) <', () => {
 
   let counter = 0, tcNum = '';
   beforeEach(async () => {
