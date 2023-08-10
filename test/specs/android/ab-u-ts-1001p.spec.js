@@ -52,7 +52,7 @@ describe('ab-u-ts-1001p: Тестирование элементов (дымов
     // // await driver.executeScript('mobile: terminateApp', [{appId: GenM.appPackage}]); // Unknown mobile command "terminateApp".
   });
 
-it.only('ab-u-tc-1001p: Выбор языка интерфейса', async () => {
+it('ab-u-tc-1001p: Выбор языка интерфейса', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
  * - 2 Стр. выбор языка, выбор языка (Русский) (ш?: П.1)
  * - ? ... <
