@@ -37,28 +37,16 @@ config.capabilities = [{
 
   "appium:platformName": "Android",
 
-  "appium:platformVersion": "10.0",
+  // "appium:platformVersion": "10.0",
   // "appium:deviceName": "Nexus S v.10",   // 480*800, 240 dpi, 4.0", x86
   // "appium:deviceName": "Pixel 2 v.10",   // 1080*1920, 420 dpi, 5.0", x86
-  // "appium:deviceName": "Pixel 4 v.10",
-  "appium:deviceName": "Pixel 6ф v.10",   // 1080*2400, 420 dpi, 6.13", x86
+  // "appium:deviceName": "Pixel 6a v.10",   // 1080*2400, 420 dpi, 6.13", x86
 
   // "appium:platformVersion": "11.0",
   // "appium:deviceName": "Pixel 4 v.11",
-  
-  // "appium:platformVersion": "12.0",
-  // "appium:platformVersion": "12L",
-  // "appium:deviceName": "Pixel 4 v.12L",  // 1080*2280, 440 dpi, 6.3", x86_64
-  // "appium:platformVersion": "12L",
-  // "appium:deviceName": "Pixel 4a v.12L",
 
-  // "appium:platformVersion": "13.0",
-  // "appium:deviceName": "Pixel 5 v.13",
-  // "appium:platformVersion": "13.0",
-  // "appium:deviceName": "Pixel 6 v.13",
-  // "appium:platformVersion": "13.0",
-  // "appium:deviceName": "Pixel XL v.13",
-  // "appium:platformVersion": "13.0",
+  "appium:platformVersion": "13.0",
+  "appium:deviceName": "Pixel 6a v.13",   // 1080*2400, 420 dpi, 6.13", x86_64
   // "appium:deviceName": "Pixel 7 v.13",   // 1080*2400, 420 dpi, 6.31", x86_64
 
   "appium:automationName": "UiAutomator2",
