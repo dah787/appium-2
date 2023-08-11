@@ -38,7 +38,7 @@ config.capabilities = [{
   "appium:platformName": "Android",
 
   // "appium:platformVersion": "10.0",
-  // "appium:deviceName": "Nexus S v.10",   //   480*800, 240 dpi, 4.0", x86
+  // "appium:deviceName": "Nexus S v.10",   // 480*800, 240 dpi, 4.0", x86
   // "appium:deviceName": "Pixel 2 v.10",   // 1080*1920, 420 dpi, 5.0", x86
   // "appium:deviceName": "Pixel 4 v.10",
   
