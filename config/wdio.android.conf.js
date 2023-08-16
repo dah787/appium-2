@@ -47,7 +47,7 @@ config.capabilities = [{
 
   "appium:platformVersion": "13.0",
   // "appium:deviceName": "Pixel 6a v.13",   // 1080*2400, 420 dpi, 6.13", x86_64
-  "appium:deviceName": "Pixel 7 v.13",   // 1080*2400, 420 dpi, 6.31", x86_64 < "Pixel_7_API_33"
+  "appium:deviceName": "Pixel 7 v.13",   // 1080*2400, 420 dpi, 6.31", x86_64 << "Pixel_7_API_33"
 
   "appium:automationName": "UiAutomator2",
   // "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.17.1-debug.apk"),
