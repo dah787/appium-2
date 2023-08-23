@@ -32,11 +32,14 @@ get languageItemName() {
   get languagesListTitle() {
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
   get languagesListItemEn() {
-    return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_english"]');}
+    // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_english"]');}
+    return $('//android.widget.TextView[@text="English (UK)"]');}
   get languagesListItemRu() {
-    return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
+    // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
+    return $('//android.widget.TextView[@text="Русский"]');}
   get languagesListItemUz() {
-    return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_uzbek"]');}
+    // return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_uzbek"]');}
+    return $('//android.widget.TextView[@text="O‘zbekcha"]');}
   get languagesListItems() {
     return $$('android.view.TextView');}
 
