@@ -25,7 +25,7 @@ supportContactsListTitleUz_Expected = 'Qo‘llab-quvvatlash aloqa';
 get yourStatusItem() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_status"]');}
 get languageItem() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_language"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_app_language"]');}
 get languageItemName() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_language_current"]');}
   // экран-1 (б/и) профиля > окно выбора языка
