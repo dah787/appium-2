@@ -277,8 +277,10 @@ it.only('ab-u-tc-1002p: Контакты !Тест выполнен частич
   // - экран приложения Telegram с перепиской со службой поддержки > waitForDisplayed: v.13 не успевает открыть Telegram (почему-то сначала запускает браузер)
   await DTlgM.supportContactTelegramName.waitForDisplayed({ timeout: 20000 });
   await expect(DTlgM.supportContactTelegramName).toHaveText(AuthM.supportContactTelegramName_Expected);
-  // - поле ввода сообщения
-  await expect(DTlgM.supportContactTelegramMessageInput).toBeDisplayed();
+  // - кнопка присоединиться к Telegram-каналу
+  await expect(DTlgM.supportContactTelegramJoinButton).toBeDisplayed();
+  // // - поле ввода сообщения
+  // await expect(DTlgM.supportContactTelegramMessageInput).toBeDisplayed();
   
   // п.7 о совершении переписки автотестированию не подлежит
 
@@ -296,8 +298,10 @@ it.only('ab-u-tc-1002p: Контакты !Тест выполнен частич
   // - экран приложения Telegram с перепиской со службой поддержки > waitForDisplayed: v.13 не успевает открыть Telegram (почему-то сначала запускает браузер)
   await DTlgM.supportContactTelegramName.waitForDisplayed({ timeout: 20000 });
   await expect(DTlgM.supportContactTelegramName).toHaveText(AuthM.supportContactTelegramName_Expected);
-  // - поле ввода сообщения
-  await expect(DTlgM.supportContactTelegramMessageInput).toBeDisplayed();
+  // - кнопка присоединиться к Telegram-каналу
+  await expect(DTlgM.supportContactTelegramJoinButton).toBeDisplayed();
+  // // - поле ввода сообщения
+  // await expect(DTlgM.supportContactTelegramMessageInput).toBeDisplayed();
   
   // п.7a о совершении переписки автотестированию не подлежит
 
