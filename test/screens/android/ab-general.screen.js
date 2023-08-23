@@ -87,6 +87,8 @@ async logOutTheApp() { // appLogOut
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');
     await HProfM.appLogOutItem.click();
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_4_afterClick_' + 'appLogOutItem' + '.png');
+    await HProfM.appLogOutConfirmButton.waitForDisplayed({timeout: this.waitTime + 5000});
+    await HProfM.appLogOutConfirmButton.click();
   }
 }
 

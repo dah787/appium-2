@@ -50,6 +50,8 @@ get supportItemName() {
 
 get appLogOutItem() { // appLogOut
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_logout_toolbar"]');} // item_logout
+get appLogOutConfirmButton() { // appLogOut
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_confirm"]');}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
