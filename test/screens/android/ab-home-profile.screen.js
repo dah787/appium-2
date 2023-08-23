@@ -49,7 +49,7 @@ get supportItemName() {
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
 
 get appLogOutItem() { // appLogOut
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_logout"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_logout_toolbar"]');} // item_logout
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
