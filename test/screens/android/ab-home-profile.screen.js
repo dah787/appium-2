@@ -32,14 +32,14 @@ get languageItemName() {
   get languagesListTitle() {
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
   get languagesListItemEn() {
-    // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_english"]');}
-    return $('//android.widget.TextView[@text="English (UK)"]');}
+    return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_language_en"]');} // tv_english
+    // return $('//android.widget.TextView[@text="English (UK)"]');}
   get languagesListItemRu() {
-    // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
-    return $('//android.widget.TextView[@text="Русский"]');}
+    return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_language_ru"]');} // tv_russian
+    // return $('//android.widget.TextView[@text="Русский"]');}
   get languagesListItemUz() {
-    // return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_uzbek"]');}
-    return $('//android.widget.TextView[@text="O‘zbekcha"]');}
+    return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_language_uz"]');} // item_uzbek
+    // return $('//android.widget.TextView[@text="O‘zbekcha"]');}
   get languagesListItems() {
     return $$('android.view.TextView');}
 

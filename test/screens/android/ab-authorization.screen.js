@@ -101,7 +101,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   await expect(HomeM.profileLayout).toBeExisting();
   // - кнопка профиля пользователя
   await expect(HomeM.profileButton).toBeExisting();
-  // - имя пользователя
+  // // - имя пользователя
   // await expect(HomeM.profileName_NadiaPage).toHaveText(HomeM.profileName_NadiaPage_Expected);
   // // - вкладка Аккаунт
   // await expect(HomeM.accountTabRu).toBeExisting();
