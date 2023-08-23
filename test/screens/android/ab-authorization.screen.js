@@ -94,15 +94,17 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   await AppUM.appKeyboardTypeIn(pinCode);
   // await AppUM.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
   await HomeM.profileLayout.waitForDisplayed({timeout: GenM.waitTime + 5000});
-  // 71.Отображается главный экран приложения (активны навигационная кнопка Home и вкладка Аккаунт), где доступны имя пользователя, текст Общий баланс и... одно из следующего:
+  // 71.Открыт главный экран приложения (активна кнопка Главная панели навигации), где доступны кнопка профиля пользователя, текст Общий баланс и... одно из следующего:
   // - сумма общего баланса (если пользователь уже имеет карту банка).
   // - кнопка Заказать или добавить карту (если пользователь пока не имеет карту банка):
   // + элемент профиля клиента
   await expect(HomeM.profileLayout).toBeExisting();
+  // - кнопка профиля пользователя
+  await expect(HomeM.profileButton).toBeExisting();
   // - имя пользователя
-  await expect(HomeM.profileName_NadiaPage).toHaveText(HomeM.profileName_NadiaPage_Expected);
-  // - вкладка Аккаунт
-  await expect(HomeM.accountTabRu).toBeExisting();
+  // await expect(HomeM.profileName_NadiaPage).toHaveText(HomeM.profileName_NadiaPage_Expected);
+  // // - вкладка Аккаунт
+  // await expect(HomeM.accountTabRu).toBeExisting();
   // - текст Общий баланс
   await expect(HomeM.totalBalanceLabelRu).toHaveText(HomeM.totalBalanceLabelRu_Expected);
   // - сумма общего баланса -?-
