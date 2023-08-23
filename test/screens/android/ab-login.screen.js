@@ -3,11 +3,11 @@ const GenM  = require('./ab-general.screen'); // General screen Model
 class LoginScreen {
 
 /* CONSTANTS */
-welcomeScreenHeaderEn_Expected = 'Welcome';
-// welcomeScreenHeaderEn_Expected = 'Login to Apex Bank'; // 'Welcome'
-welcomeScreenHeaderRu_Expected = 'Добро пожаловать';
-// welcomeScreenHeaderRu_Expected = 'Войти в ApexBank'; // 'Добро пожаловать'
-welcomeScreenHeaderUz_Expected = 'Xush kelibsiz';
+// welcomeScreenHeaderEn_Expected = 'Welcome';
+welcomeScreenHeaderEn_Expected = 'Login to Apex Bank'; // 'Welcome'
+// welcomeScreenHeaderRu_Expected = 'Добро пожаловать';
+welcomeScreenHeaderRu_Expected = 'Войти в ApexBank'; // 'Добро пожаловать'
+welcomeScreenHeaderUz_Expected = 'Apex Bankga kirish'; // 'Xush kelibsiz'
 
 countryCode_Expected = '+998';
 
@@ -28,10 +28,12 @@ get supportContactsButton_1() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]')}
 get supportContactsListTitle() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get supportContactsListItemCall() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/container_call"]');}
+// get supportContactsListItemCall() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/container_call"]');}
 get supportContactsListItemTelegram() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/container_telegram"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_firstContact"]');} // '.../container_telegram'
+get supportContactsListItemWhatsApp() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_secondContact"]');}
 waitForScreenDisplayed_welcomeScreen() { // wait_for_screen_displayed() {
   this.supportContactsButton_1.waitForDisplayed({timeout: GenM.waitTime})
   this.languageButton.waitForDisplayed({timeout: GenM.waitTime})
@@ -52,22 +54,21 @@ get languagesListItems() {
   return $$('android.widget.TextView');}
 
 get welcomeScreenHeaderEn() { // find element by Xpath - (//tagname[@attribute=value])
-  return $('//android.widget.TextView[@text="Welcome"]');} // "Welcome"
+  return $('//android.widget.TextView[@text="Login to Apex Bank"]');} // "Welcome"
 get welcomeScreenHeaderRu() {
-  return $('//android.widget.TextView[@text="Добро пожаловать"]');}
-  // return $('//android.widget.TextView[@text="Войти в ApexBank"]');} // "Добро пожаловать"
+  return $('//android.widget.TextView[@text="Войти в ApexBank"]');} // "Добро пожаловать"
 get welcomeScreenHeaderUz() {
-  return $('//android.widget.TextView[@text="Xush kelibsiz"]');}
+  return $('//android.widget.TextView[@text="Apex Bankga kirish"]');} // 'Xush kelibsiz'
 
-get phoneNumberInputLabelEn() { // find element by Xpath - (//tagname[@attribute=value])
-  return $('//android.widget.TextView[@text="Enter your mobile number"]');}
+// get phoneNumberInputLabelEn() { // find element by Xpath - (//tagname[@attribute=value])
+//   return $('//android.widget.TextView[@text="Enter your mobile number"]');}
 
 get countryCode() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/country_code"]');}
 get phoneNumberInput() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
-get phoneNumberInputClearButton() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
+// get phoneNumberInputClearButton() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
 
 
 
