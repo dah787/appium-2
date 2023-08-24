@@ -7,10 +7,6 @@ const LogInM = require('./ab-login.screen');                      // Login scree
 class AuthorizationScreen extends LogInM {
 
 /* CONSTANTS */
-languageEn = 'english'; // 'En'
-languageRu = 'russian'; // 'Ru'
-languageUz = 'uzbek';   // 'Uz'
-
 pinCode_Expected = '0123';
 pinCode_Received = '123456';
 

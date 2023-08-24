@@ -197,6 +197,12 @@ async generateLanguagesList(raw_array, data_array, data_array_elems, elementAttr
   let elementAttributeText = '';
   for (const element of raw_array) {
     elementAttributeText = await element.getAttribute(elementAttributeKey);
+
+
+/*отладка*/ console.log('\n --> language_1 = ' + language_1 + '\n');
+/*отладка*/ console.log('\n --> elementAttributeText = ' + elementAttributeText + '\n');
+
+
     if(
       await elementAttributeText.endsWith(language_1) ||
       await elementAttributeText.endsWith(language_2) ||

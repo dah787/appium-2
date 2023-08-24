@@ -384,11 +384,12 @@ it.only('ab-u-tc-1003p: Контакты и языки (в профиле)', asy
 
   // *.Создать массив существующих языков.
   await HProfM.languagesListItemEn.waitForDisplayed({timeout: 5000});
-  const raw_array = await $$('android.widget.TextView');
+  const raw_array = await $$('android.widget.LinearLayout'); // android.widget.TextView
   // const raw_array = await HProfM.languagesListItems;
   const data_array = [];
   const data_array_elems = [];
   const elementAttributeKey = 'resource-id';
+
   await AuthM.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, AuthM.languageEn, AuthM.languageRu, AuthM.languageUz, 'Kz');
 
   // 3.Нажать элемент выбора языка (любого).
