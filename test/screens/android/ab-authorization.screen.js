@@ -37,6 +37,10 @@ get enterPinCodeScreenHeaderRu() {
 /* FUNCTIONS : e2e */
 async customerAuthorization(language, phoneNumber, password, pinCode) {
   // П.1. Запустить приложение (автоматически), ...
+  // // * Ждем появления кнопки
+  // await this.loginButton.waitForDisplayed({timeout: GenM.waitTime + 10000});
+  // await this.loginButton.click();
+  // * Выбираем язык интерфейса
   await this.selectLanguage(language);
   
   // 1.Нажать поле ввода номера телефона.
@@ -56,8 +60,8 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // await expect(this.signinButton).toBeDisabled(); // отключено, т.к. ГитХаб и БраузерСтак не успевают
 
   // 3.Нажать поле ввода пароля.
-    // * Ждем появления поля
-    await this.passwordInput.waitForDisplayed({timeout: GenM.waitTime + 10000});
+  // * Ждем появления поля
+  await this.passwordInput.waitForDisplayed({timeout: GenM.waitTime + 10000});
   await this.passwordInput.click();
   // 31.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);

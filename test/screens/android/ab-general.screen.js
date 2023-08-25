@@ -1,5 +1,6 @@
-const HomeM   = require('./ab-home.screen');          // Home screen Model
-const HProfM  = require('./ab-home-profile.screen');  // Home-Profile screen Model
+// const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
+const HomeM   = require('./ab-home.screen');                              // Home screen Model
+const HProfM  = require('./ab-home-profile.screen');                      // Home-Profile screen Model
 
 class GeneralScreen {
 
@@ -24,11 +25,11 @@ get phoneNumberInputClearButton_1() { // added on 20230719
 async beforeEach(counter, typeOfTest) {
   // * Снимок экрана для контроля
   await driver.saveScreenshot('_view_shots/screen_before_' + typeOfTest + '-lastTest.png');
-  
-  // /*отладка*/ console.log('\n --> counter = ' + counter + '\n');
+
+  // /*отладка*/ console.log('\n --> counter-beforeEach = ' + counter + '\n');
   // * Не выполнять этот код для первого теста
   if (counter == 0) return;
-
+  
   // * Открыть начальную страницу приложения
   await driver.startActivity(this.appPackage, this.appActivity);
 }
@@ -40,7 +41,8 @@ async afterEach(counter, tcNum) {
 
   // * Вести счет числу выполненных тестов
   counter++;
-  
+  // /*отладка*/ console.log('\n --> counter-afterEach = ' + counter + '\n');
+
   // * Выйти из приложения
   await this.logOutTheApp();
 }

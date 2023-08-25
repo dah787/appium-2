@@ -9,11 +9,19 @@ const HomeM   = require('../../screens/android/ab-home.screen');          // Hom
 const HProfM  = require('../../screens/android/ab-home-profile.screen');  // Home-Profile screen Model
 const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
 
-describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230823| > Тестов 4 (выполнены частично 1) <', () => {
+describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230824| > Тестов 4 (выполнены частично 1) <', () => {
 
-  let counter = 0, tcNum = '';
+  let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await GenM.beforeEach(counter, 'u'); // u - unit < typeOfTest
+    
+    // /*отладка*/ console.log('\n --> counter-beforeEach = ' + counter + '\n');
+    if (i == 0){
+      // * Ждем появления кнопки
+      await AuthM.loginButton.waitForDisplayed({timeout: GenM.waitTime + 10000});
+      await AuthM.loginButton.click();
+      i++;
+    }
 
     // // * Снимок экрана для контроля
     // await driver.saveScreenshot('_view_shots/screen_before_u-lastTest.png');
@@ -94,19 +102,25 @@ tcNum = 'ab-u-tc-1001p';
   // *.Открыть окно Выбор языка.
   await AuthM.languageButton.click();
 
-  // await driver.pause(2000);
   await AuthM.languagesListItemEn.waitForDisplayed({timeout: 5000});
   // const raw_array = await $$('android.widget.TextView');
   const raw_array = await AuthM.languagesListItems;
   const elementAttributeKey = 'resource-id';
-  const data_array = [];
-  const data_array_elems = [];
-  await AuthM.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, AuthM.languageEn, AuthM.languageRu, AuthM.languageUz, 'Kz');
-  
+  let  data_array = [];
+  let data_array_elems = [];
+  await AuthM.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, AuthM.languageEn_loginScreen, AuthM.languageRu_loginScreen, AuthM.languageUz_loginScreen, 'Kz');
+
+  // * Контролируем непустоту массива
+  if(data_array.length == 0){
+    // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
+    throw "languagesList не сформирован: data_array = '" + data_array + "'";
+    // throw data_array;
+  }
+
   let elementIndex = 0;
   for (const element of data_array) {
-    // /*отладка*/ console.log('\n --> elementIndex ' + elementIndex + '\n');
-    // /*отладка*/ console.log('\n --> element ' + element + '\n');
+    // /*отладка*/ console.log('\n --> elementIndex = ' + elementIndex + '\n');
+    // /*отладка*/ console.log('\n --> element = ' + element + '\n');
     // 2.Нажать кнопку выбора языка интерфейса.
     if (elementIndex > 0) {
       await AuthM.languageButton.click();
@@ -123,7 +137,7 @@ tcNum = 'ab-u-tc-1001p';
     elementIndex++;
 
     switch (element) {
-      case AuthM.languageEn:
+      case AuthM.languageEn_loginScreen:
         // /*отладка*/ console.log('\n --> case En: ' + element + '\n');
         // 3.Нажать элемент выбора языка (например, английский).
         await AuthM.languagesListItemEn.click();
@@ -140,7 +154,7 @@ tcNum = 'ab-u-tc-1001p';
         await expect(AuthM.phoneNumberInput).toBeDisplayed();
         break;
       
-      case AuthM.languageRu:
+      case AuthM.languageRu_loginScreen:
         // /*отладка*/ console.log('\n --> case Ru: ' + element + '\n');
         // 3.Нажать элемент выбора языка (например, русский).
         await AuthM.languagesListItemRu.click();
@@ -157,7 +171,7 @@ tcNum = 'ab-u-tc-1001p';
         await expect(AuthM.phoneNumberInput).toBeDisplayed();
         break;
       
-      case AuthM.languageUz:
+      case AuthM.languageUz_loginScreen:
         // /*отладка*/ console.log('\n --> case Uz: ' + element + '\n');
         // 3.Нажать элемент выбора языка (например, узбекский).
         await AuthM.languagesListItemUz.click();
@@ -188,12 +202,7 @@ it('ab-u-tc-1002p: Контакты !Тест выполнен частично!
   - Вызов отсутствует в меню
   - Telegram является каналом, к которому нужно присоединиться, выбрать другие параметры
   - WhatApp на деле подключается к Telegram
-   * 
-   * 
-   * 
-   * 
-   * 
-   *  > базовые тесты (см. файл ТК 1 (Регистрация)):
+   * > базовые тесты (см. файл ТК 1 (Регистрация)):
    * - 22 Стр. регист, кнопка "Поддержка": Позитив (ш?: 1)
    * - ? ... <
   > Можно осуществить контакты со службой поддержки приложения на экране входа в приложение. <
@@ -336,26 +345,26 @@ it('ab-u-tc-1002p: Контакты !Тест выполнен частично!
   await expect(AuthM.supportContactsButton_1).toBeDisplayed();
 });
 
-it.only('ab-u-tc-1003p: Контакты и языки (в профиле)', async () => {
+it('ab-u-tc-1003p: Языки (в профиле)', async () => {
   /** > базовые тесты (см. файл ...) <
-  > В профиле пользователя приложения можно менять языки интерфейса, а также доступны контакты со службой поддержки. <
+  > В профиле пользователя можно менять языки интерфейса приложения. <
 ПРЕДУСЛОВИЯ:
   1.Выполнена авторизация пользователя в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где доступны кнопка профиля пользователя.
 ПОСТУСЛОВИЯ: Выйти из приложения (выполняется в GenM.afterEach).
   *
 ШАГИ:
   1.Нажать кнопку профиля пользователя.
-  1.1.Открыт экран профиля пользователя, где доступны кнопка выбора языка, текст названия текущего языка и кнопка контактов со службой поддержки на текущем языке.
+  1.1.Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на текущем языке.
   
   2.Нажать кнопку выбора языка.
   2.1.Открыто окно выбора языка, где доступны элементы выбора языков: узбекский, русский и английский (возможна другая комбинация языков).
-  2.2.Отображается галочка на элементе текущего выбора языка.
+  2.2.Отображаются галочка на элементе текущего выбора языка и неактивная кнопка Сохранить (на выбранном языке).
 
-  3.Нажать элемент выбора языка (любого).
-  3.1.Закрыто окно выбора языка. Открыт экран профиля пользователя на выбранном языке, где доступны кнопка выбора языка, текст названия выбранного языка и кнопка контактов со службой поддержки на выбранном языке.
+  3.Нажать элемент выбора языка (любого не текущего).
+  3.1.Отображается галочка на элементе нажатого языка, кнопка Сохранить (на выбранном языке) активирована.
 
-  4.Нажать кнопку контактов со службой поддержки.
-  4.1.Открыто окно контактов со службой поддержки на выбранном языке, где доступны элементы выбора средств контактов: телефонный вызов и Telegram (возможна другая комбинация контактов).
+  4.Нажать кнопку Сохранить.
+  4.1.Закрыто окно выбора языка. Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на выбранном языке.
 
   5.Выполнить шаги 2-4 для каждого доступного языка.
   *
@@ -377,7 +386,7 @@ it.only('ab-u-tc-1003p: Контакты и языки (в профиле)', asy
 
   // 1.Нажать кнопку профиля пользователя.
   await HomeM.profileButton.click();
-  // 1.1.Открыт экран профиля пользователя, где доступны кнопка выбора языка, текст названия текущего языка и кнопка контактов со службой поддержки на текущем языке.
+  // 1.1.Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на текущем языке.
   
   // 2.Нажать кнопку выбора языка.
   await HProfM.languageItem.click();
@@ -390,9 +399,8 @@ it.only('ab-u-tc-1003p: Контакты и языки (в профиле)', asy
   const data_array_elems = [];
   const elementAttributeKey = 'resource-id';
 
-  await AuthM.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, AuthM.languageEn, AuthM.languageRu, AuthM.languageUz, 'Kz');
+  await AuthM.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, AuthM.languageEn, AuthM.languageRu, AuthM.languageUz, 'kz');
 
-  // 3.Нажать элемент выбора языка (любого).
   let elementIndex = 0;
   for (const element of data_array) {
     // /*отладка*/ console.log('\n --> elementIndex ' + elementIndex + '\n');
@@ -408,7 +416,7 @@ it.only('ab-u-tc-1003p: Контакты и языки (в профиле)', asy
       for (const element of data_array_elems) {
         await expect(element).toBeDisplayed();
       }
-      // 2.2.Отображается галочка на элементе текущего выбора языка.
+      // 2.2.Отображаются галочка на элементе текущего выбора языка и неактивная кнопка Сохранить (на выбранном языке).
       // - ?
     }
     elementIndex++;
@@ -416,74 +424,62 @@ it.only('ab-u-tc-1003p: Контакты и языки (в профиле)', asy
     switch (element) {
       case AuthM.languageEn:
         // /*отладка*/ console.log('\n --> case En: ' + element + '\n');
-        // 3.Нажать элемент выбора языка (например, английский).
+        // 3.Нажать элемент выбора языка (любого не текущего) /например, английский/.
         await HProfM.languagesListItemEn.click();
-        // 3.1.Закрыто окно выбора языка. Открыт экран профиля пользователя на выбранном языке, где доступны кнопка выбора языка, текст названия выбранного языка и кнопка контактов со службой поддержки на выбранном языке:
+        // 3.1.Отображается галочка на элементе нажатого языка, кнопка Сохранить (на выбранном языке) активирована.
+        // - ?
+
+        // 4.Нажать кнопку Сохранить.
+        await HProfM.languageSaveButton.click();
+        // 4.1.Закрыто окно выбора языка. Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на выбранном языке:
         // - окно
         await expect(HProfM.languagesListTitle).not.toBeDisplayed();
         // - кнопка выбора языка интерфейса
         await expect(HProfM.languageItem).toBeDisplayed();
         // - текст названия выбранного языка
         await expect(HProfM.languageItemName).toHaveText(HProfM.languageItemNameEn_Expected);
-        // - кнопка контактов со службой поддержки на выбранном языке
-        await expect(HProfM.supportItemName).toHaveText(HProfM.supportItemNameEn_Expected);
-
-        // 4.Нажать кнопку контактов со службой поддержки.
-        await HProfM.supportItem.click();
-        // 4.1.Открыто окно контактов со службой поддержки на выбранном языке, где доступны элементы выбора средств контактов: телефонный вызов и Telegram (возможна другая комбинация контактов).
-        // - окно контактов со службой поддержки на выбранном языке
-        await expect(HProfM.supportContactsListTitle).toHaveText(HProfM.supportContactsListTitleEn_Expected);
-        // - ? элементы выбора средств контактов
-        // *.Закрыть окно контактов со службой поддержки.
-        await DSysM.androidPressBackButton(1);
+        // - кнопка выхода из приложения на выбранном языке
+        await expect(HProfM.appLogOutItem).toHaveText(HProfM.appLogOutItemEn_Expected);
         break;
       
       case AuthM.languageRu:
         // /*отладка*/ console.log('\n --> case Ru: ' + element + '\n');
-        // 3.Нажать элемент выбора языка (например, русский).
+        // 3.Нажать элемент выбора языка (любого не текущего) /например, русский/.
         await HProfM.languagesListItemRu.click();
-        // 3.1.Закрыто окно выбора языка. Открыт экран профиля пользователя на выбранном языке, где доступны кнопка выбора языка, текст названия выбранного языка и кнопка контактов со службой поддержки на выбранном языке:
+        // 3.1.Отображается галочка на элементе нажатого языка, кнопка Сохранить (на выбранном языке) активирована.
+        // - ?
+
+        // 4.Нажать кнопку Сохранить.
+        await HProfM.languageSaveButton.click();
+        // 4.1.Закрыто окно выбора языка. Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на выбранном языке:
         // - окно
         await expect(HProfM.languagesListTitle).not.toBeDisplayed();
         // - кнопка выбора языка интерфейса
         await expect(HProfM.languageItem).toBeDisplayed();
         // - текст названия выбранного языка
         await expect(HProfM.languageItemName).toHaveText(HProfM.languageItemNameRu_Expected);
-        // - кнопка контактов со службой поддержки на выбранном языке
-        await expect(HProfM.supportItemName).toHaveText(HProfM.supportItemNameRu_Expected);
-
-        // 4.Нажать кнопку контактов со службой поддержки.
-        await HProfM.supportItem.click();
-        // 4.1.Открыто окно контактов со службой поддержки на выбранном языке, где доступны элементы выбора средств контактов: телефонный вызов и Telegram (возможна другая комбинация контактов).
-        // - окно контактов со службой поддержки на выбранном языке
-        await expect(HProfM.supportContactsListTitle).toHaveText(HProfM.supportContactsListTitleRu_Expected);
-        // - ? элементы выбора средств контактов
-        // *.Закрыть окно контактов со службой поддержки.
-        await DSysM.androidPressBackButton(1);
+        // - кнопка выхода из приложения на выбранном языке
+        await expect(HProfM.appLogOutItem).toHaveText(HProfM.appLogOutItemRu_Expected);
         break;
       
       case AuthM.languageUz:
         // /*отладка*/ console.log('\n --> case Uz: ' + element + '\n');
-        // 3.Нажать элемент выбора языка (например, узбекский).
+        // 3.Нажать элемент выбора языка (любого не текущего) /например, узбекский/.
         await HProfM.languagesListItemUz.click();
-        // 3.1.Закрыто окно выбора языка. Открыт экран профиля пользователя на выбранном языке, где доступны кнопка выбора языка, текст названия выбранного языка и кнопка контактов со службой поддержки на выбранном языке:
+        // 3.1.Отображается галочка на элементе нажатого языка, кнопка Сохранить (на выбранном языке) активирована.
+        // - ?
+
+        // 4.Нажать кнопку Сохранить.
+        await HProfM.languageSaveButton.click();
+        // 4.1.Закрыто окно выбора языка. Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на выбранном языке:
         // - окно
         await expect(HProfM.languagesListTitle).not.toBeDisplayed();
         // - кнопка выбора языка интерфейса
         await expect(HProfM.languageItem).toBeDisplayed();
         // - текст названия выбранного языка
         await expect(HProfM.languageItemName).toHaveText(HProfM.languageItemNameUz_Expected);
-        // - кнопка контактов со службой поддержки на выбранном языке
-        await expect(HProfM.supportItemName).toHaveText(HProfM.supportItemNameUz_Expected);
-
-        // 4.Нажать кнопку контактов со службой поддержки.
-        await HProfM.supportItem.click();
-        // 4.1.Открыто окно контактов со службой поддержки на выбранном языке, где доступны элементы выбора средств контактов: телефонный вызов и Telegram (возможна другая комбинация контактов).
-        // - окно контактов со службой поддержки на выбранном языке
-        await expect(HProfM.supportContactsListTitle).toHaveText(HProfM.supportContactsListTitleUz_Expected);
-        // - ? элементы выбора средств контактов
-        // *.Закрыть окно контактов со службой поддержки.
-        await DSysM.androidPressBackButton(1);
+        // - кнопка выхода из приложения на выбранном языке
+        await expect(HProfM.appLogOutItem).toHaveText(HProfM.appLogOutItemUz_Expected);
         break;
     
       default:
@@ -495,11 +491,11 @@ it.only('ab-u-tc-1003p: Контакты и языки (в профиле)', asy
   // 5.Выполнить шаги 2-4 для каждого доступного языка.
 });
 
-it('ab-u-tc-1004p: Показать или скрыть баланс', async () => {
+it('ab-u-tc-1004p: Скрыть/Показать баланс', async () => {
   /** > базовые тесты (см. файл ...) <
-  > Можно скрыть/отобразить баланс по картам и общий баланс <
+  > Можно скрыть/показать баланс по картам и общий баланс. <
 ПРЕДУСЛОВИЯ:
-  1.Выполнена авторизация пользователя, при этом отображается главный экран приложения (активны навигационная кнопка Home и вкладка Аккаунт), где в разделе Общий баланс отображаются карты (или одна карта), балансы, кнопка Показать/Скрыть баланс.
+  1.Выполнена авторизация пользователя (уже имеющего карту/карты) в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в разделе Общий баланс отображаются карты (или одна карта) и их балансы, кнопка Показать/Скрыть баланс.
 ПОСТУСЛОВИЯ: Выйти из приложения (выполняется в GenM.afterEach).
   *
 ШАГИ:
@@ -507,10 +503,10 @@ it('ab-u-tc-1004p: Показать или скрыть баланс', async () 
   1.1.Отображаются соответствующие балансы.
 
   2.Нажать кнопку Показать/Скрыть баланс.
-  2.1.Вместо балансов отображаются символы тире (могут отображаться другие подобные символы).
+  2.1.Вместо балансов отображаются символы звездочек (могут отображаться другие подобные символы).
 
   3.Нажать кнопку Показать/Скрыть баланс.
-  3.1.Отображаются соответствующие балансы (вместо символов тире или других подобных).
+  3.1.Отображаются соответствующие балансы (вместо символов звездочек или других подобных).
   *
   */
 
@@ -526,17 +522,17 @@ it('ab-u-tc-1004p: Показать или скрыть баланс', async () 
   await AuthM.customerAuthorization(
     AuthM.languageRu, phoneNumber, phoneNumber_pass, AuthM.pinCode_Expected);
   
-  // 1.Обратить внимание на сумму общего баланса и сумму баланса каждой карты.
-  // 1.1.Отображаются суммы баланса.
+  // 1.Обратить внимание на общий баланс и баланс каждой карты.
+  // 1.1.Отображаются соответствующие балансы.
   const totalBalance = await HomeM.totalBalance.getText();
   const cardBalance = await HomeM.cardBalance.getText();
 
   // 2.Нажать кнопку Показать/Скрыть баланс.
   await HomeM.showHideAmountButton.click();
   // await HomeM.cardBalance.waitForDisplayed({timeout: 5000});
-  // 2.1.Вместо сумм баланса отображаются символы тире (могут отображаться другие подобные символы).
-  await expect(HomeM.totalBalance).toHaveTextContaining(HomeM.balanceHidingSymbols);
-  await expect(HomeM.cardBalance).toHaveTextContaining(HomeM.balanceHidingSymbols);
+  // 2.1.Вместо балансов отображаются символы звездочек (могут отображаться другие подобные символы).
+  await expect(HomeM.totalBalance).toHaveTextContaining(HomeM.totalBalanceHidingSymbols);
+  await expect(HomeM.cardBalance).toHaveTextContaining(HomeM.cardBalanceHidingSymbols);
   // /*отладка*/ console.log(
   //   '\n-> ' + await HomeM.totalBalance.getText()  + ' = await HomeM.totalBalance.getText();'  +
   //   '\n-> ' + HomeM.balanceHidingSymbols          + ' = HomeM.balanceHidingSymbols'           +
@@ -545,7 +541,7 @@ it('ab-u-tc-1004p: Показать или скрыть баланс', async () 
 
   // 3.Нажать кнопку Показать/Скрыть баланс.
   await HomeM.showHideAmountButton.click();
-  // 3.1.Отображаются соответствующие балансы (вместо символов тире или других подобных).
+  // 3.1.Отображаются соответствующие балансы (вместо символов звездочек или других подобных).
   await expect(await HomeM.totalBalance.getText()).toEqual(totalBalance);
   await expect(await HomeM.cardBalance.getText()).toEqual(cardBalance);
   // /*отладка*/ console.log(

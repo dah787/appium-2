@@ -6,9 +6,13 @@ passportData_Expected = 'AB1234567';
 birthDate_Expected = '11.12.2002';
 faceScannerScreenHeaderRu_Expected = 'Убедитесь, что Ваше лицо находится в выделенном пространстве';
 
-  languageItemNameEn_Expected = 'English (UK)';
-  languageItemNameRu_Expected = 'Русский';
-  languageItemNameUz_Expected = 'O‘zbekcha';
+appLogOutItemEn_Expected = 'Logout';
+appLogOutItemRu_Expected = 'Выйти';
+appLogOutItemUz_Expected = 'Chiqish';
+
+  languageItemNameEn_Expected = 'Application language'; // English (UK)'
+  languageItemNameRu_Expected = 'Язык приложения'; // 'Русский'
+  languageItemNameUz_Expected = 'Ilova tili'; // 'O‘zbekcha'
 
 supportItemNameEn_Expected = 'Support';
 supportItemNameRu_Expected = 'Поддержка';
@@ -27,7 +31,7 @@ get yourStatusItem() {
 get languageItem() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_app_language"]');}
 get languageItemName() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_language_current"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_app_language"]');} //...tv_language_current
   // экран-1 (б/и) профиля > окно выбора языка
   get languagesListTitle() {
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
@@ -42,6 +46,8 @@ get languageItemName() {
     // return $('//android.widget.TextView[@text="O‘zbekcha"]');}
   get languagesListItems() {
     return $$('android.view.TextView');}
+  get languageSaveButton() {
+    return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_save"]');}
 
 get supportItem() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_support"]');}

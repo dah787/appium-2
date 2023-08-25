@@ -5,6 +5,8 @@ profileName_NadiaPage_Expected = 'Nadia Page'; // related to '99 966 46 60'
 // profileName_NadiaPage_Expected = 'Дмитрий'; // related to '99 966 46 60'
 totalBalanceLabelRu_Expected = 'Общий баланс';
 balanceHidingSymbols = '--.-- UZS';
+totalBalanceHidingSymbols = '********';
+cardBalanceHidingSymbols = '******';
 
 
 
@@ -50,7 +52,7 @@ get addNewCardButton() {
 
 // главный экран: блок общего баланса 2/4 (already have card): сумма общего баланса
 get totalBalance() { // totalBalanceAmount
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvBalance"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotalBalance"]');} // ...tvBalance
 get showHideAmountButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnHideShowBalance"]');}
 
@@ -74,7 +76,7 @@ get cardView() {
 get cardLogo() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_currency_logo"]');}
 get cardBalance() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_balance"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBalance"]');} // ...bank_card_view_balance
 get cardName() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_name"]');}
 

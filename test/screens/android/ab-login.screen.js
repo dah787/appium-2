@@ -11,9 +11,13 @@ welcomeScreenHeaderUz_Expected = 'Apex Bankga kirish'; // 'Xush kelibsiz'
 
 countryCode_Expected = '+998';
 
-languageEn = 'english'; // 'En'
-languageRu = 'russian'; // 'Ru'
-languageUz = 'uzbek';   // 'Uz'
+languageEn_loginScreen = 'english'; // 'En'
+languageRu_loginScreen = 'russian'; // 'Ru'
+languageUz_loginScreen = 'uzbek';   // 'Uz'
+
+languageEn = 'language_en'; // 'english', 'En'
+languageRu = 'language_ru'; // 'russian', 'Ru'
+languageUz = 'language_uz';   // 'uzbek', 'Uz'
 
 supportContactsListTitleEn_Expected = 'Support contact';
 supportContactsListTitleRu_Expected = 'Контакт со службой поддержки';
@@ -24,6 +28,8 @@ supportContactTelegramName_Expected = 'Apexbank'; // 'Jaksibay Khakimov'
 
 
 /* SELECTORS */
+get loginButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_login"]')}
 get supportContactsButton_1() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]')}
 get supportContactsListTitle() {
@@ -198,10 +204,18 @@ async generateLanguagesList(raw_array, data_array, data_array_elems, elementAttr
   for (const element of raw_array) {
     elementAttributeText = await element.getAttribute(elementAttributeKey);
 
+    // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
+    // /*отладка*/ console.log('\n --> language_1 = ' + language_1 + '-' + language_2 + '-' + language_3 + '-' + language_4 + '\n');
+    // /*отладка*/ console.log('\n --> await elementAttributeText.endsWith(en) = ' + await elementAttributeText.endsWith('en') + '\n');
+    // /*отладка*/ console.log('\n --> await elementAttributeText.endsWith(ru) = ' + await elementAttributeText.endsWith('ru') + '\n');
+    // /*отладка*/ console.log('\n --> elementAttributeText = ' + elementAttributeText + '\n');
 
-/*отладка*/ console.log('\n --> language_1 = ' + language_1 + '\n');
-/*отладка*/ console.log('\n --> elementAttributeText = ' + elementAttributeText + '\n');
-
+    if(elementAttributeText == null){
+      /*отладка*/ console.log('\n --> elementAttributeText-A = ' + elementAttributeText + '\n');
+      // break;
+      continue;
+    }
+    // /*отладка*/ console.log('\n --> elementAttributeText-B = ' + elementAttributeText + '\n');
 
     if(
       await elementAttributeText.endsWith(language_1) ||
@@ -212,7 +226,7 @@ async generateLanguagesList(raw_array, data_array, data_array_elems, elementAttr
     ){
       elementIndex = elementAttributeText.indexOf('_');
       elementAttributeText = elementAttributeText.slice(elementIndex + 1)
-      // /*отладка*/ console.log('\n --> elementAttributeText = ' + elementAttributeText + '\n');
+      // /*отладка*/ console.log('\n --> elementAttributeText-1 = ' + elementAttributeText + '\n');
       data_array.push(elementAttributeText);
       data_array_elems.push(element);
     }
