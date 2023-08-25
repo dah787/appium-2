@@ -2,7 +2,7 @@
 - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
 const CardsD  = require('../../data/ab-cards.data');                      // Cards Data
-const DDialM  = require("../../screens/android/dt-androidDialer.screen"); // Android Dialer screen Model
+// const DDialM  = require("../../screens/android/dt-androidDialer.screen"); // Android Dialer screen Model
 const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
 const DTlgM   = require("../../screens/android/dt-appTelegram.screen");   // App Telegram screen Model
 const HomeM   = require('../../screens/android/ab-home.screen');          // Home screen Model
