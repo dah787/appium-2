@@ -100,7 +100,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   await HomeM.profileLayout.waitForDisplayed({timeout: GenM.waitTime + 5000});
   // 71.Открыт главный экран приложения (активна кнопка Главная панели навигации), где доступны кнопка профиля пользователя, текст Общий баланс и... одно из следующего:
   // - сумма общего баланса (если пользователь уже имеет карту банка).
-  // - кнопка Заказать или добавить карту (если пользователь пока не имеет карту банка):
+  // - ккнопка Заказать карту и кнопка Добавить карту (если пользователь пока не имеет или не добавил карту банка):
   // + элемент профиля клиента
   await expect(HomeM.profileLayout).toBeExisting();
   // - кнопка профиля пользователя
@@ -109,13 +109,22 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // await expect(HomeM.profileName_NadiaPage).toHaveText(HomeM.profileName_NadiaPage_Expected);
   // // - вкладка Аккаунт
   // await expect(HomeM.accountTabRu).toBeExisting();
-  // - текст Общий баланс
-  await expect(HomeM.totalBalanceLabelRu).toHaveText(HomeM.totalBalanceLabelRu_Expected);
-  // - сумма общего баланса -?-
-  // - кнопка Заказать или добавить карту
-  if(phoneNumber == this.phoneNumber_Registered_noCards) {
-    await expect(HomeM.orderOrAddCardButton).toBeExisting();
+  if( await HomeM.totalBalanceLabelRu.isDisplayed() ) {
+    // - текст Общий баланс  
+    await expect(HomeM.totalBalanceLabelRu).toHaveText(HomeM.totalBalanceLabelRu_Expected);
+    // - сумма общего баланса -?-
+  } else {
+    // - кнопка Заказать карту
+    await expect(HomeM.orderCardButton).toBeExisting();
+    // - кнопка Добавить карту
+    await expect(HomeM.addCardButton).toBeExisting();
   }
+  
+  
+  // // - кнопка Заказать карту
+  // if(phoneNumber == this.phoneNumber_Registered_noCards) {
+  //   await expect(HomeM.orderCardButton).toBeExisting();
+  // }
 }
 
 

@@ -44,7 +44,7 @@ phoneNumber_2_pass = 'qwerty123';
   cardNumber_Humo_2 = '9860 0901 0100 3136';
   cardValidThrough_Humo_2 = '10 26';
 cardName_Uzcard_2 = 'Uzcard-2'; // неизвестно
-cardNumber_Uzcard_2 = '5614 6871 042 76655';
+cardNumber_Uzcard_2 = '5614 6871 0427 6655';
 cardValidThrough_Uzcard_2 = '03 26';
 
 phoneNumber_3_hasCards = '98 313 11 11'; // +998983131111 Kamoliddin aka

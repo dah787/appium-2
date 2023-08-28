@@ -28,27 +28,33 @@ get profileName_NadiaPage() {
   return $('//android.widget.TextView[@text="Nadia Page"]');}
   // return $('//android.widget.TextView[@text="Дмитрий"]');}
 
-// главный экран: панель навигации верхняя / upper navigation bar
-get accountTab() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTab"]');}
-get accountTabEn() {
-  return $('//android.widget.TextView[@text="Account"]');}
-get accountTabRu() {
-  return $('//android.widget.TextView[@text="Аккаунт"]');}
+// // главный экран: панель навигации верхняя / upper navigation bar
+// get accountTab() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTab"]');}
+// get accountTabEn() {
+//   return $('//android.widget.TextView[@text="Account"]');}
+// get accountTabRu() {
+//   return $('//android.widget.TextView[@text="Аккаунт"]');}
 
 // главный экран: блок общего баланса
 get totalBalanceLabelRu() {
   return $('//android.widget.TextView[@text="Общий баланс"]');}
   
 // главный экран: блок общего баланса 1/4 (no card yet): заказать или добавить карту
-get orderOrAddCardTitleRu() {
-  return $('//android.widget.TextView[@text="Добавьте карту или закажите в приложении для получения доступа к функционалу"]');}
-get orderOrAddCardButton() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnOrderOrAddCard"]');}
-get moreButtonAllCard() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnAllCard"]');}
-get addNewCardButton() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnAddCard"]');}
+// get orderOrAddCardTitleRu() {
+//   return $('//android.widget.TextView[@text="Добавьте карту или закажите в приложении для получения доступа к функционалу"]');}
+// get orderOrAddCardButton() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnOrderOrAddCard"]');}
+// get moreButtonAllCard() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnAllCard"]');}
+// get addNewCardButton() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnAddCard"]');}
+get myCardsButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnNext"]');}
+get orderCardButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
+get addCardButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderAddCard"]');}
 
 // главный экран: блок общего баланса 2/4 (already have card): сумма общего баланса
 get totalBalance() { // totalBalanceAmount

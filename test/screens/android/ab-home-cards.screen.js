@@ -3,7 +3,7 @@ const GenM = require('../../screens/android/ab-general.screen'); // General scre
 class Home_CardsScreen {
 
 /* CONSTANTS */
-enterSmsCodeScreenHeaderRu_Expected = 'Введите смс код';
+enterSmsCodeScreenHeaderRu_Expected = 'Введите код из СМС';
 smsCode_Received = '123456';
 
 transferScreenHeaderRu_Expected = 'Перевод';
@@ -44,9 +44,11 @@ get cardExpiryDateInput() {
 get addCardButtonOnDataInputScreen() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_add_card"]');}
 
-// экран-21 Добавить карту > экран Введите смс код
+// экран-21 Добавить карту > экран Введите код из СМС
 get enterSmsCodeScreenHeaderRu() {
-  return $('//android.widget.TextView[@text="Введите смс код"]');}
+  return $('//android.widget.TextView[@text="Введите код из СМС"]');}
+get smsCodeInput() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')}
 get continueButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
 
