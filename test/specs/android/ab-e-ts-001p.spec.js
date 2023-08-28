@@ -11,7 +11,7 @@ const GenM    = require('../../screens/android/ab-general.screen');       // Gen
 const RegM    = require("../../screens/android/ab-regisration.screen");   // Registration screen Model
 const ServM   = require('../../screens/android/ab-services.screen');      // Services screen Model
 
-describe('ab-e-ts-001p: Тестирование процессов (дымовое) |вер.20230724| > Тестов 8 (не завершены 5) <', () => {
+describe('ab-e-ts-001p: Тестирование процессов (дымовое) |вер.20230728| > Тестов 8 (не завершены 5) <', () => {
 
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
