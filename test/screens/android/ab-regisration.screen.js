@@ -3,7 +3,7 @@ class RegistrationScreen {
 /* CONSTANTS */
 phoneNumber_toBeRegistered = '90 751 28 34';
 smsCode_Received = '123456';
-enterSmsCodeScreenHeaderRu_Expected = 'Введите смс код';
+enterSmsCodeScreenHeaderRu_Expected = 'Введите код из СМС';// 'Введите смс код'
 
 
 
@@ -22,7 +22,11 @@ get backButton() {
 get supportContacstButton_2() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/support_button"]');}
 get enterSmsCodeScreenHeaderRu() {
-  return $('//android.widget.TextView[@text="Введите смс код"]');}
+  return $('//android.widget.TextView[@text="Введите код из СМС"]');} // 'Введите смс код'
+get smsCodeInput() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')}
+get smsCodeResendButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_resend"]');}
 
 // экран-21 Мы отправили код подтверждения на ваш номер телефона в SMS
 get smsVerificationMessageEn() { // find element by Xpath - (//tagname[@attribute=value])
