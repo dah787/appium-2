@@ -47,6 +47,8 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   await this.phoneNumberInput.click();
   // 11.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
+  // * Очистить поле ввода
+  await this.phoneNumberInput.clearValue();
 
   // 2.Ввести номер телефона (уже зарегистрированный) в поле ввода номера телефона.
   await DSysM.androidKeyboardTypeIn(phoneNumber);

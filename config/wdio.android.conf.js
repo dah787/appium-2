@@ -21,8 +21,8 @@ config.specs = [
   // path.join(process.cwd(),'test/specs/android/ab-ts-11p*.spec.js')
 
   // path.join(process.cwd(),'test/specs/android/ab-ts-01p.spec.js')
-  path.join(process.cwd(),'test/specs/android/ab-e-ts-001p.spec.js')
-  // path.join(process.cwd(),'test/specs/android/ab-u-ts-1001p.spec.js')
+  // path.join(process.cwd(),'test/specs/android/ab-e-ts-001p.spec.js')
+  path.join(process.cwd(),'test/specs/android/ab-u-ts-1001p.spec.js')
 ];
 
 // ============

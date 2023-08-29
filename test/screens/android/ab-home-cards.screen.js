@@ -23,8 +23,8 @@ get cardViewFront() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
 get cardBalance() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_balance"]');}
-get cardViewFrontName() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_name"]');}
+get cardViewFrontNameOnMyCardsScreen() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBankName"]');}
 // get cardViewFrontNumber() {
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_number"]');}
 
@@ -58,9 +58,11 @@ get continueButton() {
 get cardViewBack() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewBack"]');}
 get cardSettingsButton() {
-  return $('//android.widget.TextView[@text="Настройка"]');}
+  return $('//android.widget.TextView[@text="Свойства карты"]');} // "Настройка"
 
 // экран-31 (б/и) действий с картой > экран (б/и) настройки карты
+get cardViewFrontName() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_name"]');}
 get cardViewFrontBalance() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_balance"]');}
 get cardViewFrontNumber() {
@@ -74,9 +76,9 @@ get cardBackgroundImageButtonChecked() {
 get cardBackgroundImageButtons() {
   return $$('android.widget.ImageView');}
 get cardNameEdit() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
-get cardNameEditClearButton() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_card_name"]');}
+// get cardNameEditClearButton() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
 get confirmButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_confirm"]');}
 

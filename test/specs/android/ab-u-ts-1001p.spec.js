@@ -9,7 +9,7 @@ const HomeM   = require('../../screens/android/ab-home.screen');          // Hom
 const HProfM  = require('../../screens/android/ab-home-profile.screen');  // Home-Profile screen Model
 const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
 
-describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230825| > Тестов 4 (выполнены частично 1) <', () => {
+describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230829| > Тестов 4 (выполнены частично 1) <', () => {
 
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
@@ -195,7 +195,7 @@ tcNum = 'ab-u-tc-1001p';
   }
 });
 
-it('ab-u-tc-1002p: Контакты !Тест выполнен частично!', async () => {
+it('* ab-u-tc-1002p: Контакты !Тест выполнен частично!', async () => {
   /**
   Parameters
   на 23.08.2023 автотест выполнен частично:
@@ -391,7 +391,7 @@ it('ab-u-tc-1003p: Языки (в профиле)', async () => {
   // 2.Нажать кнопку выбора языка.
   await HProfM.languageItem.click();
 
-  // *.Создать массив существующих языков.
+  // * Создать массив существующих языков.
   await HProfM.languagesListItemEn.waitForDisplayed({timeout: 5000});
   const raw_array = await $$('android.widget.LinearLayout'); // android.widget.TextView
   // const raw_array = await HProfM.languagesListItems;
@@ -400,6 +400,11 @@ it('ab-u-tc-1003p: Языки (в профиле)', async () => {
   const elementAttributeKey = 'resource-id';
 
   await AuthM.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, AuthM.languageEn, AuthM.languageRu, AuthM.languageUz, 'kz');
+  // * Контролируем непустоту массива
+  if(data_array.length == 0){
+    // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
+    throw "не сформирован data_array (массив языков) = '" + data_array + "'";
+  }
 
   let elementIndex = 0;
   for (const element of data_array) {
@@ -515,8 +520,8 @@ it('ab-u-tc-1004p: Скрыть/Показать баланс', async () => {
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = CardsD.phoneNumber_5_hasCards;
-  const phoneNumber_pass = CardsD.phoneNumber_5_pass;
+  const phoneNumber = CardsD.phoneNumber_1_hasCards;
+  const phoneNumber_pass = CardsD.phoneNumber_1_pass;
 
   // Пред.1.Выполнить авторизацию пользователя.
   await AuthM.customerAuthorization(
