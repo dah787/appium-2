@@ -79,7 +79,6 @@ async appKeyboardTypeIn(value) {
     }
   }//);
 }
-
 // async generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue) { // appList(raw_array, ...)
 //   let elementAttributeValueCurrent = '';
 //   for (const element of raw_array) {
@@ -104,17 +103,18 @@ async appKeyboardTypeIn(value) {
 //     '\n');
 //   /*отладка*/ await driver.pause(10000);
 // }
-
 async generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1, elementAttributeValue_2) {
   let elementAttributeValue_Current = '';
-  
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
+
   for(let i = 0, l = raw_array.length; i < l; i++) { // for (const element of raw_array) {
     // elementAttributeValue_Current = await element.getAttribute('resource-id');
     elementAttributeValue_Current = await raw_array[i].getAttribute(elementAttributeKey);
+    // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_Current = ' + elementAttributeValue_Current + '\n');
     if(elementAttributeValue_Current == elementAttributeValue_1){
       // /*отладка*/ console.log(
-      //   '\n --> ' + elementAttributeValue_1       + ' = elementAttributeValue_1' +
-      //   '\n --> ' + elementAttributeValue_Current + ' = elementAttributeValue_Current' + '\n');
+      //   '\n --> ' + elementAttributeValue_1       + ' = [' + i + '] elementAttributeValue_1' +
+      //   '\n --> ' + elementAttributeValue_Current + ' = [' + i + '] elementAttributeValue_Current' + '\n');
       // /*отладка*/ await driver.pause(5000);
       data_array.push(raw_array[i]); // .push(element)
 
@@ -152,7 +152,6 @@ async generateElementList(raw_array, data_array, elementAttributeKey, elementAtt
   // }
   // /*отладка*/ await driver.pause(10000);
 }
-
 async generateRandomChars(length, charType) { // randomChars(length, charType)
   // Declare all characters
   // const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -185,7 +184,6 @@ async generateRandomChars(length, charType) { // randomChars(length, charType)
 
   return str;
 }
-
 async generateRandomCharsOfSet(length, charSet, charType) {
   let chars = '';
   if(charSet){
@@ -218,19 +216,16 @@ async generateRandomCharsOfSet(length, charSet, charType) {
 
   return str;
 }
-
 async extractNumbersFromString(value) { // getNumbers(value), removeLetters(value)
   const string = value.replace(/[a-z-+()\s]/gi, '');
   // /*отладка*/ console.log('\n --> string = ' + string + '\n');
   // /*отладка*/ console.log('\n --> typeof Number(string) = ' + typeof Number(string) + '\n');
   return Number(string);
 }
-
 async roundNumber(value, precision) {
   const multiplier = Math.pow(10, precision || 0);
   return Math.round(value * multiplier) / multiplier;
 }
-
 async separateThousandthsOfNumber(value) { // separateThousandths(value)
   const symbolsArray = value.split('');
   let string = '';
@@ -242,6 +237,85 @@ async separateThousandthsOfNumber(value) { // separateThousandths(value)
   }
   // /*отладка*/ console.log('\n --> string = ' + string + '\n');
   return string;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// функции, применимые к разным экранам
+async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1/*, elementAttributeValue_2, elementAttributeValue_3, elementAttributeValue_4*/){
+/*
+  Записываем определенные данные из raw_array в data_array, отсеивая уже имеющиеся в массиве data_array данные (название, сумма, номер и срок действия карты).
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  const elementAttributeKey = 'resource-id';
+  const elementAttributeValue_1 = 'com.fincube.apexbank.debug:id/tvCardName';
+  // const elementAttributeValue_2 = 'com.fincube.apexbank.debug:id/tvCardBalance';
+  // const elementAttributeValue_3 = 'com.fincube.apexbank.debug:id/tvCardNumber';
+  // const elementAttributeValue_4 = 'com.fincube.apexbank.debug:id/tvCardDate';
+*/
+  let elementAttributeValue_Current = '';
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
+  for(let i = 0, l = raw_array.length; i < l; i++){
+    elementAttributeValue_Current = await raw_array[i].getAttribute(elementAttributeKey);
+    // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_Current = ' + elementAttributeValue_Current + '\n');
+    if(elementAttributeValue_Current == elementAttributeValue_1){
+      // /*отладка*/ console.log(
+      //   '\n --> ' + elementAttributeValue_1       + ' = [' + i + '] elementAttributeValue_1' +
+      //   '\n --> ' + elementAttributeValue_Current + ' = [' + i + '] elementAttributeValue_Current' + '\n');
+
+      // Проверяем, не добавлены ли уже данные текущего элемента в массив
+      if(await data_array.length > 0){
+        const data_array_0 = [];
+        data_array_0.push(
+          {
+            key_1 : await raw_array[i].getText(),   // название
+            key_2 : await raw_array[i+1].getText(), // сумма
+            key_3 : await raw_array[i+2].getText(), // номер
+            key_4 : await raw_array[i+3].getText()  // срок действия
+          }
+        );
+
+        let notExisted = true;
+        for(let i = 0, l = await data_array.length; i < l; i++){
+          if (
+            data_array[i].key_1 == data_array_0[0].key_1 &
+            data_array[i].key_2 == data_array_0[0].key_2 &
+            data_array[i].key_3 == data_array_0[0].key_3 &
+            data_array[i].key_4 == data_array_0[0].key_4)
+          {
+            notExisted = false;
+            continue; // прерываем цикл 'i', идем к следующему
+          }
+        }
+
+        if(notExisted){
+          data_array.push(
+            {
+              key_1 : await data_array_0[0].key_1,
+              key_2 : await data_array_0[0].key_2,
+              key_3 : await data_array_0[0].key_3,
+              key_4 : await data_array_0[0].key_4
+            }
+          );
+        }
+      } else {
+        data_array.push(
+          {
+            key_1 : await raw_array[i].getText(),
+            key_2 : await raw_array[i+1].getText(),
+            key_3 : await raw_array[i+2].getText(),
+            key_4 : await raw_array[i+3].getText()
+          }
+        );
+      }
+    }
+  }
+  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
+  //   console.log('\n --> data_array = ' +
+  //     '\n' + await data_array[i].key_1 +
+  //     '\n' + await data_array[i].key_2 +
+  //     '\n' + await data_array[i].key_3 +
+  //     '\n' + await data_array[i].key_4
+  //   );
+  // }
 }
 
 

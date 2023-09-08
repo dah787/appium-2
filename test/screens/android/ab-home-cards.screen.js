@@ -17,16 +17,23 @@ get myCardsScreenHeaderRu() {
   return $('//android.widget.TextView[@text="Мои карты"]');}
 get cardsBlockItems() {
   return $$('android.widget.TextView');}
-get addCardButtonOnMyCardsScreen() {
+get addButtonOnMyCardsScreen() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/addCardButton"]');}
+get addCardButtonOnMyCardsScreen() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_add_card"]');}
 get cardViewFront() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
 get cardBalance() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_balance"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBalance"]');} // ...bank_card_view_balance
 get cardViewFrontNameOnMyCardsScreen() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBankName"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardName"]');} // ...tvCardBankName
 // get cardViewFrontNumber() {
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_number"]');}
+
+// https://www.automationtestinghub.com/appium-scroll-examples/
+// https://russianblogs.com/article/88992310695/
+scrollForward = 'new UiScrollable(new UiSelector()).scrollForward()';
+scrollBackward = 'new UiScrollable(new UiSelector()).scrollBackward()';
 
 waitForScreenDisplayed_myCardsScreen() {
   this.myCardsScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime + 15000});
@@ -58,17 +65,18 @@ get continueButton() {
 get cardViewBack() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewBack"]');}
 get cardSettingsButton() {
-  return $('//android.widget.TextView[@text="Свойства карты"]');} // "Настройка"
+  // return $('//android.widget.TextView[@text="Свойства карты"]');} // "Настройка"
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/ll_end_actions"]');}
 
 // экран-31 (б/и) действий с картой > экран (б/и) настройки карты
 get cardViewFrontName() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_name"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_card_name"]');} // ...bank_card_view_name
 get cardViewFrontBalance() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_balance"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_card_balance"]');} // ...bank_card_view_balance
 get cardViewFrontNumber() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_number"]');}
-get switchMain() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/switch_main"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_card_number"]');} // ...bank_card_view_number
+// get switchMain() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/switch_main"]');}
 get cardBackgroundImageButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bg_image"]');}
 get cardBackgroundImageButtonChecked() {
@@ -76,9 +84,9 @@ get cardBackgroundImageButtonChecked() {
 get cardBackgroundImageButtons() {
   return $$('android.widget.ImageView');}
 get cardNameEdit() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_card_name"]');}
-// get cardNameEditClearButton() {
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');} // ...input_card_name
+get cardNameEditClearButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
 get confirmButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_confirm"]');}
 
@@ -95,26 +103,52 @@ waitForScreenDisplayed_cardSettingsScreen() { // wait_for_screen_displayed() {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // экран-4 Перевод
-get transferScreenHeaderRu() {
-  return $('//android.widget.TextView[@text="Перевод"]');}
-get cardToCardTransferButton() {
-  return $('//android.widget.TextView[@text="Перевод на карту"]');}
+// get transferScreenHeaderRu() {
+//   return $('//android.widget.TextView[@text="Перевод"]');}
+// get cardToCardTransferButton() {
+//   return $('//android.widget.TextView[@text="Перевод на карту"]');}
 
 // экран-41 Перевод > экран-1 Перевод на карту
 get transferToCardScreenHeaderRu() {
   return $('//android.widget.TextView[@text="Перевод на карту"]');}
-get cardSenderChoose() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_choose_card"]');}
-get cardSenderBalance() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_balance"]');}
-get cardReceiverNumberInput() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/etReceiverNumber_itemReceiverCard"]');}
+get senderCardsSelectButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
+// get paymentScreenInputs() {
+//   return $$('android.widget.EditText');}
+get senderCardsList() {
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
+  return $$('android.view.ViewGroup');}
+get senderCardNumber() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]');}
+get senderCardBalance() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_balance"]');}
+get receiverCardNumber() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/to_card_number"]');}
 get transferAmountInput() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/etTransferAmount_transferToCard"]');}
-get cardSenderView() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/senderCardsRecyclerView"]');}
-get continueButtonOnTransferToCardScreen() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/buttonNext_TransferToCard"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
+// get cardSenderView() {
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/senderCardsRecyclerView"]');}
+get continueButton() { // continueButtonOnTransferToCardScreen
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/buttonContinue_transferCard"]');}
+
+// экран-42 Перевод на карту > экран-2 Введите код из СМС
+get backButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
+get supportContacstButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]');}
+get enterSmsCodeScreenHeaderRu() {
+  return $('//android.widget.TextView[@text="Введите код из СМС"]');}
+get smsCodeInput() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')}
+get smsCodeResendButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_resend"]');}
+get continueButton_1() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
+
+
+
+
+
 
 // экран-42 Перевод > экран-2 Перевод на карту
 get cardSenderDetailsArea() {

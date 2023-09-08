@@ -9,19 +9,17 @@ const HomeM   = require('../../screens/android/ab-home.screen');          // Hom
 const HProfM  = require('../../screens/android/ab-home-profile.screen');  // Home-Profile screen Model
 const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
 
-describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230829| > Тестов 4 (выполнены частично 1) <', () => {
+describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230907| > Тестов 4 (выполнены частично 1) <', () => {
 
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await GenM.beforeEach(counter, 'u'); // u - unit < typeOfTest
-    
-    // /*отладка*/ console.log('\n --> counter-beforeEach = ' + counter + '\n');
-    if (i == 0){
-      // * Ждем появления кнопки
-      await AuthM.loginButton.waitForDisplayed({timeout: GenM.waitTime + 10000});
-      await AuthM.loginButton.click();
-      i++;
-    }
+    // if (i == 0){
+    //   // * Ждем появления кнопки
+    //   await AuthM.loginButton.waitForDisplayed({timeout: GenM.waitTime + 10000});
+    //   await AuthM.loginButton.click();
+    //   i++;
+    // }
 
     // // * Снимок экрана для контроля
     // await driver.saveScreenshot('_view_shots/screen_before_u-lastTest.png');
@@ -195,7 +193,7 @@ tcNum = 'ab-u-tc-1001p';
   }
 });
 
-it('* ab-u-tc-1002p: Контакты !Тест выполнен частично!', async () => {
+it('* ab-u-tc-1002p: Контакты > Тест выполнен частично <', async () => {
   /**
   Parameters
   на 23.08.2023 автотест выполнен частично:
@@ -496,7 +494,7 @@ it('ab-u-tc-1003p: Языки (в профиле)', async () => {
   // 5.Выполнить шаги 2-4 для каждого доступного языка.
 });
 
-it('ab-u-tc-1004p: Скрыть/Показать баланс', async () => {
+it.only('ab-u-tc-1004p: Скрыть/Показать баланс', async () => {
   /** > базовые тесты (см. файл ...) <
   > Можно скрыть/показать баланс по картам и общий баланс. <
 ПРЕДУСЛОВИЯ:
@@ -520,8 +518,8 @@ it('ab-u-tc-1004p: Скрыть/Показать баланс', async () => {
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = CardsD.phoneNumber_1_hasCards;
-  const phoneNumber_pass = CardsD.phoneNumber_1_pass;
+  const phoneNumber = CardsD.phoneNumber_5_hasCards;
+  const phoneNumber_pass = CardsD.phoneNumber_5_pass;
 
   // Пред.1.Выполнить авторизацию пользователя.
   await AuthM.customerAuthorization(
@@ -559,7 +557,7 @@ it('ab-u-tc-1004p: Скрыть/Показать баланс', async () => {
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-tcNum='ab-u-tc-u_01x';
+tcNum='ab-u-d-001';
 it.skip(tcNum + ': Отладка', async () => {
   /** > базовые тесты (см. файл ТК 1 (Регистрация)):
    * - 22 Стр. регист, кнопка "Поддержка": Позитив (ш?: 1)

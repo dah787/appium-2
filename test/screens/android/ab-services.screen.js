@@ -15,8 +15,13 @@ get uzMobileOperatorButton() {
   return $('//android.widget.TextView[@text="UzMobile"]');}
 get phoneNumberInput() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
+get cardSelection() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
+get cardSelectionCheck() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
 get amountInput() {
-  return $('//android.widget.EditText[@text="Сумма"]');}
+  // return $('//android.widget.EditText[@text="Сумма"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
 get paymentScreenInputs() {
   return $$('android.widget.EditText');}
 get continueButton() {

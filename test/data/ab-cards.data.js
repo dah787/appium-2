@@ -7,6 +7,15 @@ class CardsData {
 // cardNum_Registered = '5614 6871 0785 3401';
 // cardExpiryDate_Registered = '02 26';
 
+phoneNumber_4_hasCards = '99 887 72 18'; // 998998877218 Amanov Sardor
+phoneNumber_4_pass = 'qwerty123';
+  cardName_Humo_4 = 'Humo-4'; // неизвестно
+  cardNumber_Humo_4 = '9860 0901 0173 1322';
+  cardValidThrough_Humo_4 = '10 26';
+cardName_Uzcard_4 = 'Uzcard-4'; // неизвестно
+cardNumber_Uzcard_4 = '5614 6871 0443 3470';
+cardValidThrough_Uzcard_4 = '03 26';
+
 // Cards-1 on 31.05.2023: phone numbers registered and have added cards
 phoneNumber_5_hasCards = '99 966 46 60'; // +998999664660 Kuvandikov Anvarbek
 phoneNumber_5_pass = 'qwerty123';
@@ -52,15 +61,6 @@ phoneNumber_3_pass = 'qwerty123';
 cardName_Uzcard_3 = 'Uzcard-3'; // неизвестно
 cardNumber_Uzcard_3 = '5614 6871 0840 5300';
 cardValidThrough_Uzcard_3 = '03 26';
-
-phoneNumber_4_hasCards = '99 887 72 18'; // 998998877218 Amanov Sardor
-phoneNumber_4_pass = 'qwerty123';
-  cardName_Humo_4 = 'Humo-4'; // неизвестно
-  cardNumber_Humo_4 = '9860 0901 0173 1322';
-  cardValidThrough_Humo_4 = '10 26';
-cardName_Uzcard_4 = 'Uzcard-4'; // неизвестно
-cardNumber_Uzcard_4 = '5614 6871 0443 3470';
-cardValidThrough_Uzcard_4 = '03 26';
 
 
 

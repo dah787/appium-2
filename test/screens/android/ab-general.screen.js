@@ -1,4 +1,5 @@
 // const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
+const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
 const HomeM   = require('./ab-home.screen');                              // Home screen Model
 const HProfM  = require('./ab-home-profile.screen');                      // Home-Profile screen Model
 
@@ -56,7 +57,6 @@ async after() {
   // await driver.executeScript('mobile: terminateApp', [{bundleId: GenM.appPackage}]); // Unknown mobile command "terminateApp".
   // await driver.executeScript('mobile: terminateApp', [{appId: GenM.appPackage}]); // Unknown mobile command "terminateApp".
 }
-
 async logOutTheApp() { // appLogOut
   // * Закрыть клавиатуру
   if( await driver.isKeyboardShown() ) await driver.hideKeyboard();
@@ -82,9 +82,9 @@ async logOutTheApp() { // appLogOut
   if(await HomeM.navBarHomeTab.isDisplayed()) {
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'navBarHomeTab' + '.png');
     await HomeM.navBarHomeTab.click();
-    await HomeM.profileLayout.waitForDisplayed({timeout: this.waitTime + 5000});
+    await HomeM.profileButton.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'navBarHomeTab' + '.png');
-    await HomeM.profileLayout.click(); // profileButton
+    await HomeM.profileButton.click(); // profileButton
     await HProfM.appLogOutItem.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');
     await HProfM.appLogOutItem.click();

@@ -6,9 +6,9 @@ passportData_Expected = 'AB1234567';
 birthDate_Expected = '11.12.2002';
 faceScannerScreenHeaderRu_Expected = 'Убедитесь, что Ваше лицо находится в выделенном пространстве';
 
-appLogOutItemEn_Expected = 'Logout';
-appLogOutItemRu_Expected = 'Выйти';
-appLogOutItemUz_Expected = 'Chiqish';
+// appLogOutItemEn_Expected = 'Logout';
+// appLogOutItemRu_Expected = 'Выйти';
+// appLogOutItemUz_Expected = 'Chiqish';
 
   languageItemNameEn_Expected = 'Application language'; // English (UK)'
   languageItemNameRu_Expected = 'Язык приложения'; // 'Русский'
@@ -58,7 +58,8 @@ get supportItemName() {
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
 
 get appLogOutItem() { // appLogOut
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_logout_toolbar"]');} // item_logout
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_logout_toolbar"]');} // item_logout
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_logout"]');}
 get appLogOutConfirmButton() { // appLogOut
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_confirm"]');}
 
@@ -95,6 +96,16 @@ get faceScannerScreenHeaderRu() { // makeSureFaceInScannerFocusHeaderRu
   return $('//android.widget.TextView[@text="Убедитесь, что Ваше лицо находится в выделенном пространстве"]');}
 get faceScannerArea() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/myidFaceGraphic"]');}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// экран-14 (б/и) главный экран > окно кнопки Пройти идентификацию сейчас
+get performVerificationButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnPassVerification"]');}
+get performIdentificationButton() {
+  return $('//android.widget.TextView[@text="Пройти MyID"]');}
+get closeButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_close"]');}
 
 
 
