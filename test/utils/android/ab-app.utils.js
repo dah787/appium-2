@@ -279,7 +279,8 @@ async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttr
             data_array[i].key_1 == data_array_0[0].key_1 &
             data_array[i].key_2 == data_array_0[0].key_2 &
             data_array[i].key_3 == data_array_0[0].key_3 &
-            data_array[i].key_4 == data_array_0[0].key_4)
+            data_array[i].key_4 == data_array_0[0].key_4
+            )
           {
             notExisted = false;
             continue; // прерываем цикл 'i', идем к следующему

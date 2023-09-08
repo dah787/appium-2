@@ -117,7 +117,19 @@ get senderCardsSelectButton() {
 //   return $$('android.widget.EditText');}
 get senderCardsList() {
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
-  return $$('android.view.ViewGroup');}
+  // return $$('android.view.ViewGroup');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
+
+// get cardsBlockItems() {
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"]').$$('android.widget.TextView');}
+
+
+
+
+
+
+
+
 get senderCardNumber() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]');}
 get senderCardBalance() {
