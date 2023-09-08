@@ -54,7 +54,7 @@ config.capabilities = [{
 
   "appium:automationName": "UiAutomator2",
   // "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.42-debug.apk"),
-  "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.46-debug.apk"),
+  "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.47-debug.apk"),
   "appium:autoGrantPermissions": true
 }];
 
