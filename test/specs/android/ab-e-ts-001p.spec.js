@@ -9,9 +9,9 @@ const HomeM   = require('../../screens/android/ab-home.screen');          // Hom
 const HProfM  = require('../../screens/android/ab-home-profile.screen');  // Home-Profile screen Model
 const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
 const RegM    = require("../../screens/android/ab-regisration.screen");   // Registration screen Model
-const ServM   = require('../../screens/android/ab-services.screen');      // Services screen Model
+const PayM    = require('../../screens/android/ab-payments.screen');      // Payments screen Model ...ServM
 
-describe('ab-e-ts-001p: Тестирование процессов (дымовое) |вер.20230908| > Тестов 8 (частично 5) <', () => {
+describe('ab-e-ts-001p: Тестирование процессов (дымовое) |вер.20230911| > Тестов 8 (частично 5) <', () => {
 
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
@@ -691,6 +691,7 @@ it('! ab-e-tc-005p: Перевод с карты на карту > Тест вы
   await DSysM.androidKeyboardTypeIn(cardNumber_Receiver);
   // 2.1.В поле ввода отображается введенное значение, а также - активная кнопка отправки.
   await expect(HomeM.holderInput).toHaveText(cardNumber_Receiver);
+  await HomeM.sendButton.waitForDisplayed({timeout: GenM.waitTime + 5000});
 
   // 3.Нажать кнопку отправки.
   await HomeM.sendButton.click();
@@ -727,6 +728,22 @@ it('! ab-e-tc-005p: Перевод с карты на карту > Тест вы
   // const amountSeparatedThousandths = await AppUM.separateThousandthsOfNumber(moneyAmount);
   // await expect(HCardM.transferAmountInput).toHaveText(amountSeparatedThousandths);
   await expect(HCardM.transferAmountInput).toHaveText(moneyAmount);
+  // - комиссия
+  // /*отладка*/ console.log('\n --> ' + 
+  //   'moneyAmount = ' + moneyAmount +
+  //   '\n .transferCommission = ' + await HCardM.transferCommission.getText() +
+  //   '\n .transferTotalAmount = ' + await HCardM.transferTotalAmount.getText()
+  // );
+  const transferCommissionInNumbers = await AppUM.extractNumbersFromString(await HCardM.transferCommission.getText());
+  const transferTotalAmountInNumbers = await AppUM.extractNumbersFromString(await HCardM.transferTotalAmount.getText());
+  // /*отладка*/ console.log('\n --> ' + 
+  //   'moneyAmount = ' + moneyAmount +
+  //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
+  //   '\n transferTotalAmountInNumbers = ' + transferTotalAmountInNumbers
+  // );
+  // - итоговая сумма
+  const amountInNumbers = Number(moneyAmount) + transferCommissionInNumbers;
+  await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
 
   // 8.Нажать кнопку Продолжить.
   await HCardM.continueButton.click();
@@ -867,44 +884,44 @@ it('! ab-e-tc-006p: Платеж за мобильную связь > Тест �
   await HomeM.servicesNavigationTab.click();
   // 1.1.Открыт экран Платежи, где доступна кнопка Мобильные операторы.
   // - экран Платежи
-  await expect(ServM.paymentsScreenHeaderRu).toHaveText(ServM.paymentsScreenHeaderRu_Expected);
+  await expect(PayM.paymentsScreenHeaderRu).toHaveText(PayM.paymentsScreenHeaderRu_Expected);
 
   // 2.Нажать кнопку Мобильные операторы.
-  await ServM.mobileOperatorButton.click();
+  await PayM.mobileOperatorButton.click();
   // 2.1.Открыт экран Мобильные операторы, где доступны кнопки операторов.
 
   // 3.Нажать кнопку оператора (любого).
-  await ServM.uzMobileOperatorButton.click();
+  await PayM.uzMobileOperatorButton.click();
   // 3.1.Открыт экран оператора, где доступны поле ввода номера телефона, неактивная кнопка Продолжить.
 
   // 4.Нажать поле ввода номера телефона и ввести валидный номер.
-  await ServM.phoneNumberInput.click();
+  await PayM.phoneNumberInput.click();
   await DSysM.androidKeyboardTypeIn('999664660'); // ...(phoneNumber)
   // 4.1.В поле ввода отображаются введенные данные, кнопка Продолжить активна.
-  await expect(ServM.paymentScreenInputs[0]).toHaveText('999664660'); // ...(phoneNumber)
+  await expect(PayM.paymentScreenInputs[0]).toHaveText('999664660'); // ...(phoneNumber)
 
   // 5.Нажать кнопку Продолжить.
-  await ServM.continueButton.click();
+  await PayM.continueButton.click();
   // 5.1.Открыт экран Платеж, где доступны поле выбора карты, поле ввода суммы платежа, поле комиссии, неактивная кнопка Продолжить.
 
   // 6.Нажать поле выбора карты и выбрать карту (любую).
-  await ServM.cardSelection.click();
+  await PayM.cardSelection.click();
   // * Открыт список карт (отправителя).
-  await ServM.cardSelectionCheck.waitForDisplayed({timeout: GenM.waitTime});
+  await PayM.cardSelectionCheck.waitForDisplayed({timeout: GenM.waitTime});
   // - выбрать карту из списка
-  await ServM.cardSelectionCheck.click();
+  await PayM.cardSelectionCheck.click();
   // 6.1.В поле выбора карты отображается выбранная карта.
 
   // 7.Нажать поле ввода суммы платежа и ввести валидное число.
-  await ServM.amountInput.click();
+  await PayM.amountInput.click();
   await DSysM.androidKeyboardTypeIn(moneyAmount);
   // 7.1.В поле ввода отображаются введенные данные, кнопка Продолжить активна.
-  await expect(ServM.paymentScreenInputs[0]).toHaveText(moneyAmount);
+  await expect(PayM.paymentScreenInputs[0]).toHaveText(moneyAmount);
   // * Скрыть клавиатуру
   await driver.hideKeyboard();
 
   // 8.Нажать кнопку Продолжить.
-  await ServM.continueButton.click();
+  await PayM.continueButton.click();
 // --- Требуется убрать/повысить лимит платежей --- FAILED ...превышен дневной лимит ---
   // 8.1.Открыт экран чека оплаты, где доступны поле Сумма, кнопка Домой.
 
@@ -918,26 +935,26 @@ it('! ab-e-tc-006p: Платеж за мобильную связь > Тест �
 
 
   // // 4.Ввести валидные данные в поля ввода.
-  // await ServM.phoneNumberInput.click();
+  // await PayM.phoneNumberInput.click();
   // await DSysM.androidKeyboardTypeIn(phoneNumber);
-  // await ServM.amountInput.click();
+  // await PayM.amountInput.click();
   // await DSysM.androidKeyboardTypeIn(moneyAmount);
   // // 4.1.В полях ввода отображаются введенные значения, кнопка Продолжить активна.
-  // // await expect(ServM.phoneNumberInput).toHaveText(phoneNumber);
-  // // await expect(ServM.amountInput).toHaveText(moneyAmount);
+  // // await expect(PayM.phoneNumberInput).toHaveText(phoneNumber);
+  // // await expect(PayM.amountInput).toHaveText(moneyAmount);
   // // поля phone и amount имеют одинаковые id, поэтому проверяем по их порядку на экране:
-  // await expect(ServM.paymentScreenInputs[0]).toHaveText(phoneNumber);
-  // await expect(ServM.paymentScreenInputs[1]).toHaveText(moneyAmount);
+  // await expect(PayM.paymentScreenInputs[0]).toHaveText(phoneNumber);
+  // await expect(PayM.paymentScreenInputs[1]).toHaveText(moneyAmount);
 
   // // 5.Нажать кнопку Продолжить.
-  // await ServM.continueButton.click();
+  // await PayM.continueButton.click();
   // // 5.1.Открыт экран чека оплаты, где доступны поле Сумма, кнопка Домой.
   // // - поле Сумма
   // const amountSeparatedThousandths =  await AppUM.separateThousandthsOfNumber(moneyAmount);
-  // await expect(ServM.amount).toHaveText(amountSeparatedThousandths + ' UZS');
+  // await expect(PayM.amount).toHaveText(amountSeparatedThousandths + ' UZS');
 
   // // 6.Нажать кнопку Домой.
-  // await ServM.homeButton.click();
+  // await PayM.homeButton.click();
   // // 6.1.Открыт главный экран приложения (активны навигационная кнопка Home и вкладка Аккаунт), где в разделе Общий баланс доступны поле общего баланса, а также поля балансов по картам.
   // // - вкладка Аккаунт
   // await expect(HomeM.accountTabRu).toBeDisplayed();
@@ -1188,7 +1205,7 @@ it('? ошибка суммы ab-e-tc-008p: Проверка баланса', as
   await AppUM.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1);
 
   // * Прокрутить, делая видимыми следующие элементы
-  await $(`android=${HCardM.scrollForward}`);
+  await $(`android=${AppUM.scrollForward}`);
  
   // * Создать массив видимых элементов.
   raw_array = await HCardM.cardsBlockItems;

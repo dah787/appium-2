@@ -1,4 +1,4 @@
-class ServicesScreen {
+class PaymentsScreen {
 
 /* CONSTANTS */
 paymentsScreenHeaderRu_Expected = 'Платежи';
@@ -36,4 +36,4 @@ get homeButton() {
 /* EOF class */
 }
 
-module.exports = new ServicesScreen();
+module.exports = new PaymentsScreen();

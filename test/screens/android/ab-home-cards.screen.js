@@ -30,11 +30,6 @@ get cardViewFrontNameOnMyCardsScreen() {
 // get cardViewFrontNumber() {
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_number"]');}
 
-// https://www.automationtestinghub.com/appium-scroll-examples/
-// https://russianblogs.com/article/88992310695/
-scrollForward = 'new UiScrollable(new UiSelector()).scrollForward()';
-scrollBackward = 'new UiScrollable(new UiSelector()).scrollBackward()';
-
 waitForScreenDisplayed_myCardsScreen() {
   this.myCardsScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime + 15000});
 }
@@ -140,6 +135,10 @@ get transferAmountInput() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
 // get cardSenderView() {
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/senderCardsRecyclerView"]');}
+get transferCommission() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_help"]');}
+get transferTotalAmount() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotal_transferCard"]');}
 get continueButton() { // continueButtonOnTransferToCardScreen
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/buttonContinue_transferCard"]');}
 

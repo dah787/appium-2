@@ -1,6 +1,11 @@
 class AppUtilities {
   
 /* SELECTORS */
+// https://www.automationtestinghub.com/appium-scroll-examples/
+// https://russianblogs.com/article/88992310695/
+scrollForward = 'new UiScrollable(new UiSelector()).scrollForward()';
+scrollBackward = 'new UiScrollable(new UiSelector()).scrollBackward()';
+
 // app keyboard
 get appKeyboardKey_1() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_1"]');}
@@ -217,7 +222,8 @@ async generateRandomCharsOfSet(length, charSet, charType) {
   return str;
 }
 async extractNumbersFromString(value) { // getNumbers(value), removeLetters(value)
-  const string = value.replace(/[a-z-+()\s]/gi, '');
+  // const string = value.replace(/[a-z-+()\s]/gi, '');
+  const string = value.replace(/[a-zа-я-+();:\s]/gi, '');
   // /*отладка*/ console.log('\n --> string = ' + string + '\n');
   // /*отладка*/ console.log('\n --> typeof Number(string) = ' + typeof Number(string) + '\n');
   return Number(string);
