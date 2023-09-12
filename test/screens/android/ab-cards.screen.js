@@ -1,6 +1,6 @@
-const GenM = require('../../screens/android/ab-general.screen'); // General screen Model
+const GenM = require('./ab-general.screen'); // General screen Model
 
-class Home_CardsScreen {
+class CardsScreen {
 
 /* CONSTANTS */
 enterSmsCodeScreenHeaderRu_Expected = 'Введите код из СМС';
@@ -182,4 +182,4 @@ get homeButton() {
 /* EOF class */
 }
 
-module.exports = new Home_CardsScreen();
+module.exports = new CardsScreen();

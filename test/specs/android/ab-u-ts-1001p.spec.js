@@ -6,7 +6,7 @@ const CardsD  = require('../../data/ab-cards.data');                      // Car
 const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
 const DTlgM   = require("../../screens/android/dt-appTelegram.screen");   // App Telegram screen Model
 const HomeM   = require('../../screens/android/ab-home.screen');          // Home screen Model
-const HProfM  = require('../../screens/android/ab-home-profile.screen');  // Home-Profile screen Model
+const ProfM  = require('../../screens/android/ab-profile.screen');  // Home-Profile screen Model
 const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
 
 describe('ab-u-ts-1001p: Тестирование элементов (дымовое) |вер.20230907| > Тестов 4 (выполнены частично 1) <', () => {
@@ -387,12 +387,12 @@ it('ab-u-tc-1003p: Языки (в профиле)', async () => {
   // 1.1.Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на текущем языке.
   
   // 2.Нажать кнопку выбора языка.
-  await HProfM.languageItem.click();
+  await ProfM.languageItem.click();
 
   // * Создать массив существующих языков.
-  await HProfM.languagesListItemEn.waitForDisplayed({timeout: 5000});
+  await ProfM.languagesListItemEn.waitForDisplayed({timeout: 5000});
   const raw_array = await $$('android.widget.LinearLayout'); // android.widget.TextView
-  // const raw_array = await HProfM.languagesListItems;
+  // const raw_array = await ProfM.languagesListItems;
   const data_array = [];
   const data_array_elems = [];
   const elementAttributeKey = 'resource-id';
@@ -411,10 +411,10 @@ it('ab-u-tc-1003p: Языки (в профиле)', async () => {
     
     if (elementIndex > 0) {
       // 2.Нажать кнопку выбора языка.
-      await HProfM.languageItem.click();
+      await ProfM.languageItem.click();
       // 2.1.Открыто окно выбора языка, где доступны элементы выбора языков: узбекский, русский и английский (возможна другая комбинация языков).
       // - окно
-      await expect(HProfM.languagesListTitle).toBeDisplayed();
+      await expect(ProfM.languagesListTitle).toBeDisplayed();
       // - элементы выбора языков
       for (const element of data_array_elems) {
         await expect(element).toBeDisplayed();
@@ -428,61 +428,61 @@ it('ab-u-tc-1003p: Языки (в профиле)', async () => {
       case AuthM.languageEn:
         // /*отладка*/ console.log('\n --> case En: ' + element + '\n');
         // 3.Нажать элемент выбора языка (любого не текущего) /например, английский/.
-        await HProfM.languagesListItemEn.click();
+        await ProfM.languagesListItemEn.click();
         // 3.1.Отображается галочка на элементе нажатого языка, кнопка Сохранить (на выбранном языке) активирована.
         // - ?
 
         // 4.Нажать кнопку Сохранить.
-        await HProfM.languageSaveButton.click();
+        await ProfM.languageSaveButton.click();
         // 4.1.Закрыто окно выбора языка. Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на выбранном языке:
         // - окно
-        await expect(HProfM.languagesListTitle).not.toBeDisplayed();
+        await expect(ProfM.languagesListTitle).not.toBeDisplayed();
         // - кнопка выбора языка интерфейса
-        await expect(HProfM.languageItem).toBeDisplayed();
+        await expect(ProfM.languageItem).toBeDisplayed();
         // - текст названия выбранного языка
-        await expect(HProfM.languageItemName).toHaveText(HProfM.languageItemNameEn_Expected);
+        await expect(ProfM.languageItemName).toHaveText(ProfM.languageItemNameEn_Expected);
         // - кнопка выхода из приложения на выбранном языке
-        await expect(HProfM.appLogOutItem).toHaveText(HProfM.appLogOutItemEn_Expected);
+        await expect(ProfM.appLogOutItem).toHaveText(ProfM.appLogOutItemEn_Expected);
         break;
       
       case AuthM.languageRu:
         // /*отладка*/ console.log('\n --> case Ru: ' + element + '\n');
         // 3.Нажать элемент выбора языка (любого не текущего) /например, русский/.
-        await HProfM.languagesListItemRu.click();
+        await ProfM.languagesListItemRu.click();
         // 3.1.Отображается галочка на элементе нажатого языка, кнопка Сохранить (на выбранном языке) активирована.
         // - ?
 
         // 4.Нажать кнопку Сохранить.
-        await HProfM.languageSaveButton.click();
+        await ProfM.languageSaveButton.click();
         // 4.1.Закрыто окно выбора языка. Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на выбранном языке:
         // - окно
-        await expect(HProfM.languagesListTitle).not.toBeDisplayed();
+        await expect(ProfM.languagesListTitle).not.toBeDisplayed();
         // - кнопка выбора языка интерфейса
-        await expect(HProfM.languageItem).toBeDisplayed();
+        await expect(ProfM.languageItem).toBeDisplayed();
         // - текст названия выбранного языка
-        await expect(HProfM.languageItemName).toHaveText(HProfM.languageItemNameRu_Expected);
+        await expect(ProfM.languageItemName).toHaveText(ProfM.languageItemNameRu_Expected);
         // - кнопка выхода из приложения на выбранном языке
-        await expect(HProfM.appLogOutItem).toHaveText(HProfM.appLogOutItemRu_Expected);
+        await expect(ProfM.appLogOutItem).toHaveText(ProfM.appLogOutItemRu_Expected);
         break;
       
       case AuthM.languageUz:
         // /*отладка*/ console.log('\n --> case Uz: ' + element + '\n');
         // 3.Нажать элемент выбора языка (любого не текущего) /например, узбекский/.
-        await HProfM.languagesListItemUz.click();
+        await ProfM.languagesListItemUz.click();
         // 3.1.Отображается галочка на элементе нажатого языка, кнопка Сохранить (на выбранном языке) активирована.
         // - ?
 
         // 4.Нажать кнопку Сохранить.
-        await HProfM.languageSaveButton.click();
+        await ProfM.languageSaveButton.click();
         // 4.1.Закрыто окно выбора языка. Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на выбранном языке:
         // - окно
-        await expect(HProfM.languagesListTitle).not.toBeDisplayed();
+        await expect(ProfM.languagesListTitle).not.toBeDisplayed();
         // - кнопка выбора языка интерфейса
-        await expect(HProfM.languageItem).toBeDisplayed();
+        await expect(ProfM.languageItem).toBeDisplayed();
         // - текст названия выбранного языка
-        await expect(HProfM.languageItemName).toHaveText(HProfM.languageItemNameUz_Expected);
+        await expect(ProfM.languageItemName).toHaveText(ProfM.languageItemNameUz_Expected);
         // - кнопка выхода из приложения на выбранном языке
-        await expect(HProfM.appLogOutItem).toHaveText(HProfM.appLogOutItemUz_Expected);
+        await expect(ProfM.appLogOutItem).toHaveText(ProfM.appLogOutItemUz_Expected);
         break;
     
       default:

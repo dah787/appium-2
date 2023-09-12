@@ -4,14 +4,14 @@ const AppUM   = require("../../utils/android/ab-app.utils");              // App
 const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
 const CardsD  = require('../../data/ab-cards.data');                      // Cards Data
 const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
-const HCardM  = require('../../screens/android/ab-home-cards.screen');    // Home-Cards screen Model
+const CardM  = require('../../screens/android/ab-cards.screen');    // Home-Cards screen Model
 const HomeM   = require('../../screens/android/ab-home.screen');          // Home screen Model
-const HProfM  = require('../../screens/android/ab-home-profile.screen');  // Home-Profile screen Model
+const ProfM  = require('../../screens/android/ab-profile.screen');  // Home-Profile screen Model
 const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
 const RegM    = require("../../screens/android/ab-regisration.screen");   // Registration screen Model
 const PayM    = require('../../screens/android/ab-payments.screen');      // Payments screen Model ...ServM
 
-describe('ab-e-ts-001p: Тестирование процессов (дымовое) |вер.20230911| > Тестов 8 (частично 5) <', () => {
+describe('ab-e-ts-001p: Тестирование процессов (дымовое) |вер.20230912| > Тестов 8 (частично 5) <', () => {
 
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
@@ -299,70 +299,70 @@ it('! ab-e-tc-003p: Добавление карты > Тест выполнен 
     await HomeM.myCardsButton.click();
     // 1б.1.Открыт экран Мои карты, где доступна кнопка Добавить.
     // 1б.2.Нажать кнопку Добавить.
-    await HCardM.addButtonOnMyCardsScreen.click();
+    await CardM.addButtonOnMyCardsScreen.click();
     // 1б.3.Нажать кнопку Добавить карту.
-    await HCardM.addCardButtonOnMyCardsScreen.click();
+    await CardM.addCardButtonOnMyCardsScreen.click();
   }
   
   // 1.1.Открыт экран добавления карты, где доступны поле ввода названия карты, поле ввода номера карты, поле ввода даты действительности карты и неактивная кнопка Добавить карту:
   // - поле ввода названия карты
-  await expect(HCardM.cardNameInput).toBeExisting();
+  await expect(CardM.cardNameInput).toBeExisting();
   // - поле ввода номера карты
-  await expect(HCardM.cardNumberInput).toBeExisting();
+  await expect(CardM.cardNumberInput).toBeExisting();
   // - поле ввода даты действительности карты
-  await expect(HCardM.cardExpiryDateInput).toBeExisting();
+  await expect(CardM.cardExpiryDateInput).toBeExisting();
   // - кнопка Добавить карту
-  await expect(HCardM.addCardButtonOnDataInputScreen).toBeExisting();
+  await expect(CardM.addCardButtonOnDataInputScreen).toBeExisting();
 
   // 2.Нажать поле ввода названия карты.
-  await HCardM.cardNameInput.click();
+  await CardM.cardNameInput.click();
   // 2.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 3.Ввести название карты.
   await DSysM.androidKeyboardTypeIn(cardName);
   // 3.1.В поле ввода отображается введенное значение.
-  await expect(HCardM.cardNameInput).toHaveText(cardName);
+  await expect(CardM.cardNameInput).toHaveText(cardName);
   // * hide keyboard (закрывает следующие элементы)
   await driver.hideKeyboard();
 
   // 4.Нажать поле ввода номера карты.
-  await HCardM.cardNumberInput.click();
+  await CardM.cardNumberInput.click();
   // 4.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 5.Ввести номер карты.
   await DSysM.androidKeyboardTypeIn(cardNumber);
   // 5.1.В поле ввода отображается введенное значение.
-  await expect(HCardM.cardNumberInput).toHaveText(cardNumber);
+  await expect(CardM.cardNumberInput).toHaveText(cardNumber);
   // * hide keyboard (закрывает следующие элементы)
   await driver.hideKeyboard();
 
   // 6.Нажать поле ввода даты действительности карты.
-  await HCardM.cardExpiryDateInput.click();
+  await CardM.cardExpiryDateInput.click();
   // 6.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 7.Ввести дату действительности карты.
   await DSysM.androidKeyboardTypeIn(cardExpiry);
   // 7.1.В поле ввода отображается введенное значение, кнопка Добавить карту активна.
-  await expect(HCardM.cardExpiryDateInput)
+  await expect(CardM.cardExpiryDateInput)
     .toHaveTextContaining(cardExpiry.substr(0, 2));
-  await expect(HCardM.cardExpiryDateInput)
+  await expect(CardM.cardExpiryDateInput)
     .toHaveTextContaining(cardExpiry.substr(3, 2));
   // * hide keyboard (закрывает следующие элементы)
   await driver.hideKeyboard();
   // - кнопка Добавить карту
-  await expect(HCardM.addCardButtonOnDataInputScreen).toBeEnabled();
+  await expect(CardM.addCardButtonOnDataInputScreen).toBeEnabled();
 
   // 8.Нажать кнопку Добавить карту.
-  await HCardM.addCardButtonOnDataInputScreen.click();
-  await HCardM.enterSmsCodeScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime});
+  await CardM.addCardButtonOnDataInputScreen.click();
+  await CardM.enterSmsCodeScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime});
   // 8.1.Отображается экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить:
   // - экран Введите код из СМС
-  await expect(HCardM.enterSmsCodeScreenHeaderRu)
-    .toHaveText(HCardM.enterSmsCodeScreenHeaderRu_Expected);
+  await expect(CardM.enterSmsCodeScreenHeaderRu)
+    .toHaveText(CardM.enterSmsCodeScreenHeaderRu_Expected);
   // - кнопка Подтвердить
-  await expect(HCardM.continueButton_1).toBeDisabled();
+  await expect(CardM.continueButton_1).toBeDisabled();
   // 9.Нажать поле ввода кода из СМС.
-  await HCardM.smsCodeInput.click();
+  await CardM.smsCodeInput.click();
   // 9.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
 
@@ -373,12 +373,12 @@ it('! ab-e-tc-003p: Добавление карты > Тест выполнен 
   await DSysM.androidKeyboardTypeIn(smsCode_Received);
   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна:
   // - введенный код ?
-  await expect(HCardM.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(CardM.smsCodeInput).toHaveText(smsCode_Received);
   // - кнопка Подтвердить
-  await expect(HCardM.continueButton_1).toBeEnabled();
+  await expect(CardM.continueButton_1).toBeEnabled();
 
   // 11.Нажать кнопку Подтвердить.
-  await HCardM.continueButton_1.click();
+  await CardM.continueButton_1.click();
   // 11.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
@@ -460,17 +460,17 @@ it('? отключен выбор дизайна ab-e-tc-004p: Редактир�
   // 1.1.Открыт экран Мои карты, где доступен список карт.
 
   // 2.Нажать карту из списка (любую).
-  await HCardM.cardViewFront.click();
+  await CardM.cardViewFront.click();
   // 2.1.Открыт экран действий с картой, где доступна кнопка Свойства карты.
 
   // 3.Нажать кнопку Свойства карты.
-  await HCardM.cardSettingsButton.click();
+  await CardM.cardSettingsButton.click();
   // 3.1.Открыт экран редактирования карты, где доступны изображение карты (с текущими дизайном, названием, балансом, именем владельца, номером, сроком действия), кнопки выбора ее дизайна, поле ввода/редактирования названия карты, кнопка Подтвердить.
 
   // * Создать массив существующих дизайнов карты.
-  await HCardM.cardBackgroundImageButton.waitForDisplayed({timeout: GenM.waitTime + 15000});
-  // await HCardM.waitForScreenDisplayed_cardSettingsScreen();
-  let raw_array = await HCardM.cardBackgroundImageButtons;
+  await CardM.cardBackgroundImageButton.waitForDisplayed({timeout: GenM.waitTime + 15000});
+  // await CardM.waitForScreenDisplayed_cardSettingsScreen();
+  let raw_array = await CardM.cardBackgroundImageButtons;
   // /*отладка*/ console.log('\n --> raw_array ' + raw_array + '\n');
   // await driver.pause(5000);
 
@@ -507,14 +507,14 @@ it('? отключен выбор дизайна ab-e-tc-004p: Редактир�
   // -?- непонятно что проверять, т.к. атрибуты элемента не меняются
 
   // 5.Нажать поле ввода названия карты.
-  await HCardM.cardNameEdit.click();
+  await CardM.cardNameEdit.click();
   // 5.1.Открыта клавиатура. Курсор установлен в конце текущего названия.
 
   // * Запомнить название и номер карты
     // * Прокрутить до элемента
-    await $(`android=${HCardM.scrollToElement_Up}`);
-  const cardName_Initial = await HCardM.cardViewFrontName.getText();
-  const cardNumber = await HCardM.cardViewFrontNumber.getText();
+    await $(`android=${CardM.scrollToElement_Up}`);
+  const cardName_Initial = await CardM.cardViewFrontName.getText();
+  const cardNumber = await CardM.cardViewFrontNumber.getText();
   // /*отладка*/ console.log(
   //   '\n' + cardName_Initial + ' = cardName_Initial... of card' +
   //   '\n' + cardNumber + ' = cardNumber' +
@@ -526,51 +526,51 @@ it('? отключен выбор дизайна ab-e-tc-004p: Редактир�
   await DSysM.androidKeyboardTypeIn(randomChars);
   // 6.1.Измененное значение отображается:
   // - в поле ввода;
-  await expect(HCardM.cardNameEdit).toHaveText(cardName_Initial + randomChars);
+  await expect(CardM.cardNameEdit).toHaveText(cardName_Initial + randomChars);
   // - на изображении карты.
     // * Прокрутить до элемента
-    await $(`android=${HCardM.scrollToElement_Up}`);
-  await expect(HCardM.cardViewFrontName).toHaveText(cardName_Initial + randomChars);
+    await $(`android=${CardM.scrollToElement_Up}`);
+  await expect(CardM.cardViewFrontName).toHaveText(cardName_Initial + randomChars);
     // * hide keyboard (закрывает следующие элементы)
     await driver.hideKeyboard();
 
   // 7.Удалить название карты.
   // * Очистить поле ввода
-  // await HCardM.cardNameEdit.clearValue();
-  await HCardM.cardNameEditClearButton.click();
+  // await CardM.cardNameEdit.clearValue();
+  await CardM.cardNameEditClearButton.click();
   // 7.1.Пустое значение отображается:
   // - в поле ввода;
-  await expect(HCardM.cardNameEdit).toHaveText(''); // 'Название карты'
+  await expect(CardM.cardNameEdit).toHaveText(''); // 'Название карты'
   // - на изображении карты.
-  await expect(HCardM.cardViewFrontName).toHaveText(''); // .not.toBeExisting();
+  await expect(CardM.cardViewFrontName).toHaveText(''); // .not.toBeExisting();
 
   // 8.Ввести название карты, нажав поле ввода названия карты.
-  await HCardM.cardNameEdit.click();
+  await CardM.cardNameEdit.click();
   await DSysM.androidKeyboardTypeIn(cardName);
       // * hide keyboard (закрывает следующие элементы)
       await driver.hideKeyboard();
   // 8.1.Введенное значение отображается:
   // - в поле ввода;
-  await expect(HCardM.cardNameEdit).toHaveText(cardName);
+  await expect(CardM.cardNameEdit).toHaveText(cardName);
   // - на изображении карты.
     // * Прокрутить до элемента
-    // if(!(await HCardM.cardViewFrontName).isDisplayedInViewport) {
-      await $(`android=${HCardM.scrollToElement_Up}`);
+    // if(!(await CardM.cardViewFrontName).isDisplayedInViewport) {
+      await $(`android=${CardM.scrollToElement_Up}`);
     // }
-  await expect(HCardM.cardViewFrontName).toHaveText(cardName);
+  await expect(CardM.cardViewFrontName).toHaveText(cardName);
 
   // 9.Нажать кнопку Подтвердить.
-  await HCardM.confirmButton.click();
+  await CardM.confirmButton.click();
   // 9.1.Открыт экран действий с картой, всплывает сообщение Changed!
-  // await expect(HCardM.confirmButton).toBeDisabled(); // - отключено 24.05.2023, т.к. при проверке опять активируется!
-  await HCardM.cardSettingsButton.waitForDisplayed({timeout: GenM.waitTime});
+  // await expect(CardM.confirmButton).toBeDisabled(); // - отключено 24.05.2023, т.к. при проверке опять активируется!
+  await CardM.cardSettingsButton.waitForDisplayed({timeout: GenM.waitTime});
 
   // 10.Вернуться на экран Мои карты, нажимая кнопку Назад.
   await DSysM.androidPressBackButton(1);
-  await HCardM.cardViewFrontNameOnMyCardsScreen.waitForDisplayed({timeout: GenM.waitTime + 15000});
-  // HCardM.waitForScreenDisplayed_myCardsScreen();
+  await CardM.cardViewFrontNameOnMyCardsScreen.waitForDisplayed({timeout: GenM.waitTime + 15000});
+  // CardM.waitForScreenDisplayed_myCardsScreen();
   // *.Создать массив элементов.
-  raw_array = await HCardM.cardsBlockItems;
+  raw_array = await CardM.cardsBlockItems;
   data_array = [];
   elementAttributeKey = 'resource-id';
   // /*отладка*/ console.log('\n --> raw_array в ab-e-tc-004p №2 = ' + raw_array + '\n');
@@ -605,7 +605,7 @@ it('? отключен выбор дизайна ab-e-tc-004p: Редактир�
         // await driver.pause(5000);
         // /*отладка ------------------------------------------------------------ */
       // - название
-      await expect(data_array[i-1]).toHaveText(cardName); // expect(HCardM.cardViewFrontName).
+      await expect(data_array[i-1]).toHaveText(cardName); // expect(CardM.cardViewFrontName).
     }
   }
 });
@@ -696,14 +696,14 @@ it('! ab-e-tc-005p: Перевод с карты на карту > Тест вы
   // 3.Нажать кнопку отправки.
   await HomeM.sendButton.click();
   // 3.1.Открыт экран Перевод на карту, где доступны поле выбора карты отправителя, поле номера карты получателя, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить.
-  await expect(HCardM.transferToCardScreenHeaderRu).toHaveText(HCardM.transferToCardScreenHeaderRu_Expected);
+  await expect(CardM.transferToCardScreenHeaderRu).toHaveText(CardM.transferToCardScreenHeaderRu_Expected);
 
   // 4.Нажать поле выбора карты.
-  await HCardM.senderCardsSelectButton.click();
+  await CardM.senderCardsSelectButton.click();
   // 4.1.Открыт список карт отправителя.
   // 5.Выбрать карту отправителя из списка.
   // * Создать массив видимых элементов.
-  let raw_array = await HCardM.senderCardsList;
+  let raw_array = await CardM.senderCardsList;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   let data_array = [];
   let elementAttributeKey = 'resource-id';
@@ -718,7 +718,7 @@ it('! ab-e-tc-005p: Перевод с карты на карту > Тест вы
   // 5.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
 
   // 6.Нажать поле ввода суммы перевода.
-  await HCardM.transferAmountInput.click();
+  await CardM.transferAmountInput.click();
   // 6.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 7.Ввести сумму перевода.
@@ -726,16 +726,16 @@ it('! ab-e-tc-005p: Перевод с карты на карту > Тест вы
   // 7.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
   // - введенное значение,
   // const amountSeparatedThousandths = await AppUM.separateThousandthsOfNumber(moneyAmount);
-  // await expect(HCardM.transferAmountInput).toHaveText(amountSeparatedThousandths);
-  await expect(HCardM.transferAmountInput).toHaveText(moneyAmount);
+  // await expect(CardM.transferAmountInput).toHaveText(amountSeparatedThousandths);
+  await expect(CardM.transferAmountInput).toHaveText(moneyAmount);
   // - комиссия
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
-  //   '\n .transferCommission = ' + await HCardM.transferCommission.getText() +
-  //   '\n .transferTotalAmount = ' + await HCardM.transferTotalAmount.getText()
+  //   '\n .transferCommission = ' + await CardM.transferCommission.getText() +
+  //   '\n .transferTotalAmount = ' + await CardM.transferTotalAmount.getText()
   // );
-  const transferCommissionInNumbers = await AppUM.extractNumbersFromString(await HCardM.transferCommission.getText());
-  const transferTotalAmountInNumbers = await AppUM.extractNumbersFromString(await HCardM.transferTotalAmount.getText());
+  const transferCommissionInNumbers = await AppUM.extractNumbersFromString(await CardM.transferCommission.getText());
+  const transferTotalAmountInNumbers = await AppUM.extractNumbersFromString(await CardM.transferTotalAmount.getText());
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
@@ -746,13 +746,13 @@ it('! ab-e-tc-005p: Перевод с карты на карту > Тест вы
   await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
 
   // 8.Нажать кнопку Продолжить.
-  await HCardM.continueButton.click();
+  await CardM.continueButton.click();
   // 8.1.Отображается экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
 
 // --- Требуется автоматически получать код из СМС ---
 
   // 9.Нажать поле ввода кода из СМС.
-  await HCardM.smsCodeInput.click();
+  await CardM.smsCodeInput.click();
   // 9.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 10.Ввести полученный код.
@@ -760,12 +760,12 @@ it('! ab-e-tc-005p: Перевод с карты на карту > Тест вы
   await DSysM.androidKeyboardTypeIn(smsCode_Received);
   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
   // - введенный код ?
-  await expect(HCardM.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(CardM.smsCodeInput).toHaveText(smsCode_Received);
   // - кнопка Подтвердить
-  await expect(HCardM.continueButton_1).toBeEnabled();
+  await expect(CardM.continueButton_1).toBeEnabled();
 
   // 11.Нажать кнопку Подтвердить.
-  await HCardM.continueButton_1.click();
+  await CardM.continueButton_1.click();
   // 11.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
@@ -778,29 +778,29 @@ return;
 
   
   // 9.Нажать кнопку Продолжить.
-  await HCardM.continueButtonOnTransferToCardScreen.click();
+  await CardM.continueButtonOnTransferToCardScreen.click();
   // 9.1.Открыт экран Перевод на карту-2, где доступны изображение карты отправителя, номер карты получателя, сумма перевода, кнопка Перевод.
   // - экран Перевод на карту
-  await expect(HCardM.transferToCardScreenHeaderRu).toHaveText(HCardM.transferToCardScreenHeaderRu_Expected);
+  await expect(CardM.transferToCardScreenHeaderRu).toHaveText(CardM.transferToCardScreenHeaderRu_Expected);
   // - изображение карты отправителя
-  await expect(HCardM.cardSenderDetailsArea).toBeDisplayed();
+  await expect(CardM.cardSenderDetailsArea).toBeDisplayed();
   // - номер карты получателя
-  await expect(HCardM.cardReceiverNumber).toBeDisplayed();
+  await expect(CardM.cardReceiverNumber).toBeDisplayed();
   // - сумма перевода
-  // await expect(HCardM.transferAmount).toBeDisplayed();
-  await expect(HCardM.transferAmount).toHaveText(amountSeparatedThousandths + '.0 UZS');
+  // await expect(CardM.transferAmount).toBeDisplayed();
+  await expect(CardM.transferAmount).toHaveText(amountSeparatedThousandths + '.0 UZS');
   // - кнопка Перевод
-  await expect(HCardM.continueButtonOnTransferToCardScreen).toBeDisplayed();
+  await expect(CardM.continueButtonOnTransferToCardScreen).toBeDisplayed();
 
   // 10.Нажать кнопку Перевод.
-  await HCardM.continueButtonOnTransferToCardScreen.click();
+  await CardM.continueButtonOnTransferToCardScreen.click();
   // 10.1.Открыт экран чека перевода на карту, где доступны поле Сумма, кнопка Домой.
   // - поле Сумма
   // const amountSeparatedThousandths =  await AppUM.separateThousandthsOfNumber(moneyAmount);
-  // await expect(HCardM.amount).toHaveText(amountSeparatedThousandths + ' UZS');
+  // await expect(CardM.amount).toHaveText(amountSeparatedThousandths + ' UZS');
 
   // 11.Нажать кнопку Домой.
-  await HCardM.homeButton.click();
+  await CardM.homeButton.click();
   // 11.1.Открыт главный экран приложения (активны навигационная кнопка Home и вкладка Аккаунт), где в разделе Общий баланс доступны поле общего баланса, а также поля балансов по картам.
   // - вкладка Аккаунт
   await expect(HomeM.accountTabRu).toBeDisplayed();
@@ -1029,51 +1029,51 @@ it('! ab-e-tc-007p: Идентификация в MyID > Тест выполне
   // 1.1.Открыт экран профиля пользователя, где доступна кнопка статуса пользователя.
   
   // 2.Нажать кнопку статуса пользователя.
-  await HProfM.yourStatusItem.click();
+  await ProfM.yourStatusItem.click();
           // // 2.1.Открыт экран Возможности, где доступна кнопка Пройти идентификацию.
           // // - экран Возможности
-          // await expect(HProfM.possibilitiesScreenHeaderRu).toHaveText(HProfM.possibilitiesScreenHeaderRu_Expected);
+          // await expect(ProfM.possibilitiesScreenHeaderRu).toHaveText(ProfM.possibilitiesScreenHeaderRu_Expected);
           // // - кнопка Пройти идентификацию
-          // await HProfM.identificationButton.waitForDisplayed({timeout: GenM.waitTime + 5000});
+          // await ProfM.identificationButton.waitForDisplayed({timeout: GenM.waitTime + 5000});
 
           // // 3.Нажать кнопку Пройти идентификацию.
-          // await HProfM.identificationButton.click();
+          // await ProfM.identificationButton.click();
   // 3.1.Открыт экран Вход или регистрация, где доступны поле ввода Серия и номер паспорта, поле ввода Дата рождения, неактивная кнопка Продолжить.
   // - кнопка Продолжить
-  /* await HProfM.continueButton.waitForDisplayed({timeout: GenM.waitTime + 5000});
+  /* await ProfM.continueButton.waitForDisplayed({timeout: GenM.waitTime + 5000});
    * - этот элемент (кнопка идентифицируется на русском: Продолжить) отключен (и другие ниже), т.к. MyId открывается на английском при запуске нескольких тестов (не только одного этого)
    */
-  // await HProfM.loginOrRegisterScreenTextViewItems[3].waitForDisplayed({timeout: GenM.waitTime + 5000}); - этот элемент тоже отключен, т.к. выдает ошибку... Не найден)))
-    // /*отладка*/ const iCount = await HProfM.loginOrRegisterScreenTextViewItems.length;
+  // await ProfM.loginOrRegisterScreenTextViewItems[3].waitForDisplayed({timeout: GenM.waitTime + 5000}); - этот элемент тоже отключен, т.к. выдает ошибку... Не найден)))
+    // /*отладка*/ const iCount = await ProfM.loginOrRegisterScreenTextViewItems.length;
     // /*отладка*/ for (let i = 0; i < iCount; i++) {
     //   console.log('\n --> ' +
-    //     await HProfM.loginOrRegisterScreenTextViewItems[i].getText() +
+    //     await ProfM.loginOrRegisterScreenTextViewItems[i].getText() +
     //     ' = .loginOrRegisterScreenTextViewItems[' + i + '].getText()' +
     //     '\n');
     // }
-  await HProfM.scannerButton.waitForDisplayed({timeout: GenM.waitTime});
+  await ProfM.scannerButton.waitForDisplayed({timeout: GenM.waitTime});
 
   // 4.Ввести валидные данные в поля ввода.
-  // (см.выше для кнопки) await HProfM.passportDataInput.click();
-  // let qwe = await HProfM.loginOrRegisterScreenEditTextItems[0];
+  // (см.выше для кнопки) await ProfM.passportDataInput.click();
+  // let qwe = await ProfM.loginOrRegisterScreenEditTextItems[0];
   // await qwe.click();
-  await HProfM.loginOrRegisterScreenEditTextItems[0].click();
-  await DSysM.androidKeyboardTypeIn(HProfM.passportData_Expected);
-  // (см.выше для кнопки) await HProfM.birthDateInput.click();
-  await HProfM.loginOrRegisterScreenEditTextItems[1].click();
-  await DSysM.androidKeyboardTypeIn(HProfM.birthDate_Expected);
+  await ProfM.loginOrRegisterScreenEditTextItems[0].click();
+  await DSysM.androidKeyboardTypeIn(ProfM.passportData_Expected);
+  // (см.выше для кнопки) await ProfM.birthDateInput.click();
+  await ProfM.loginOrRegisterScreenEditTextItems[1].click();
+  await DSysM.androidKeyboardTypeIn(ProfM.birthDate_Expected);
   // 4.1.В полях ввода отображаются введенные значения, кнопка Продолжить активна.
-  await expect(HProfM.loginOrRegisterScreenEditTextItems[0]).toHaveText(HProfM.passportData_Expected);
-  await expect(HProfM.loginOrRegisterScreenEditTextItems[1]).toHaveText(HProfM.birthDate_Expected);
+  await expect(ProfM.loginOrRegisterScreenEditTextItems[0]).toHaveText(ProfM.passportData_Expected);
+  await expect(ProfM.loginOrRegisterScreenEditTextItems[1]).toHaveText(ProfM.birthDate_Expected);
 
   // 5.Нажать кнопку Продолжить.
-  // (см.выше для кнопки) await HProfM.continueButton.click();
-  (await HProfM.loginOrRegisterScreenTextViewItems[3]).click();
+  // (см.выше для кнопки) await ProfM.continueButton.click();
+  (await ProfM.loginOrRegisterScreenTextViewItems[3]).click();
   // 5.1.Открыт экран сканирования лица камерой устройства, где доступны текст убедиться пользователю о том, что его лицо находится в выделенном пространстве и область выделенного пространства.
   // - экран сканирования лица (заголовок)
-  // await expect(HProfM.faceScannerScreenHeaderRu).toHaveText(HProfM.faceScannerScreenHeaderRu_Expected);
+  // await expect(ProfM.faceScannerScreenHeaderRu).toHaveText(ProfM.faceScannerScreenHeaderRu_Expected);
   // - область выделенного пространства
-  await HProfM.faceScannerArea.waitForDisplayed({timeout:GenM.waitTime + 180000});
+  await ProfM.faceScannerArea.waitForDisplayed({timeout:GenM.waitTime + 180000});
 
 // --- Требуется эмулировать сканирование лица камерой устройства ---
 
@@ -1088,17 +1088,17 @@ it('! ab-e-tc-007p: Идентификация в MyID > Тест выполне
   // if(await AuthM.enterPinCodeScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime})) {
   //   await AppUM.appKeyboardTypeIn(AuthM.pinCode_Expected);
   // }
-  // await HProfM.identificationButton.waitForDisplayed({timeout: GenM.waitTime});
+  // await ProfM.identificationButton.waitForDisplayed({timeout: GenM.waitTime});
   // // - экран Возможности
-  // await expect(HProfM.possibilitiesScreenHeaderRu).toHaveText(HProfM.possibilitiesScreenHeaderRu_Expected);
+  // await expect(ProfM.possibilitiesScreenHeaderRu).toHaveText(ProfM.possibilitiesScreenHeaderRu_Expected);
 
-  // await HProfM.performVerificationButton.click();
-  // await HProfM.closeButton.waitForDisplayed({timeout: GenM.waitTime + 5000})
-  // await HProfM.closeButton.click();
+  // await ProfM.performVerificationButton.click();
+  // await ProfM.closeButton.waitForDisplayed({timeout: GenM.waitTime + 5000})
+  // await ProfM.closeButton.click();
 
   // // может эти строки нужно положить в афтерич
-  // if(await HProfM.performIdentificationButton.waitForDisplayed({timeout: GenM.waitTime + 5000})) {
-  //   await HProfM.closeButton.click();
+  // if(await ProfM.performIdentificationButton.waitForDisplayed({timeout: GenM.waitTime + 5000})) {
+  //   await ProfM.closeButton.click();
   // }
 
 });
@@ -1195,12 +1195,12 @@ it('? ошибка суммы ab-e-tc-008p: Проверка баланса', as
   await HomeM.myCardsButton.click();
   // 3.1.Открыт экран Мои карты, где доступен список карт.
   // - список карт /...ждем первую карту/
-  await HCardM.cardBalance.waitForDisplayed({timeout: GenM.waitTime});
+  await CardM.cardBalance.waitForDisplayed({timeout: GenM.waitTime});
 
   // 4.Обратить внимание на баланс каждой карты.
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // *.Создать массив видимых элементов.
-  raw_array = await HCardM.cardsBlockItems;
+  raw_array = await CardM.cardsBlockItems;
   data_array = [];
   await AppUM.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1);
 
@@ -1208,7 +1208,7 @@ it('? ошибка суммы ab-e-tc-008p: Проверка баланса', as
   await $(`android=${AppUM.scrollForward}`);
  
   // * Создать массив видимых элементов.
-  raw_array = await HCardM.cardsBlockItems;
+  raw_array = await CardM.cardsBlockItems;
   await AppUM.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1);
 
   // * Контролируем непустоту массива
@@ -1316,6 +1316,40 @@ it.skip('ab-e-d-002: Сводный массив', async () => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // return;
 });
+it.skip('ab-e-d-003: OTP message', async () => {
+  // > Вывести информацию о тесте в консоль
+  tcNum = 'ab-e-d-003';
+  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+
+  // > Установить тестовые данные
+  const phoneNumber = CardsD.phoneNumber_5_hasCards;
+  const phoneNumber_pass = CardsD.phoneNumber_5_pass;
+
+  // П.1.Выполнить авторизацию пользователя.
+  await AuthM.customerAuthorization(
+    AuthM.languageRu, phoneNumber, phoneNumber_pass, AuthM.pinCode_Expected);
+
+  await driver.openNotifications();
+  await driver.pause(5000);
+  const otpElement = $('//android.widget.TextView[contains(@text,"200")]'); // @text,"bank"
+  const OTPmessage = await otpElement.getText();
+  /*отладка*/ console.log('\n --> OTPmessage = ' + OTPmessage + '\n');
+  
+  // await browser.url('http://google.com');
+  // // make an asynchronous call using any 3rd party library supporting promises
+  // // e.g. call to backend or db to inject fixture data
+  // await browser.call(() => {
+  //     return somePromiseLibrary.someMethod().then(() => {
+  //         // ...
+  //     })
+  // })
+
+
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// return;
+});
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -1325,14 +1359,14 @@ it.skip('ab-e-d-002: Сводный массив', async () => {
 
 // * Пауза для контроля экрана
 // await driver.pause(5000);
-// await HCardM.cardBalance.waitForDisplayed({timeout: GenM.waitTime});
+// await CardM.cardBalance.waitForDisplayed({timeout: GenM.waitTime});
 // *.Нажать кнопку Назад
 // await driver.back();
 // await DSysM.androidPressBackButton(1);
 // *.Скрыть клавиатуру
 // await driver.hideKeyboard();
 // * Прокрутить до элемента
-// await $(`android=${HCardM.scrollToElement_Up}`);
+// await $(`android=${CardM.scrollToElement_Up}`);
 // * Открыть отчет
 // npx allure open
 

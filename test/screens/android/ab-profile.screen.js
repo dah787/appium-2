@@ -1,4 +1,4 @@
-class Home_ProfileScreen {
+class ProfileScreen {
 
 /* CONSTANTS */
 possibilitiesScreenHeaderRu_Expected = 'Возможности';
@@ -112,4 +112,4 @@ get closeButton() {
 /* EOF class */
 }
 
-module.exports = new Home_ProfileScreen();
+module.exports = new ProfileScreen();

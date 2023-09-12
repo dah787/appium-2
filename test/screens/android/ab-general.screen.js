@@ -1,7 +1,7 @@
 // const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
 const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
 const HomeM   = require('./ab-home.screen');                              // Home screen Model
-const HProfM  = require('./ab-home-profile.screen');                      // Home-Profile screen Model
+const ProfM  = require('./ab-profile.screen');                      // Home-Profile screen Model
 
 class GeneralScreen {
 
@@ -85,12 +85,12 @@ async logOutTheApp() { // appLogOut
     await HomeM.profileButton.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'navBarHomeTab' + '.png');
     await HomeM.profileButton.click(); // profileButton
-    await HProfM.appLogOutItem.waitForDisplayed({timeout: this.waitTime + 5000});
+    await ProfM.appLogOutItem.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');
-    await HProfM.appLogOutItem.click();
+    await ProfM.appLogOutItem.click();
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_4_afterClick_' + 'appLogOutItem' + '.png');
-    await HProfM.appLogOutConfirmButton.waitForDisplayed({timeout: this.waitTime + 5000});
-    await HProfM.appLogOutConfirmButton.click();
+    await ProfM.appLogOutConfirmButton.waitForDisplayed({timeout: this.waitTime + 5000});
+    await ProfM.appLogOutConfirmButton.click();
   }
 }
 
