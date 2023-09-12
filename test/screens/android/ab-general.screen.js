@@ -1,7 +1,7 @@
 // const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
-const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
-const HomeM   = require('./ab-home.screen');                              // Home screen Model
-const ProfM  = require('./ab-profile.screen');                      // Home-Profile screen Model
+// const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
+const HomeM = require('./ab-home.screen');                         // Home screen Model
+const ProfM = require('./ab-profile.screen');                      // Home-Profile screen Model
 
 class GeneralScreen {
 
