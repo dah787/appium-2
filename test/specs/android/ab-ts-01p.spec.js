@@ -775,7 +775,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-it.skip('ab-d-001: Отладка', async () => {
+it.skip('ab-d-001: Debug', async () => {
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-d-001';
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
@@ -811,7 +811,7 @@ it.skip('ab-d-001: Отладка', async () => {
 
   /* пауза */ await driver.pause(5000);
 });
-it.skip('ab-d-002: Сводный массив', async () => {
+it.skip('ab-d-002: Debug > Сводный массив', async () => {
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-d-002';
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
@@ -852,7 +852,7 @@ it.skip('ab-d-002: Сводный массив', async () => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // return;
 });
-it.skip('ab-d-003: OTP message', async () => {
+it.skip('ab-d-003: Debug > System/OTP message', async () => {
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-d-003';
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
