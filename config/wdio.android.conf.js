@@ -15,14 +15,13 @@ const video   = require('wdio-video-reporter'); // import video from 'wdio-video
 // Specify Test Files
 // ==================
 config.specs = [
-  // path.join(process.cwd(),'test/specs/android/webview*.js')
   // path.join(process.cwd(),'test/specs/android/apexbank*.js')
   // path.join(process.cwd(),'test/specs/android/ab-smoke*.spec.js')
   // path.join(process.cwd(),'test/specs/android/ab-ts-11p*.spec.js')
 
-  // path.join(process.cwd(),'test/specs/android/ab-ts-01p.spec.js')
-  path.join(process.cwd(),'test/specs/android/ab-e-ts-001p.spec.js')
-  // path.join(process.cwd(),'test/specs/android/ab-u-ts-1001p.spec.js')
+  // path.join(process.cwd(),'test/specs/android/*.*')
+  path.join(process.cwd(),'test/specs/android/ab-ts-01p.spec.js')
+  // path.join(process.cwd(),'test/specs/android/ab-ts-02p.spec.js')
 ];
 
 // ============
