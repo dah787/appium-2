@@ -1,13 +1,14 @@
 /* to start run : npx wdio config/wdio.android.conf.js
 - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-const AppUM   = require("../../utils/android/ab-app.utils");                // App Utilities Model
+const AppUM   = require("../../utils/android/ab-app.utils");                // App utilities Model
 const AuthM   = require("../../screens/android/ab-authorization.screen");   // Authorization screen Model
 const CardM   = require('../../screens/android/ab-cards.screen');           // Cards screen Model
 const CardsD  = require('../../data/ab-cards.data');                        // Cards Data
-const DSysM   = require("../../utils/android/dt-android.utils");            // Android Device Utilities Model
+const DSysM   = require("../../utils/android/dt-android.utils");            // (Android) Device system utilities Model
 const GenM    = require('../../screens/android/ab-general.screen');         // General screen Model
 const HomeM   = require('../../screens/android/ab-home.screen');            // Home screen Model
 const PayM    = require('../../screens/android/ab-payments.screen');        // Payments screen Model ...ServM
+const SmsM    = require('../../screens/android/ab-smsCodeEnter.screen');    // Sms code enter screen Model
 const TraTCM  = require('../../screens/android/ab-transferToCard.screen');  // Transfer to card screen Model
 
 describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20230914| /Тестов 7 (частично 4)/', () => {
@@ -192,15 +193,15 @@ it('ab-e-tc-04.001p: ! Adding card | Добавление карты /Тест �
 
   // 8.Нажать кнопку Добавить карту.
   await CardM.addCardButtonOnDataInputScreen.click();
-  await CardM.enterSmsCodeScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime});
+  await SmsM.enterSmsCodeScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime});
   // 8.1.Отображается экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить:
   // - экран Введите код из СМС
-  await expect(CardM.enterSmsCodeScreenHeaderRu)
-    .toHaveText(CardM.enterSmsCodeScreenHeaderRu_Expected);
+  await expect(SmsM.enterSmsCodeScreenHeaderRu)
+    .toHaveText(SmsM.enterSmsCodeScreenHeaderRu_Expected);
   // - кнопка Подтвердить
-  await expect(CardM.continueButton_1).toBeDisabled();
+  await expect(SmsM.continueButton).toBeDisabled();
   // 9.Нажать поле ввода кода из СМС.
-  await CardM.smsCodeInput.click();
+  await SmsM.smsCodeInput.click();
   // 9.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
 
@@ -211,12 +212,12 @@ it('ab-e-tc-04.001p: ! Adding card | Добавление карты /Тест �
   await DSysM.androidKeyboardTypeIn(smsCode_Received);
   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна:
   // - введенный код ?
-  await expect(CardM.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(SmsM.smsCodeInput).toHaveText(smsCode_Received);
   // - кнопка Подтвердить
-  await expect(CardM.continueButton_1).toBeEnabled();
+  await expect(SmsM.continueButton).toBeEnabled();
 
   // 11.Нажать кнопку Подтвердить.
-  await CardM.continueButton_1.click();
+  await SmsM.continueButton.click();
   // 11.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
@@ -638,7 +639,7 @@ it('ab-u-tc-04.004p: Hide/Show balance | Скрыть/Показать бала�
 });
 
 // ab-ts-05p: Тестирование переводов |вер.20230913| /Тестов 1 (частично 1)/
-it.only('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на карту по номеру карты /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
+it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на карту по номеру карты /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
   /** > базовые тесты (см. файл ...) <
   > Можно выполнить перевод денежных средств с карты на карту по номеру карты. <
 ПРЕДУСЛОВИЯ:
@@ -725,14 +726,14 @@ it.only('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод н�
   // 3.Нажать кнопку отправки.
   await HomeM.sendButton.click();
   // 3.1.Открыт экран Перевод на карту, где доступны поле выбора карты отправителя, поле номера карты получателя, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить.
-  await expect(CardM.transferToCardScreenHeaderRu).toHaveText(CardM.transferToCardScreenHeaderRu_Expected);
+  await expect(TraTCM.transferToCardScreenHeaderRu).toHaveText(TraTCM.transferToCardScreenHeaderRu_Expected);
 
   // 4.Нажать поле выбора карты.
-  await CardM.senderCardsSelectButton.click();
+  await TraTCM.senderCardsSelectButton.click();
   // 4.1.Открыт список карт отправителя.
   // 5.Выбрать карту отправителя из списка.
   // * Создать массив видимых элементов.
-  let raw_array = await CardM.senderCardsList;
+  let raw_array = await TraTCM.senderCardsList;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   let data_array = [];
   let elementAttributeKey = 'resource-id';
@@ -747,7 +748,7 @@ it.only('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод н�
   // 5.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
 
   // 6.Нажать поле ввода суммы перевода.
-  await CardM.transferAmountInput.click();
+  await TraTCM.transferAmountInput.click();
   // 6.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 7.Ввести сумму перевода.
@@ -758,15 +759,15 @@ it.only('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод н�
   // - введенное значение,
   // const amountSeparatedThousandths = await AppUM.separateThousandthsOfNumber(moneyAmount);
   // await expect(CardM.transferAmountInput).toHaveText(amountSeparatedThousandths);
-  await expect(CardM.transferAmountInput).toHaveText(moneyAmount);
+  await expect(TraTCM.transferAmountInput).toHaveText(moneyAmount);
   // - комиссия
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n .transferCommission = ' + await CardM.transferCommission.getText() +
   //   '\n .transferTotalAmount = ' + await CardM.transferTotalAmount.getText()
   // );
-  const transferCommissionInNumbers = await AppUM.extractNumbersFromString(await CardM.transferCommission.getText());
-  const transferTotalAmountInNumbers = await AppUM.extractNumbersFromString(await CardM.transferTotalAmount.getText());
+  const transferCommissionInNumbers = await AppUM.extractNumbersFromString(await TraTCM.transferCommission.getText());
+  const transferTotalAmountInNumbers = await AppUM.extractNumbersFromString(await TraTCM.transferTotalAmount.getText());
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
@@ -777,11 +778,11 @@ it.only('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод н�
   await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
 
   // 8.Нажать кнопку Продолжить.
-  await CardM.continueButton.click();
+  await TraTCM.continueButton.click();
   // 8.1.Отображается экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
 
   // 9.Нажать поле ввода кода из СМС.
-  await CardM.smsCodeInput.click();
+  await SmsM.smsCodeInput.click();
   // 9.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
 
@@ -792,12 +793,12 @@ it.only('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод н�
   await DSysM.androidKeyboardTypeIn(smsCode_Received);
   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
   // - введенный код ?
-  await expect(CardM.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(SmsM.smsCodeInput).toHaveText(smsCode_Received);
   // - кнопка Подтвердить
-  await expect(CardM.continueButton_1).toBeEnabled();
+  await expect(SmsM.continueButton).toBeEnabled();
 
   // 11.Нажать кнопку Подтвердить.
-  await CardM.continueButton_1.click();
+  await SmsM.continueButton.click();
   // 11.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
@@ -1017,7 +1018,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   // 11.1.Отображается экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
 
   // 12.Нажать поле ввода кода из СМС.
-  await TraTCM.smsCodeInput.click();
+  await SmsM.smsCodeInput.click();
   // 12.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
 
@@ -1028,12 +1029,12 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   await DSysM.androidKeyboardTypeIn(smsCode_Received);
   // 13.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
   // - введенный код ?
-  await expect(TraTCM.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(SmsM.smsCodeInput).toHaveText(smsCode_Received);
   // - кнопка Подтвердить
-  await expect(TraTCM.continueButton_SmsCodeScreen).toBeEnabled();
+  await expect(SmsM.continueButton).toBeEnabled();
 
   // 14.Нажать кнопку Подтвердить.
-  await TraTCM.continueButton_SmsCodeScreen.click();
+  await SmsM.continueButton.click();
   // 14.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС

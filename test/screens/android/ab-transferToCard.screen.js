@@ -39,19 +39,11 @@ get transferTotalAmount() {
 get continueButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/buttonContinue_transferCard"]');}
 
-// экран Перевод на карту > экран Введите код из СМС
-get backButton() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
-get supportContacstButton() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]');}
-get enterSmsCodeScreenHeaderRu() {
-  return $('//android.widget.TextView[@text="Введите код из СМС"]');}
-get smsCodeInput() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')}
-get smsCodeResendButton() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_resend"]');}
-get continueButton_SmsCodeScreen() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
+// экран Перевод > экран (б/и) чека перевода на карту
+get amount() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_amount"]');}
+get homeButton() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_back_to_home"]');}
 
 
 
