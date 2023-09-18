@@ -99,7 +99,7 @@ get contactsButton() {
 get sendButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnSend"]');}
 
-// главный экран: блок Переводы между своими счетами
+// главный экран: блок Переводы между своими счетами/картами
 get transferBetweenCardsButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnTransferBetweenCards"]');}
 
