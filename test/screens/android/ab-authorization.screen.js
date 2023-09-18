@@ -1,5 +1,5 @@
 const AppUM   = require('../../utils/android/ab-app.utils');        // Application Utilities
-const DSysM   = require("../../utils/android/dt-android.utils");    // Android Utilities Model
+const DSysM   = require("../../utils/android/dt-device.utils");    // Android Utilities Model
 const HomeM   = require('../../screens/android/ab-home.screen');    // Home screen Model
 const GenM    = require('../../screens/android/ab-general.screen'); // General screen Model
 const LogInM  = require('./ab-login.screen');                       // Login screen Model

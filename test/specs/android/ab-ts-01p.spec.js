@@ -1,15 +1,15 @@
 /* to start run : npx wdio config/wdio.android.conf.js
 - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-const AppUM   = require("../../utils/android/ab-app.utils");              // App utilities Model
-const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
-const CardsD  = require('../../data/ab-cards.data');                      // Cards Data
-const DSysM   = require("../../utils/android/dt-android.utils");          // (Android) Device system utilities Model
-const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
-const HomeM   = require('../../screens/android/ab-home.screen');          // Home screen Model
-const ProfM   = require('../../screens/android/ab-profile.screen');       // Profile screen Model
-const RegM    = require("../../screens/android/ab-regisration.screen");   // Registration screen Model
+const AppUM  = require("../../utils/android/ab-app.utils");              // App utilities Model
+const AuthM  = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
+const CardsD = require('../../data/ab-cards.data');                      // Cards Data
+const DevM   = require("../../utils/android/dt-device.utils");           // Device utilities Model
+const GenM   = require('../../screens/android/ab-general.screen');       // General screen Model
+const HomeM  = require('../../screens/android/ab-home.screen');          // Home screen Model
+const ProfM  = require('../../screens/android/ab-profile.screen');       // Profile screen Model
+const RegM   = require("../../screens/android/ab-regisration.screen");   // Registration screen Model
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20230914| /Тестов 6 (частично 3)/', () => {
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20230918| /Тестов 6 (частично 3)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await GenM.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
@@ -276,7 +276,7 @@ it.skip('ab-u-tc-01.002p: ? Contacting support | Обращение в служ�
     // // пп.3-4 о совершении телефонного звонка автотестированию не подлежат
 
     // // 5.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-    // await DSysM.androidPressBackButton(3);
+    // await DevM.androidPressBackButton(3);
     // // 5.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов:
     // // - окно > + проверяется в п.1
     // // - элемент выбора средств контактов: Вызов > + проверяется в п.1
@@ -297,7 +297,7 @@ it.skip('ab-u-tc-01.002p: ? Contacting support | Обращение в служ�
   // п.7 о совершении переписки автотестированию не подлежит
 
   // 5a.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  await DSysM.androidPressBackButton(2);
+  await DevM.androidPressBackButton(2);
   // 5a.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов:
   // - окно > + проверяется в п.1
   // - элемент выбора средств контактов: Вызов > + проверяется в п.1
@@ -318,7 +318,7 @@ it.skip('ab-u-tc-01.002p: ? Contacting support | Обращение в служ�
   // п.7a о совершении переписки автотестированию не подлежит
 
   // 8.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  await DSysM.androidPressBackButton(2);
+  await DevM.androidPressBackButton(2);
   // 8.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов:
   // - окно > + проверяется в п.5
   // - элемент выбора средств контактов: Вызов > + проверяется в п.5
@@ -329,7 +329,7 @@ it.skip('ab-u-tc-01.002p: ? Contacting support | Обращение в служ�
 
   // 10.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
   // await driver.back();
-  await DSysM.androidPressBackButton(1);
+  await DevM.androidPressBackButton(1);
   // 10.1.Открыт экран входа в приложение.
   // - экран входа в приложение
   await expect(AuthM.welcomeScreenHeaderRu).toHaveText(AuthM.welcomeScreenHeaderRu_Expected);
@@ -359,7 +359,7 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
   3.1.Чекбокс согласия отображается отмеченным, кнопка Регистрация активна.
 
   4.Нажать кнопку Регистрация.
-  4.1.Отображается экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
+  4.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
   5.Нажать поле ввода кода из СМС.
   5.1.Открыта клавиатура.
 
@@ -369,16 +369,16 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
   6.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
 
   7.Нажать кнопку Подтвердить.
-  7.1.Отображается экран Создайте свой пароль, где доступны поля ввода Создайте пароль, Подтвердите пароль, Введите секретное слово и неактивная кнопка Продолжить.
+  7.1.Открыт экран Создайте свой пароль, где доступны поля ввода Создайте пароль, Подтвердите пароль, Введите секретное слово и неактивная кнопка Продолжить.
 
   8.Ввести создаваемый пароль, подтвердить пароль и ввести секретное слово (в соответствующих полях ввода).
   8.1.В полях ввода отображаются введенные данные (звездочками) и активна кнопка Продолжить.
 
   9.Нажать кнопку Продолжить.
-  9.1.Отображается экран Поздравляем с регистрацией и кнопка Продолжить.
+  9.1.Открыт экран Поздравляем с регистрацией и кнопка Продолжить.
 
   10.Нажать кнопку Продолжить.
-  10.1.Отображается экран Добро пожаловать, где доступны поле кода страны и поле ввода номера телефона.
+  10.1.Открыт экран Добро пожаловать, где доступны поле кода страны и поле ввода номера телефона.
 
   *
 -?- узнать, как автоматически получить код из СМС, а затем использовать его
@@ -402,7 +402,7 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
   await expect(await driver.isKeyboardShown()).toBe(true);
 
   // 2.Ввести номер телефона (незарегистрированный ранее) в поле ввода номера телефона.
-  await DSysM.androidKeyboardTypeIn(RegM.phoneNumber_toBeRegistered); // AuthM.phoneNumber_Expected
+  await DevM.androidKeyboardTypeIn(RegM.phoneNumber_toBeRegistered); // AuthM.phoneNumber_Expected
   // 2.1.Закрыта клавиатура. В поле ввода отображается введенный номер, а также доступны чекбокс согласия с условиями и неактивная кнопка Регистрация:
   // - клавиатура
   // await expect(await driver.isKeyboardShown()).toBe(false); // отключено, т.к. ГитХаб и БраузерСтак не успевают
@@ -437,9 +437,9 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
 // --- ТРЕБУЕТСЯ автоматически получать код из СМС ---
 
   // 6.Ввести полученный код.
-  // await DSysM.androidKeyboardTypeIn(RegM.smsCode_Received);
+  // await DevM.androidKeyboardTypeIn(RegM.smsCode_Received);
   const smsCode_Received = await AppUM.generateRandomChars(6);
-  await DSysM.androidKeyboardTypeIn(smsCode_Received);
+  await DevM.androidKeyboardTypeIn(smsCode_Received);
   // 6.1.В поле ввода отображается введенный код, кнопка Подтвердить активна:
   // - введенный код ?
   await expect(RegM.smsCodeInput).toHaveText(smsCode_Received);
@@ -577,10 +577,10 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   // let qwe = await ProfM.loginOrRegisterScreenEditTextItems[0];
   // await qwe.click();
   await ProfM.loginOrRegisterScreenEditTextItems[0].click();
-  await DSysM.androidKeyboardTypeIn(ProfM.passportData_Expected);
+  await DevM.androidKeyboardTypeIn(ProfM.passportData_Expected);
   // (см.выше для кнопки) await ProfM.birthDateInput.click();
   await ProfM.loginOrRegisterScreenEditTextItems[1].click();
-  await DSysM.androidKeyboardTypeIn(ProfM.birthDate_Expected);
+  await DevM.androidKeyboardTypeIn(ProfM.birthDate_Expected);
   // 3.1.В полях ввода отображаются введенные значения, кнопка Продолжить активна.
   await expect(ProfM.loginOrRegisterScreenEditTextItems[0]).toHaveText(ProfM.passportData_Expected);
   await expect(ProfM.loginOrRegisterScreenEditTextItems[1]).toHaveText(ProfM.birthDate_Expected);
@@ -603,7 +603,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   // ...
 
   // * Вернуться на экран Открыт экран Возможности, нажимая кнопку Назад.
-  await DSysM.androidPressBackButton(3);
+  await DevM.androidPressBackButton(3);
   // if(await AuthM.enterPinCodeScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime})) {
   //   await AppUM.appKeyboardTypeIn(AuthM.pinCode_Expected);
   // }
@@ -784,7 +784,7 @@ it.skip('ab-s-d-001: Debug', async () => {
   // 1.Нажать поле ввода номера телефона.
   await AuthM.phoneNumberInput.click();
   // 2.Ввести номер телефона (уже зарегистрированный) в поле ввода номера телефона.
-  await DSysM.androidKeyboardTypeIn(phoneNumber);
+  await DevM.androidKeyboardTypeIn(phoneNumber);
   // // 3.Нажать поле ввода пароля.
   // await AuthM.passwordInput.click();
 
@@ -898,7 +898,7 @@ it.skip('ab-s-d-003: Debug > System/OTP message', async () => {
 // await CardM.cardBalance.waitForDisplayed({timeout: GenM.waitTime});
 // *.Нажать кнопку Назад
 // await driver.back();
-// await DSysM.androidPressBackButton(1);
+// await DevM.androidPressBackButton(1);
 // *.Скрыть клавиатуру
 // await driver.hideKeyboard();
 // * Прокрутить до элемента

@@ -1,4 +1,25 @@
-class AndroidUtilities { // related to device tested
+class DeviceUtilities { // related to device tested
+
+
+// asd = 'DeviceUtilities - related to device tested!';
+
+
+/* SELECTORS */
+// экран Выберите контакт
+get selectContactScreenHeaderRu() {
+  return $('//android.widget.TextView[@text="Выберите контакт"]');}
+get contactsSearchButton() {
+  // return $('//*[@resource-id="com.android.contacts:id/menu_search"]');}
+  return $('~Поиск в контактах');}
+
+// экран Выберите контакт > экран Поиск контактов
+get contactsSearchInput() {
+  return $('//*[@resource-id="com.google.android.contacts:id/search_view"]');}
+  // return $('//android.widget.EditText[@hint="Поиск контактов"]');}
+get contactName() {
+  return $('//*[@resource-id="com.google.android.contacts:id/cliv_name_textview"]');}
+
+
 
 /* FUNCTIONS */
 async androidPressBackButton(times) {
@@ -6,7 +27,6 @@ async androidPressBackButton(times) {
     await driver.back();
   }
 }
-
 /** KeyCodes List
  * https://thequickadvisor.com/how-do-i-use-my-keyboard-keys-in-appium/
  * KeyCodes List
@@ -251,4 +271,4 @@ async androidKeyboardTypeIn(value) {
 /* EOF class */
 }
 
-module.exports = new AndroidUtilities();
+module.exports = new DeviceUtilities();
