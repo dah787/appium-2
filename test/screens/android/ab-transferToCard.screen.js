@@ -26,6 +26,9 @@ get receiverCardNumber() {
     return $('//android.widget.TextView[@text="Выберите банк"]');}
   get receiverBankSelection() {
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]');}
+
+  get receiverCardsList() {
+    return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardsRecyclerView"]').$$('android.widget.TextView');}
   get receiverCardSelectionCheck() {
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
 

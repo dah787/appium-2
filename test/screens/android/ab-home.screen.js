@@ -16,7 +16,7 @@ get navBarHomeTab() { // до 26.05.2023 - homeScreenNavItem
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_home"]');}
 // get p2pNavigationTab() {
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_transfer"]');}
-get servicesNavigationTab() {
+get navBarPaymentsTab() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_payment"]');}
 
 // главный экран: блок Профиль
