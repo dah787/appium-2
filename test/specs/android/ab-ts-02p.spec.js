@@ -4,7 +4,7 @@ const AppUM   = require("../../utils/android/ab-app.utils");                // A
 const AuthM   = require("../../screens/android/ab-authorization.screen");   // Authorization screen Model
 const CardM   = require('../../screens/android/ab-cards.screen');           // Cards screen Model
 const CardsD  = require('../../data/ab-cards.data');                        // Cards Data
-const CardSeM = require('../../screens/android/ab-cardsSelect.screen');     // Cards select screen Model
+const CardSeM = require('../../screens/android/ab-cardsSelect.screen');     // Card select screen Model
 const DevM    = require("../../utils/android/dt-device.utils");             // Device utilities Model
 const GenM    = require('../../screens/android/ab-general.screen');         // General screen Model
 const HomeM   = require('../../screens/android/ab-home.screen');            // Home screen Model
@@ -1517,7 +1517,7 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
   // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
 
   // 1.Нажать кнопку Платежи в панели навигации.
-  await HomeM.navBarPaymentsTab.click();
+  await HomeM.bottomNavPayments.click();
   // 1.1.Открыт экран Платежи, где доступна кнопка Мобильные операторы.
   // - экран Платежи
   await expect(PayM.paymentsScreenHeaderRu).toHaveText(PayM.paymentsScreenHeaderRu_Expected);

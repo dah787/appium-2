@@ -272,9 +272,9 @@ get amount() { return $()}
 get homeButton() { return $()}
 
 /* AndroidDialerScreen */
-  get androidDialerphoneNumber() { return $()}  // androidDialerPhoneNumField
-get androidDialerCallButton() { return $()}
-get androidDialerSearchView() { return $()}
+get dialerphoneNumber() { return $()}  // androidDialerPhoneNumField
+get dialerCallButton() { return $()}
+get dialerSearchView() { return $()}
 
 /* AppTelegramScreen */
 get supportContactTelegramName() { return $()}

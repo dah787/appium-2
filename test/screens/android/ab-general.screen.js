@@ -67,7 +67,7 @@ async logOutTheApp() { // appLogOut
     // !(await $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]').isDisplayed()) &&
     // !(await AuthM.languageButton.isDisplayed()) &&
     !(await this.languageButton_1.isDisplayed()) &&
-    !(await HomeM.navBarHomeTab.isDisplayed())
+    !(await HomeM.bottomNavHome.isDisplayed())
     ) {
         // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_0_afterCycle_' + (counter + 1) + '.png');
         // /*отладка*/ console.log('\n ---> counter = ' + counter + '\n');
@@ -79,11 +79,11 @@ async logOutTheApp() { // appLogOut
     await this.phoneNumberInputClearButton_1.click();
   }
 
-  if(await HomeM.navBarHomeTab.isDisplayed()) {
-      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'navBarHomeTab' + '.png');
-    await HomeM.navBarHomeTab.click();
+  if(await HomeM.bottomNavHome.isDisplayed()) {
+      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'bottomNavHome' + '.png');
+    await HomeM.bottomNavHome.click();
     await HomeM.profileButton.waitForDisplayed({timeout: this.waitTime + 5000});
-      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'navBarHomeTab' + '.png');
+      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'bottomNavHome' + '.png');
     await HomeM.profileButton.click(); // profileButton
     await ProfM.appLogOutItem.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');

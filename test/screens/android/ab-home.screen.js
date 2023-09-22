@@ -11,14 +11,6 @@ cardBalanceHidingSymbols = '******';
 
 
 /* SELECTORS */
-// главный экран: панель Навигации (Navigation bar)
-get navBarHomeTab() { // до 26.05.2023 - homeScreenNavItem
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_home"]');}
-// get p2pNavigationTab() {
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_transfer"]');}
-get navBarPaymentsTab() {
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_payment"]');}
-
 // главный экран: блок Профиль
 get profileLayout() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/profileLayout"]');}
@@ -103,7 +95,17 @@ get sendButton() {
 get transferBetweenCardsButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnTransferBetweenCards"]');}
 
+// главный экран: нижняя панель навигации
+get bottomNavHome() { // navBarHomeTab
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_home"]');}
+get bottomNavPayments() { // navBarPaymentsTab
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_payment"]');}
+get bottomNavHistory() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_history"]');}
+get bottomNavSupport() {
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_chat"]');}
 
+  
 
 /* EOF class */
 }
