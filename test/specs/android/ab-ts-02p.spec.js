@@ -1141,8 +1141,7 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   const moneyAmount = await AppUM.generateRandomChars(6, 'amount');
 
   // П.1.Выполнить авторизацию пользователя.
-  await AuthM.customerAuthorization(
-    AuthM.languageRu, phoneNumber, phoneNumber_pass, AuthM.pinCode_Expected);
+  await AuthM.customerAuthorization(AuthM.languageRu, phoneNumber, phoneNumber_pass, AuthM.pinCode_Expected);
 
   // * Сохранить сумму баланса карты до операции. 
   const totalBalanceBefore = await HomeM.totalBalance.getText();

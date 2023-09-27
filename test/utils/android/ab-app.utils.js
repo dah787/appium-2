@@ -116,23 +116,28 @@ async generateElementList(raw_array, data_array, elementAttributeKey, elementAtt
     // elementAttributeValue_Current = await element.getAttribute('resource-id');
     elementAttributeValue_Current = await raw_array[i].getAttribute(elementAttributeKey);
     // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_Current = ' + elementAttributeValue_Current + '\n');
-    if(elementAttributeValue_Current == elementAttributeValue_1){
-      // /*отладка*/ console.log(
-      //   '\n --> ' + elementAttributeValue_1       + ' = [' + i + '] elementAttributeValue_1' +
-      //   '\n --> ' + elementAttributeValue_Current + ' = [' + i + '] elementAttributeValue_Current' + '\n');
-      // /*отладка*/ await driver.pause(5000);
-      data_array.push(raw_array[i]); // .push(element)
+    // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_1 = ' + elementAttributeValue_1 + '\n');
+    // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_Current.includes(elementAttributeValue_1) = ' + elementAttributeValue_Current.includes(elementAttributeValue_1) + '\n');
+    // if(elementAttributeValue_Current == elementAttributeValue_1){
+    if(elementAttributeValue_Current !== null){
+      if(elementAttributeValue_Current == elementAttributeValue_1 || elementAttributeValue_Current.includes(elementAttributeValue_1)){
+        // /*отладка*/ console.log(
+        //   '\n --> ' + elementAttributeValue_1       + ' = [' + i + '] elementAttributeValue_1' +
+        //   '\n --> ' + elementAttributeValue_Current + ' = [' + i + '] elementAttributeValue_Current' + '\n');
+        // /*отладка*/ await driver.pause(5000);
+        data_array.push(raw_array[i]); // .push(element)
 
-      if(elementAttributeValue_2 !== undefined){
-        for(let y = i+1; y < l; y++) {
-          elementAttributeValue_Current = await raw_array[y].getAttribute(elementAttributeKey);
-          if(elementAttributeValue_Current == elementAttributeValue_2){
-            // /*отладка*/ console.log(
-            //   '\n --> ' + elementAttributeValue_2       + ' = elementAttributeValue_2' +
-            //   '\n --> ' + elementAttributeValue_Current + ' = elementAttributeValue_Current' + '\n');
-            // /*отладка*/ await driver.pause(5000);
-            data_array.push(raw_array[y]);
-            y = l; // terminates second loop // break;
+        if(elementAttributeValue_2 !== undefined){
+          for(let y = i+1; y < l; y++) {
+            elementAttributeValue_Current = await raw_array[y].getAttribute(elementAttributeKey);
+            if(elementAttributeValue_Current == elementAttributeValue_2){
+              // /*отладка*/ console.log(
+              //   '\n --> ' + elementAttributeValue_2       + ' = elementAttributeValue_2' +
+              //   '\n --> ' + elementAttributeValue_Current + ' = elementAttributeValue_Current' + '\n');
+              // /*отладка*/ await driver.pause(5000);
+              data_array.push(raw_array[y]);
+              y = l; // terminates second loop // break;
+            }
           }
         }
       }
