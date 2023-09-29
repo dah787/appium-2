@@ -1,7 +1,7 @@
 // const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
 // const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
-const HomeM = require('./ab-home.screen');                         // Home screen Model
-const ProfM = require('./ab-profile.screen');                      // Home-Profile screen Model
+const SHome = require('./ab-home.screen');    // Home screen
+const SProf = require('./ab-profile.screen'); // Profile screen
 
 class GeneralScreen {
 
@@ -67,7 +67,7 @@ async logOutTheApp() { // appLogOut
     // !(await $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]').isDisplayed()) &&
     // !(await AuthM.languageButton.isDisplayed()) &&
     !(await this.languageButton_1.isDisplayed()) &&
-    !(await HomeM.bottomNavHome.isDisplayed())
+    !(await SHome.bottomNavHome.isDisplayed())
     ) {
         // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_0_afterCycle_' + (counter + 1) + '.png');
         // /*отладка*/ console.log('\n ---> counter = ' + counter + '\n');
@@ -79,18 +79,18 @@ async logOutTheApp() { // appLogOut
     await this.phoneNumberInputClearButton_1.click();
   }
 
-  if(await HomeM.bottomNavHome.isDisplayed()) {
+  if(await SHome.bottomNavHome.isDisplayed()) {
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'bottomNavHome' + '.png');
-    await HomeM.bottomNavHome.click();
-    await HomeM.profileButton.waitForDisplayed({timeout: this.waitTime + 5000});
+    await SHome.bottomNavHome.click();
+    await SHome.profileButton.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'bottomNavHome' + '.png');
-    await HomeM.profileButton.click(); // profileButton
-    await ProfM.appLogOutItem.waitForDisplayed({timeout: this.waitTime + 5000});
+    await SHome.profileButton.click(); // profileButton
+    await SProf.appLogOutItem.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');
-    await ProfM.appLogOutItem.click();
+    await SProf.appLogOutItem.click();
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_4_afterClick_' + 'appLogOutItem' + '.png');
-    await ProfM.appLogOutConfirmButton.waitForDisplayed({timeout: this.waitTime + 5000});
-    await ProfM.appLogOutConfirmButton.click();
+    await SProf.appLogOutConfirmButton.waitForDisplayed({timeout: this.waitTime + 5000});
+    await SProf.appLogOutConfirmButton.click();
   }
 }
 

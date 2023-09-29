@@ -61,7 +61,7 @@ get supportAdditionalLinkFacebookButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInFacebook"]');}
 get supportAdditionalLinkWebSiteButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_oficialWebSite"]');}
-get supportAdditionalLinksButtons() {
+get supportAdditionalLinksList() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/additionalConnection_card"]').$$('android.widget.TextView');}
 
 

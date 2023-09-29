@@ -12,7 +12,7 @@ const SSup   = require("../../screens/android/ab-support.screen");       // Supp
 const UApp   = require("../../utils/android/ab-app.utils");              // Application utilities
 const UDev   = require("../../utils/android/dt-device.utils");           // Device utilities
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20230928| /Тестов 8 (частично 4)/', () => {
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20230929| /Тестов 8 (частично 4)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
@@ -447,7 +447,7 @@ it('ab-u-tc-01.003p: Call support | Позвонить в службу подд�
     // 5.Выполнить шаги 3-4 для каждого телефонного номера.
   }
 });
-it('ab-u-tc-01.004p: !? Write to support | Написать в службу поддержки /Тест выполнен частично: -1-Telegram является каналом, -2-WhatApp подключен к Telegram/', async () => {
+it('ab-u-tc-01.004p: ? Write to support | Написать в службу поддержки /Тест выполнен частично: -1-Telegram является каналом, -2-WhatApp подключен к Telegram/', async () => {
   /**
   > Можно осуществить контакты со службой поддержки приложения, написав в мессенджер. <
 ПРЕДУСЛОВИЯ:
@@ -550,6 +550,129 @@ it('ab-u-tc-01.004p: !? Write to support | Написать в службу по
     await expect(SSup.supportWindowLabel).toHaveText(SSup.supportWindowLabelMessageRu_Expected);
   
     // 5.Выполнить шаги 3-4 для каждого мессенджера.
+  }
+});
+it.only('ab-u-tc-01.005p: ? Additional communication | Дополнительная связь /Тест выполнен частично: -1-Telegram является каналом, -2-.../', async () => {
+  /**
+  > Можно осуществить связь с банком, используя дополнительные ресурсы. <
+ПРЕДУСЛОВИЯ:
+  1.Установлены в тестируемом устройстве веб-браузер, соответствующие приложения (Telegram, Instagram...), а также выполнен вход в аккаунты пользователя.
+  2.Выполнена авторизация пользователя в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в панели навигации доступна кнопка Поддержка.
+ПОСТУСЛОВИЯ: 1.Выйти из приложения.
+  *
+ШАГИ:
+  1.Нажать кнопку Поддержка.
+  1.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
+
+  2.Нажать ресурс (любой).
+  2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
+
+    -!-1.Выполнить требуемые действия, используя информацию ресурса.
+    -!-1.1.-
+
+  3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
+  3.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
+
+  4.Выполнить шаги 2-3 для каждого мессенджера.
+  *
+  */
+
+  // > Вывести информацию о тесте в консоль
+  tcNum = 'ab-u-tc-01.005p';
+  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+
+  // > Установить тестовые данные
+  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+
+  // П.1.Выполнить авторизацию пользователя.
+  await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+
+  // 1.Нажать кнопку Поддержка.
+  await SHome.bottomNavSupport.click();
+  // 1.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
+  // - экран Поддержка
+  await expect(SSup.supportScreenHeader).toHaveText(SSup.supportScreenHeaderRu_Expected);
+  // - список ресурсов банка (заголовок)
+  await expect(SSup.supportAdditionalLinksLabel).toHaveText(SSup.supportAdditionalLinksLabelRu_Expected);
+
+  // * Прокрутить, делая видимыми следующие элементы
+  await $(`android=${UApp.scrollForward}`);
+  // * Создать массив видимых элементов.
+  let raw_array = await SSup.supportAdditionalLinksList;
+  // const raw_array = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  // /*отладка*/ console.log(
+  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
+  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
+  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
+  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
+  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n');
+  let data_array = [];
+  const elementAttributeKey = SSup.elementAttributeKey;
+  const elementAttributeValue = SSup.elementAttributeValue_Part;
+  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+  // /*отладка*/ console.log(
+  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
+  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
+  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
+  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n');
+  // /*отладка*/ await driver.pause(5000);
+  // * Контролируем непустоту массива.
+  if(data_array.length == 0){
+    throw "не сформирован data_array (массив доп.ресурсов) = '" + data_array + "'";
+  }
+
+  // // * Прокрутить, делая видимыми следующие элементы
+  // await $(`android=${UApp.scrollForward}`);
+  // raw_array = await SSup.supportAdditionalLinksList;
+  // await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // // /*отладка*/ console.log('\n --> data_array-1 = ' + data_array + ' | data_array-1.length = '+data_array.length);
+
+  /*отладка*/ for (let i = 0; i < data_array.length; i++) {
+    console.log('data_array[' + i + ']' + await data_array[i].getText());
+  }
+  /*отладка*/ await driver.pause(5000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+  let supportContact = '';
+  for (let i = 0; i < data_array.length; i++) {
+    // 2.Нажать ресурс (любой).
+    // * Сохранить название мессенджера.
+    supportContact = await data_array[i].getText();
+    // * Убрать из телефонного номера любые знаки, кроме цифр.
+    supportContact = await UApp.extractNumbersFromString(supportContact);
+    supportContact = String(supportContact);
+    // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
+    await data_array[i].click();
+    // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
+    // await SdTlg.supportChatScreenHeader.waitForDisplayed({timeout: SGen.waitTime + 10000});
+    await driver.pause(5000);
+    // /*отладка*/ console.log('\n --> SdTlg.supportChatScreenHeader = ' + await SdTlg.supportChatScreenHeader.getText() + '\n');
+
+    // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
+    do {
+      await UDev.androidPressBackButton(1);
+    } while (!await SSup.supportAdditionalLinksLabel.isDisplayed());
+    // 3.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
+    // - список ресурсов банка (заголовок)
+    // ! см. внутри while выше
+
+    // 4.Выполнить шаги 2-3 для каждого мессенджера.
   }
 });
 
