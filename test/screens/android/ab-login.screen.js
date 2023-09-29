@@ -23,7 +23,6 @@ supportContactsListTitleEn_Expected = 'Support contact';
 supportContactsListTitleRu_Expected = 'Контакт со службой поддержки';
 supportContactsListTitleUz_Expected = 'Qo‘llab-quvvatlash aloqa';
 supportContactphoneNumber_Expected = '+998 91 394 11 13';
-supportContactTelegramName_Expected = 'Apexbank'; // 'Jaksibay Khakimov'
 
 
 

@@ -84,30 +84,6 @@ async appKeyboardTypeIn(value) {
     }
   }//);
 }
-// async generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue) { // appList(raw_array, ...)
-//   let elementAttributeValueCurrent = '';
-//   for (const element of raw_array) {
-//     // elementAttributeValueCurrent = await element.getAttribute('resource-id');
-//     elementAttributeValueCurrent = await element.getAttribute(elementAttributeKey);
-//     if(elementAttributeValueCurrent == elementAttributeValue){
-//       // /*отладка*/ console.log('\n --> elementAttributeValueCurrent = ' + elementAttributeValueCurrent + '\n');
-//       data_array.push(element);
-//     }
-//   }
-//   /*отладка*/ console.log(
-//     '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
-//     '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
-//     // '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
-//     // '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
-//     '\n');
-//   /*отладка*/ console.log(
-//     '\n --> ' + await data_array[0].getText() + ' = data_array[0].getText()' +
-//     '\n --> ' + await data_array[1].getText() + ' = data_array[1].getText()' +
-//     // '\n --> ' + await data_array[2].getText() + ' = data_array[2].getText()' +
-//     // '\n --> ' + await data_array[3].getText() + ' = data_array[3].getText()' +
-//     '\n');
-//   /*отладка*/ await driver.pause(10000);
-// }
 async generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1, elementAttributeValue_2) {
   let elementAttributeValue_Current = '';
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
