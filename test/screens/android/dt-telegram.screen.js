@@ -1,7 +1,8 @@
-class AppTelegramScreen { // related to device tested
+class TelegramScreen { // related to device tested
 
 /* CONSTANTS */
 supportChatScreenHeaderEn_Expected = 'Apexbank'; // 'Jaksibay Khakimov'
+supportChatScreenHeader_1En_Expected = 'APEX BANK';
 
 
 
@@ -13,6 +14,8 @@ supportChatScreenHeaderEn_Expected = 'Apexbank'; // 'Jaksibay Khakimov'
 
 get supportChatScreenHeader() { // supportContactTelegramName
   return $('//android.widget.TextView[@text="Apexbank"]');} // "Jaksibay Khakimov"
+get supportChatScreenHeader_1() {
+  return $('//android.widget.TextView[@text="APEX BANK"]');}
 get supportChatJoinButton() { // supportContactTelegramJoinButton
   return $('//android.view.View[@content-desc="ПРИСОЕДИНИТЬСЯ"]');}
 
@@ -28,4 +31,4 @@ get textInputRu() {
 /* EOF class */
 }
 
-module.exports = new AppTelegramScreen();
+module.exports = new TelegramScreen();

@@ -1,19 +1,21 @@
 /* to start run : npx wdio config/wdio.android.conf.js
 - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-const DCard   = require('../../data/ab-cards.data');                        // Cards data
-const SAuth   = require("../../screens/android/ab-authorization.screen");   // Authorization screen
-const SCard   = require('../../screens/android/ab-cards.screen');           // Cards screen
-const SCardSe = require('../../screens/android/ab-cardsSelect.screen');     // Card select screen
-const SGen    = require('../../screens/android/ab-general.screen');         // General screen
-const SHome   = require('../../screens/android/ab-home.screen');            // Home screen
-const SPay    = require('../../screens/android/ab-payments.screen');        // Payments screen
-const SSms    = require('../../screens/android/ab-smsCodeEnter.screen');    // Sms code enter screen
-const STraBe  = require('../../screens/android/ab-transferBetweenCards.screen');// Transfer between cards
-const STraTo  = require('../../screens/android/ab-transferToCard.screen');  // Transfer to card screen
-const UApp    = require("../../utils/android/ab-app.utils");                // Application utilities
-const UDev    = require("../../utils/android/dt-device.utils");             // Device utilities
+const DCard   = require('../../data/ab-cards.data');                        // data > Cards 
 
-describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20230929| /Тестов 9 (частично 6)/', () => {
+const SAuth   = require("../../screens/android/ab-authorization.screen");   // screen > Authorization
+const SCard   = require('../../screens/android/ab-cards.screen');           // screen > Cards
+const SCardSe = require('../../screens/android/ab-cardsSelect.screen');     // screen > Card select
+const SGen    = require('../../screens/android/ab-general.screen');         // screen > General
+const SHome   = require('../../screens/android/ab-home.screen');            // screen > Home
+const SPay    = require('../../screens/android/ab-payments.screen');        // screen > Payments
+const SSms    = require('../../screens/android/ab-smsCodeEnter.screen');    // screen > Sms code enter
+const STraBe  = require('../../screens/android/ab-transferBetweenCards.screen');//... > Transfer between cards
+const STraTo  = require('../../screens/android/ab-transferToCard.screen');  // screen > Transfer to card
+
+const UApp    = require("../../utils/android/ab-app.utils");                // utilities > Application
+const UDev    = require("../../utils/android/dt-device.utils");             // utilities > Device
+
+describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231004| /Тестов 9 (частично 6)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 'o'); // o - operation / e - e2e < typeOfTest
@@ -928,8 +930,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   const moneyAmount = await UApp.generateRandomChars(6, 'amount');
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
 
   // * Сохранить сумму баланса карты до операции. 
   const totalBalanceBefore = await SHome.totalBalance.getText();
@@ -1215,6 +1216,7 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   await UDev.androidKeyboardTypeIn(moneyAmount);
   // * Скрыть клавиатуру (добавить время для формирования значения SCard.transferTotalAmount)
   await driver.hideKeyboard();
+  await driver.pause(SGen.waitTime);
   // 12.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
   // - введенное значение
   // const amountSeparatedThousandths = await UApp.separateThousandthsOfNumber(moneyAmount);

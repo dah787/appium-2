@@ -1,18 +1,22 @@
 /* to start run : npx wdio config/wdio.android.conf.js
 - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-const DCard  = require('../../data/ab-cards.data');                      // Cards data
-const SAuth  = require("../../screens/android/ab-authorization.screen"); // Authorization screen (model)
-const SdDial = require("../../screens/android/dt-dialer.screen");        // Device dialer screen (model)
-const SdTlg  = require("../../screens/android/dt-appTelegram.screen");   // Device Telegram app screen (model)
-const SGen   = require('../../screens/android/ab-general.screen');       // General screen (model)
-const SHome  = require('../../screens/android/ab-home.screen');          // Home screen (model)
-const SProf  = require('../../screens/android/ab-profile.screen');       // Profile screen (model)
-const SReg   = require("../../screens/android/ab-regisration.screen");   // Registration screen (model)
-const SSup   = require("../../screens/android/ab-support.screen");       // Support screen (model)
-const UApp   = require("../../utils/android/ab-app.utils");              // Application utilities
-const UDev   = require("../../utils/android/dt-device.utils");           // Device utilities
+const DCard  = require('../../data/ab-cards.data');                       // data > Cards
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20230929| /Тестов 8 (частично 4)/', () => {
+const SAuth  = require("../../screens/android/ab-authorization.screen");  // screen > Authorization
+const SGen   = require('../../screens/android/ab-general.screen');        // screen > General
+const SHome  = require('../../screens/android/ab-home.screen');           // screen > Home
+const SProf  = require('../../screens/android/ab-profile.screen');        // screen > Profile
+const SReg   = require("../../screens/android/ab-regisration.screen");    // screen > Registration
+const SSup   = require("../../screens/android/ab-support.screen");        // screen > Support
+
+const SChrom = require("../../screens/android/dt-chrome.screen");         // screen > Chrome app
+const SDial  = require("../../screens/android/dt-dialer.screen");         // screen > Dialer app
+const STlg   = require("../../screens/android/dt-telegram.screen");       // screen > Telegram app
+
+const UApp   = require("../../utils/android/ab-app.utils");               // utilities > App
+const UDev   = require("../../utils/android/dt-device.utils");            // utilities > Device
+
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231004| /Тестов 9 (частично 5)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
@@ -267,14 +271,14 @@ it.skip('ab-u-tc-01.002p: !? Contacting support | Обращение в служ
     // // - экран устройства для совершения телефонного вызова
     // // -?-
     // // - кнопка совершения телефонного вызова
-    // await expect(DSdDial.dialerCallButton).toBeDisplayed();
+    // await expect(DSDial.dialerCallButton).toBeDisplayed();
     // // - номер телефона службы поддержки
-    // // await expect(DSdDial.androidDialerphoneNumber).toBeDisplayed(); // в этом поле номер не читается, поэтому:
+    // // await expect(DSDial.androidDialerphoneNumber).toBeDisplayed(); // в этом поле номер не читается, поэтому:
     // // -* скрыть клавиатуру, нажав кнопку Назад и сравниваем номера:
     // // await driver.back();
-    // // // /*отладка*/ console.log('\n --> phoneNumber = ' + await ASdDial.dialerSearchView.getText() + '\n');
-    // // await expect(DSdDial.dialerSearchView).toHaveText(SAuth.supportContactphoneNumber_Expected);
-    // await expect(DSdDial.androidDialerphoneNumber).toHaveText(SAuth.supportContactphoneNumber_Expected);
+    // // // /*отладка*/ console.log('\n --> phoneNumber = ' + await ASDial.dialerSearchView.getText() + '\n');
+    // // await expect(DSDial.dialerSearchView).toHaveText(SAuth.supportContactphoneNumber_Expected);
+    // await expect(DSDial.androidDialerphoneNumber).toHaveText(SAuth.supportContactphoneNumber_Expected);
     
     // // пп.3-4 о совершении телефонного звонка автотестированию не подлежат
 
@@ -290,12 +294,12 @@ it.skip('ab-u-tc-01.002p: !? Contacting support | Обращение в служ
   await SAuth.supportContactsListItemTelegram.click();
   // 6.1.Открыт экран приложения Telegram с перепиской со службой поддержки, где отображается предыдущая переписка и доступно поле ввода сообщения:
   // - экран приложения Telegram с перепиской со службой поддержки > waitForDisplayed: v.13 не успевает открыть Telegram (почему-то сначала запускает браузер)
-  await SdTlg.supportChatScreenHeader.waitForDisplayed({ timeout: 20000 });
-  await expect(SdTlg.supportChatScreenHeader).toHaveText(SdTlg.supportChatScreenHeaderEn_Expected);
+  await STlg.supportChatScreenHeader.waitForDisplayed({ timeout: 20000 });
+  await expect(STlg.supportChatScreenHeader).toHaveText(STlg.supportChatScreenHeaderEn_Expected);
   // - кнопка присоединиться к Telegram-каналу
-  await expect(SdTlg.supportChatJoinButton).toBeDisplayed();
+  await expect(STlg.supportChatJoinButton).toBeDisplayed();
   // // - поле ввода сообщения
-  // await expect(SdTlg.textInput).toBeDisplayed();
+  // await expect(STlg.textInput).toBeDisplayed();
   
   // п.7 о совершении переписки автотестированию не подлежит
 
@@ -311,12 +315,12 @@ it.skip('ab-u-tc-01.002p: !? Contacting support | Обращение в служ
   await SAuth.supportContactsListItemWhatsApp.click();
   // 6a.1.Открыт экран приложения WhatsApp с перепиской со службой поддержки, где отображается предыдущая переписка и доступно поле ввода сообщения:
   // - экран приложения WhatsApp с перепиской со службой поддержки
-  await SdTlg.supportChatScreenHeader.waitForDisplayed({ timeout: 20000 });
-  await expect(SdTlg.supportChatScreenHeader).toHaveText(SdTlg.supportChatScreenHeaderEn_Expected);
+  await STlg.supportChatScreenHeader.waitForDisplayed({ timeout: 20000 });
+  await expect(STlg.supportChatScreenHeader).toHaveText(STlg.supportChatScreenHeaderEn_Expected);
   // - кнопка присоединиться к WhatsApp-каналу
-  await expect(SdTlg.supportChatJoinButton).toBeDisplayed();
+  await expect(STlg.supportChatJoinButton).toBeDisplayed();
   // // - поле ввода сообщения
-  // await expect(SdTlg.supportContactWhatsAppMessageInput).toBeDisplayed();
+  // await expect(STlg.supportContactWhatsAppMessageInput).toBeDisplayed();
   
   // п.7a о совершении переписки автотестированию не подлежит
 
@@ -433,10 +437,10 @@ it('ab-u-tc-01.003p: Call support | Позвонить в службу подд�
     // - экран устройства для совершения телефонного вызова
     // -?-
     // - кнопка совершения телефонного вызова
-    await expect(SdDial.dialerCallButton).toBeDisplayed();
+    await expect(SDial.dialerCallButton).toBeDisplayed();
     // - номер телефона службы поддержки
-    // /*отладка*/ console.log('\n --> supportContact (in SdDial) = ' + await SdDial.dialerphoneNumber.getText() + '\n');
-    await expect(SdDial.dialerphoneNumber).toHaveText(supportContact);
+    // /*отладка*/ console.log('\n --> supportContact (in SDial) = ' + await SDial.dialerphoneNumber.getText() + '\n');
+    await expect(SDial.dialerphoneNumber).toHaveText(supportContact);
     
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     await UDev.androidPressBackButton(3);
@@ -525,23 +529,17 @@ it('ab-u-tc-01.004p: ? Write to support | Написать в службу по�
     throw "не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
   }
 
-  let supportContact = '';
+
   for (let i = 0; i < data_array.length; i++) {
     // 3.Нажать мессенджер (любой).
-    // * Сохранить название мессенджера.
-    supportContact = await data_array[i].getText();
-    // * Убрать из телефонного номера любые знаки, кроме цифр.
-    supportContact = await UApp.extractNumbersFromString(supportContact);
-    supportContact = String(supportContact);
-    // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
     await data_array[i].click();
     // 3.1.Открыт в выбранном мессенджере экран переписки со службой поддержки, где отображается предыдущая переписка, доступно поле ввода сообщения.
-    await SdTlg.supportChatScreenHeader.waitForDisplayed({timeout: SGen.waitTime + 10000});
+    await STlg.supportChatScreenHeader.waitForDisplayed({timeout: SGen.waitTime + 10000});
     // - экран переписки со службой поддержки
-    await expect(SdTlg.supportChatScreenHeader).toHaveText(SdTlg.supportChatScreenHeaderEn_Expected);
+    await expect(STlg.supportChatScreenHeader).toHaveText(STlg.supportChatScreenHeaderEn_Expected);
     // - поле ввода сообщения
-    // await expect(SdTlg.textInput).toBeDisplayed();
-    // /*отладка*/ console.log('\n --> SdTlg.supportChatScreenHeader = ' + await SdTlg.supportChatScreenHeader.getText() + '\n');
+    // await expect(STlg.textInput).toBeDisplayed();
+    // /*отладка*/ console.log('\n --> STlg.supportChatScreenHeader = ' + await STlg.supportChatScreenHeader.getText() + '\n');
     
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     await UDev.androidPressBackButton(2);
@@ -552,7 +550,7 @@ it('ab-u-tc-01.004p: ? Write to support | Написать в службу по�
     // 5.Выполнить шаги 3-4 для каждого мессенджера.
   }
 });
-it.only('ab-u-tc-01.005p: ? Additional communication | Дополнительная связь /Тест выполнен частично: -1-Telegram является каналом, -2-.../', async () => {
+it('ab-u-tc-01.005p: ? Additional communication | Дополнительная связь /Тест выполнен частично: -1-Telegram является каналом, -2-.../', async () => {
   /**
   > Можно осуществить связь с банком, используя дополнительные ресурсы. <
 ПРЕДУСЛОВИЯ:
@@ -573,7 +571,7 @@ it.only('ab-u-tc-01.005p: ? Additional communication | Дополнительн�
   3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
   3.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
 
-  4.Выполнить шаги 2-3 для каждого мессенджера.
+  4.Выполнить шаги 2-3 для каждого ресурса.
   *
   */
 
@@ -600,7 +598,6 @@ it.only('ab-u-tc-01.005p: ? Additional communication | Дополнительн�
   await $(`android=${UApp.scrollForward}`);
   // * Создать массив видимых элементов.
   let raw_array = await SSup.supportAdditionalLinksList;
-  // const raw_array = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   // /*отладка*/ console.log(
   //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
@@ -619,60 +616,86 @@ it.only('ab-u-tc-01.005p: ? Additional communication | Дополнительн�
   //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
   //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
   //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n --> ' + await data_array[4].getAttribute('resource-id') + ' = data_array[4]' +
   //   '\n');
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
     throw "не сформирован data_array (массив доп.ресурсов) = '" + data_array + "'";
   }
-
-  // // * Прокрутить, делая видимыми следующие элементы
-  // await $(`android=${UApp.scrollForward}`);
-  // raw_array = await SSup.supportAdditionalLinksList;
-  // await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // // /*отладка*/ console.log('\n --> data_array-1 = ' + data_array + ' | data_array-1.length = '+data_array.length);
-
-  /*отладка*/ for (let i = 0; i < data_array.length; i++) {
-    console.log('data_array[' + i + ']' + await data_array[i].getText());
-  }
-  /*отладка*/ await driver.pause(5000);
-
-
-
-
-
-
-
-
-
-
-
-
+  // /*отладка*/ for (let i = 0; i < data_array.length; i++) {
+  //   console.log('data_array[' + i + ']' + await data_array[i].getText());
+  // }
+  // /*отладка*/ await driver.pause(5000);
 
   let supportContact = '';
   for (let i = 0; i < data_array.length; i++) {
     // 2.Нажать ресурс (любой).
     // * Сохранить название мессенджера.
-    supportContact = await data_array[i].getText();
-    // * Убрать из телефонного номера любые знаки, кроме цифр.
-    supportContact = await UApp.extractNumbersFromString(supportContact);
-    supportContact = String(supportContact);
+    supportContact = await data_array[i].getAttribute('resource-id'); // ...getText();
     // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
-    await data_array[i].click();
-    // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
-    // await SdTlg.supportChatScreenHeader.waitForDisplayed({timeout: SGen.waitTime + 10000});
-    await driver.pause(5000);
-    // /*отладка*/ console.log('\n --> SdTlg.supportChatScreenHeader = ' + await SdTlg.supportChatScreenHeader.getText() + '\n');
+
+    if(supportContact.includes('Tg')){
+      // /*отладка*/ console.log('\n --> supportContact.includes(Tg) = ' + supportContact + '\n');
+      await data_array[i].click();
+      // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
+      await STlg.supportChatScreenHeader_1.waitForDisplayed({timeout: SGen.waitTime + 10000});
+      // - экран переписки со службой поддержки
+      await expect(STlg.supportChatScreenHeader_1).toHaveText(STlg.supportChatScreenHeader_1En_Expected);
+
+    } else if(supportContact.includes(SGen.textLinkedIn)){
+      // /*отладка*/ console.log('\n --> supportContact.includes(LinkedIn) = ' + supportContact + '\n');
+      await data_array[i].click();
+      // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
+      await SChrom.browserUrlBar.waitForDisplayed({timeout: SGen.waitTime + 10000});
+      // - адрес ресурса
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SChrom.urlLinkedIn_Expected);
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SGen.textApexbank);
+
+    } else if(supportContact.includes(SGen.textInstagram)){
+      // /*отладка*/ console.log('\n --> supportContact.includes(Instagram) = ' + supportContact + '\n');
+      await data_array[i].click();
+      // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
+      await SChrom.browserUrlBar.waitForDisplayed({timeout: SGen.waitTime + 10000});
+      // - адрес ресурса
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SChrom.urlInstagram_Expected);
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SGen.textApexbank);
+
+    } else if(supportContact.includes(SGen.textFacebook)){
+      // /*отладка*/ console.log('\n --> supportContact.includes(Facebook) = ' + supportContact + '\n');
+      await data_array[i].click();
+      // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
+      await SChrom.browserUrlBar.waitForDisplayed({timeout: SGen.waitTime + 10000});
+      // - адрес ресурса
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SChrom.urlFacebook_Expected);
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SGen.textApexbank);
+
+    } else if(supportContact.includes(SGen.textWebSite)){
+      // /*отладка*/ console.log('\n --> supportContact.includes(WebSite) = ' + supportContact + '\n');
+      await data_array[i].click();
+      // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
+      await SChrom.browserUrlBar.waitForDisplayed({timeout: SGen.waitTime + 10000});
+      // - адрес ресурса
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SChrom.urlApexbank_Expected);
+      await expect(await SChrom.browserUrlBar.getText()).toContain(SGen.textApexbank);
+
+    } else {
+      // /*отладка*/ console.log('\n --> в supportContact нет искомого содержимого: ' + supportContact + '\n');
+      throw "в supportContact нет искомого содержимого = '" + supportContact + "'";
+    }
 
     // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-    do {
+    // do {
+    //   await UDev.androidPressBackButton(1);
+    // } while (!await SSup.supportAdditionalLinksLabel.isDisplayed());
+    while(!await SSup.supportAdditionalLinksLabel.isDisplayed()){
       await UDev.androidPressBackButton(1);
-    } while (!await SSup.supportAdditionalLinksLabel.isDisplayed());
+    };
     // 3.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
     // - список ресурсов банка (заголовок)
     // ! см. внутри while выше
 
-    // 4.Выполнить шаги 2-3 для каждого мессенджера.
+    // 4.Выполнить шаги 2-3 для каждого ресурса.
   }
 });
 

@@ -1,5 +1,3 @@
-// const AuthM   = require("../../screens/android/ab-authorization.screen"); // Authorization screen Model
-// const DSysM   = require("../../utils/android/dt-android.utils");          // Android Device Utilities Model
 const SHome = require('./ab-home.screen');    // Home screen
 const SProf = require('./ab-profile.screen'); // Profile screen
 
@@ -8,6 +6,13 @@ class GeneralScreen {
 /* CONSTANTS */
 appPackage = 'com.fincube.apexbank.debug';
 appActivity = 'com.fincube.apexbank.presentation.ui.activity.MainActivity';
+
+textApexbank = 'apexbank';
+textFacebook = 'Facebook';
+textInstagram = 'Instagram';
+textLinkedIn = 'LinkedIn';
+textWebSite = 'WebSite';
+
 waitTime = 5000;
 
 

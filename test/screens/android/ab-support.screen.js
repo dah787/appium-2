@@ -8,8 +8,6 @@ supportAdditionalLinksLabelRu_Expected = 'Дополнительная связ�
 supportWindowLabelCallRu_Expected = 'Позвонить в банк';
 supportWindowLabelMessageRu_Expected = 'Написать в банк';
 
-// supportChatScreenHeaderEn_Expected = 'Apexbank';
-
 elementAttributeKey = 'resource-id';
 elementAttributeValue_Part = 'com.fincube.apexbank.debug:id/tvSupport_';
 
@@ -53,6 +51,7 @@ get supportAdditionalLinkTelegramButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_channelInTg"]');}
 get supportAdditionalLinkLinkedInButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInLinkedIn"]');}
+
 get supportAdditionalLinkLinkedInButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInLinkedIn"]');}
 get supportAdditionalLinkInstagramButton() {
