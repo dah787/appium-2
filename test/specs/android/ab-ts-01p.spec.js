@@ -16,7 +16,7 @@ const STlg   = require("../../screens/android/dt-telegram.screen");       // scr
 const UApp   = require("../../utils/android/ab-app.utils");               // utilities > App
 const UDev   = require("../../utils/android/dt-device.utils");            // utilities > Device
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231004| /Тестов 9 (частично 5)/', () => {
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231005| /Тестов 10 (частично 5)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
@@ -59,7 +59,7 @@ describe('ab-ts-01p: Testing of operations provision | Тестирование 
     // await driver.terminateApp(SGen.appPackage);
   });
 
-// ab-ts-01p: Тестирование поддержки |вер.20230922| /Тестов 3 (частично 2)/
+// ab-ts-01p: Тестирование поддержки |вер.20230922| /Тестов 6 (частично 3)/
 it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
    * - 2 Стр. выбор языка, выбор языка (Русский) (ш?: П.1)
@@ -424,7 +424,7 @@ it('ab-u-tc-01.003p: Call support | Позвонить в службу подд�
   }
 
   let supportContact = '';
-  for (let i = 0; i < data_array.length; i++) {
+  for(let i = 0; i < data_array.length; i++){
     // 3.Нажать телефонный номер (любой).
     // * Сохранить телефонный номер.
     supportContact = await data_array[i].getText();
@@ -529,8 +529,7 @@ it('ab-u-tc-01.004p: ? Write to support | Написать в службу по�
     throw "не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
   }
 
-
-  for (let i = 0; i < data_array.length; i++) {
+  for(let i = 0; i < data_array.length; i++){
     // 3.Нажать мессенджер (любой).
     await data_array[i].click();
     // 3.1.Открыт в выбранном мессенджере экран переписки со службой поддержки, где отображается предыдущая переписка, доступно поле ввода сообщения.
@@ -696,6 +695,111 @@ it('ab-u-tc-01.005p: ? Additional communication | Дополнительная �
     // ! см. внутри while выше
 
     // 4.Выполнить шаги 2-3 для каждого ресурса.
+  }
+});
+it('ab-u-tc-01.006p: ? Frequently asked questions | Частые вопросы /Теряет элемент (сбивается и не находит) после прокрутки/', async () => {
+  /**
+  > Можно получить информацию о работе банка, используя ответы на часто задаваемые вопросы. <
+ПРЕДУСЛОВИЯ:
+  1.Выполнена авторизация пользователя в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в панели навигации доступна кнопка Поддержка.
+ПОСТУСЛОВИЯ: 1.Выйти из приложения.
+  *
+ШАГИ:
+  1.Нажать кнопку Поддержка.
+  1.1.Открыт экран Поддержка, где доступна кнопка Часто задаваемые вопросы.
+
+  2.Нажать кнопку Часто задаваемые вопросы.
+  2.1.Открыт экран Часто задаваемые вопросы, где доступен список вопросов.
+
+  3.Нажать вопрос (любой).
+  3.1.Отображается ответ (под вопросом).
+
+  4.Нажать вопрос (повторно).
+  4.1.Скрыт ответ.
+
+  5.Выполнить шаги 3-4 для каждого вопроса.
+  *
+  */
+
+  // > Вывести информацию о тесте в консоль
+  tcNum = 'ab-u-tc-01.006p';
+  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+
+  // > Установить тестовые данные
+  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+
+  // П.1.Выполнить авторизацию пользователя.
+  await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+
+  // 1.Нажать кнопку Поддержка.
+  await SHome.bottomNavSupport.click();
+  // 1.1.Открыт экран Поддержка, где доступна кнопка Часто задаваемые вопросы.
+  // - экран Поддержка
+  await expect(SSup.supportScreenHeader).toHaveText(SSup.supportScreenHeaderRu_Expected);
+
+  // 2.Нажать кнопку Часто задаваемые вопросы.
+  await SSup.supportFaqButton.click();
+  // 2.1.Открыт экран Часто задаваемые вопросы, где доступен список вопросов.
+  // - экран Часто задаваемые вопросы
+  await expect(SSup.supportFaqScreenHeader).toHaveText(SSup.supportFaqScreenHeaderRu_Expected);
+
+  // // * Прокрутить, делая видимыми следующие элементы
+  // await $(`android=${UApp.scrollForward}`);
+  // * Создать массив видимых элементов.
+  let raw_array = await SSup.supportFaqList;
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  // /*отладка*/ console.log(
+  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
+  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
+  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
+  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
+  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n');
+  let data_array = [];
+  const elementAttributeKey = SSup.elementAttributeKey;
+  const elementAttributeValue = SSup.elementAttributeValue_supportFaq;
+  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+  // /*отладка*/ console.log(
+  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
+  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
+  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
+  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n --> ' + await data_array[4].getAttribute('resource-id') + ' = data_array[4]' +
+  //   '\n --> ' + await data_array[5].getText() + ' = data_array[5].getText()' +
+  //   '\n');
+  // /*отладка*/ await driver.pause(5000);
+  // * Контролируем непустоту массива.
+  if(data_array.length == 0){
+    throw "не сформирован data_array (массив вопросов) = '" + data_array + "'";
+  }
+  // /*отладка*/ for (let i = 0; i < data_array.length; i++) {
+  //   console.log('data_array[' + i + ']' + await data_array[i].getText());
+  // }
+  // /*отладка*/ await driver.pause(5000);
+  for(let i=0; i<data_array.length; i++){
+    if(!data_array[i].isDisplayed()){
+      // * Прокрутить, делая видимыми следующие элементы
+      await $(`android=${UApp.scrollForward}`);
+    }
+    // 3.Нажать вопрос (любой).
+    await data_array[i].click();
+    // 3.1.Отображается ответ (под вопросом).
+    if(await SSup.supportFaqReply.isDisplayed()){
+      // - Отображается ответ
+      await SSup.supportFaqReply.waitForDisplayed({timeout: SGen.waitTime});
+      await expect(SSup.supportFaqReply).toBeDisplayed();
+    }
+    
+    // 4.Нажать вопрос (повторно).
+    await data_array[i].click();
+    // 4.1.Скрыт ответ.
+    // - Скрыт ответ
+    // await driver.pause(500);
+    await expect(SSup.supportFaqReply).not.toBeDisplayed();
+
+    // 5.Выполнить шаги 3-4 для каждого вопроса.
   }
 });
 
