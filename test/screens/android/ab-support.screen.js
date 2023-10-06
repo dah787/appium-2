@@ -8,6 +8,7 @@ elementAttributeValue_supportFaq = 'com.fincube.apexbank.debug:id/card_layout';
 
 supportScreenHeaderRu_Expected = 'Поддержка';
 supportOfficesLabelRu_Expected = 'Офисы и банкоматы';
+  supportOfficesScreenHeaderRu_Expected = 'Наши офисы';
 supportAdditionalLinksLabelRu_Expected = 'Дополнительная связь';
 
 supportWindowLabelCallRu_Expected = 'Позвонить в банк';
@@ -56,6 +57,11 @@ get supportOfficesLabel() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_label_locationOfOffices"]');}
 get supportViewOnMapButton() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_viewFromMap"]');}
+  // экран Поддержка > экран Наши офисы
+  get supportOfficesScreenHeader() {
+    return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
+  get supportMessageButton_1() {
+    return $('//*[@resource-id="com.fincube.apexbank.debug:id/ll_end_actions"]');}
 
 get supportAdditionalLinksLabel() {
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_label_additionalConnection"]');}

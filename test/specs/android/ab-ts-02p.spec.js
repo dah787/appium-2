@@ -15,7 +15,7 @@ const STraTo  = require('../../screens/android/ab-transferToCard.screen');  // s
 const UApp    = require("../../utils/android/ab-app.utils");                // utilities > Application
 const UDev    = require("../../utils/android/dt-device.utils");             // utilities > Device
 
-describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231004| /Тестов 9 (частично 6)/', () => {
+describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231006| /Тестов 9 (частично 6)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 'o'); // o - operation / e - e2e < typeOfTest
@@ -405,7 +405,10 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
   await SCard.cardSettingsButton.waitForDisplayed({timeout: SGen.waitTime});
 
   // 10.Вернуться на экран Мои карты, нажимая кнопку Назад.
-  await UDev.androidPressBackButton(1);
+  // await UDev.androidPressBackButton(1);
+  while(!await SCard.cardViewFrontNameOnMyCardsScreen.isDisplayed()){
+    await UDev.androidPressBackButton(1);
+  }; 
   await SCard.cardViewFrontNameOnMyCardsScreen.waitForDisplayed({timeout: SGen.waitTime + 15000});
   // SCard.waitForScreenDisplayed_myCardsScreen();
   // *.Создать массив элементов.
