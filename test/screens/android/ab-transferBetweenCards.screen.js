@@ -7,42 +7,42 @@ transferBetweenCardsScreenHeaderRu_Expected = 'Между своими счет�
 
 /* SELECTORS */
 // экран Между своими счетами
-get transferBetweenCardsScreenHeaderRu() {
+get transferBetweenCardsScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Между своими счетами"]');}
 
-get cardsSelectButtons() {
+get cardsSelectButtons(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]').$$('android.view.ViewGroup');}
 
-get fromCardsSelectButton() {
+get fromCardsSelectButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/fromField_transferOwnCard"]');}
-get toCardsSelectButton() {
+get toCardsSelectButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/toField_transferOwnCard"]');}
 
-get cardNumber() {
+get cardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]');}
-get cardBalance() {
+get cardBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_balance"]');}
 
-get fromCardsSelectButton_cardNumber() {
+get fromCardsSelectButton_cardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/fromField_transferOwnCard"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]');}
 
-get cardsList() {
+get cardsList(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
 
-get transferAmountInput() {
+get transferAmountInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
-get transferCommission() {
+get transferCommission(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_help"]');}
-get transferTotalAmount() {
+get transferTotalAmount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotal_transferCard"]');}
 
-get continueButton() {
+get continueButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/buttonContinue_transferOwnCard"]');}
 
 // экран Перевод > экран (б/и) чека перевода на карту
-get amount() {
+get amount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_amount"]');}
-get homeButton() {
+get homeButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_back_to_home"]');}
 
 

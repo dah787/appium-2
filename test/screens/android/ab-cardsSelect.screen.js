@@ -7,18 +7,18 @@ elementAttributeValue = 'com.fincube.apexbank.debug:id/select_card_number';
 
 
 /* SELECTORS */
-get cardSelectLabel() {
+get cardSelectLabel(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_label"]');}
-get cardName() {
+get cardName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_name"]');}
-get cardNumber() {
+get cardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]');}
-get cardBalance() {
+get cardBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_balance"]');}
 
-get cardsSelectButton() {
+get cardsSelectButton(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
-  get cardsList() {
+  get cardsList(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
 
 

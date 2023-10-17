@@ -8,44 +8,44 @@ receiverSelectBankWindowHeaderRu_Expected = 'Выберите банк';
 
 /* SELECTORS */
 // экран Перевод на карту
-get transferToCardScreenHeaderRu() {
+get transferToCardScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Перевод на карту"]');}
 
-get senderCardNumber() {
+get senderCardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]');}
-get senderCardBalance() {
+get senderCardBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_balance"]');}
-  get senderCardsSelectButton() {
+  get senderCardsSelectButton(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
-  get senderCardsList() {
+  get senderCardsList(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
 
-get receiverCardNumber() {
+get receiverCardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/to_card_number"]');}
-  get receiverSelectBankWindowHeaderRu() {
+  get receiverSelectBankWindowHeaderRu(){
     return $('//android.widget.TextView[@text="Выберите банк"]');}
-  get receiverBankSelection() {
+  get receiverBankSelection(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]');}
 
-  get receiverCardsList() {
+  get receiverCardsList(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardsRecyclerView"]').$$('android.widget.TextView');}
-  get receiverCardSelectionCheck() {
+  get receiverCardSelectionCheck(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
 
-get transferAmountInput() {
+get transferAmountInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
-get transferCommission() {
+get transferCommission(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_help"]');}
-get transferTotalAmount() {
+get transferTotalAmount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotal_transferCard"]');}
 
-get continueButton() {
+get continueButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/buttonContinue_transferCard"]');}
 
 // экран Перевод > экран (б/и) чека перевода на карту
-get amount() {
+get amount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_amount"]');}
-get homeButton() {
+get homeButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_back_to_home"]');}
 
 

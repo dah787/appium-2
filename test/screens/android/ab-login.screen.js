@@ -27,52 +27,52 @@ supportContactphoneNumber_Expected = '+998 91 394 11 13';
 
 
 /* SELECTORS */
-get loginButton() {
+get loginButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_login"]')}
-get supportContactsButton_1() {
+get supportContactsButton_1(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]')}
-get supportContactsListTitle() {
+get supportContactsListTitle(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-// get supportContactsListItemCall() {
+// get supportContactsListItemCall(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/container_call"]');}
-get supportContactsListItemTelegram() {
+get supportContactsListItemTelegram(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_firstContact"]');} // '.../container_telegram'
-get supportContactsListItemWhatsApp() {
+get supportContactsListItemWhatsApp(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_secondContact"]');}
-waitForScreenDisplayed_welcomeScreen() { // wait_for_screen_displayed() {
+waitForScreenDisplayed_welcomeScreen(){ // wait_for_screen_displayed(){
   this.supportContactsButton_1.waitForDisplayed({timeout: GenM.waitTime})
   this.languageButton.waitForDisplayed({timeout: GenM.waitTime})
   this.phoneNumberInput.waitForDisplayed({timeout: GenM.waitTime})
 }
 
-get languageButton() {
+get languageButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]')}
-get languagesListTitle() {
+get languagesListTitle(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get languagesListItemEn() {
+get languagesListItemEn(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_english"]');}
-get languagesListItemRu() {
+get languagesListItemRu(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
-get languagesListItemUz() {
+get languagesListItemUz(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_uzbek"]');}
-get languagesListItems() {
+get languagesListItems(){
   return $$('android.widget.TextView');}
 
-get welcomeScreenHeaderEn() { // find element by Xpath - (//tagname[@attribute=value])
+get welcomeScreenHeaderEn(){ // find element by Xpath - (//tagname[@attribute=value])
   return $('//android.widget.TextView[@text="Login to Apex Bank"]');} // "Welcome"
-get welcomeScreenHeaderRu() {
+get welcomeScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Войти в ApexBank"]');} // "Добро пожаловать"
-get welcomeScreenHeaderUz() {
+get welcomeScreenHeaderUz(){
   return $('//android.widget.TextView[@text="Apex Bankga kirish"]');} // 'Xush kelibsiz'
 
-// get phoneNumberInputLabelEn() { // find element by Xpath - (//tagname[@attribute=value])
+// get phoneNumberInputLabelEn(){ // find element by Xpath - (//tagname[@attribute=value])
 //   return $('//android.widget.TextView[@text="Enter your mobile number"]');}
 
-get countryCode() {
+get countryCode(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/country_code"]');}
-get phoneNumberInput() {
+get phoneNumberInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
-// get phoneNumberInputClearButton() {
+// get phoneNumberInputClearButton(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
 
 

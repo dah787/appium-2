@@ -6,17 +6,17 @@ class DeviceUtilities { // related to device tested
 
 /* SELECTORS */
 // экран Выберите контакт
-get selectContactScreenHeaderRu() {
+get selectContactScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Выберите контакт"]');}
-get contactsSearchButton() {
+get contactsSearchButton(){
   // return $('//*[@resource-id="com.android.contacts:id/menu_search"]');}
   return $('~Поиск в контактах');}
 
 // экран Выберите контакт > экран Поиск контактов
-get contactsSearchInput() {
+get contactsSearchInput(){
   return $('//*[@resource-id="com.google.android.contacts:id/search_view"]');}
   // return $('//android.widget.EditText[@hint="Поиск контактов"]');}
-get contactName() {
+get contactName(){
   return $('//*[@resource-id="com.google.android.contacts:id/cliv_name_textview"]');}
 
 

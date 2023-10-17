@@ -17,12 +17,24 @@ waitTime = 5000;
 
 
 
+/* SELECTORS */
+get screenHeader_Text(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
+get back_Button(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
+get logout_Button(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_logout"]');}
+get logOutConfirm_Button(){ // appLogOutConfirmButton
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_confirm"]');}
+
+
+  
 /* SELECTORS : есть в Login screen Model (наследуемый класс), но logOutTheApp() оттуда их не видит */
-get languageButton_1() { // added on 20230704
+get languageButton_1(){// added on 20230704
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]');}
-get phoneNumberInput_1() { // added on 20230719
+get phoneNumberInput_1(){// added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
-get phoneNumberInputClearButton_1() { // added on 20230719
+get phoneNumberInputClearButton_1(){// added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
   
 
@@ -52,7 +64,7 @@ async afterEach(counter, tcNum) {
   // * Выйти из приложения
   await this.logOutTheApp();
 }
-async after() {
+async after(){
   // * Закрыть приложение
   // await driver.closeApp(); // ошибок нет, но не закрывает
   // await driver.closeApp(GenM.appPackage); // Wrong parameters applied for closeApp
@@ -62,7 +74,7 @@ async after() {
   // await driver.executeScript('mobile: terminateApp', [{bundleId: GenM.appPackage}]); // Unknown mobile command "terminateApp".
   // await driver.executeScript('mobile: terminateApp', [{appId: GenM.appPackage}]); // Unknown mobile command "terminateApp".
 }
-async logOutTheApp() { // appLogOut
+async logOutTheApp(){ // appLogOut
   // * Закрыть клавиатуру
   if( await driver.isKeyboardShown() ) await driver.hideKeyboard();
 
@@ -87,15 +99,15 @@ async logOutTheApp() { // appLogOut
   if(await SHome.bottomNavHome.isDisplayed()) {
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'bottomNavHome' + '.png');
     await SHome.bottomNavHome.click();
-    await SHome.profileButton.waitForDisplayed({timeout: this.waitTime + 5000});
+    await SHome.profile_Button.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'bottomNavHome' + '.png');
-    await SHome.profileButton.click(); // profileButton
-    await SProf.appLogOutItem.waitForDisplayed({timeout: this.waitTime + 5000});
+    await SHome.profile_Button.click(); // profileButton
+    await this.logout_Button.waitForDisplayed({timeout: this.waitTime + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');
-    await SProf.appLogOutItem.click();
-      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_4_afterClick_' + 'appLogOutItem' + '.png');
-    await SProf.appLogOutConfirmButton.waitForDisplayed({timeout: this.waitTime + 5000});
-    await SProf.appLogOutConfirmButton.click();
+    await this.logout_Button.click();
+      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_4_afterClick_' + 'logOut_Item' + '.png');
+    await this.logOutConfirm_Button.waitForDisplayed({timeout: this.waitTime + 5000});
+    await this.logOutConfirm_Button.click();
   }
 }
 

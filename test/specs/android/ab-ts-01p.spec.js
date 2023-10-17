@@ -1080,7 +1080,7 @@ it('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
 });
 
 // ab-ts-03p: Тестирование профиля |вер.20230913| /Тестов 2 (частично 1)/
-it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в MyID /Тест выполнен частично: -1-требуется эмулировать сканирование лица камерой устройства; -2-иногда MyId открывается на английском/', async () => {
+it.only('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в MyID /Тест выполнен частично: -1-требуется эмулировать сканирование лица камерой устройства; -2-иногда MyId открывается на английском/', async () => {
   /** > базовые тесты (см. файл ...) <
   > Можно выполнить идентификацию пользователя в службе MyID. <
 ПРЕДУСЛОВИЯ:
@@ -1122,15 +1122,14 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
-  await SHome.profileButton.click();
+  await SHome.profile_Button.click();
   // 1.1.Открыт экран профиля пользователя, где доступна кнопка статуса пользователя.
   
   // 2.Нажать кнопку статуса пользователя.
-  await SProf.yourStatusItem.click();
+  await SProf.status_Item.click();
           // // 2.1.Открыт экран Возможности, где доступна кнопка Пройти идентификацию.
           // // - экран Возможности
           // await expect(SProf.possibilitiesScreenHeaderRu).toHaveText(SProf.possibilitiesScreenHeaderRu_Expected);
@@ -1141,40 +1140,40 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
           // await SProf.identificationButton.click();
   // 2.1.Открыт экран Вход или регистрация, где доступны поле ввода Серия и номер паспорта, поле ввода Дата рождения, неактивная кнопка Продолжить.
   // - кнопка Продолжить
-  /* await SProf.continueButton.waitForDisplayed({timeout: SGen.waitTime + 5000});
+  /* await SProf.continue_Button.waitForDisplayed({timeout: SGen.waitTime + 5000});
    * - этот элемент (кнопка идентифицируется на русском: Продолжить) отключен (и другие ниже), т.к. MyId открывается на английском при запуске нескольких тестов (не только одного этого)
    */
-  // await SProf.loginOrRegisterScreenTextViewItems[3].waitForDisplayed({timeout: SGen.waitTime + 5000}); - этот элемент тоже отключен, т.к. выдает ошибку... Не найден)))
-    // /*отладка*/ const iCount = await SProf.loginOrRegisterScreenTextViewItems.length;
+  // await SProf.screen_loginOrRegister_TextView_Items[3].waitForDisplayed({timeout: SGen.waitTime + 5000}); - этот элемент тоже отключен, т.к. выдает ошибку... Не найден)))
+    // /*отладка*/ const iCount = await SProf.screen_loginOrRegister_TextView_Items.length;
     // /*отладка*/ for (let i = 0; i < iCount; i++) {
     //   console.log('\n --> ' +
-    //     await SProf.loginOrRegisterScreenTextViewItems[i].getText() +
-    //     ' = .loginOrRegisterScreenTextViewItems[' + i + '].getText()' +
+    //     await SProf.screen_loginOrRegister_TextView_Items[i].getText() +
+    //     ' = .screen_loginOrRegister_TextView_Items[' + i + '].getText()' +
     //     '\n');
     // }
-  await SProf.scannerButton.waitForDisplayed({timeout: SGen.waitTime});
+  await SProf.scanner_Button.waitForDisplayed({timeout: SGen.waitTime});
 
   // 3.Ввести валидные данные в поля ввода.
-  // (см.выше для кнопки) await SProf.passportDataInput.click();
-  // let qwe = await SProf.loginOrRegisterScreenEditTextItems[0];
+  // (см.выше для кнопки) await SProf.documentData_Input.click();
+  // let qwe = await SProf.screen_loginOrRegister_EditText_Items[0];
   // await qwe.click();
-  await SProf.loginOrRegisterScreenEditTextItems[0].click();
-  await UDev.androidKeyboardTypeIn(SProf.passportData_Expected);
-  // (см.выше для кнопки) await SProf.birthDateInput.click();
-  await SProf.loginOrRegisterScreenEditTextItems[1].click();
+  await SProf.screen_loginOrRegister_EditText_Items[0].click();
+  await UDev.androidKeyboardTypeIn(SProf.passportSeriesAndNumber_Expected);
+  // (см.выше для кнопки) await SProf.birthDate_Input.click();
+  await SProf.screen_loginOrRegister_EditText_Items[1].click();
   await UDev.androidKeyboardTypeIn(SProf.birthDate_Expected);
   // 3.1.В полях ввода отображаются введенные значения, кнопка Продолжить активна.
-  await expect(SProf.loginOrRegisterScreenEditTextItems[0]).toHaveText(SProf.passportData_Expected);
-  await expect(SProf.loginOrRegisterScreenEditTextItems[1]).toHaveText(SProf.birthDate_Expected);
+  await expect(SProf.screen_loginOrRegister_EditText_Items[0]).toHaveText(SProf.passportSeriesAndNumber_Expected);
+  await expect(SProf.screen_loginOrRegister_EditText_Items[1]).toHaveText(SProf.birthDate_Expected);
 
   // 4.Нажать кнопку Продолжить.
-  // (см.выше для кнопки) await SProf.continueButton.click();
-  (await SProf.loginOrRegisterScreenTextViewItems[3]).click();
+  // (см.выше для кнопки) await SProf.continue_Button.click();
+  await SProf.screen_loginOrRegister_TextView_Items[3].click();
   // 4.1.Открыт экран сканирования лица камерой устройства, где доступны текст убедиться пользователю о том, что его лицо находится в выделенном пространстве и область выделенного пространства.
   // - экран сканирования лица (заголовок)
-  // await expect(SProf.faceScannerScreenHeaderRu).toHaveText(SProf.faceScannerScreenHeaderRu_Expected);
+  // await expect(SProf.screenHeader_Text_faceScanner_Ru).toHaveText(SProf.screenHeader_Text_faceScanner_Ru_Expected);
   // - область выделенного пространства
-  await SProf.faceScannerArea.waitForDisplayed({timeout:SGen.waitTime + 180000});
+  await SProf.faceScanner_Frame.waitForDisplayed({timeout:SGen.waitTime + 180000});
 
 // --- ТРЕБУЕТСЯ эмулировать сканирование лица камерой устройства ---
 
@@ -1186,20 +1185,20 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
 
   // * Вернуться на экран Открыт экран Возможности, нажимая кнопку Назад.
   await UDev.androidPressBackButton(3);
-  // if(await SAuth.enterPinCodeScreenHeaderRu.waitForDisplayed({timeout: SGen.waitTime})) {
+  // if(await SAuth.enterPinCodeScreenHeader.waitForDisplayed({timeout: SGen.waitTime})) {
   //   await UApp.appKeyboardTypeIn(SAuth.pinCode_Expected);
   // }
   // await SProf.identificationButton.waitForDisplayed({timeout: SGen.waitTime});
   // // - экран Возможности
   // await expect(SProf.possibilitiesScreenHeaderRu).toHaveText(SProf.possibilitiesScreenHeaderRu_Expected);
 
-  // await SProf.performVerificationButton.click();
-  // await SProf.closeButton.waitForDisplayed({timeout: SGen.waitTime + 5000})
+  // await SHome.passVerification_Button.click();
+  // await SProf.close_Button.waitForDisplayed({timeout: SGen.waitTime + 5000})
   // await SProf.closeButton.click();
 
   // // может эти строки нужно положить в афтерич
-  // if(await SProf.performIdentificationButton.waitForDisplayed({timeout: SGen.waitTime + 5000})) {
-  //   await SProf.closeButton.click();
+  // if(await SProf.passIdentification_Button.waitForDisplayed({timeout: SGen.waitTime + 5000})) {
+  //   await SProf.close_Button.click();
   // }
 
 });
@@ -1242,7 +1241,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
   await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
-  await SHome.profileButton.click();
+  await SHome.profile_Button.click();
   // 1.1.Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на текущем языке.
   
   // 2.Нажать кнопку выбора языка.

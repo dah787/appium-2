@@ -7,17 +7,17 @@ enterSmsCodeScreenHeaderRu_Expected = 'Введите код из СМС';
 
 /* SELECTORS */
 // экран Введите код из СМС
-get backButton() {
+get backButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
-get supportContacstButton() {
+get supportContacstButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]');}
-get enterSmsCodeScreenHeaderRu() {
+get enterSmsCodeScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Введите код из СМС"]');}
-get smsCodeInput() {
+get smsCodeInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')}
-get smsCodeResendButton() {
+get smsCodeResendButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_resend"]');}
-get continueButton() {
+get continueButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
 
 

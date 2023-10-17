@@ -7,27 +7,27 @@ scrollForward = 'new UiScrollable(new UiSelector()).scrollForward()';
 scrollBackward = 'new UiScrollable(new UiSelector()).scrollBackward()';
 
 // app keyboard
-get appKeyboardKey_1() {
+get appKeyboardKey_1(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_1"]');}
-get appKeyboardKey_2() {
+get appKeyboardKey_2(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_2"]');}
-get appKeyboardKey_3() {
+get appKeyboardKey_3(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_3"]');}
-get appKeyboardKey_4() {
+get appKeyboardKey_4(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_4"]');}
-get appKeyboardKey_5() {
+get appKeyboardKey_5(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_5"]');}
-get appKeyboardKey_6() {
+get appKeyboardKey_6(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_6"]');}
-get appKeyboardKey_7() {
+get appKeyboardKey_7(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_7"]');}
-get appKeyboardKey_8() {
+get appKeyboardKey_8(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_8"]');}
-get appKeyboardKey_9() {
+get appKeyboardKey_9(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_9"]');}
-get appKeyboardKey_0() {
+get appKeyboardKey_0(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_0"]');}
-get appKeyboardKey_Backspace() {
+get appKeyboardKey_Backspace(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_backspace"]');}
 
 

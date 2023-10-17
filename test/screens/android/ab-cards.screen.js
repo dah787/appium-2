@@ -8,68 +8,68 @@ class CardsScreen {
 
 /* SELECTORS */
 // экран-1 Мои карты
-get myCardsScreenHeaderRu() {
+get myCardsScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Мои карты"]');}
-get cardsBlockItems() {
+get cardsBlockItems(){
   return $$('android.widget.TextView');}
-get addButtonOnMyCardsScreen() {
+get addButtonOnMyCardsScreen(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/addCardButton"]');}
-get addCardButtonOnMyCardsScreen() {
+get addCardButtonOnMyCardsScreen(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_add_card"]');}
-get cardViewFront() {
+get cardViewFront(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
-get cardBalance() {
+get cardBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBalance"]');} // ...bank_card_view_balance
-get cardViewFrontNameOnMyCardsScreen() {
+get cardViewFrontNameOnMyCardsScreen(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardName"]');} // ...tvCardBankName
-// get cardViewFrontNumber() {
+// get cardViewFrontNumber(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_view_number"]');}
 
-waitForScreenDisplayed_myCardsScreen() {
+waitForScreenDisplayed_myCardsScreen(){
   this.myCardsScreenHeaderRu.waitForDisplayed({timeout: GenM.waitTime + 15000});
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // экран-2 Добавить карту > экран (б/и) ввода данных
-get cardNameInput() {
+get cardNameInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/inputEdit_card_name"]');}
-get cardNumberInput() {
+get cardNumberInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/inputEdit_card_number"]');}
-get cardExpiryDateInput() {
+get cardExpiryDateInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/inputEdit_card_expiry_date"]');}
-get addCardButtonOnDataInputScreen() {
+get addCardButtonOnDataInputScreen(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_add_card"]');}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // экран-3 (б/и) действий с картой
-get cardViewBack() {
+get cardViewBack(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewBack"]');}
-get cardSettingsButton() {
+get cardSettingsButton(){
   // return $('//android.widget.TextView[@text="Свойства карты"]');} // "Настройка"
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/ll_end_actions"]');}
 
 // экран-31 (б/и) действий с картой > экран (б/и) настройки карты
-get cardViewFrontName() {
+get cardViewFrontName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_card_name"]');} // ...bank_card_view_name
-get cardViewFrontBalance() {
+get cardViewFrontBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_card_balance"]');} // ...bank_card_view_balance
-get cardViewFrontNumber() {
+get cardViewFrontNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_card_number"]');} // ...bank_card_view_number
-// get switchMain() {
+// get switchMain(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/switch_main"]');}
-get cardBackgroundImageButton() {
+get cardBackgroundImageButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bg_image"]');}
-get cardBackgroundImageButtonChecked() {
+get cardBackgroundImageButtonChecked(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/checked"]');}
-get cardBackgroundImageButtons() {
+get cardBackgroundImageButtons(){
   return $$('android.widget.ImageView');}
-get cardNameEdit() {
+get cardNameEdit(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');} // ...input_card_name
-get cardNameEditClearButton() {
+get cardNameEditClearButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
-get confirmButton() {
+get confirmButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_confirm"]');}
 
 // https://www.automationtestinghub.com/appium-scroll-examples/
@@ -78,7 +78,7 @@ scrollToElement_Up_CardName = 'new UiScrollable(new UiSelector().scrollable(true
 scrollToElement_Middle = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/input"))';
 scrollToElement_Down = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/button_confirm"))';
 
-waitForScreenDisplayed_cardSettingsScreen() { // wait_for_screen_displayed() {
+waitForScreenDisplayed_cardSettingsScreen(){ // wait_for_screen_displayed(){
   this.cardBackgroundImageButton.waitForDisplayed({timeout: GenM.waitTime + 15000});
 }
 
@@ -87,9 +87,9 @@ waitForScreenDisplayed_cardSettingsScreen() { // wait_for_screen_displayed() {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // // экран-43 Перевод > экран-3 (б/и) чека перевода на карту
-// get amount() {
+// get amount(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_amount"]');}
-// get homeButton() {
+// get homeButton(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_back_to_home"]');}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

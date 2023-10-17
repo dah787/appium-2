@@ -9,55 +9,55 @@ enterSmsCodeScreenHeaderRu_Expected = 'Введите код из СМС';// 'В
 
 /* SELECTORS */
 // экран-1 Registration (for unregistered phone numbers): Приветствие
-get agreeTermsCheckbox() {
+get agreeTermsCheckbox(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/checkbox"]');}
-get agreeTermsCheckboxLabelEn() { // find element by Xpath - (//tagname[@attribute=value])
+get agreeTermsCheckboxLabelEn(){ // find element by Xpath - (//tagname[@attribute=value])
   return $('//android.widget.TextView[@text="I agree with the terms of the public offer"]');}
-get signupButton() {
+get signupButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_sign_up"]');}
 
 // экран-2 Введите смс код
-get backButton() {
+get backButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
-get supportContacstButton_2() {
+get supportContacstButton_2(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/support_button"]');}
-get enterSmsCodeScreenHeaderRu() {
+get enterSmsCodeScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Введите код из СМС"]');} // 'Введите смс код'
-get smsCodeInput() {
+get smsCodeInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')}
-get smsCodeResendButton() {
+get smsCodeResendButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_resend"]');}
 
 // экран-21 Мы отправили код подтверждения на ваш номер телефона в SMS
-get smsVerificationMessageEn() { // find element by Xpath - (//tagname[@attribute=value])
+get smsVerificationMessageEn(){ // find element by Xpath - (//tagname[@attribute=value])
   return $('//android.widget.TextView[@text="We\'ve just send you sms verification code on your phone number"]');}
-get smsVerificationMessageRu() { // find element by Xpath - (//tagname[@attribute=value])
+get smsVerificationMessageRu(){ // find element by Xpath - (//tagname[@attribute=value])
   return $('//android.widget.TextView[@text="Мы отправили код подтверждения на ваш номер телефона в SMS"]');}
-get phoneNumberEntered() {
+get phoneNumberEntered(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_phone"]');}
-get phoneNumberEnteredTime() {
+get phoneNumberEnteredTime(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_time"]');}
-get continueButton() {// enterSmsCodeScreen, createPasswordScreen
+get continueButton(){// enterSmsCodeScreen, createPasswordScreen
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
 
 // экран-3 Создайте свой пароль
-get createPasswordScreenHeaderRu() {
+get createPasswordScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Создайте свой пароль"]');}
-get createPasswordInput() {
+get createPasswordInput(){
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
   return $('//android.widget.EditText[@text="Создайте пароль"]');}
-get confirmPasswordInput() {
+get confirmPasswordInput(){
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
   return $('//android.widget.EditText[@text="Подтвердить пароль"]');}
-get enterSecretWordInput() {
+get enterSecretWordInput(){
   return $('//android.widget.EditText[@text="Введите секретное слово"]');}
-// get continueButton On createPasswordScreen() {
+// get continueButton On createPasswordScreen(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
 
 // экран-4 Поздравляем
-get congratulationsScreenHeaderRu() {
+get congratulationsScreenHeaderRu(){
   return $('//android.widget.TextView[@text="*Поздравляем!Вы успешно зарегистрировались в Apex Bank*"]');}
-// get continueButton On congratulationsScreen() {
+// get continueButton On congratulationsScreen(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
 
 

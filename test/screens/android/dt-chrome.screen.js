@@ -8,7 +8,7 @@ urlLinkedIn_Expected = 'linkedin.com';
 
 
 // экран браузера
-get browserUrlBar() {
+get browserUrlBar(){
   return $('//*[@resource-id="com.android.chrome:id/url_bar"]');}
 
 

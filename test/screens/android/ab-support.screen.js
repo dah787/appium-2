@@ -20,62 +20,62 @@ supportFaqScreenHeaderRu_Expected = 'Часто задаваемые вопро�
 
 /* SELECTORS */
 // экран Поддержка
-get supportScreenHeader() {
+get supportScreenHeader(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/title"]');}
-get supportCallButton() {
+get supportCallButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_call"]');}
 
   // экран Поддержка > окно Позвонить/Написать в банк
-  get supportWindowLabel() { // supportCallWindowLabel, supportMessageWindowLabel
+  get supportWindowLabel(){ // supportCallWindowLabel, supportMessageWindowLabel
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-  get supportContactsList() { // supportCallContactsList, supportMessageContactsList
+  get supportContactsList(){ // supportCallContactsList, supportMessageContactsList
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');}
 
   // экран Поддержка > окно Позвонить в банк
-  get supportCallFirstContactButton() {
+  get supportCallFirstContactButton(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_firstContact"]');}
 
-get supportMessageButton() {
+get supportMessageButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_message"]');}
 
-get supportFaqButton() {
+get supportFaqButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_faq"]');}
   // экран Поддержка > экран Часто задаваемые вопросы
-  get supportFaqScreenHeader() {
+  get supportFaqScreenHeader(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-  get supportFaqList() {
+  get supportFaqList(){
     // return $('//*[@resource-id="com.fincube.apexbank.debug:id/rvFaq"]').$$('android.widget.TextView');}
     // return $('//*[@resource-id="com.fincube.apexbank.debug:id/rvFaq"]').$$('androidx.cardview.widget.CardView');}
     // return $('//*[@resource-id="com.fincube.apexbank.debug:id/rvFaq"]').$$('android.view.ViewGroup');}
     // return $$('android.widget.TextView');}
     return $$('androidx.cardview.widget.CardView');}
     // экран Поддержка > экран Часто задаваемые вопросы - Ответ открыт
-    get supportFaqReply() {
+    get supportFaqReply(){
       return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_description"]');}
 
-get supportOfficesLabel() {
+get supportOfficesLabel(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_label_locationOfOffices"]');}
-get supportViewOnMapButton() {
+get supportViewOnMapButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_viewFromMap"]');}
   // экран Поддержка > экран Наши офисы
-  get supportOfficesScreenHeader() {
+  get supportOfficesScreenHeader(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-  get supportMessageButton_1() {
+  get supportMessageButton_1(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/ll_end_actions"]');}
 
-get supportAdditionalLinksLabel() {
+get supportAdditionalLinksLabel(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_label_additionalConnection"]');}
-get supportAdditionalLinkTelegramButton() {
+get supportAdditionalLinkTelegramButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_channelInTg"]');}
-get supportAdditionalLinkLinkedInButton() {
+get supportAdditionalLinkLinkedInButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInLinkedIn"]');}
-get supportAdditionalLinkInstagramButton() {
+get supportAdditionalLinkInstagramButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInInstagram"]');}
-get supportAdditionalLinkFacebookButton() {
+get supportAdditionalLinkFacebookButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInFacebook"]');}
-get supportAdditionalLinkWebSiteButton() {
+get supportAdditionalLinkWebSiteButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_oficialWebSite"]');}
-get supportAdditionalLinksList() {
+get supportAdditionalLinksList(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/additionalConnection_card"]').$$('android.widget.TextView');}
 
 

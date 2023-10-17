@@ -17,21 +17,24 @@ enterPinCodeScreenHeaderRu_Expected = 'Введите свой PIN-код';
 
 /* SELECTORS */
 // экран-1 Authorization (for registered phone numbers) 
-get passwordInput() {
+get passwordInput(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
-get signinButton() {
+get signinButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_sign_in"]');}
 
 // экран-2 Создайте новый PIN-код
-get createPinCodeScreenHeaderRu() {
+get createPinCodeScreenHeader(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
+get createPinCodeScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Создайте новый PIN-код"]');}
-get pinCodeIcon_3() { // pin code icon
+get pinCodeIcon_3(){ // pin code icon
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_pin_3"]');}
 
 // экран-21 Введите свой PIN-код
-get enterPinCodeScreenHeaderRu() {
+get enterPinCodeScreenHeader(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
+get enterPinCodeScreenHeaderRu(){
   return $('//android.widget.TextView[@text="Введите свой PIN-код"]');}
-
 
 
 /* FUNCTIONS : e2e */
@@ -80,7 +83,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   await this.signinButton.click();
   // 51.Отображается экран Создайте новый PIN-код, где доступны неактивные символы пин-кода и клавиатура приложения:
   // - страница Создайте новый PIN-код
-  await expect(this.createPinCodeScreenHeaderRu)
+  await expect(this.createPinCodeScreenHeader)
     .toHaveText(this.createPinCodeScreenHeaderRu_Expected);
   // - символ пин-кода (проверяем одну иконку)
   await expect( await this.pinCodeIcon_3.isEnabled() ).toBe(true);
@@ -93,8 +96,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // 61.Символы пин-кода активируются по мере ввода, а после ввода последнего символа пин-кода отображается экран Введите свой PIN-код:
   // - символы пин-кода ?
   // - страница Введите свой PIN-код
-  await expect(this.enterPinCodeScreenHeaderRu)
-    .toHaveText(this.enterPinCodeScreenHeaderRu_Expected);
+  await expect(this.enterPinCodeScreenHeader).toHaveText(this.enterPinCodeScreenHeaderRu_Expected);
 
   // 7.Ввести пин-код.
   await AppUM.appKeyboardTypeIn(pinCode);
@@ -106,7 +108,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // + элемент профиля клиента
   await expect(HomeM.profileLayout).toBeExisting();
   // - кнопка профиля пользователя
-  await expect(HomeM.profileButton).toBeExisting();
+  await expect(HomeM.profile_Button).toBeExisting();
   // // - имя пользователя
   // await expect(HomeM.profileName_NadiaPage).toHaveText(HomeM.profileName_NadiaPage_Expected);
   // // - вкладка Аккаунт
@@ -171,7 +173,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
 //   // 51.Отображается экран Создайте новый PIN-код, где доступны неактивные символы пин-кода и клавиатура приложения:
 // await driver.saveScreenshot('view_shots/customerAuth_afterStep_' + 51 + '.png');
 //   // - страница Создайте новый PIN-код
-//   await expect(this.createPinCodeScreenHeaderRu)
+//   await expect(this.createPinCodeScreenHeader)
 //     .toHaveText(this.createPinCodeScreenHeaderRu_Expected);
 //   // - символ пин-кода (проверяем одну иконку)
 //   await expect( await this.pinCodeIcon_3.isEnabled() ).toBe(true);
@@ -184,7 +186,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
 // await driver.saveScreenshot('view_shots/customerAuth_afterStep_' + 61 + '.png');
 //   // - символы пин-кода ?
 //   // - страница Введите свой PIN-код
-//   await expect(this.enterPinCodeScreenHeaderRu)
+//   await expect(this.enterPinCodeScreenHeader)
 //     .toHaveText(this.enterPinCodeScreenHeaderRu_Expected);
 
 //   // 7.Ввести пин-код.
