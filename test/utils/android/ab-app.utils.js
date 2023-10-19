@@ -91,6 +91,7 @@ async generateElementList(raw_array, data_array, elementAttributeKey, elementAtt
   for(let i = 0, l = raw_array.length; i < l; i++) { // for (const element of raw_array) {
     // elementAttributeValue_Current = await element.getAttribute('resource-id');
     elementAttributeValue_Current = await raw_array[i].getAttribute(elementAttributeKey);
+    if(elementAttributeValue_Current == null) continue;
     // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_Current = ' + elementAttributeValue_Current + '\n');
     // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_1 = ' + elementAttributeValue_1 + '\n');
     // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_Current.includes(elementAttributeValue_1) = ' + elementAttributeValue_Current.includes(elementAttributeValue_1) + '\n');

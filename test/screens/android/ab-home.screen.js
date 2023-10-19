@@ -1,7 +1,7 @@
 class HomeScreen {
 
 /* CONSTANTS */
-profileName_NadiaPage_Expected = 'Nadia Page'; // related to '99 966 46 60'
+// profileName_NadiaPage_Expected = 'Nadia Page'; // related to '99 966 46 60'
 // profileName_NadiaPage_Expected = 'Дмитрий'; // related to '99 966 46 60'
 totalBalanceLabelRu_Expected = 'Общий баланс';
 balanceHidingSymbols = '--.-- UZS';

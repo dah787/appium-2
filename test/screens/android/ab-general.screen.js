@@ -1,40 +1,41 @@
 const SHome = require('./ab-home.screen');    // Home screen
-const SProf = require('./ab-profile.screen'); // Profile screen
+// const SProf = require('./ab-profile.screen'); // Profile screen
 
 class GeneralScreen {
 
 /* CONSTANTS */
-appPackage = 'com.fincube.apexbank.debug';
-appActivity = 'com.fincube.apexbank.presentation.ui.activity.MainActivity';
+text_AppPackage_En_Expected = 'com.fincube.apexbank.debug';
+text_AppActivity_En_Expected = 'com.fincube.apexbank.presentation.ui.activity.MainActivity';
 
-textApexbank = 'apexbank';
-textFacebook = 'Facebook';
-textInstagram = 'Instagram';
-textLinkedIn = 'LinkedIn';
-textWebSite = 'WebSite';
+text_Apexbank_En_Expected = 'apexbank';
+text_Facebook_En_Expected = 'Facebook';
+text_Instagram_En_Expected = 'Instagram';
+text_LinkedIn_En_Expected = 'LinkedIn';
+text_Telegram_En_Expected = 'Tg';
+text_WebSite_En_Expected = 'WebSite';
 
-waitTime = 5000;
+number_WaitTime_Expected = 5000;
 
 
 
 /* SELECTORS */
-get screenHeader_Text(){
+get titleScreen(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get back_Button(){
+get button_Back(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
-get logout_Button(){
+get button_Logout(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_logout"]');}
-get logOutConfirm_Button(){ // appLogOutConfirmButton
+get button_LogOutConfirm(){ // appLogOutConfirmButton
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_confirm"]');}
 
 
   
 /* SELECTORS : есть в Login screen Model (наследуемый класс), но logOutTheApp() оттуда их не видит */
-get languageButton_1(){// added on 20230704
+get button_Language_1(){// added on 20230704
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]');}
-get phoneNumberInput_1(){// added on 20230719
+get input_PhoneNumber_1(){// added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
-get phoneNumberInputClearButton_1(){// added on 20230719
+get button_PhoneNumberInputClear_1(){// added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
   
 
@@ -49,7 +50,7 @@ async beforeEach(counter, typeOfTest) {
   if (counter == 0) return;
   
   // * Открыть начальную страницу приложения
-  await driver.startActivity(this.appPackage, this.appActivity);
+  await driver.startActivity(this.text_AppPackage_En_Expected, this.text_AppActivity_En_Expected);
 }
 async afterEach(counter, tcNum) {    
   // * Снимок экрана для контроля
@@ -67,12 +68,12 @@ async afterEach(counter, tcNum) {
 async after(){
   // * Закрыть приложение
   // await driver.closeApp(); // ошибок нет, но не закрывает
-  // await driver.closeApp(GenM.appPackage); // Wrong parameters applied for closeApp
+  // await driver.closeApp(GenM.text_AppPackage_En_Expected); // Wrong parameters applied for closeApp
   // await driver.close_app(); // TypeError: driver.close_app is not a function
-  await driver.terminateApp(this.appPackage);
+  await driver.terminateApp(this.text_AppPackage_En_Expected);
   // https://appium.io/docs/en/2.0/guides/execute-methods/
-  // await driver.executeScript('mobile: terminateApp', [{bundleId: GenM.appPackage}]); // Unknown mobile command "terminateApp".
-  // await driver.executeScript('mobile: terminateApp', [{appId: GenM.appPackage}]); // Unknown mobile command "terminateApp".
+  // await driver.executeScript('mobile: terminateApp', [{bundleId: GenM.text_AppPackage_En_Expected}]); // Unknown mobile command "terminateApp".
+  // await driver.executeScript('mobile: terminateApp', [{appId: GenM.text_AppPackage_En_Expected}]); // Unknown mobile command "terminateApp".
 }
 async logOutTheApp(){ // appLogOut
   // * Закрыть клавиатуру
@@ -83,7 +84,7 @@ async logOutTheApp(){ // appLogOut
   while (
     // !(await $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]').isDisplayed()) &&
     // !(await AuthM.languageButton.isDisplayed()) &&
-    !(await this.languageButton_1.isDisplayed()) &&
+    !(await this.button_Language_1.isDisplayed()) &&
     !(await SHome.bottomNavHome.isDisplayed())
     ) {
         // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_0_afterCycle_' + (counter + 1) + '.png');
@@ -92,22 +93,22 @@ async logOutTheApp(){ // appLogOut
       await driver.back();
   }
 
-  if(await this.phoneNumberInputClearButton_1.isDisplayed()) {
-    await this.phoneNumberInputClearButton_1.click();
+  if(await this.button_PhoneNumberInputClear_1.isDisplayed()) {
+    await this.button_PhoneNumberInputClear_1.click();
   }
 
   if(await SHome.bottomNavHome.isDisplayed()) {
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'bottomNavHome' + '.png');
     await SHome.bottomNavHome.click();
-    await SHome.profile_Button.waitForDisplayed({timeout: this.waitTime + 5000});
+    await SHome.profile_Button.waitForDisplayed({timeout: this.number_WaitTime_Expected + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'bottomNavHome' + '.png');
     await SHome.profile_Button.click(); // profileButton
-    await this.logout_Button.waitForDisplayed({timeout: this.waitTime + 5000});
+    await this.button_Logout.waitForDisplayed({timeout: this.number_WaitTime_Expected + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');
-    await this.logout_Button.click();
+    await this.button_Logout.click();
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_4_afterClick_' + 'logOut_Item' + '.png');
-    await this.logOutConfirm_Button.waitForDisplayed({timeout: this.waitTime + 5000});
-    await this.logOutConfirm_Button.click();
+    await this.button_LogOutConfirm.waitForDisplayed({timeout: this.number_WaitTime_Expected + 5000});
+    await this.button_LogOutConfirm.click();
   }
 }
 

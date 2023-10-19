@@ -3,77 +3,75 @@ const GenM  = require('./ab-general.screen'); // General screen Model
 class LoginScreen {
 
 /* CONSTANTS */
-// welcomeScreenHeaderEn_Expected = 'Welcome';
-welcomeScreenHeaderEn_Expected = 'Login to Apex Bank'; // 'Welcome'
-// welcomeScreenHeaderRu_Expected = 'Добро пожаловать';
-welcomeScreenHeaderRu_Expected = 'Войти в ApexBank'; // 'Добро пожаловать'
-welcomeScreenHeaderUz_Expected = 'Apex Bankga kirish'; // 'Xush kelibsiz'
+titleScreen_Welcome_En_Expected = 'Login to Apex Bank';//screenHeader_Text_Welcome_En_Expected
+titleScreen_Welcome_Ru_Expected = 'Войти в ApexBank';//screenHeader_Text_Welcome_Ru_Expected
+titleScreen_Welcome_Uz_Expected = 'Apex Bankga kirish';//screenHeader_Text_Welcome_Uz_Expected
 
-countryCode_Expected = '+998';
+text_CountryCode_Expected = '+998';//countryCode_Text_Expected
 
-languageEn_loginScreen = 'english'; // 'En'
-languageRu_loginScreen = 'russian'; // 'Ru'
-languageUz_loginScreen = 'uzbek';   // 'Uz'
+text_LanguageEnglish_En_loginScreen = 'english'; // 'En'
+text_LanguageRussian_En_loginScreen = 'russian'; // 'Ru'
+text_LanguageUzbek_En_loginScreen = 'uzbek';   // 'Uz'
 
-languageEn = 'language_en'; // 'english', 'En'
-languageRu = 'language_ru'; // 'russian', 'Ru'
-languageUz = 'language_uz';   // 'uzbek', 'Uz'
+text_LanguageEnglish_En = 'language_en'; // 'english', 'En'
+text_LanguageRussian_En = 'language_ru'; // 'russian', 'Ru'
+text_LanguageUzbek_En = 'language_uz';   // 'uzbek', 'Uz'
 
-supportContactsListTitleEn_Expected = 'Support contact';
-supportContactsListTitleRu_Expected = 'Контакт со службой поддержки';
-supportContactsListTitleUz_Expected = 'Qo‘llab-quvvatlash aloqa';
-supportContactphoneNumber_Expected = '+998 91 394 11 13';
+titleWindow_SupportContacts_En_Expected = 'Support contact';//supportContactsListTitleEn_Expected
+titleWindow_SupportContacts_Ru_Expected = 'Контакт со службой поддержки';//supportContactsListTitleRu_Expected
+titleWindow_SupportContacts_Uz_Expected = 'Qo‘llab-quvvatlash aloqa';//supportContactsListTitleUz_Expected
+text_PhoneNumber_Expected = '+998 91 394 11 13';//supportContactphoneNumber_Expected
 
 
 
 /* SELECTORS */
-get loginButton(){
+get button_Login(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_login"]')}
-get supportContactsButton_1(){
+get button_SupportContacts_1(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]')}
-get supportContactsListTitle(){
+get titleWindow_SupportContacts(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
 // get supportContactsListItemCall(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/container_call"]');}
-get supportContactsListItemTelegram(){
+get text_Telegram(){//supportContactsListItemTelegram
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_firstContact"]');} // '.../container_telegram'
-get supportContactsListItemWhatsApp(){
+get text_WhatsApp(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_secondContact"]');}
-waitForScreenDisplayed_welcomeScreen(){ // wait_for_screen_displayed(){
-  this.supportContactsButton_1.waitForDisplayed({timeout: GenM.waitTime})
-  this.languageButton.waitForDisplayed({timeout: GenM.waitTime})
-  this.phoneNumberInput.waitForDisplayed({timeout: GenM.waitTime})
+waitForScreenDisplayed_Welcome(){ // wait_for_screen_displayed(){
+  this.button_SupportContacts_1.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
+  this.button_Language.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
+  this.input_PhoneNumber.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
 }
 
-get languageButton(){
+get button_Language(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]')}
-get languagesListTitle(){
+get titleWindow_Languages(){//languagesListTitle
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get languagesListItemEn(){
+get item_LanguageEnglish(){//languagesListItemEn
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_english"]');}
-get languagesListItemRu(){
+get item_LanguageRussian(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
-get languagesListItemUz(){
+get item_LanguageUzbek(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_uzbek"]');}
-get languagesListItems(){
+get itemClass_TextView_titleWindow_Languages(){//languagesListItems
   return $$('android.widget.TextView');}
 
-get welcomeScreenHeaderEn(){ // find element by Xpath - (//tagname[@attribute=value])
+get titleScreen_Welcome_En(){ // find element by Xpath - (//tagname[@attribute=value])
   return $('//android.widget.TextView[@text="Login to Apex Bank"]');} // "Welcome"
-get welcomeScreenHeaderRu(){
+get titleScreen_Welcome_Ru(){//welcomeScreenHeaderRu
   return $('//android.widget.TextView[@text="Войти в ApexBank"]');} // "Добро пожаловать"
-get welcomeScreenHeaderUz(){
+get titleScreen_Welcome_Uz(){
   return $('//android.widget.TextView[@text="Apex Bankga kirish"]');} // 'Xush kelibsiz'
 
-// get phoneNumberInputLabelEn(){ // find element by Xpath - (//tagname[@attribute=value])
+// get phoneNumber_InputLabelEn(){ // find element by Xpath - (//tagname[@attribute=value])
 //   return $('//android.widget.TextView[@text="Enter your mobile number"]');}
 
-get countryCode(){
+get text_CountryCode(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/country_code"]');}
-get phoneNumberInput(){
+get input_PhoneNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
-// get phoneNumberInputClearButton(){
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
+get button_PhoneNumberInputClear(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
 
 
 
@@ -81,109 +79,109 @@ get phoneNumberInput(){
 async selectLanguage(language) { // appLanguageChoose
   // /*отладка*/ console.log('\n --> language = ' + language + '\n);
   // // * Нажать кнопку выбора языка интерфейса.
-  // await this.languageButton.click();
+  // await this.button_Language.click();
   // // *- 1.Открыто окно Выбор языка, где доступны элементы выбора языков: узбекский, русский и английский (возможна другая комбинация языков).
   // // - окно
-  // await expect(this.languagesListTitle).toBeDisplayed();
+  // await expect(this.titleWindow_Languages).toBeDisplayed();
   // // - элементы выбора языков
-  // await expect(this.languagesListItemEn).toBeDisplayed();
-  // await expect(this.languagesListItemRu).toBeDisplayed();
-  // await expect(this.languagesListItemUz).toBeDisplayed();
+  // await expect(this.item_LanguageEnglish).toBeDisplayed();
+  // await expect(this.item_LanguageRussian).toBeDisplayed();
+  // await expect(this.item_LanguageUzbek).toBeDisplayed();
   // // *- 2.Отображается галочка на элементе текущего выбора языка.
   // // ?
 
   // * Нажать элемент выбора языка.
   switch (language) {
-    case this.languageEn:
+    case this.text_LanguageEnglish_En:
       // * Выполнить, если требуемый язык пока не установлен
-      if(!await this.welcomeScreenHeaderEn.isDisplayed()) {
+      if(!await this.titleScreen_Welcome_En.isDisplayed()) {
         // * Нажать кнопку выбора языка интерфейса.
-        await this.languageButton.click();
+        await this.button_Language.click();
         // *- 1.Открыто окно Выбор языка, где доступны элементы выбора языков: узбекский, русский и английский (возможна другая комбинация языков).
         // - окно
-        await expect(this.languagesListTitle).toBeDisplayed();
+        await expect(this.titleWindow_Languages).toBeDisplayed();
         // - элементы выбора языков
         // -?-
         // *- 2.Отображается галочка на элементе текущего выбора языка.
         // -?-
 
         // * Нажать элемент выбора языка (например, английский).
-        await this.languagesListItemEn.click();
+        await this.item_LanguageEnglish.click();
         // *- Закрыто окно Выбор языка. Открыт экран приветствия приложения (например, Welcome для английского языка), где доступна кнопка выбора языка интерфейса:
         // - окно
-        await expect(this.languagesListTitle).not.toBeDisplayed();
+        await expect(this.titleWindow_Languages).not.toBeDisplayed();
         // - экран приветствия приложения
-        await expect(this.welcomeScreenHeaderEn).toHaveText(this.welcomeScreenHeaderEn_Expected);
+        await expect(this.titleScreen_Welcome_En).toHaveText(this.titleScreen_Welcome_En_Expected);
         // - кнопка выбора языка интерфейса
-        await expect(this.languageButton).toBeExisting();
-        // await expect(this.languageButton).toBeEnabled();
-        // await expect(this.languageButton).toBeDisplayed();
+        await expect(this.button_Language).toBeExisting();
+        // await expect(this.button_Language).toBeEnabled();
+        // await expect(this.button_Language).toBeDisplayed();
         // + код страны
-        await expect(this.countryCode).toHaveText(this.countryCode_Expected);
+        await expect(this.text_CountryCode).toHaveText(this.text_CountryCode_Expected);
         // + поле ввода номера телефона
-        await expect(this.phoneNumberInput).toBeDisplayed();
+        await expect(this.input_PhoneNumber).toBeDisplayed();
       }
       break;
     
-    case this.languageRu:
+    case this.text_LanguageRussian_En:
       // * Выполнить, если требуемый язык пока не установлен
-      if(!await this.welcomeScreenHeaderRu.isDisplayed()) {
+      if(!await this.titleScreen_Welcome_Ru.isDisplayed()) {
         // * Нажать кнопку выбора языка интерфейса.
-        await this.languageButton.click();
+        await this.button_Language.click();
         // *- 1.Открыто окно Выбор языка, где доступны элементы выбора языков: узбекский, русский и английский (возможна другая комбинация языков).
         // - окно
-        await expect(this.languagesListTitle).toBeDisplayed();
+        await expect(this.titleWindow_Languages).toBeDisplayed();
         // - элементы выбора языков
         // -?-
         // *- 2.Отображается галочка на элементе текущего выбора языка.
         // -?-
 
         // * Нажать элемент выбора языка (например, русский).
-        await this.languagesListItemRu.click();
+        await this.item_LanguageRussian.click();
         // *- Закрыто окно Выбор языка. Открыт экран приветствия приложения (например, Добро пожаловать для русского языка), где доступна кнопка выбора языка интерфейса:
         // - окно
-        await expect(this.languagesListTitle).not.toBeDisplayed();
+        await expect(this.titleWindow_Languages).not.toBeDisplayed();
         // - экран приветствия приложения
-        await expect(this.welcomeScreenHeaderRu).toHaveText(this.welcomeScreenHeaderRu_Expected);
+        await expect(this.titleScreen_Welcome_Ru).toHaveText(this.titleScreen_Welcome_Ru_Expected);
         // - кнопка выбора языка интерфейса
-        // await expect(this.languageButton).toBeExisting();
-        await expect(this.languageButton).toBeEnabled();
-        // await expect(this.languageButton).toBeDisplayed();
+        // await expect(this.button_Language).toBeExisting();
+        await expect(this.button_Language).toBeEnabled();
+        // await expect(this.button_Language).toBeDisplayed();
         // + код страны
-        await expect(this.countryCode).toHaveText(this.countryCode_Expected);
+        await expect(this.text_CountryCode).toHaveText(this.text_CountryCode_Expected);
         // + поле ввода номера телефона
-        await expect(this.phoneNumberInput).toBeDisplayed();
+        await expect(this.input_PhoneNumber).toBeDisplayed();
       }
       break;
   
-    case this.languageUz:
+    case this.text_LanguageUzbek_En:
       // * Выполнить, если требуемый язык пока не установлен
-      if(!await this.welcomeScreenHeaderUz.isDisplayed()) {
+      if(!await this.titleScreen_Welcome_Uz.isDisplayed()) {
         // * Нажать кнопку выбора языка интерфейса.
-        await this.languageButton.click();
+        await this.button_Language.click();
         // *- 1.Открыто окно Выбор языка, где доступны элементы выбора языков: узбекский, русский и английский (возможна другая комбинация языков).
         // - окно
-        await expect(this.languagesListTitle).toBeDisplayed();
+        await expect(this.titleWindow_Languages).toBeDisplayed();
         // - элементы выбора языков
         // -?-
         // *- 2.Отображается галочка на элементе текущего выбора языка.
         // -?-
 
         // * Нажать элемент выбора языка (например, узбекский).
-        await this.languagesListItemUz.click();
+        await this.item_LanguageUzbek.click();
         // *- Закрыто окно Выбор языка. Открыт экран приветствия приложения (например, Xush kelibsiz для узбекского языка), где доступна кнопка выбора языка интерфейса:
         // - окно
-        await expect(this.languagesListTitle).not.toBeDisplayed();
+        await expect(this.titleWindow_Languages).not.toBeDisplayed();
         // - экран приветствия приложения
-        await expect(this.welcomeScreenHeaderUz).toHaveText(this.welcomeScreenHeaderUz_Expected);
+        await expect(this.titleScreen_Welcome_Uz).toHaveText(this.titleScreen_Welcome_Uz_Expected);
         // - кнопка выбора языка интерфейса
-        // await expect(this.languageButton).toBeExisting();
-        // await expect(this.languageButton).toBeEnabled();
-        await expect(this.languageButton).toBeDisplayed();
+        // await expect(this.button_Language).toBeExisting();
+        // await expect(this.button_Language).toBeEnabled();
+        await expect(this.button_Language).toBeDisplayed();
         // + код страны
-        await expect(this.countryCode).toHaveText(this.countryCode_Expected);
+        await expect(this.text_CountryCode).toHaveText(this.text_CountryCode_Expected);
         // + поле ввода номера телефона
-        await expect(this.phoneNumberInput).toBeDisplayed();
+        await expect(this.input_PhoneNumber).toBeDisplayed();
       }
       break;
     

@@ -15,14 +15,14 @@ const STraTo  = require('../../screens/android/ab-transferToCard.screen');  // s
 const UApp    = require("../../utils/android/ab-app.utils");                // utilities > Application
 const UDev    = require("../../utils/android/dt-device.utils");             // utilities > Device
 
-describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231006| /Тестов 9 (частично 6)/', () => {
+describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231019| /Тестов 9 (частично 6)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 'o'); // o - operation / e - e2e < typeOfTest
     // if (i == 0){
     //   // * Ждем появления кнопки (пропустить рекламу при запуске приложения)
-    //   await SAuth.loginButton.waitForDisplayed({timeout: SGen.waitTime + 10000});
-    //   await SAuth.loginButton.click();
+    //   await SAuth.login_Button.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
+    //   await SAuth.login_Button.click();
     //   i++;
     // }
 
@@ -34,7 +34,7 @@ describe('ab-ts-02p: Testing of operations | Тестирование опера
     // if (counter == 0) return;
   
     // // * Открыть начальную страницу приложения
-    // await driver.startActivity(SGen.appPackage, SGen.appActivity);
+    // await driver.startActivity(SGen.appPackage, SGen.appActivity_Text_Expected);
   });
   afterEach(async () => {
     await SGen.afterEach(counter, tcNum);
@@ -131,7 +131,7 @@ it('ab-e-tc-04.001p: ! Adding card | Добавление карты /Тест �
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // ...
   if (await SHome.addCardButton.isDisplayed()) {
@@ -142,60 +142,60 @@ it('ab-e-tc-04.001p: ! Adding card | Добавление карты /Тест �
     await SHome.myCardsButton.click();
     // 1б.1.Открыт экран Мои карты, где доступна кнопка Добавить.
     // 1б.2.Нажать кнопку Добавить.
-    await SCard.addButtonOnMyCardsScreen.click();
+    await SCard.itemClass_TextView_titleScreen_MyCards.click();
     // 1б.3.Нажать кнопку Добавить карту.
-    await SCard.addCardButtonOnMyCardsScreen.click();
+    await SCard.button_AddCard_1.click();
   }
   
   // 1.1.Открыт экран добавления карты, где доступны поле ввода названия карты, поле ввода номера карты, поле ввода даты действительности карты и неактивная кнопка Добавить карту:
   // - поле ввода названия карты
-  await expect(SCard.cardNameInput).toBeExisting();
+  await expect(SCard.input_CardName).toBeExisting();
   // - поле ввода номера карты
-  await expect(SCard.cardNumberInput).toBeExisting();
+  await expect(SCard.input_CardNumber).toBeExisting();
   // - поле ввода даты действительности карты
-  await expect(SCard.cardExpiryDateInput).toBeExisting();
+  await expect(SCard.input_CardExpiryDate).toBeExisting();
   // - кнопка Добавить карту
-  await expect(SCard.addCardButtonOnDataInputScreen).toBeExisting();
+  await expect(SCard.button_AddCard_2).toBeExisting();
 
   // 2.Нажать поле ввода названия карты.
-  await SCard.cardNameInput.click();
+  await SCard.input_CardName.click();
   // 2.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 3.Ввести название карты.
   await UDev.androidKeyboardTypeIn(cardName);
   // 3.1.В поле ввода отображается введенное значение.
-  await expect(SCard.cardNameInput).toHaveText(cardName);
+  await expect(SCard.input_CardName).toHaveText(cardName);
   // * hide keyboard (закрывает следующие элементы)
   await driver.hideKeyboard();
 
   // 4.Нажать поле ввода номера карты.
-  await SCard.cardNumberInput.click();
+  await SCard.input_CardNumber.click();
   // 4.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 5.Ввести номер карты.
   await UDev.androidKeyboardTypeIn(cardNumber);
   // 5.1.В поле ввода отображается введенное значение.
-  await expect(SCard.cardNumberInput).toHaveText(cardNumber);
+  await expect(SCard.input_CardNumber).toHaveText(cardNumber);
   // * hide keyboard (закрывает следующие элементы)
   await driver.hideKeyboard();
 
   // 6.Нажать поле ввода даты действительности карты.
-  await SCard.cardExpiryDateInput.click();
+  await SCard.input_CardExpiryDate.click();
   // 6.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 7.Ввести дату действительности карты.
   await UDev.androidKeyboardTypeIn(cardExpiry);
   // 7.1.В поле ввода отображается введенное значение, кнопка Добавить карту активна.
-  await expect(SCard.cardExpiryDateInput).toHaveTextContaining(cardExpiry.substr(0, 2));
-  await expect(SCard.cardExpiryDateInput).toHaveTextContaining(cardExpiry.substr(3, 2));
+  await expect(SCard.input_CardExpiryDate).toHaveTextContaining(cardExpiry.substr(0, 2));
+  await expect(SCard.input_CardExpiryDate).toHaveTextContaining(cardExpiry.substr(3, 2));
   // * hide keyboard (закрывает следующие элементы)
   await driver.hideKeyboard();
   // - кнопка Добавить карту
-  await expect(SCard.addCardButtonOnDataInputScreen).toBeEnabled();
+  await expect(SCard.button_AddCard_2).toBeEnabled();
 
 //   // 8.Нажать кнопку Добавить карту.
-//   await SCard.addCardButtonOnDataInputScreen.click();
-//   await SSms.enterSmsCodeScreenHeaderRu.waitForDisplayed({timeout: SGen.waitTime});
+//   await SCard.button_AddCard_2.click();
+//   await SSms.enterSmsCodeScreenHeaderRu.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
 //   // 8.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить:
 //   // - экран Введите код из СМС
 //   await expect(SSms.enterSmsCodeScreenHeaderRu).toHaveText(SSms.enterSmsCodeScreenHeaderRu_Expected);
@@ -292,7 +292,7 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // 1.Нажать кнопку Мои карты в разделе Общий баланс.
     await SHome.myCardsButton.click();
@@ -303,13 +303,13 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
   // 2.1.Открыт экран действий с картой, где доступна кнопка Свойства карты.
 
   // 3.Нажать кнопку Свойства карты.
-  await SCard.cardSettingsButton.click();
+  await SCard.button_CardSettings.click();
   // 3.1.Открыт экран редактирования карты, где доступны изображение карты (с текущими дизайном, названием, балансом, именем владельца, номером, сроком действия), кнопки выбора ее дизайна, поле ввода/редактирования названия карты, кнопка Подтвердить.
 
   // * Создать массив существующих дизайнов карты.
-  await SCard.cardBackgroundImageButton.waitForDisplayed({timeout: SGen.waitTime + 15000});
+  await SCard.image_CardBackground.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
   // await SCard.waitForScreenDisplayed_cardSettingsScreen();
-  let raw_array = await SCard.cardBackgroundImageButtons;
+  let raw_array = await SCard.itemClass_ImageView_CardBackgrounds;
   // /*отладка*/ console.log('\n --> raw_array ' + raw_array + '\n');
   // await driver.pause(5000);
 
@@ -325,7 +325,7 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
   }
 
   for(let i = 0, l = data_array.length; i < l; i++) { // for (const element of data_array) {
-    // let nextElement1 = await SHome.cardBackgroundImageButtonChecked;
+    // let nextElement1 = await SHome.image_CardBackgroundChecked;
     // let elementAttributeValueCurrent1 = await nextElement1.getAttribute('resource-id');
     // /*отладка*/ console.log('\n --> elementAttributeValueCurrent1 = ' + elementAttributeValueCurrent1 + '\n');
 
@@ -338,7 +338,7 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
     // let nextElement = await element.nextElement();
     // let elementAttributeValueCurrent = await nextElement.getAttribute('resource-id');
 
-    // let nextElement2 = await SHome.cardBackgroundImageButtonChecked;
+    // let nextElement2 = await SHome.image_CardBackgroundChecked;
     // let elementAttributeValueCurrent2 = await nextElement2.getAttribute('resource-id');
     // /*отладка*/ console.log('\n --> elementAttributeValueCurrent2 = ' + elementAttributeValueCurrent2 + '\n');
   }
@@ -346,14 +346,14 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
   // -?- непонятно что проверять, т.к. атрибуты элемента не меняются
 
   // 5.Нажать поле ввода названия карты.
-  await SCard.cardNameEdit.click();
+  await SCard.input_CardName_1.click();
   // 5.1.Открыта клавиатура. Курсор установлен в конце текущего названия.
 
   // * Запомнить название и номер карты
     // * Прокрутить до элемента
     await $(`android=${SCard.scrollToElement_Up}`);
-  const cardName_Initial = await SCard.cardViewFrontName.getText();
-  const cardNumber = await SCard.cardViewFrontNumber.getText();
+  const cardName_Initial = await SCard.text_CardName_1.getText();
+  const cardNumber = await SCard.text_CardNumber_1.getText();
   // /*отладка*/ console.log(
   //   '\n' + cardName_Initial + ' = cardName_Initial... of card' +
   //   '\n' + cardNumber + ' = cardNumber' +
@@ -365,54 +365,54 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
   await UDev.androidKeyboardTypeIn(randomChars);
   // 6.1.Измененное значение отображается:
   // - в поле ввода;
-  await expect(SCard.cardNameEdit).toHaveText(cardName_Initial + randomChars);
+  await expect(SCard.input_CardName_1).toHaveText(cardName_Initial + randomChars);
   // - на изображении карты.
     // * Прокрутить до элемента
     await $(`android=${SCard.scrollToElement_Up}`);
-  await expect(SCard.cardViewFrontName).toHaveText(cardName_Initial + randomChars);
+  await expect(SCard.text_CardName_1).toHaveText(cardName_Initial + randomChars);
     // * hide keyboard (закрывает следующие элементы)
     await driver.hideKeyboard();
 
   // 7.Удалить название карты.
   // * Очистить поле ввода
-  // await SCard.cardNameEdit.clearValue();
-  await SCard.cardNameEditClearButton.click();
+  // await SCard.input_CardName_1.clearValue();
+  await SCard.button_CardNameInputClear.click();
   // 7.1.Пустое значение отображается:
   // - в поле ввода;
-  await expect(SCard.cardNameEdit).toHaveText(''); // 'Название карты'
+  await expect(SCard.input_CardName_1).toHaveText(''); // 'Название карты'
   // - на изображении карты.
-  await expect(SCard.cardViewFrontName).toHaveText(''); // .not.toBeExisting();
+  await expect(SCard.text_CardName_1).toHaveText(''); // .not.toBeExisting();
 
   // 8.Ввести название карты, нажав поле ввода названия карты.
-  await SCard.cardNameEdit.click();
+  await SCard.input_CardName_1.click();
   await UDev.androidKeyboardTypeIn(cardName);
       // * hide keyboard (закрывает следующие элементы)
       await driver.hideKeyboard();
   // 8.1.Введенное значение отображается:
   // - в поле ввода;
-  await expect(SCard.cardNameEdit).toHaveText(cardName);
+  await expect(SCard.input_CardName_1).toHaveText(cardName);
   // - на изображении карты.
     // * Прокрутить до элемента
-    // if(!(await SCard.cardViewFrontName).isDisplayedInViewport) {
+    // if(!(await SCard.text_CardName_1).isDisplayedInViewport) {
       await $(`android=${SCard.scrollToElement_Up}`);
     // }
-  await expect(SCard.cardViewFrontName).toHaveText(cardName);
+  await expect(SCard.text_CardName_1).toHaveText(cardName);
 
   // 9.Нажать кнопку Подтвердить.
-  await SCard.confirmButton.click();
+  await SCard.button_Confirm.click();
   // 9.1.Открыт экран действий с картой, всплывает сообщение Changed!
-  // await expect(SCard.confirmButton).toBeDisabled(); // - отключено 24.05.2023, т.к. при проверке опять активируется!
-  await SCard.cardSettingsButton.waitForDisplayed({timeout: SGen.waitTime});
+  // await expect(SCard.button_Confirm).toBeDisabled(); // - отключено 24.05.2023, т.к. при проверке опять активируется!
+  await SCard.button_CardSettings.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
 
   // 10.Вернуться на экран Мои карты, нажимая кнопку Назад.
   // await UDev.androidPressBackButton(1);
-  while(!await SCard.cardViewFrontNameOnMyCardsScreen.isDisplayed()){
+  while(!await SCard.text_CardName.isDisplayed()){
     await UDev.androidPressBackButton(1);
   }; 
-  await SCard.cardViewFrontNameOnMyCardsScreen.waitForDisplayed({timeout: SGen.waitTime + 15000});
+  await SCard.text_CardName.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
   // SCard.waitForScreenDisplayed_myCardsScreen();
   // *.Создать массив элементов.
-  raw_array = await SCard.cardsBlockItems;
+  raw_array = await SCard.itemClass_TextView_titleScreen_MyCards;
   data_array = [];
   elementAttributeKey = 'resource-id';
   // /*отладка*/ console.log('\n --> raw_array в ab-e-tc-004p №2 = ' + raw_array + '\n');
@@ -447,7 +447,7 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
         // await driver.pause(5000);
         // /*отладка ------------------------------------------------------------ */
       // - название
-      await expect(data_array[i-1]).toHaveText(cardName); // expect(SCard.cardViewFrontName).
+      await expect(data_array[i-1]).toHaveText(cardName); // expect(SCard.text_CardName_1).
     }
   }
 });
@@ -484,7 +484,7 @@ it('ab-e-tc-04.003p: ? Checking balance | Проверка баланса /ош�
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
   
   // 1.Обратить внимание на баланс каждой карты.
   /*
@@ -541,11 +541,11 @@ it('ab-e-tc-04.003p: ? Checking balance | Проверка баланса /ош�
   await SHome.myCardsButton.click();
   // 3.1.Открыт экран Мои карты, где доступен список карт.
   // - список карт /...ждем первую карту/
-  await SCard.cardBalance.waitForDisplayed({timeout: SGen.waitTime});
+  await SCard.text_CardBalance.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
 
   // 4.Обратить внимание на баланс каждой карты.
   // *.Создать массив видимых элементов.
-  raw_array = await SCard.cardsBlockItems;
+  raw_array = await SCard.itemClass_TextView_titleScreen_MyCards;
   data_array = [];
   await UApp.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1);
 
@@ -553,7 +553,7 @@ it('ab-e-tc-04.003p: ? Checking balance | Проверка баланса /ош�
   await $(`android=${UApp.scrollForward}`);
  
   // * Создать массив видимых элементов.
-  raw_array = await SCard.cardsBlockItems;
+  raw_array = await SCard.itemClass_TextView_titleScreen_MyCards;
   await UApp.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1);
 
   // * Контролируем непустоту массива.
@@ -606,7 +606,7 @@ it('ab-u-tc-04.004p: Hide/Show balance | Скрыть/Показать бала�
 
   // Пред.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
   
   // 1.Обратить внимание на общий баланс и баланс каждой карты.
   // 1.1.Отображаются соответствующие балансы.
@@ -707,7 +707,7 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // * Сохранить сумму баланса карты до операции. 
   const totalBalanceBefore = await SHome.totalBalance.getText();
@@ -722,7 +722,7 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   await UDev.androidKeyboardTypeIn(cardNumber_Receiver);
   // 2.1.В поле ввода отображается введенное значение, а также - активная кнопка отправки.
   await expect(SHome.receiverDataInput).toHaveText(cardNumber_Receiver);
-  await SHome.sendButton.waitForDisplayed({timeout: SGen.waitTime + 5000});
+  await SHome.sendButton.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 5000});
 
   // 3.Нажать кнопку отправки.
   await SHome.sendButton.click();
@@ -730,15 +730,15 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   await expect(STraTo.transferToCardScreenHeaderRu).toHaveText(STraTo.transferToCardScreenHeaderRu_Expected);
 
   // 4.Нажать поле выбора карты.
-  await SCardSe.cardsSelectButton.click();
+  await SCardSe.button_OpenCardsList.click();
   // 4.1.Открыт список карт отправителя.
   // 5.Выбрать карту отправителя из списка.
   // * Создать массив видимых элементов.
-  const raw_array = await SCardSe.cardsList;
+  const raw_array = await SCardSe.itemClass_TextView_titleWindow_Cards;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   const data_array = [];
-  const elementAttributeKey = SCardSe.elementAttributeKey;
-  const elementAttributeValue = SCardSe.elementAttributeValue;
+  const elementAttributeKey = SCardSe.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValue = SCardSe.text_ElementAttributeKey_En_Expected;
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
   // /*отладка*/ console.log('\n --> data_array = ' + data_array);
   // * Контролируем непустоту массива.
@@ -933,7 +933,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   const moneyAmount = await UApp.generateRandomChars(6, 'amount');
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // * Сохранить сумму баланса карты до операции. 
   const totalBalanceBefore = await SHome.totalBalance.getText();
@@ -950,7 +950,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
 
   // 2.1.В поле ввода отображается введенное значение, а также - активная кнопка отправки.
   // - активная кнопка отправки
-  await SHome.sendButton.waitForDisplayed({timeout: SGen.waitTime + 5000});
+  await SHome.sendButton.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 5000});
 
   // 3.Нажать кнопку отправки.
   await SHome.sendButton.click();
@@ -969,8 +969,8 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   let raw_array = await STraTo.receiverCardsList;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   let data_array = [];
-  const elementAttributeKey = SCardSe.elementAttributeKey;
-  const elementAttributeValue = SCardSe.elementAttributeValue;
+  const elementAttributeKey = SCardSe.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValue = SCardSe.text_ElementAttributeKey_En_Expected;
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
   // /*отладка*/ console.log('\n --> data_array = ' + data_array);
   // * Контролируем непустоту массива.
@@ -982,11 +982,11 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   // 6.1.Закрыты список карт и окно Выберите банк. В поле выбора карты получателя отображается выбранная карта.
 
   // 7.Нажать поле выбора карты отправителя.
-  await SCardSe.cardsSelectButton.click();
+  await SCardSe.button_OpenCardsList.click();
   // 7.1.Открыт список карт отправителя.
   // 8.Выбрать карту отправителя из списка.
   // * Создать массив видимых элементов.
-  raw_array = await SCardSe.cardsList;
+  raw_array = await SCardSe.itemClass_TextView_titleWindow_Cards;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   data_array = [];
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
@@ -1140,12 +1140,12 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   const moneyAmount = await UApp.generateRandomChars(6, 'amount');
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
-  // * Сохранить сумму баланса карты до операции. 
-  const totalBalanceBefore = await SHome.totalBalance.getText();
-  const cardBalanceBefore = await SHome.cardBalance.getText();
-  // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
+  // // * Сохранить сумму баланса карты до операции. 
+  // const totalBalanceBefore = await SHome.totalBalance.getText();
+  // const cardBalanceBefore = await SHome.cardBalance.getText();
+  // // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
 
   // 1.Нажать кнопку Контакты в разделе Переводы.
   await SHome.contactsButton.click();
@@ -1181,8 +1181,8 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   let raw_array = await STraTo.receiverCardsList;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   let data_array = [];
-  const elementAttributeKey = SCardSe.elementAttributeKey;
-  const elementAttributeValue = SCardSe.elementAttributeValue;
+  const elementAttributeKey = SCardSe.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValue = SCardSe.text_ElementAttributeValue_En_Expected;
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
   // /*отладка*/ console.log('\n --> data_array = ' + data_array);
   // * Контролируем непустоту массива.
@@ -1194,21 +1194,21 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   // 8.1.Закрыты список карт и окно Выберите банк. В поле выбора карты получателя отображается выбранная карта.
 
   // 9.Нажать поле выбора карты отправителя.
-  await SCardSe.cardsSelectButton.click();
+  await SCardSe.button_OpenCardsList.click();
   // 9.1.Открыт список карт отправителя.
   // 10.Выбрать карту отправителя из списка.
   // * Создать массив видимых элементов.
-  raw_array = await SCardSe.cardsList;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  raw_array = await SCardSe.itemClass_TextView_titleWindow_Cards;
+  // /*отладка*/ console.log('\n --> raw_array-1 = ' + raw_array);
   data_array = [];
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  /*отладка*/ console.log('\n --> data_array-1 = ' + data_array);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
     throw "не сформирован data_array (массив карт) = '" + data_array + "'";
   }
   // - выбрать карту из списка
-  await data_array[0].click();
+  await data_array[1].click();
   // 10.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
 
   // 11.Нажать поле ввода суммы перевода.
@@ -1219,7 +1219,7 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   await UDev.androidKeyboardTypeIn(moneyAmount);
   // * Скрыть клавиатуру (добавить время для формирования значения SCard.transferTotalAmount)
   await driver.hideKeyboard();
-  await driver.pause(SGen.waitTime);
+  await driver.pause(SGen.number_WaitTime_Expected);
   // 12.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
   // - введенное значение
   // const amountSeparatedThousandths = await UApp.separateThousandthsOfNumber(moneyAmount);
@@ -1341,7 +1341,7 @@ it('ab-e-tc-05.004p: ! Transfer between your accounts/cards | Перевод м�
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // * Сохранить сумму баланса карты до операции. 
   const totalBalanceBefore = await SHome.totalBalance.getText();
@@ -1364,11 +1364,11 @@ it('ab-e-tc-05.004p: ! Transfer between your accounts/cards | Перевод м�
   // 2.1.Открыт список карт отправки.
   // 3.Выбрать карту отправки из списка.
   // * Создать массив видимых элементов.
-  let raw_array = await SCardSe.cardsList;
+  let raw_array = await SCardSe.itemClass_TextView_titleWindow_Cards;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   let data_array = [];
-  const elementAttributeKey = SCardSe.elementAttributeKey;
-  const elementAttributeValue = SCardSe.elementAttributeValue;
+  const elementAttributeKey = SCardSe.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValue = SCardSe.text_ElementAttributeKey_En_Expected;
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
   // /*отладка*/ console.log('\n --> data_array = ' + data_array);
   // * Контролируем непустоту массива.
@@ -1384,7 +1384,7 @@ it('ab-e-tc-05.004p: ! Transfer between your accounts/cards | Перевод м�
   // 4.1.Открыт список карт получения.
   // 5.Выбрать карту получения из списка.
   // * Создать массив видимых элементов.
-  raw_array = await SCardSe.cardsList;
+  raw_array = await SCardSe.itemClass_TextView_titleWindow_Cards;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   data_array = [];
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
@@ -1508,12 +1508,12 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
   const moneyAmount = await UApp.generateRandomChars(5, 'amount');
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
-  // * Сохранить сумму баланса карты до операции. 
-  const totalBalanceBefore = await SHome.totalBalance.getText();
-  const cardBalanceBefore = await SHome.cardBalance.getText();
-  // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
+  // // * Сохранить сумму баланса карты до операции. 
+  // const totalBalanceBefore = await SHome.totalBalance.getText();
+  // const cardBalanceBefore = await SHome.cardBalance.getText();
+  // // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
 
   // 1.Нажать кнопку Платежи в панели навигации.
   await SHome.bottomNavPayments.click();
@@ -1530,25 +1530,25 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
   // 3.1.Открыт экран оператора, где доступны поле ввода номера телефона, неактивная кнопка Продолжить.
 
   // 4.Нажать поле ввода номера телефона и ввести валидный номер.
-  await SPay.phoneNumberInput.click();
+  await SPay.phoneNumber_Input.click();
   await UDev.androidKeyboardTypeIn('999664660'); // ...(phoneNumber)
   // 4.1.В поле ввода отображаются введенные данные, кнопка Продолжить активна.
   // await expect(SPay.paymentScreenInputs[0]).toHaveText('999664660'); // ...(phoneNumber)
-  await expect(SPay.phoneNumberInput).toHaveText('999664660'); // ...(phoneNumber)
+  await expect(SPay.phoneNumber_Input).toHaveText('999664660'); // ...(phoneNumber)
 
   // 5.Нажать кнопку Продолжить.
   await SPay.continueButton.click();
   // 5.1.Открыт экран Платеж, где доступны поле выбора карты, поле ввода суммы платежа, неактивная кнопка Продолжить.
 
   // 6.Нажать поле выбора карты и выбрать карту (любую).
-  await SCardSe.cardsSelectButton.click();
+  await SCardSe.button_OpenCardsList.click();
   // * Открыт список карт.
   // * Создать массив видимых элементов.
-  const raw_array = await SCardSe.cardsList;
+  const raw_array = await SCardSe.itemClass_TextView_titleWindow_Cards;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   const data_array = [];
-  const elementAttributeKey = SCardSe.elementAttributeKey; // 'resource-id'
-  const elementAttributeValue = SCardSe.elementAttributeValue; // 'com.fincube.apexbank.debug:id/select_card_number'
+  const elementAttributeKey = SCardSe.text_ElementAttributeKey_En_Expected; // 'resource-id'
+  const elementAttributeValue = SCardSe.text_ElementAttributeKey_En_Expected; // 'com.fincube.apexbank.debug:id/select_card_number'
   await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
   // /*отладка*/ console.log('\n --> data_array = ' + data_array);
   // * Контролируем непустоту массива.
@@ -1583,12 +1583,12 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
 
 
   // // 4.Ввести валидные данные в поля ввода.
-  // await SPay.phoneNumberInput.click();
+  // await SPay.phoneNumber_Input.click();
   // await UDev.androidKeyboardTypeIn(phoneNumber);
   // await SPay.amountInput.click();
   // await UDev.androidKeyboardTypeIn(moneyAmount);
   // // 4.1.В полях ввода отображаются введенные значения, кнопка Продолжить активна.
-  // // await expect(SPay.phoneNumberInput).toHaveText(phoneNumber);
+  // // await expect(SPay.phoneNumber_Input).toHaveText(phoneNumber);
   // // await expect(SPay.amountInput).toHaveText(moneyAmount);
   // // поля phone и amount имеют одинаковые id, поэтому проверяем по их порядку на экране:
   // await expect(SPay.paymentScreenInputs[0]).toHaveText(phoneNumber);
@@ -1650,7 +1650,7 @@ it.skip('ab-o-d-001: Debug > JavaScript heap out of memory', async () => {
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.languageRu, phoneNumber, phoneNumber_pass, SAuth.pinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // 1.Нажать поле ввода данных получателя в разделе Переводы.
   await SHome.receiverDataInput.click();

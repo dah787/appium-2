@@ -24,7 +24,7 @@ get mobileOperatorScreenHeader(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
 get phoneNumberLabel(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_label"]');}
-get phoneNumberInput(){
+get phoneNumber_Input(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
 get phoneNumberInputClearButton(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
