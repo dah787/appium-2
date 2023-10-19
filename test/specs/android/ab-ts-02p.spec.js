@@ -727,7 +727,7 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   // 3.Нажать кнопку отправки.
   await SHome.sendButton.click();
   // 3.1.Открыт экран Перевод на карту, где доступны поле выбора карты отправителя, поле номера карты получателя, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить.
-  await expect(STraTo.transferToCardScreenHeaderRu).toHaveText(STraTo.transferToCardScreenHeaderRu_Expected);
+  await expect(STraTo.titleScreen_TransferToCard_Ru).toHaveText(STraTo.titleScreen_TransferToCard_Ru_Expected);
 
   // 4.Нажать поле выбора карты.
   await SCardSe.button_OpenCardsList.click();
@@ -750,7 +750,7 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   // 5.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
 
   // 6.Нажать поле ввода суммы перевода.
-  await STraTo.transferAmountInput.click();
+  await STraTo.input_TransferAmount.click();
   // 6.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 7.Ввести сумму перевода.
@@ -761,15 +761,15 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   // - введенное значение,
   // const amountSeparatedThousandths = await UApp.separateThousandthsOfNumber(moneyAmount);
   // await expect(SCard.transferAmountInput).toHaveText(amountSeparatedThousandths);
-  await expect(STraTo.transferAmountInput).toHaveText(moneyAmount);
+  await expect(STraTo.input_TransferAmount).toHaveText(moneyAmount);
   // - комиссия
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n .transferCommission = ' + await SCard.transferCommission.getText() +
   //   '\n .transferTotalAmount = ' + await SCard.transferTotalAmount.getText()
   // );
-  const transferCommissionInNumbers = await UApp.extractNumbersFromString(await STraTo.transferCommission.getText());
-  const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraTo.transferTotalAmount.getText());
+  const transferCommissionInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferCommission.getText());
+  const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferTotalAmount.getText());
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
@@ -780,7 +780,7 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
 
   // 8.Нажать кнопку Продолжить.
-  await STraTo.continueButton.click();
+  await STraTo.button_Continue.click();
   // 8.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
 
   // 9.Нажать поле ввода кода из СМС.
@@ -816,7 +816,7 @@ return;
   await SCard.continueButtonOnTransferToCardScreen.click();
   // 9.1.Открыт экран Перевод на карту-2, где доступны изображение карты отправителя, номер карты получателя, сумма перевода, кнопка Перевод.
   // - экран Перевод на карту
-  await expect(SCard.transferToCardScreenHeaderRu).toHaveText(SCard.transferToCardScreenHeaderRu_Expected);
+  await expect(SCard.titleScreen_TransferToCard_Ru).toHaveText(SCard.titleScreen_TransferToCard_Ru_Expected);
   // - изображение карты отправителя
   await expect(SCard.cardSenderDetailsArea).toBeDisplayed();
   // - номер карты получателя
@@ -956,17 +956,17 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   await SHome.sendButton.click();
   // 3.1.Открыт экран Перевод на карту, где отображаются поле выбора карты отправителя, поле выбора карты получателя, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить, а также открыто окно Выберите банк, в котором доступно поле выбора банка получателя.
   // - окно Выберите банк
-  await expect(STraTo.receiverSelectBankWindowHeaderRu).toHaveText(STraTo.receiverSelectBankWindowHeaderRu_Expected);
+  await expect(STraTo.titleWindow_ReceiverSelectBank_Ru).toHaveText(STraTo.titleWindow_ReceiverSelectBank_Ru_Expected);
 
   // 4.Нажать поле выбора банка получателя.
-  await STraTo.receiverBankSelection.click();
+  await STraTo.button_OpenReceiverBanksList.click();
   // 4.1.Открыт список банков.
   // 5.Выбрать банк получателя из списка.
   // 5.1.Закрыт список банков. В окне Выберите банк отображается список карт получателя.
   // 6.Выбрать карту получателя из списка.
-  // await STraTo.receiverCardSelectionCheck.click();
+  // await STraTo.check_ReceiverCard.click();
   // * Создать массив видимых элементов.
-  let raw_array = await STraTo.receiverCardsList;
+  let raw_array = await STraTo.itemClass_TextView_titleWindow_ReceiverSelectCard;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   let data_array = [];
   const elementAttributeKey = SCardSe.text_ElementAttributeKey_En_Expected;
@@ -1000,7 +1000,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   // 8.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
 
   // 9.Нажать поле ввода суммы перевода.
-  await STraTo.transferAmountInput.click();
+  await STraTo.input_TransferAmount.click();
   // 9.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 10.Ввести сумму перевода.
@@ -1011,7 +1011,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   // - введенное значение
   // const amountSeparatedThousandths = await UApp.separateThousandthsOfNumber(moneyAmount);
   // await expect(SCard.transferAmountInput).toHaveText(amountSeparatedThousandths);
-  await expect(STraTo.transferAmountInput).toHaveText(moneyAmount);
+  await expect(STraTo.input_TransferAmount).toHaveText(moneyAmount);
   // - комиссия
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
@@ -1020,8 +1020,8 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   // );
   // * Добавить время для формирования значения SCard.transferTotalAmount
   await driver.pause(1000);
-  const transferCommissionInNumbers = await UApp.extractNumbersFromString(await STraTo.transferCommission.getText());
-  const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraTo.transferTotalAmount.getText());
+  const transferCommissionInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferCommission.getText());
+  const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferTotalAmount.getText());
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
@@ -1032,7 +1032,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
 
   // 11.Нажать кнопку Продолжить.
-  await STraTo.continueButton.click();
+  await STraTo.button_Continue.click();
   // 11.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
 
   // 12.Нажать поле ввода кода из СМС.
@@ -1059,7 +1059,7 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   // ...
 
 });
-it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Перевод на карту по номеру телефона из контактов /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
+it.only('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Перевод на карту по номеру телефона из контактов /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
   /** > базовые тесты (см. файл ...) <
   > Можно выполнить перевод денежных средств с карты на карту по номеру телефона из контактов. <
 ПРЕДУСЛОВИЯ:
@@ -1168,17 +1168,17 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   await UDev.contactName.click();
   // 5.1.Закрыт экран Выберите контакт. Открыт экран Перевод на карту, где отображаются поле выбора карты отправителя, поле выбора карты получателя, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить, а также открыто окно Выберите банк, в котором доступно поле выбора банка получателя.
   // - окно Выберите банк
-  await expect(STraTo.receiverSelectBankWindowHeaderRu).toHaveText(STraTo.receiverSelectBankWindowHeaderRu_Expected);
+  await expect(STraTo.titleWindow_ReceiverSelectBank).toHaveText(STraTo.titleWindow_ReceiverSelectBank_Ru_Expected);
 
   // 6.Нажать поле выбора банка получателя.
-  await STraTo.receiverBankSelection.click();
+  await STraTo.button_OpenReceiverBanksList.click();
   // 6.1.Открыт список банков.
   // 7.Выбрать банк получателя из списка.
   // 7.1.Закрыт список банков. В окне Выберите банк отображается список карт получателя.
   // 8.Выбрать карту получателя из списка.
-  // await STraTo.receiverCardSelectionCheck.click();
+  // await STraTo.check_ReceiverCard.click();
   // * Создать массив видимых элементов.
-  let raw_array = await STraTo.receiverCardsList;
+  let raw_array = await STraTo.itemClass_TextView_titleWindow_ReceiverSelectCard;
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
   let data_array = [];
   const elementAttributeKey = SCardSe.text_ElementAttributeKey_En_Expected;
@@ -1212,7 +1212,7 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   // 10.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
 
   // 11.Нажать поле ввода суммы перевода.
-  await STraTo.transferAmountInput.click();
+  await STraTo.input_TransferAmount.click();
   // 11.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
   // 12.Ввести сумму перевода.
@@ -1224,15 +1224,15 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   // - введенное значение
   // const amountSeparatedThousandths = await UApp.separateThousandthsOfNumber(moneyAmount);
   // await expect(SCard.transferAmountInput).toHaveText(amountSeparatedThousandths);
-  await expect(STraTo.transferAmountInput).toHaveText(moneyAmount);
+  await expect(STraTo.input_TransferAmount).toHaveText(moneyAmount);
   // - комиссия
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n .transferCommission = ' + await SCard.transferCommission.getText() +
   //   '\n .transferTotalAmount = ' + await SCard.transferTotalAmount.getText()
   // );
-  const transferCommissionInNumbers = await UApp.extractNumbersFromString(await STraTo.transferCommission.getText());
-  const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraTo.transferTotalAmount.getText());
+  const transferCommissionInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferCommission.getText());
+  const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferTotalAmount.getText());
   // /*отладка*/ console.log('\n --> ' + 
   //   'moneyAmount = ' + moneyAmount +
   //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
@@ -1243,8 +1243,23 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
 
   // 13.Нажать кнопку Продолжить.
-  await STraTo.continueButton.click();
+  await STraTo.button_Continue.click();
   // 13.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
+
+
+
+
+
+
+
+
+return;//выдает ошибку Инвалид параметерс...
+
+
+
+
+
+
 
   // 14.Нажать поле ввода кода из СМС.
   await SSms.smsCodeInput.click();

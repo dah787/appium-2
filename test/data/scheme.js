@@ -53,6 +53,7 @@ ab-authorization.screen
 ab-general.screen
 ab-cards.screen
 ab-cardsSelect.screen
+ab-transferToCard.screen
 
 /** https://medium.com/@stefanovskyi/unit-test-naming-conventions-dd9208eadbea
   
