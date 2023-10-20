@@ -8,10 +8,11 @@ titleScreen_Welcome_Ru_Expected = 'Войти в ApexBank';//screenHeader_Text_W
 titleScreen_Welcome_Uz_Expected = 'Apex Bankga kirish';//screenHeader_Text_Welcome_Uz_Expected
 
 text_CountryCode_Expected = '+998';//countryCode_Text_Expected
+text_PhoneNumber_Expected = '+998 91 394 11 13';//supportContactphoneNumber_Expected
 
-text_LanguageEnglish_En_loginScreen = 'english'; // 'En'
-text_LanguageRussian_En_loginScreen = 'russian'; // 'Ru'
-text_LanguageUzbek_En_loginScreen = 'uzbek';   // 'Uz'
+text_English_En_LoginScreen = 'english'; // 'En'
+text_Russian_En_LoginScreen = 'russian'; // 'Ru'
+text_Uzbek_En_LoginScreen = 'uzbek';   // 'Uz'
 
 text_LanguageEnglish_En = 'language_en'; // 'english', 'En'
 text_LanguageRussian_En = 'language_ru'; // 'russian', 'Ru'
@@ -20,7 +21,6 @@ text_LanguageUzbek_En = 'language_uz';   // 'uzbek', 'Uz'
 titleWindow_SupportContacts_En_Expected = 'Support contact';//supportContactsListTitleEn_Expected
 titleWindow_SupportContacts_Ru_Expected = 'Контакт со службой поддержки';//supportContactsListTitleRu_Expected
 titleWindow_SupportContacts_Uz_Expected = 'Qo‘llab-quvvatlash aloqa';//supportContactsListTitleUz_Expected
-text_PhoneNumber_Expected = '+998 91 394 11 13';//supportContactphoneNumber_Expected
 
 
 
@@ -53,7 +53,7 @@ get item_LanguageRussian(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
 get item_LanguageUzbek(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_uzbek"]');}
-get itemClass_TextView_titleWindow_Languages(){//languagesListItems
+get items_TextView_titleWindow_Languages(){//languagesListItems
   return $$('android.widget.TextView');}
 
 get titleScreen_Welcome_En(){ // find element by Xpath - (//tagname[@attribute=value])

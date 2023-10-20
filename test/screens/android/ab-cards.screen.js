@@ -6,7 +6,7 @@ class CardsScreen {
 // экран-1 Мои карты
 get titleScreen_MyCards_Ru(){
   return $('//android.widget.TextView[@text="Мои карты"]');}
-get itemClass_TextView_titleScreen_MyCards(){
+get items_titleScreen_MyCards(){
   return $$('android.widget.TextView');}
 get button_AddCard(){//addButtonOnMyCardsScreen
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/addCardButton"]');}
@@ -54,7 +54,7 @@ get image_CardBackground(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bg_image"]');}
 get image_CardBackgroundChecked(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/checked"]');}
-get itemClass_ImageView_CardBackgrounds(){
+get items_CardBackgrounds(){
   return $$('android.widget.ImageView');}
 get input_CardName_1(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');} // ...input_card_name

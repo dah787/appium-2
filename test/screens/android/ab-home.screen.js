@@ -3,26 +3,27 @@ class HomeScreen {
 /* CONSTANTS */
 // profileName_NadiaPage_Expected = 'Nadia Page'; // related to '99 966 46 60'
 // profileName_NadiaPage_Expected = 'Дмитрий'; // related to '99 966 46 60'
-totalBalanceLabelRu_Expected = 'Общий баланс';
-balanceHidingSymbols = '--.-- UZS';
-totalBalanceHidingSymbols = '********';
-cardBalanceHidingSymbols = '******';
+titleSection_TotalBalance_Ru_Expected = 'Общий баланс';
+
+text_BalanceHidingSymbols_En_Expected = '--.-- UZS';
+text_TotalBalanceHidingSymbols_En_Expected = '********';
+text_CardBalanceHidingSymbols_En_Expected = '******';
 
 
 
 /* SELECTORS */
 // главный экран: блок Профиль
-get profileLayout(){
+get layout_Profile(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/profileLayout"]');}
-get profile_Button(){
+get button_Profile(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/profileButton"]');}
-get profileName_NadiaPage(){
-  return $('//android.widget.TextView[@text="Nadia Page"]');}
-get passVerification_Button(){// performVerificationButton
+// get text_ProfileNameNadiaPage_En(){
+//   return $('//android.widget.TextView[@text="Nadia Page"]');}
+get button_PassVerification(){// performVerificationButton
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnPassVerification"]');}
 
 // главный экран: блок Общий баланс
-get totalBalanceLabelRu(){
+get titleSection_TotalBalance_Ru(){
   return $('//android.widget.TextView[@text="Общий баланс"]');}
   
 // главный экран: блок Общий баланс 1/4 (no card yet): заказать или добавить карту
@@ -34,17 +35,17 @@ get totalBalanceLabelRu(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnAllCard"]');}
 // get addNewCardButton(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnAddCard"]');}
-get myCardsButton(){
+get button_MyCards(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnNext"]');}
-get orderCardButton(){
+get button_OrderCard(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
-get addCardButton(){
+get button_AddCard(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderAddCard"]');}
 
 // главный экран: блок Общий баланс (already have card): Сумма общего баланса
-get totalBalance(){ // totalBalanceAmount
+get text_TotalBalanceAmount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotalBalance"]');} // ...tvBalance
-get showHideAmountButton(){
+get button_ShowHideBalanceAmount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnHideShowBalance"]');}
 // https://www.automationtestinghub.com/appium-scroll-examples/
 // https://russianblogs.com/article/88992310695/
@@ -54,9 +55,9 @@ scrollToElement_Right = 'new UiScrollable(new UiSelector().resourceId("com.fincu
 scrollToElement_Right_Text = 'new UiScrollable(new UiSelector().resourceId("com.fincube.apexbank.debug:id/cardsListSmall")).setAsHorizontalList().scrollIntoView(new UiSelector().text("t").className("android.widget.TextView"))';
 
 // главный экран: блок Общий баланс already have card): Список карт
-get cardsListBlock(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/listCard"]');}
-get cardsBlockItems(){
+get layout_CardsList(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderCardsList"]');}
+get items_layout_CardsList(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"]').$$('android.widget.TextView');}
   // return $$('android.widget.TextView');}
   // return $('new UiScrollable(new UiSelector().resourceId("com.fincube.apexbank.debug:id/cardsListSmall").setAsHorizontalList(new UiSelector().className("android.widget.TextView"))');}
@@ -67,44 +68,44 @@ get cardsBlockItems(){
   // return $$('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"][@class="android.widget.TextView"]');}
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"]').$$('android.widget.TextView');}
   // scrollToElement_Up = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("APEXBANK").className("android.widget.TextView"))';
-get cardView(){
+get frame_CardViewFront(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');} // ...bank_card_view
-get cardName(){
+get text_CardName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardName"]');} // ...bank_card_view_name
-get cardBalance(){
+get text_CardBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBalance"]');} // ...bank_card_view_balance
-get cardNumber(){
+get text_CardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardNumber"]');}
-get cardExpiration(){
+get text_CardExpiration(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardDate"]');}
-get cardLogo(){
+get text_CardLogo(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bank_card_currency_logo"]');}
 
 // главный экран: блок Переводы
-get transferLabelRu(){
+get titleSection_Transfer_Ru(){
   return $('//android.widget.TextView[@text="Переводы"]');}
-get receiverDataInput(){
+get input_ReceiverData(){
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderInput"]');}
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/etTransfer"]');}
-get scannerButton(){
+get button_Scanner(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnScanCard"]');}
-get contactsButton(){
+get button_Contacts(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnContacts"]');}
-get sendButton(){
+get button_Send(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnSend"]');}
 
 // главный экран: блок Переводы между своими счетами/картами
-get transferBetweenCardsButton(){
+get button_TransferBetweenCards(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnTransferBetweenCards"]');}
 
 // главный экран: нижняя панель навигации
-get bottomNavHome(){ // navBarHomeTab
+get bottomNav_Home(){ // navBarHomeTab
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_home"]');}
-get bottomNavPayments(){ // navBarPaymentsTab
+get bottomNav_Payments(){ // navBarPaymentsTab
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_payment"]');}
-get bottomNavHistory(){
+get bottomNav_History(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_history"]');}
-get bottomNavSupport(){
+get bottomNav_Support(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_chat"]');}
 
   

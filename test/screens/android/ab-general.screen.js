@@ -25,7 +25,7 @@ get button_Back(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
 get button_Logout(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_logout"]');}
-get button_LogOutConfirm(){ // appLogOutConfirmButton
+get button_LogOutConfirm(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_confirm"]');}
 
 
@@ -85,7 +85,7 @@ async logOutTheApp(){ // appLogOut
     // !(await $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]').isDisplayed()) &&
     // !(await AuthM.languageButton.isDisplayed()) &&
     !(await this.button_Language_1.isDisplayed()) &&
-    !(await SHome.bottomNavHome.isDisplayed())
+    !(await SHome.bottomNav_Home.isDisplayed())
     ) {
         // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_0_afterCycle_' + (counter + 1) + '.png');
         // /*отладка*/ console.log('\n ---> counter = ' + counter + '\n');
@@ -97,12 +97,12 @@ async logOutTheApp(){ // appLogOut
     await this.button_PhoneNumberInputClear_1.click();
   }
 
-  if(await SHome.bottomNavHome.isDisplayed()) {
-      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'bottomNavHome' + '.png');
-    await SHome.bottomNavHome.click();
-    await SHome.profile_Button.waitForDisplayed({timeout: this.number_WaitTime_Expected + 5000});
-      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'bottomNavHome' + '.png');
-    await SHome.profile_Button.click(); // profileButton
+  if(await SHome.bottomNav_Home.isDisplayed()) {
+      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_1_beforeClick_' + 'bottomNav_Home' + '.png');
+    await SHome.bottomNav_Home.click();
+    await SHome.button_Profile.waitForDisplayed({timeout: this.number_WaitTime_Expected + 5000});
+      // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_2_afterClick_' + 'bottomNav_Home' + '.png');
+    await SHome.button_Profile.click(); // profileButton
     await this.button_Logout.waitForDisplayed({timeout: this.number_WaitTime_Expected + 5000});
       // /*отладка*/ await driver.saveScreenshot('_view_shots/logOutTheApp_3_afterClick_' + 'profileButton' + '.png');
     await this.button_Logout.click();

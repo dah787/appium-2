@@ -39,21 +39,32 @@ class Scheme {
 переключатель       -   switch_UseFingerprint
 чек-бокс            -   check_UseFingerprint
 радио-кнопка        -   radio_UseFingerprint
+блок                -   layout_Profile
 кнопка              -   button_Scanner
 кнопка              -   button_PhoneNumberInputClear
+навигация           -   bottomNav_Home
 позиция списка      -   item_PersonalData
 
-элемент класса      -   itemClass_TextView + _On + _titleScreen +_loginOrRegister
-элемент класса      -   itemClass_TextView_titleWindow_Languages
+// элемент класса      -   itemClass_TextView+ _On + _titleScreen +_LoginOrRegister
+элемент класса      -   items_titleScreen_LoginOrRegister
+элемент класса      -   items_titleWindow_Languages
+элемент класса      -   items_layout_CardsList
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-ab-login.screen
+
 ab-authorization.screen
-ab-general.screen
 ab-cards.screen
-ab-cardsSelect.screen
-ab-transferToCard.screen
+? ab-cardsReciever.window
+? ab-cardsSender.window
+ab-general.screen
+ab-history.screen
+ab-home.screen
+ab-login.screen
+-
+? ab-transferToCard.screen
+
+
 
 /** https://medium.com/@stefanovskyi/unit-test-naming-conventions-dd9208eadbea
   

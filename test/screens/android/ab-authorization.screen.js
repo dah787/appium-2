@@ -7,8 +7,8 @@ const LogInM  = require('./ab-login.screen');                       // Login scr
 class AuthorizationScreen extends LogInM {
 
 /* CONSTANTS */
-titleScreen_createPinCode_Ru_Expected = 'Создайте новый PIN-код';
-titleScreen_enterPinCode_Ru_Expected = 'Введите свой PIN-код';
+titleScreen_CreatePinCode_Ru_Expected = 'Создайте новый PIN-код';
+titleScreen_EnterPinCode_Ru_Expected = 'Введите свой PIN-код';
 
 text_PinCode_Expected = '0123';
 text_PinCodeOTP_Expected = '123456';
@@ -23,17 +23,17 @@ get button_Signin(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_sign_in"]');}
 
 // экран-2 Создайте новый PIN-код
-get titleScreen_createPinCode(){// createPinCodeScreenHeader
+get titleScreen_CreatePinCode(){// createPinCodeScreenHeader
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
-get titleScreen_createPinCode_Ru(){
+get titleScreen_CreatePinCode_Ru(){
   return $('//android.widget.TextView[@text="Создайте новый PIN-код"]');}
-get image_pinCodeIcon_3(){ // pin code icon
+get image_PinCodeIcon_3(){ // pin code icon
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_pin_3"]');}
 
 // экран-21 Введите свой PIN-код
-get titleScreen_enterPinCode(){// screenHeader_Text_enterPinCode
+get titleScreen_EnterPinCode(){// screenHeader_Text_enterPinCode
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
-get titleScreen_enterPinCode_Ru(){
+get titleScreen_EnterPinCode_Ru(){
   return $('//android.widget.TextView[@text="Введите свой PIN-код"]');}
 
 
@@ -83,9 +83,9 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   await this.button_Signin.click();
   // 51.Отображается экран Создайте новый PIN-код, где доступны неактивные символы пин-кода и клавиатура приложения:
   // - страница Создайте новый PIN-код
-  await expect(this.titleScreen_createPinCode).toHaveText(this.titleScreen_createPinCode_Ru_Expected);
+  await expect(this.titleScreen_CreatePinCode).toHaveText(this.titleScreen_CreatePinCode_Ru_Expected);
   // - символ пин-кода (проверяем одну иконку)
-  await expect( await this.image_pinCodeIcon_3.isEnabled() ).toBe(true);
+  await expect( await this.image_PinCodeIcon_3.isEnabled() ).toBe(true);
   // - клавиатура приложения (проверяем одну клавишу)
   await expect( await AppUM.appKeyboardKey_3.isEnabled() ).toBe(true);
 
@@ -95,32 +95,32 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // 61.Символы пин-кода активируются по мере ввода, а после ввода последнего символа пин-кода отображается экран Введите свой PIN-код:
   // - символы пин-кода ?
   // - страница Введите свой PIN-код
-  await expect(this.titleScreen_enterPinCode).toHaveText(this.titleScreen_enterPinCode_Ru_Expected);
+  await expect(this.titleScreen_EnterPinCode).toHaveText(this.titleScreen_EnterPinCode_Ru_Expected);
 
   // 7.Ввести пин-код.
   await AppUM.appKeyboardTypeIn(pinCode);
   // await AppUM.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
-  await HomeM.profileLayout.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
+  await HomeM.layout_Profile.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
   // 71.Открыт главный экран приложения (активна кнопка Главная панели навигации), где доступны кнопка профиля пользователя, текст Общий баланс и... одно из следующего:
   // - сумма общего баланса (если пользователь уже имеет карту банка).
   // - ккнопка Заказать карту и кнопка Добавить карту (если пользователь пока не имеет или не добавил карту банка):
   // + элемент профиля клиента
-  await expect(HomeM.profileLayout).toBeExisting();
+  await expect(HomeM.layout_Profile).toBeExisting();
   // - кнопка профиля пользователя
-  await expect(HomeM.profile_Button).toBeExisting();
+  await expect(HomeM.button_Profile).toBeExisting();
   // // - имя пользователя
   // await expect(HomeM.profileName_NadiaPage).toHaveText(HomeM.profileName_NadiaPage_Expected);
   // // - вкладка Аккаунт
   // await expect(HomeM.accountTabRu).toBeExisting();
-  if( await HomeM.totalBalanceLabelRu.isDisplayed() ) {
+  if( await HomeM.titleSection_TotalBalance_Ru.isDisplayed() ) {
     // - текст Общий баланс  
-    await expect(HomeM.totalBalanceLabelRu).toHaveText(HomeM.totalBalanceLabelRu_Expected);
+    await expect(HomeM.titleSection_TotalBalance_Ru).toHaveText(HomeM.titleSection_TotalBalance_Ru_Expected);
     // - сумма общего баланса -?-
   } else {
     // - кнопка Заказать карту
-    await expect(HomeM.orderCardButton).toBeExisting();
+    await expect(HomeM.button_OrderCard).toBeExisting();
     // - кнопка Добавить карту
-    await expect(HomeM.addCardButton).toBeExisting();
+    await expect(HomeM.button_AddCard).toBeExisting();
   }
   
   
@@ -172,10 +172,10 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
 //   // 51.Отображается экран Создайте новый PIN-код, где доступны неактивные символы пин-кода и клавиатура приложения:
 // await driver.saveScreenshot('view_shots/customerAuth_afterStep_' + 51 + '.png');
 //   // - страница Создайте новый PIN-код
-//   await expect(this.titleScreen_createPinCode)
-//     .toHaveText(this.titleScreen_createPinCode_Ru_Expected);
+//   await expect(this.titleScreen_CreatePinCode)
+//     .toHaveText(this.titleScreen_CreatePinCode_Ru_Expected);
 //   // - символ пин-кода (проверяем одну иконку)
-//   await expect( await this.image_pinCodeIcon_3.isEnabled() ).toBe(true);
+//   await expect( await this.image_PinCodeIcon_3.isEnabled() ).toBe(true);
 //   // - клавиатура приложения (проверяем одну клавишу)
 //   await expect( await AppUM.appKeyboardKey_3.isEnabled() ).toBe(true);
 
@@ -185,8 +185,8 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
 // await driver.saveScreenshot('view_shots/customerAuth_afterStep_' + 61 + '.png');
 //   // - символы пин-кода ?
 //   // - страница Введите свой PIN-код
-//   await expect(this.titleScreen_enterPinCode)
-//     .toHaveText(this.titleScreen_enterPinCode_Ru_Expected);
+//   await expect(this.titleScreen_EnterPinCode)
+//     .toHaveText(this.titleScreen_EnterPinCode_Ru_Expected);
 
 //   // 7.Ввести пин-код.
 //   await AppUM.appKeyboardTypeIn(pinCode);

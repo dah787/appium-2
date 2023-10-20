@@ -16,7 +16,7 @@ const STlg   = require("../../screens/android/dt-telegram.screen");       // scr
 const UApp   = require("../../utils/android/ab-app.utils");               // utilities > App
 const UDev   = require("../../utils/android/dt-device.utils");            // utilities > Device
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231018| /Тестов 11 (частично 5)/', () => {
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231020| /Тестов 11 (частично 5)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
@@ -104,11 +104,11 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
 
   await SAuth.item_LanguageEnglish.waitForDisplayed({timeout: 5000});
   // const raw_array = await $$('android.widget.TextView');
-  const raw_array = await SAuth.itemClass_TextView_titleWindow_Languages;
+  const raw_array = await SAuth.items_TextView_titleWindow_Languages;
   const elementAttributeKey = 'resource-id';
   let  data_array = [];
   let data_array_elems = [];
-  await SAuth.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, SAuth.text_LanguageEnglish_En_loginScreen, SAuth.text_LanguageRussian_En_loginScreen, SAuth.text_LanguageUzbek_En_loginScreen, 'Kz');
+  await SAuth.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, SAuth.text_English_En_LoginScreen, SAuth.text_Russian_En_LoginScreen, SAuth.text_Uzbek_En_LoginScreen, 'Kz');
 
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
@@ -137,7 +137,7 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
     elementIndex++;
 
     switch (element) {
-      case SAuth.text_LanguageEnglish_En_loginScreen:
+      case SAuth.text_English_En_LoginScreen:
         // /*отладка*/ console.log('\n --> case En: ' + element + '\n');
         // 3.Нажать элемент выбора языка (например, английский).
         await SAuth.item_LanguageEnglish.click();
@@ -154,7 +154,7 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
         await expect(SAuth.input_PhoneNumber).toBeDisplayed();
         break;
       
-      case SAuth.text_LanguageRussian_En_loginScreen:
+      case SAuth.text_Russian_En_LoginScreen:
         // /*отладка*/ console.log('\n --> case Ru: ' + element + '\n');
         // 3.Нажать элемент выбора языка (например, русский).
         await SAuth.item_LanguageRussian.click();
@@ -171,7 +171,7 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
         await expect(SAuth.input_PhoneNumber).toBeDisplayed();
         break;
       
-      case SAuth.text_LanguageUzbek_En_loginScreen:
+      case SAuth.text_Uzbek_En_LoginScreen:
         // /*отладка*/ console.log('\n --> case Uz: ' + element + '\n');
         // 3.Нажать элемент выбора языка (например, узбекский).
         await SAuth.item_LanguageUzbek.click();
@@ -1124,7 +1124,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
-  await SHome.profile_Button.click();
+  await SHome.button_Profile.click();
   // 1.1.Открыт экран профиля пользователя, где доступна кнопка статуса пользователя.
   
   // 2.Нажать кнопку статуса пользователя.
@@ -1191,7 +1191,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   // // - экран Возможности
   // await expect(SProf.possibilitiesScreenHeaderRu).toHaveText(SProf.possibilitiesScreenHeaderRu_Expected);
 
-  // await SHome.passVerification_Button.click();
+  // await SHome.button_PassVerification.click();
   // await SProf.close_Button.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 5000})
   // await SProf.closeButton.click();
 
@@ -1240,7 +1240,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
-  await SHome.profile_Button.click();
+  await SHome.button_Profile.click();
   // 1.1.Открыт экран профиля пользователя, где доступны кнопка выбора языка и кнопка выхода из приложения на текущем языке.
   
   // 2.Нажать кнопку выбора языка.
@@ -1411,7 +1411,7 @@ it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
   */
   
   // *.Создать массив видимых элементов.
-  let raw_array = await SHome.cardsBlockItems;
+  let raw_array = await SHome.items_layout_CardsList;
   const data_array = [];
   const elementAttributeKey = 'resource-id';
   const elementAttributeValue_1 = 'com.fincube.apexbank.debug:id/tvCardName';
@@ -1425,7 +1425,7 @@ it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
   await $(`android=${SHome.scrollToElement_Right}`);
 
   // *.Создать массив видимых элементов.
-  raw_array = await SHome.cardsBlockItems;
+  raw_array = await SHome.items_layout_CardsList;
   await UApp.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1/*, elementAttributeValue_2, elementAttributeValue_3, elementAttributeValue_4*/);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
