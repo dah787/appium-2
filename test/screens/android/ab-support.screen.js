@@ -1,81 +1,82 @@
 class SupportScreen {
 
 /* CONSTANTS */
-elementAttributeKey = 'resource-id';
-elementAttributeValue_Part = 'com.fincube.apexbank.debug:id/tvSupport_';
-// elementAttributeValue_supportFaq = 'com.fincube.apexbank.debug:id/tvFaq_title';
-elementAttributeValue_supportFaq = 'com.fincube.apexbank.debug:id/card_layout';
+text_ElementAttributeKey_En_Expected = 'resource-id';
+text_ElementAttributeValue_Part_En_Expected = 'com.fincube.apexbank.debug:id/tvSupport_';
+// text_ElementAttributeValue_SupportFaq_En_Expected = 'com.fincube.apexbank.debug:id/tvFaq_title';
+text_ElementAttributeValue_SupportFaq_En_Expected = 'com.fincube.apexbank.debug:id/card_layout';
 
-supportScreenHeaderRu_Expected = 'Поддержка';
-supportOfficesLabelRu_Expected = 'Офисы и банкоматы';
-  supportOfficesScreenHeaderRu_Expected = 'Наши офисы';
-supportAdditionalLinksLabelRu_Expected = 'Дополнительная связь';
+titleScreen_Support_Ru_Expected = 'Поддержка';
+titleSection_Offices_Ru_Expected = 'Офисы и банкоматы';
 
-supportWindowLabelCallRu_Expected = 'Позвонить в банк';
-supportWindowLabelMessageRu_Expected = 'Написать в банк';
+titleScreen_OurOffices_Ru_Expected = 'Наши офисы';
+titleSection_AdditionalLinks_Ru_Expected = 'Дополнительная связь';
 
-supportFaqScreenHeaderRu_Expected = 'Часто задаваемые вопросы';
+titleWindow_CallBank_Ru_Expected = 'Позвонить в банк';
+titleWindow_WriteToBank_Ru_Expected = 'Написать в банк';
+
+titleScreen_Faq_Ru_Expected = 'Часто задаваемые вопросы';
 
 
 
 /* SELECTORS */
 // экран Поддержка
-get supportScreenHeader(){
+get titleScreen_Support(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/title"]');}
-get supportCallButton(){
+get item_CallBank(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_call"]');}
 
   // экран Поддержка > окно Позвонить/Написать в банк
-  get supportWindowLabel(){ // supportCallWindowLabel, supportMessageWindowLabel
+  get titleWindow_CallBank(){ // supportCallWindowLabel, supportMessageWindowLabel
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-  get supportContactsList(){ // supportCallContactsList, supportMessageContactsList
+  get items_titleWindow_CallBank(){ // supportCallContactsList, supportMessageContactsList
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');}
 
   // экран Поддержка > окно Позвонить в банк
-  get supportCallFirstContactButton(){
+  get item_titleWindow_CallBank_FirstContact(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_firstContact"]');}
 
-get supportMessageButton(){
+get item_WriteToBank(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_message"]');}
 
-get supportFaqButton(){
+get item_Faq(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_faq"]');}
   // экран Поддержка > экран Часто задаваемые вопросы
-  get supportFaqScreenHeader(){
+  get titleScreen_Faq(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-  get supportFaqList(){
+  get items_titleScreen_Faq(){
     // return $('//*[@resource-id="com.fincube.apexbank.debug:id/rvFaq"]').$$('android.widget.TextView');}
     // return $('//*[@resource-id="com.fincube.apexbank.debug:id/rvFaq"]').$$('androidx.cardview.widget.CardView');}
     // return $('//*[@resource-id="com.fincube.apexbank.debug:id/rvFaq"]').$$('android.view.ViewGroup');}
     // return $$('android.widget.TextView');}
     return $$('androidx.cardview.widget.CardView');}
     // экран Поддержка > экран Часто задаваемые вопросы - Ответ открыт
-    get supportFaqReply(){
+    get item_FaqReply(){
       return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_description"]');}
 
-get supportOfficesLabel(){
+get titleSection_Offices(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_label_locationOfOffices"]');}
-get supportViewOnMapButton(){
+get item_ViewOnMap(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_viewFromMap"]');}
   // экран Поддержка > экран Наши офисы
-  get supportOfficesScreenHeader(){
+  get titleScreen_OurOffices(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-  get supportMessageButton_1(){
+  get button_WriteToBank(){
     return $('//*[@resource-id="com.fincube.apexbank.debug:id/ll_end_actions"]');}
 
-get supportAdditionalLinksLabel(){
+get titleSection_AdditionalLinks(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_label_additionalConnection"]');}
-get supportAdditionalLinkTelegramButton(){
+get item_Telegram(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_channelInTg"]');}
-get supportAdditionalLinkLinkedInButton(){
+get item_LinkedIn(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInLinkedIn"]');}
-get supportAdditionalLinkInstagramButton(){
+get item_Instagram(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInInstagram"]');}
-get supportAdditionalLinkFacebookButton(){
+get item_Facebook(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_groupInFacebook"]');}
-get supportAdditionalLinkWebSiteButton(){
+get item_Website(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_oficialWebSite"]');}
-get supportAdditionalLinksList(){
+get items_titleSection_AdditionalLinks(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/additionalConnection_card"]').$$('android.widget.TextView');}
 
 

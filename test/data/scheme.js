@@ -2,24 +2,27 @@ class Scheme {
 
             /* CONSTANTS, SELECTORS */
 
-название экрана     -   titleScreen_createPinCode_Ru_Expected = 'Создайте новый PIN-код';
-название экрана     -   titleScreen_createPinCode_Ru
+название экрана     -   titleScreen_CreatePinCode_Ru_Expected = 'Создайте новый PIN-код';
+название экрана     -   titleScreen_CreatePinCode_Ru
 
 название экрана     -   titleScreen_Welcome_En_Expected = 'Login to Apex Bank';
 название экрана     -   titleScreen_Welcome_En
 
 
-название окна       -   titleWindow_supportContacts_Ru_Expected = 'Контакт со службой поддержки';
-название окна       -   titleWindow_supportContacts_Ru
+название окна       -   titleWindow_SupportContacts_Ru_Expected = 'Контакт со службой поддержки';
+название окна       -   titleWindow_SupportContacts_Ru
 название окна       -   titleWindow_SupportContacts
 
 
-название раздела    -   titleSection_totalBalance_Ru_Expected = 'Общий баланс';
-название раздела    -   titleSection_totalBalance_Ru
+название раздела    -   titleSection_TotalBalance_Ru_Expected = 'Общий баланс';
+название раздела    -   titleSection_TotalBalance_Ru
 
 
-текст               -   text_WebSite_En_Expected = 'WebSite';
-текст               -   text_WebSite_En
+url адрес           -   url_Apexbank_Expected
+url bar             -   urlBar_browser
+
+текст               -   text_Website_En_Expected = 'WebSite';
+текст               -   text_Website_En
 
 текст               -   text_CountryCode_Expected = '+998';
 текст               -   text_CountryCode
@@ -27,7 +30,8 @@ class Scheme {
 текст               -   text_AppPackage_En_Expected
 текст               -   text_Facebook_En_Expected
 текст               -   text_CardName
-
+текст               -   text_Russian_En_LoginScreen
+текст               -   text_LanguageRussian_En
 
 число               -   number_WaitTime_Expected = 5000;
 
@@ -62,7 +66,16 @@ ab-history.screen
 ab-home.screen
 ab-login.screen
 -
+ab-profile.screen
+ab-regisration.screen
+ab-smsCodeEnter.screen
+ab-support.screen
+-
 ? ab-transferToCard.screen
+-
+dt-chrome.screen
+dt-dialer.screen
+dt-telegram.screen
 
 
 

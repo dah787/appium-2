@@ -2,23 +2,23 @@ class ProfileScreen {
 
 /* CONSTANTS */
 // экран Профиль
-screenHeader_Text_Profile_Ru_Expected = 'Профиль';
+titleWindow_Profile_Ru_Expected = 'Профиль';
 
 // // экран Профиль > экран Возможности
 // possibilitiesScreenHeaderRu_Expected = 'Возможности';
 
 // экран Профиль > экран Вход или регистрация (сервис myID)
-passportSeriesAndNumber_Expected = 'AB1234567'; // passportData_Expected
-birthDate_Expected = '11.12.2002';
-screenHeader_Text_faceScanner_Ru_Expected = 'Убедитесь, что Ваше лицо находится в выделенном пространстве';
+text_PassportSeriesAndNumber_En_Expected = 'AB1234567'; // passportData_Expected
+text_BirthDate_Expected = '11.12.2002';
+titleWindow_FaceScanner_Ru_Expected = 'Убедитесь, что Ваше лицо находится в выделенном пространстве';
 
 // экран Профиль > экран Безопасность
-screenHeader_Text_Security_Expected_Ru = 'Безопасность'; // securityScreenHeaderRu_Expected
+titleWindow_Security_Ru_Expected = 'Безопасность'; // securityScreenHeaderRu_Expected
 
 // экран Профиль > экран Язык
-languageItemNameEn_Expected = 'Application language'; // English (UK)'
-languageItemNameRu_Expected = 'Язык приложения'; // 'Русский'
-languageItemNameUz_Expected = 'Ilova tili'; // 'O‘zbekcha'
+text_AppLanguage_En_Expected = 'Application language'; // English (UK)'
+text_AppLanguage_Ru_Expected = 'Язык приложения'; // 'Русский'
+text_AppLanguage_Uz_Expected = 'Ilova tili'; // 'O‘zbekcha'
 
 // // экран Профиль > экран Поддержка
 // supportItemNameEn_Expected = 'Support';
@@ -34,45 +34,45 @@ languageItemNameUz_Expected = 'Ilova tili'; // 'O‘zbekcha'
 
 /* SELECTORS */
 // экран Профиль
-get userIcon_Image(){
+get image_UserIcon(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/imageUserPhoto"]');}
-get userName_Text(){
+get text_UserName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_username"]');}
 
-get status_Item(){// экран Профиль > экран Вход или регистрация (сервис myID)
+get item_Status(){// экран Профиль > экран Вход или регистрация (сервис myID)
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_status"]');}
-get personalData_Item(){
+get item_PersonalData(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_personal_data"]');}
-get security_Item(){// экран Профиль > экран Безопасность
+get item_Security(){// экран Профиль > экран Безопасность
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_security"]');}
-get theme_Item(){
+get item_Theme(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_app_theme"]');}
-get language_Item(){
+get item_Language(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_app_language"]');}
-get publicOffer_Item(){
+get item_PublicOffer(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_public_offer"]');}
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // экран Профиль > экран Вход или регистрация (сервис myID)
-get screenHeader_Text_loginOrRegister_Ru(){// loginOrRegisterScreenHeaderRu
+get titleWindow_LoginOrRegister_Ru_Expected(){// loginOrRegisterScreenHeaderRu
   return $('//android.widget.TextView[@text="Вход или регистрация"]');}
-get documentData_Input(){// passportDataInput
+get input_DocumentData(){// passportDataInput
   return $('//android.widget.EditText[@text="AA1234567 | ПИНФЛ"]');}
-get scanner_Button(){
+get button_Scanner(){
   return $('//android.widget.ImageButton[@text=""]');}
-get birthDate_Input(){
+get input_BirthDate(){
   return $('//android.widget.EditText[@text="дд.мм.гггг"]');}
-get continue_Button(){
+get button_Continue(){
   return $('//android.widget.TextView[@text="Продолжить"]');}
-get screen_loginOrRegister_TextView_Items(){// loginOrRegisterScreenTextViewItems
+get Items_TextView_TitleWindow_LoginOrRegister(){// loginOrRegisterScreenTextViewItems
   return $$('android.widget.TextView');}
-get screen_loginOrRegister_EditText_Items(){// loginOrRegisterScreenEditTextItems
+get Items_EditText_TitleWindow_LoginOrRegister(){// loginOrRegisterScreenEditTextItems
   return $$('android.widget.EditText');}
 
 // экран Профиль > экран Вход или регистрация (сервис myID) > экран сканирования лица
-get screenHeader_Text_faceScanner_Ru(){ // faceScannerScreenHeaderRu
+get titleWindow_FaceScanner_Ru_Expected(){ // faceScannerScreenHeaderRu
   return $('//android.widget.TextView[@text="Убедитесь, что Ваше лицо находится в выделенном пространстве"]');}
-get faceScanner_Frame(){// faceScannerArea
+get frame_FaceScanner(){// faceScannerArea
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/myidFaceGraphic"]');}
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -80,13 +80,13 @@ get faceScanner_Frame(){// faceScannerArea
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // экран Профиль > экран Безопасность
-get useFingerprint_Item(){
+get item_UseFingerprint(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_use_fingerprint"]');}
-get useFingerprint_Text(){
+get text_UseFingerprint(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title_use_fingerprint"]');}
-get useFingerprint_Switch(){
+get switch_UseFingerprint(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/switch_use_fingerprint"]');}
-get editPin_Item(){
+get item_EditPin(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_edit_pin"]');}
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

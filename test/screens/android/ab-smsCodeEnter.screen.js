@@ -1,23 +1,23 @@
 class SmsCodeEnterScreen {
 
 /* CONSTANTS */
-enterSmsCodeScreenHeaderRu_Expected = 'Введите код из СМС';
+titleScreen_EnterSmsCode_Ru_Expected = 'Введите код из СМС';
 
 
 
 /* SELECTORS */
 // экран Введите код из СМС
-get backButton(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
-get supportContacstButton(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]');}
-get enterSmsCodeScreenHeaderRu(){
+get titleScreen_EnterSmsCode_Ru(){
   return $('//android.widget.TextView[@text="Введите код из СМС"]');}
-get smsCodeInput(){
+// get button_Back(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/backButton"]');}
+get button_SupportContacts(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]');}
+get input_SmsCode(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')}
-get smsCodeResendButton(){
+get button_SmsCodeResend(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_resend"]');}
-get continueButton(){
+get button_Continue(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
 
 

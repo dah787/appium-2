@@ -196,30 +196,30 @@ it.only('ab-e-tc-04.001p: ! Adding card | Добавление карты /Те�
 
 //   // 8.Нажать кнопку Добавить карту.
 //   await SCard.button_AddCard_2.click();
-//   await SSms.enterSmsCodeScreenHeaderRu.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+//   await SSms.titleScreen_EnterSmsCode_Ru.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
 //   // 8.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить:
 //   // - экран Введите код из СМС
-//   await expect(SSms.enterSmsCodeScreenHeaderRu).toHaveText(SSms.enterSmsCodeScreenHeaderRu_Expected);
+//   await expect(SSms.titleScreen_EnterSmsCode_Ru).toHaveText(SSms.titleScreen_EnterSmsCode_Ru_Expected);
 //   // - кнопка Подтвердить
-//   await expect(SSms.continueButton).toBeDisabled();
+//   await expect(SSms.button_Continue).toBeDisabled();
 //   // 9.Нажать поле ввода кода из СМС.
-//   await SSms.smsCodeInput.click();
+//   await SSms.input_SmsCode.click();
 //   // 9.1.Открыта клавиатура.
 //   await expect(await driver.isKeyboardShown()).toBe(true);
 
 // // --- ТРЕБУЕТСЯ автоматически получать код из СМС ---
 
 //   // 10.Ввести полученный код.
-//   const smsCode_Received = await UApp.generateRandomChars(6);
-//   await UDev.androidKeyboardTypeIn(smsCode_Received);
+//   const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6);
+//   await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected); //smsCode_Received
 //   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна:
 //   // - введенный код ?
-//   await expect(SSms.smsCodeInput).toHaveText(smsCode_Received);
+//   await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
 //   // - кнопка Подтвердить
-//   await expect(SSms.continueButton).toBeEnabled();
+//   await expect(SSms.button_Continue).toBeEnabled();
 
 //   // 11.Нажать кнопку Подтвердить.
-//   await SSms.continueButton.click();
+//   await SSms.button_Continue.click();
 //   // 11.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
@@ -785,23 +785,23 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   // 8.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
 
   // 9.Нажать поле ввода кода из СМС.
-  await SSms.smsCodeInput.click();
+  await SSms.input_SmsCode.click();
   // 9.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
 
 // --- ТРЕБУЕТСЯ автоматически получать код из СМС ---
 
   // 10.Ввести полученный код.
-  const smsCode_Received = await UApp.generateRandomChars(6);
-  await UDev.androidKeyboardTypeIn(smsCode_Received);
+  const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6);
+  await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected);
   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
   // - введенный код ?
-  await expect(SSms.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
   // - кнопка Подтвердить
-  await expect(SSms.continueButton).toBeEnabled();
+  await expect(SSms.button_Continue).toBeEnabled();
 
   // 11.Нажать кнопку Подтвердить.
-  await SSms.continueButton.click();
+  await SSms.button_Continue.click();
   // 11.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
@@ -1037,30 +1037,30 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   // 11.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
 
   // 12.Нажать поле ввода кода из СМС.
-  await SSms.smsCodeInput.click();
+  await SSms.input_SmsCode.click();
   // 12.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
 
 // --- ТРЕБУЕТСЯ автоматически получать код из СМС ---
 
   // 13.Ввести полученный код.
-  const smsCode_Received = await UApp.generateRandomChars(6);
-  await UDev.androidKeyboardTypeIn(smsCode_Received);
+  const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6);
+  await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected);
   // 13.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
   // - введенный код ?
-  await expect(SSms.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
   // - кнопка Подтвердить
-  await expect(SSms.continueButton).toBeEnabled();
+  await expect(SSms.button_Continue).toBeEnabled();
 
   // 14.Нажать кнопку Подтвердить.
-  await SSms.continueButton.click();
+  await SSms.button_Continue.click();
   // 14.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
   // ...
 
 });
-it.only('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Перевод на карту по номеру телефона из контактов /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
+it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Перевод на карту по номеру телефона из контактов /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
   /** > базовые тесты (см. файл ...) <
   > Можно выполнить перевод денежных средств с карты на карту по номеру телефона из контактов. <
 ПРЕДУСЛОВИЯ:
@@ -1261,23 +1261,23 @@ return;//выдает ошибку Инвалид параметерс...
 
 
   // 14.Нажать поле ввода кода из СМС.
-  await SSms.smsCodeInput.click();
+  await SSms.input_SmsCode.click();
   // 14.1.Открыта клавиатура.
   await expect(await driver.isKeyboardShown()).toBe(true);
 
 // --- ТРЕБУЕТСЯ автоматически получать код из СМС ---
 
   // 15.Ввести полученный код.
-  const smsCode_Received = await UApp.generateRandomChars(6);
-  await UDev.androidKeyboardTypeIn(smsCode_Received);
+  const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6);
+  await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected);
   // 15.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
   // - введенный код ?
-  await expect(SSms.smsCodeInput).toHaveText(smsCode_Received);
+  await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
   // - кнопка Подтвердить
-  await expect(SSms.continueButton).toBeEnabled();
+  await expect(SSms.button_Continue).toBeEnabled();
 
   // 16.Нажать кнопку Подтвердить.
-  await SSms.continueButton.click();
+  await SSms.button_Continue.click();
   // 16.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
@@ -1448,23 +1448,23 @@ it('ab-e-tc-05.004p: ! Transfer between your accounts/cards | Перевод м�
 // -?- ОШИБКА после нажатия кнопки Продолжить ---
 
     //   // 9.Нажать поле ввода кода из СМС.
-    //   await SSms.smsCodeInput.click();
+    //   await SSms.input_SmsCode.click();
     //   // 9.1.Открыта клавиатура.
     //   await expect(await driver.isKeyboardShown()).toBe(true);
 
     // // -!- ТРЕБУЕТСЯ автоматически получать код из СМС ---
 
     //   // 10.Ввести полученный код.
-    //   const smsCode_Received = await UApp.generateRandomChars(6);
-    //   await UDev.androidKeyboardTypeIn(smsCode_Received);
+    //   const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6);
+    //   await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected);
     //   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
     //   // - введенный код ?
-    //   await expect(SSms.smsCodeInput).toHaveText(smsCode_Received);
+    //   await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
     //   // - кнопка Подтвердить
-    //   await expect(SSms.continueButton).toBeEnabled();
+    //   await expect(SSms.button_Continue).toBeEnabled();
 
     //   // 11.Нажать кнопку Подтвердить.
-    //   await SSms.continueButton.click();
+    //   await SSms.button_Continue.click();
     //   // 11.1.Открыт экран..., где доступны...
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
