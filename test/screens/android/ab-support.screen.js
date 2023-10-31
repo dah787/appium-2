@@ -12,7 +12,7 @@ titleSection_Offices_Ru_Expected = 'Офисы и банкоматы';
 titleScreen_OurOffices_Ru_Expected = 'Наши офисы';
 titleSection_AdditionalLinks_Ru_Expected = 'Дополнительная связь';
 
-titleWindow_CallBank_Ru_Expected = 'Позвонить в банк';
+titleWindow_CallBank_Ru_Expected = 'Всегда рады вам помочь!'; //'Позвонить в банк'
 titleWindow_WriteToBank_Ru_Expected = 'Написать в банк';
 
 titleScreen_Faq_Ru_Expected = 'Часто задаваемые вопросы';

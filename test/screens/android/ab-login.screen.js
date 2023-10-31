@@ -3,59 +3,34 @@ const GenM  = require('./ab-general.screen'); // General screen Model
 class LoginScreen {
 
 /* CONSTANTS */
-titleScreen_Welcome_En_Expected = 'Login to Apex Bank';//screenHeader_Text_Welcome_En_Expected
-titleScreen_Welcome_Ru_Expected = 'Войти в ApexBank';//screenHeader_Text_Welcome_Ru_Expected
-titleScreen_Welcome_Uz_Expected = 'Apex Bankga kirish';//screenHeader_Text_Welcome_Uz_Expected
+titleScreen_Welcome_En_Expected = 'Login to Apex Bank'; //screenHeader_Text_Welcome_En_Expected
+titleScreen_Welcome_Ru_Expected = 'Войти в ApexBank'; //screenHeader_Text_Welcome_Ru_Expected
+titleScreen_Welcome_Uz_Expected = 'Apex Bankga kirish'; //screenHeader_Text_Welcome_Uz_Expected
 
-text_CountryCode_Expected = '+998';//countryCode_Text_Expected
-text_PhoneNumber_Expected = '+998 91 394 11 13';//supportContactphoneNumber_Expected
+text_CountryCode_Expected = '+998'; //countryCode_Text_Expected
+text_PhoneNumber_Expected = '+998 91 394 11 13'; //supportContactphoneNumber_Expected
 
 text_English_En_LoginScreen = 'english'; // 'En'
 text_Russian_En_LoginScreen = 'russian'; // 'Ru'
-text_Uzbek_En_LoginScreen = 'uzbek';   // 'Uz'
+text_Uzbek_En_LoginScreen = 'uzbek'; // 'Uz'
 
 text_LanguageEnglish_En = 'language_en'; // 'english', 'En'
 text_LanguageRussian_En = 'language_ru'; // 'russian', 'Ru'
-text_LanguageUzbek_En = 'language_uz';   // 'uzbek', 'Uz'
+text_LanguageUzbek_En = 'language_uz'; // 'uzbek', 'Uz'
 
-titleWindow_SupportContacts_En_Expected = 'Support contact';//supportContactsListTitleEn_Expected
-titleWindow_SupportContacts_Ru_Expected = 'Контакт со службой поддержки';//supportContactsListTitleRu_Expected
-titleWindow_SupportContacts_Uz_Expected = 'Qo‘llab-quvvatlash aloqa';//supportContactsListTitleUz_Expected
-
+titleWindow_Support_En_Expected = 'Support contact'; // supportContactsListTitleEn_Expected
+titleWindow_Support_Ru_Expected = 'Контакт со службой поддержки'; //supportContactsListTitleRu_Expected
+titleWindow_Support_Uz_Expected = 'Qo‘llab-quvvatlash aloqa'; // supportContactsListTitleUz_Expected
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 /* SELECTORS */
+// экран рекламы на старте приложения (до экрана Войти в ApexBank)
 get button_Login(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_login"]')}
-get button_SupportContacts_1(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/supportButton"]')}
-get titleWindow_SupportContacts(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-// get supportContactsListItemCall(){
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/container_call"]');}
-get text_Telegram(){//supportContactsListItemTelegram
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_firstContact"]');} // '.../container_telegram'
-get text_WhatsApp(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_secondContact"]');}
-waitForScreenDisplayed_Welcome(){ // wait_for_screen_displayed(){
-  this.button_SupportContacts_1.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
-  this.button_Language.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
-  this.input_PhoneNumber.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
-}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-get button_Language(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]')}
-get titleWindow_Languages(){//languagesListTitle
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get item_LanguageEnglish(){//languagesListItemEn
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_english"]');}
-get item_LanguageRussian(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
-get item_LanguageUzbek(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_uzbek"]');}
-get items_TextView_titleWindow_Languages(){//languagesListItems
-  return $$('android.widget.TextView');}
-
+// экран Войти в ApexBank
 get titleScreen_Welcome_En(){ // find element by Xpath - (//tagname[@attribute=value])
   return $('//android.widget.TextView[@text="Login to Apex Bank"]');} // "Welcome"
 get titleScreen_Welcome_Ru(){//welcomeScreenHeaderRu
@@ -63,15 +38,62 @@ get titleScreen_Welcome_Ru(){//welcomeScreenHeaderRu
 get titleScreen_Welcome_Uz(){
   return $('//android.widget.TextView[@text="Apex Bankga kirish"]');} // 'Xush kelibsiz'
 
-// get phoneNumber_InputLabelEn(){ // find element by Xpath - (//tagname[@attribute=value])
-//   return $('//android.widget.TextView[@text="Enter your mobile number"]');}
+get button_Language(){ // далее - окно Языки
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_language"]')}
+get button_Support(){ // далее - окно Поддержка
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_support"]')}
 
 get text_CountryCode(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/country_code"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/left_text"]');} // country_code
 get input_PhoneNumber(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
-get button_PhoneNumberInputClear(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')} // input_phone
+// get button_PhoneNumberInputClear(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
+
+get check_AgreeWithTerms(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/checkbox"]');}
+get text_AgreeWithTerms(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvAgreement"]')}
+get text_AgreeWithTerms_En(){ // find element by Xpath - (//tagname[@attribute=value])
+  return $('//android.widget.TextView[@text="I agree with the terms of the public offer"]');}
+get text_AgreeWithTerms_Ru(){
+  return $('//android.widget.TextView[@text="Я соглашаюсь с условиями пользовательского соглашения"]');}
+
+get button_Continue(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_continue"]');}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// экран Войти в ApexBank - 2 (доп.элементы после ввода OTP кода из смс)
+get input_Password(){
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
+  return $('//android.widget.EditText[@text="Введите пароль"]');}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// экран Войти в ApexBank > окно Языки
+get titleWindow_Languages(){ // languagesListTitle
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
+get item_LanguageEnglish(){ // languagesListItemEn
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_english"]');}
+get item_LanguageRussian(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_russian"]');}
+get item_LanguageUzbek(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_uzbek"]');}
+get items_TextView_titleWindow_Languages(){ // languagesListItems
+  return $$('android.widget.TextView');}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// экран Войти в ApexBank > окно Поддержка
+get titleWindow_Support(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
+get item_Telegram(){ //supportContactsListItemTelegram
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_firstContact"]');} // '.../container_telegram'
+get item_WhatsApp(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvSupport_secondContact"]');}
+waitForScreenDisplayed_Welcome(){ // wait_for_screen_displayed(){
+  this.button_Support.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
+  this.button_Language.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})
+  this.input_PhoneNumber.waitForDisplayed({timeout: GenM.number_WaitTime_Expected})}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 
@@ -190,7 +212,7 @@ async selectLanguage(language) { // appLanguageChoose
       break;
   }
 }
-  
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 /* FUNCTIONS : elements */
@@ -231,7 +253,7 @@ async generateLanguagesList(raw_array, data_array, data_array_elems, elementAttr
   // /*отладка*/ console.log('\n --> data_array = ' + data_array + '\n');
   // /*отладка*/ console.log('\n --> data_array_elems[1] = ' + await data_array_elems[1].getAttribute(elementAttributeKey) + '\n');
 }
-
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 /* EOF class */

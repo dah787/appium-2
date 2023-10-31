@@ -3,6 +3,7 @@ class ProfileScreen {
 /* CONSTANTS */
 // экран Профиль
 titleWindow_Profile_Ru_Expected = 'Профиль';
+text_Status_Ru_Expected = 'Идентифицирован';
 
 // // экран Профиль > экран Возможности
 // possibilitiesScreenHeaderRu_Expected = 'Возможности';
@@ -34,10 +35,14 @@ text_AppLanguage_Uz_Expected = 'Ilova tili'; // 'O‘zbekcha'
 
 /* SELECTORS */
 // экран Профиль
+get titleWindow_Profile(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
 get image_UserIcon(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/imageUserPhoto"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_user_image"]');}
 get text_UserName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_username"]');}
+get text_Status(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_identification_status"]');}
 
 get item_Status(){// экран Профиль > экран Вход или регистрация (сервис myID)
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/item_status"]');}

@@ -7,7 +7,7 @@ const SGen   = require('../../screens/android/ab-general.screen');        // scr
 const SHome  = require('../../screens/android/ab-home.screen');           // screen > Home
 const SProf  = require('../../screens/android/ab-profile.screen');        // screen > Profile
 const SReg   = require("../../screens/android/ab-regisration.screen");    // screen > Registration
-const SSms   = require('../../screens/android/ab-smsCodeEnter.screen');    // screen > Sms code enter
+const SSms   = require('../../screens/android/ab-smsCodeEnter.screen');   // screen > Sms code enter
 const SSup   = require("../../screens/android/ab-support.screen");        // screen > Support
 
 const SChrom = require("../../screens/android/dt-chrome.screen");         // screen > Chrome app
@@ -17,26 +17,18 @@ const STlg   = require("../../screens/android/dt-telegram.screen");       // scr
 const UApp   = require("../../utils/android/ab-app.utils");               // utilities > App
 const UDev   = require("../../utils/android/dt-device.utils");            // utilities > Device
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231023| /Тестов 11 (частично 5)/', () => {
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231031| /Тестов 11 (частично 5)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
-    // if (i == 0){
-    //   // * Ждем появления кнопки (пропустить рекламу при запуске приложения)
-    //   await SAuth.button_Login.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
-    //   await SAuth.button_Login.click();
-    //   i++;
-    // }
-
-    // // * Снимок экрана для контроля
-    // await driver.saveScreenshot('_view_shots/screen_before_e-lastTest.png');
-
-    // /*отладка*/ console.log('\n --> counter-beforeEach = ' + counter + '\n');
-    // // * Не выполнять этот код для первого теста
-    // if (counter == 0) return;
-  
-    // // * Открыть начальную страницу приложения
-    // await driver.startActivity(SGen.appPackage, SGen.appActivity_Text_Expected);
+    // * Ждем появления кнопки (пропустить рекламу при запуске приложения)
+    if(i == 0){
+      await SAuth.button_Login.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
+      await SAuth.button_Login.click();
+      i++;
+    }
+    // * Вести счет числу выполненных тестов
+    counter++;
   });
   afterEach(async () => {
     await SGen.afterEach(counter, tcNum);
@@ -252,19 +244,19 @@ it.skip('ab-u-tc-01.002p: !? Contacting bank | Обращение в банк /�
   // П.2.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступна кнопка Поддержка:
   await SAuth.selectLanguage(SAuth.text_LanguageRussian_En);
   // - кнопка Поддержка
-  await expect(SAuth.button_SupportContacts_1).toBeDisplayed();
+  await expect(SAuth.button_Support).toBeDisplayed();
 
   // 1.Нажать кнопку Поддержка.
-  await SAuth.button_SupportContacts_1.click();
+  await SAuth.button_Support.click();
   // 1.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов: Вызов, Telegram, WhatsApp (возможна другая комбинация контактов):
   // - окно
-  await expect(SAuth.titleWindow_SupportContacts).toBeDisplayed();
+  await expect(SAuth.titleWindow_Support).toBeDisplayed();
     // // - элемент выбора средств контактов: Вызов
     // await expect(SAuth.supportContactsListItemCall).toBeDisplayed();
   // - элемент выбора средств контактов: Telegram
-  await expect(SAuth.text_Telegram).toBeDisplayed();
+  await expect(SAuth.item_Telegram).toBeDisplayed();
   // - элемент выбора средств контактов: WhatsApp
-  await expect(SAuth.text_WhatsApp).toBeDisplayed();
+  await expect(SAuth.item_WhatsApp).toBeDisplayed();
 
     // // 2.Нажать (если присутствует) элемент средства контактов Вызов.
     // await SAuth.supportContactsListItemCall.click();
@@ -289,10 +281,10 @@ it.skip('ab-u-tc-01.002p: !? Contacting bank | Обращение в банк /�
     // // - окно > + проверяется в п.1
     // // - элемент выбора средств контактов: Вызов > + проверяется в п.1
     // // - элемент выбора средств контактов: Telegram > waitForDisplayed: v.13 не успевает видеть items_titleWindow_CallBank...
-    // await SAuth.text_Telegram.waitForDisplayed({ timeout: 20000 });
+    // await SAuth.item_Telegram.waitForDisplayed({ timeout: 20000 });
 
   // 6.Нажать (если присутствует) элемент средства контактов Telegram.
-  await SAuth.text_Telegram.click();
+  await SAuth.item_Telegram.click();
   // 6.1.Открыт экран приложения Telegram с перепиской со службой поддержки, где отображается предыдущая переписка и доступно поле ввода сообщения:
   // - экран приложения Telegram с перепиской со службой поддержки > waitForDisplayed: v.13 не успевает открыть Telegram (почему-то сначала запускает браузер)
   await STlg.titleScreen_ApexbankChat_En.waitForDisplayed({ timeout: 20000 });
@@ -310,10 +302,10 @@ it.skip('ab-u-tc-01.002p: !? Contacting bank | Обращение в банк /�
   // - окно > + проверяется в п.1
   // - элемент выбора средств контактов: Вызов > + проверяется в п.1
   // - элемент выбора средств контактов: Telegram > waitForDisplayed: v.13 не успевает видеть items_titleWindow_CallBank...
-  await SAuth.text_Telegram.waitForDisplayed({ timeout: 20000 });
+  await SAuth.item_Telegram.waitForDisplayed({ timeout: 20000 });
 
   // 6a.Нажать (если присутствует) элемент средства контактов WhatsApp.
-  await SAuth.text_WhatsApp.click();
+  await SAuth.item_WhatsApp.click();
   // 6a.1.Открыт экран приложения WhatsApp с перепиской со службой поддержки, где отображается предыдущая переписка и доступно поле ввода сообщения:
   // - экран приложения WhatsApp с перепиской со службой поддержки
   await STlg.titleScreen_ApexbankChat_En.waitForDisplayed({ timeout: 20000 });
@@ -342,7 +334,7 @@ it.skip('ab-u-tc-01.002p: !? Contacting bank | Обращение в банк /�
   // - экран входа в приложение
   await expect(SAuth.titleScreen_Welcome_Ru).toHaveText(SAuth.titleScreen_Welcome_Ru_Expected);
   // - кнопка Поддержка
-  await expect(SAuth.button_SupportContacts_1).toBeDisplayed();
+  await expect(SAuth.button_Support).toBeDisplayed();
 });
 it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
   /**
@@ -379,8 +371,8 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
@@ -431,7 +423,7 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
     supportContact = await data_array[i].getText();
     // * Убрать из телефонного номера любые знаки, кроме цифр.
     supportContact = await UApp.extractNumbersFromString(supportContact);
-    supportContact = String(supportContact);
+    // supportContact = String(supportContact);
     // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
     await data_array[i].click();
     // 3.1.Открыт экран устройства для совершения телефонного вызова, где в поле ввода вызываемого номера отображается выбранный номер телефона, а также доступна кнопка совершения телефонного вызова.
@@ -441,12 +433,25 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
     await expect(SDial.button_Call).toBeDisplayed();
     // - номер телефона службы поддержки
     // /*отладка*/ console.log('\n --> supportContact (in SDial) = ' + await SDial.input_PhoneNumber.getText() + '\n');
-    await expect(SDial.input_PhoneNumber).toHaveText(supportContact);
+    let dialerPhoneNumber = await SDial.input_PhoneNumber.getText();
+    dialerPhoneNumber = await UApp.extractNumbersFromString(dialerPhoneNumber);
+    // dialerPhoneNumber = String(dialerPhoneNumber);
+    // /*отладка*/ console.log('\n --> dialerPhoneNumber-2 = ' + dialerPhoneNumber + '\n'); await driver.pause(5000);
+    await expect(dialerPhoneNumber).toEqual(supportContact);
     
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(3);
     while(!await SSup.titleWindow_CallBank.isDisplayed()){
-      await UDev.androidPressBackButton(1);
+      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+        // * Нажать кнопку Позвонить в банк.
+        await SSup.item_CallBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+        await SSup.item_CallBank.click();
+      }
+      // await driver.pause(1000);
+      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
+        await driver.back();
+      }
     };
     // 4.1.Открыто окно Позвонить в банк, где доступен список телефонных номеров службы поддержки.
     // - окно Позвонить в банк
@@ -488,8 +493,8 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
@@ -547,7 +552,16 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(2);
     while(!await SSup.titleWindow_CallBank.isDisplayed()){
-      await UDev.androidPressBackButton(1);
+      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+        // * Нажать кнопку Написать в банк.
+        await SSup.item_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+        await SSup.item_WriteToBank.click();
+      }
+      // await driver.pause(1000);
+      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
+        await driver.back();
+      }
     };
     // 4.1.Открыто окно Написать в банк, где доступен список мессенджеров (с аккаунтами службы поддержки банка).
     // - окно Написать в банк
@@ -592,8 +606,8 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
@@ -657,7 +671,16 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
     // 5.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(2);
     while(!await SSup.titleWindow_CallBank.isDisplayed()){
-      await UDev.androidPressBackButton(1);
+      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+        // * Нажать кнопку Написать в банк.
+        await SSup.button_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+        await SSup.button_WriteToBank.click();
+      }
+      // await driver.pause(1000);
+      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
+        await driver.back();
+      }
     };
     // 5.1.Открыто окно Написать в банк, где доступен список мессенджеров (с аккаунтами службы поддержки банка).
     // - окно Написать в банк
@@ -696,8 +719,8 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
@@ -749,7 +772,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
     // 2.Нажать ресурс (любой).
     // * Сохранить название мессенджера.
     supportContact = await data_array[i].getAttribute('resource-id'); // ...getText();
-    /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
+    // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
 
     if(supportContact.includes(SGen.text_Telegram_En_Expected)){
       // /*отладка*/ console.log('\n --> supportContact.includes(Tg) = ' + supportContact + '\n');
@@ -801,11 +824,15 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
     }
 
     // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-    // do {
-    //   await UDev.androidPressBackButton(1);
-    // } while (!await SSup.titleSection_AdditionalLinks.isDisplayed());
+    // await UDev.androidPressBackButton(1);
     while(!await SSup.titleSection_AdditionalLinks.isDisplayed()){
-      await UDev.androidPressBackButton(1);
+      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+      }
+      await driver.pause(1000);
+      if(!await SSup.titleSection_AdditionalLinks.isDisplayed()) {
+        await driver.back();
+      }
     };
     // 3.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
     // - список ресурсов банка (заголовок)
@@ -843,8 +870,8 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
@@ -921,7 +948,7 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
 });
 
 // ab-ts-02p: Тестирование авторизации |вер.20230913| /Тестов 2 (частично 1)/
-it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
+it.skip('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
    * - 2 Стр. выбор языка, выбор языка (Русский) (ш?: П.1)
    * - 15 Стр. регист, кнопка "Далее" (ш?: 1-4)
@@ -996,10 +1023,10 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
   await SReg.button_Signup.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 5000});
 
   // 3.Нажать чекбокс согласия с условиями.
-  await SReg.check_AgreeTerms.click();
+  await SReg.check_AgreeWithTerms.click();
   // 3.1.Чекбокс согласия отображается отмеченным, кнопка Регистрация активна:
   // - чекбокс
-  await expect(SReg.check_AgreeTerms).toBeEnabled();
+  await expect(SReg.check_AgreeWithTerms).toBeEnabled();
   // - кнопка Регистрация
   await expect(SReg.button_Signup).toBeEnabled();
 
@@ -1039,28 +1066,41 @@ it('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
  * - 64 Стр. создания ПИН-кода: Валид ПИН (ш10: 6-7) <
   > Можно авторизоваться в приложении, используя валидные номер телефона и пароль. <
 ПРЕДУСЛОВИЯ:
-  1.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступны поле кода страны и поле ввода номера телефона.
+  1.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступны поле ввода номера телефона, чекбокс согласия с условиями и неактивная кнопка Продолжить.
 ПОСТУСЛОВИЯ: 1.Выйти из приложения (выполняется в SGen.afterEach).
   *
 ШАГИ:
   1.Нажать поле ввода номера телефона.
   1.1.Открыта клавиатура.
   2.Ввести номер телефона (уже зарегистрированный) в поле ввода номера телефона.
-  2.1.Закрыта клавиатура. В поле ввода отображается введенный номер, а также доступны поле ввода пароля и неактивная кнопка Войти.
+  2.1.Закрыта клавиатура. В поле ввода отображается введенный номер.
 
-  3.Нажать поле ввода пароля.
-  3.1.Открыта клавиатура.
-  4.Ввести пароль.
-  4.1.В поле ввода введенный пароль отображается звездочками, кнопка Войти активна (при вводе не менее определенного числа символов пароля).
+  3.Нажать чекбокс согласия с условиями.
+  3.1.Чекбокс согласия отображается отмеченным, кнопка Продолжить активна.
 
-  5.Нажать кнопку Войти.
-  5.1.Отображается экран Создайте новый PIN-код, где доступны неактивные символы пин-кода и клавиатура приложения.
-  6.Ввести пин-код.
-  6.1.Символы пин-кода активируются по мере ввода, а после ввода последнего символа пин-кода отображается экран Введите свой PIN-код.
-  7.Ввести пин-код.
-  7.1.Открыт главный экран приложения (активна кнопка Главная панели навигации), где доступны кнопка профиля пользователя и... одно из следующего:
-  - сумма общего баланса (если пользователь уже имеет карту банка).
-  - кнопка Заказать карту и кнопка Добавить карту (если пользователь пока не имеет или не добавил карту банка).
+  4.Нажать кнопку Продолжить.
+  4.1.Открыт экран Введите код из СМС, где доступны поле ввода кода и неактивная кнопка Продолжить.
+
+  5.Нажать поле ввода кода.
+  5.1.Открыта клавиатура.
+  6.Ввести код.
+  6.1.В поле ввода отображается введенный код, кнопка Продолжить активна.
+
+  7.Нажать кнопку Продолжить.
+  7.1.Открыт экран входа в приложение, где доступны поле кода страны, поле номера телефона, поле ввода пароля и неактивная кнопка Продолжить.
+
+  8.Нажать поле ввода пароля.
+  8.1.Открыта клавиатура.
+  9.Ввести пароль.
+  9.1.В поле ввода введенный пароль отображается звездочками, кнопка Продолжить активна.
+
+  10.Нажать кнопку Продолжить.
+  10.1.Открыт экран Создайте новый PIN-код, где доступны неактивные символы пин-кода и клавиатура приложения.
+
+  11.Ввести пин-код.
+  11.1.Символы пин-кода активируются по мере ввода, а после ввода последнего символа пин-кода открывается экран Введите свой PIN-код.
+  12.Ввести пин-код.
+  12.1.Открыт главный экран приложения (активна кнопка Главная панели навигации).
   *
   */
 
@@ -1069,14 +1109,11 @@ it('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
-        // const phoneNumber = '20 200 20 20';
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1,1-7.Выполнить авторизацию пользователя (в приложении).
   await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
-  
 });
 
 // ab-ts-03p: Тестирование профиля |вер.20230913| /Тестов 2 (частично 1)/
@@ -1116,9 +1153,9 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  // const phoneNumber = DCard.phoneNumber_5_hasCards;
+  // const phoneNumber = DCard.phoneNumber_5;
   // const phoneNumber_pass = DCard.phoneNumber_5_pass;
-  const phoneNumber = DCard.phoneNumber_10_hasCards;
+  const phoneNumber = DCard.phoneNumber_10;
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
@@ -1128,6 +1165,12 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   await SHome.button_Profile.click();
   // 1.1.Открыт экран профиля пользователя, где доступна кнопка статуса пользователя.
   
+  // * Проверяем, нужна ли идентификация
+  if (await SProf.text_Status.isDisplayed()) {
+    console.log('\n --> Идентификация не требуется, т.к. пользователь уже идентифицирован. \n');
+    return;
+  }
+
   // 2.Нажать кнопку статуса пользователя.
   await SProf.item_Status.click();
           // // 2.1.Открыт экран Возможности, где доступна кнопка Пройти идентификацию.
@@ -1232,9 +1275,9 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
+  // const phoneNumber = DCard.phoneNumber_10;
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // Пред.1.Выполнить авторизацию пользователя.
@@ -1397,8 +1440,8 @@ it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
@@ -1438,8 +1481,8 @@ it.skip('ab-s-d-003: Debug > System/OTP message', async () => {
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
-  const phoneNumber_pass = DCard.phoneNumber_5_pass;
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(

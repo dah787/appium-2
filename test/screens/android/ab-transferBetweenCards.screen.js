@@ -1,13 +1,13 @@
 class TransferBetweenCardsScreen {
 
 /* CONSTANTS */
-transferBetweenCardsScreenHeaderRu_Expected = 'Между своими счетами';
+titleScreen_TransferBetweenCards_Ru_Expected = 'Между своими счетами';
 
 
 
 /* SELECTORS */
 // экран Между своими счетами
-get transferBetweenCardsScreenHeaderRu(){
+get titleScreen_TransferBetweenCards_Ru(){
   return $('//android.widget.TextView[@text="Между своими счетами"]');}
 
 get cardsSelectButtons(){

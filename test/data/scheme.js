@@ -57,7 +57,7 @@ url bar             -   urlBar_browser
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-ab-authorization.screen
+ab-authorization.screen --> на 24102025 вводится ВРУЧНУЮ во время паузы | текст Общий баланс
 ab-cards.screen
 ? ab-cardsReciever.window
 ? ab-cardsSender.window
@@ -65,14 +65,13 @@ ab-general.screen
 ab-history.screen
 ab-home.screen
 ab-login.screen
--
+    ? ab-payments.screen
 ab-profile.screen
 ab-regisration.screen
 ab-smsCodeEnter.screen
 ab-support.screen
--
+    ? ab-transferBetweenCards.screen
 ? ab-transferToCard.screen
--
 dt-chrome.screen
 dt-dialer.screen
 dt-telegram.screen

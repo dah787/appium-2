@@ -1,40 +1,40 @@
 class PaymentsScreen {
 
 /* CONSTANTS */
-paymentsScreenHeaderRu_Expected = 'Платежи';
-paymentScreenHeaderRu_Expected = 'Платеж';
+titleScreen_Payments_Ru_Expected = 'Платежи';
+titleScreen_Payment_Ru_Expected = 'Платеж';
 
 
 
 /* SELECTORS */
 // экран Платежи
-get paymentsScreenHeaderRu(){
+get titleScreen_Payments_Ru(){
   return $('//android.widget.TextView[@text="Платежи"]');}
-get mobileOperatorsButtonRu(){
+get item_MobileOperators(){
   return $('//android.widget.TextView[@text="Мобильные операторы"]');}
 
 // экран Платежи > экран Мобильные операторы
-get mobileOperatorsScreenHeaderRu(){
+get titleScreen_MobileOperators_Ru(){
   return $('//android.widget.TextView[@text="Мобильные операторы"]');}
-get uzMobileButton(){
+get item_UzMobile_En(){
   return $('//android.widget.TextView[@text="UzMobile"]');}
 
 // экран Платежи > экран Мобильные операторы > экран мобильного оператора
-get mobileOperatorScreenHeader(){
+get titleScreen_MobileOperator(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get phoneNumberLabel(){
+get titleSection_PhoneNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_label"]');}
-get phoneNumber_Input(){
+get input_PhoneNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
-get phoneNumberInputClearButton(){
+get button_PhoneNumberInputClear(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
-get continueButton(){
+get button_Continue(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_continue"]');}
 
 // экран Платежи > экран Мобильные операторы > экран мобильного оператора > экран Платеж
-get paymentScreenHeader(){
+get titleScreen_Payment(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get paymentScreenHeaderRu(){
+get titleScreen_PaymentRu(){
   return $('//android.widget.TextView[@text="Платеж"]');}
 // get cardSelectLabel(){
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_label"]');}
@@ -46,12 +46,16 @@ get paymentScreenHeaderRu(){
 // get cardsList(){
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
 
-get amountInput(){
+get input_TransferAmount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
 // get paymentScreenInputs(){
   // return $$('android.widget.EditText');}
 
-// экран Платежи > экран Мобильные операторы > экран мобильного оператора > экран Платеж > экран ?
+
+
+
+
+// ??? экран Платежи > экран Мобильные операторы > экран мобильного оператора > экран Платеж > экран ?
 get amount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/transferred_amount"]');}
 get homeButton(){

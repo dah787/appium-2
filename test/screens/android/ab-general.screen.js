@@ -1,3 +1,4 @@
+const SAuth = require("./ab-authorization.screen");  // screen > Authorization
 const SHome = require('./ab-home.screen');    // Home screen
 // const SProf = require('./ab-profile.screen'); // Profile screen
 
@@ -38,7 +39,7 @@ get input_PhoneNumber_1(){// added on 20230719
 get button_PhoneNumberInputClear_1(){// added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
   
-
+ 
 
 /* FUNCTIONS */
 async beforeEach(counter, typeOfTest) {
@@ -46,24 +47,36 @@ async beforeEach(counter, typeOfTest) {
   await driver.saveScreenshot('_view_shots/screen_before_' + typeOfTest + '-lastTest.png');
 
   // /*отладка*/ console.log('\n --> counter-beforeEach = ' + counter + '\n');
+// * Пауза для контроля экрана
+// await driver.pause(5000);
+
   // * Не выполнять этот код для первого теста
-  if (counter == 0) return;
-  
-  // * Открыть начальную страницу приложения
-  await driver.startActivity(this.text_AppPackage_En_Expected, this.text_AppActivity_En_Expected);
+  // if (counter == 0) return;
+  // /*отладка*/ console.log('\n --> counter-beforeEach-1 = ' + counter + '\n');
+
+  // // * Открыть начальную страницу приложения
+  // await driver.startActivity(this.text_AppPackage_En_Expected, this.text_AppActivity_En_Expected);
+
+  // return counter;
 }
 async afterEach(counter, tcNum) {    
   // * Снимок экрана для контроля
   // await driver.saveScreenshot('app-screen_afterEach.png');
   // await driver.saveScreenshot('_view_shots/app-screen-1001p_afterEach_' + (counter + 1) + '.png');
-  await driver.saveScreenshot('_view_shots/screen_after_' + tcNum + '.png');
+  await driver.saveScreenshot('_view_shots/screen_after-1_' + tcNum + '.png');
 
   // * Вести счет числу выполненных тестов
-  counter++;
+  // counter++;
   // /*отладка*/ console.log('\n --> counter-afterEach = ' + counter + '\n');
 
+  // * Открыть главный экран
+  await this.goBackToHomeScreen();
+
   // * Выйти из приложения
-  await this.logOutTheApp();
+  // await this.logOutTheApp();
+
+  // * Снимок экрана для контроля
+  await driver.saveScreenshot('_view_shots/screen_after-2_' + tcNum + '.png');
 }
 async after(){
   // * Закрыть приложение
@@ -74,6 +87,46 @@ async after(){
   // https://appium.io/docs/en/2.0/guides/execute-methods/
   // await driver.executeScript('mobile: terminateApp', [{bundleId: GenM.text_AppPackage_En_Expected}]); // Unknown mobile command "terminateApp".
   // await driver.executeScript('mobile: terminateApp', [{appId: GenM.text_AppPackage_En_Expected}]); // Unknown mobile command "terminateApp".
+}
+
+async goBackToHomeScreen(){
+  // * Закрыть клавиатуру
+  if(await driver.isKeyboardShown()) await driver.hideKeyboard();
+
+  // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-0 = ' + await SHome.button_Profile.isDisplayed() + '\n');
+  // while (!await SHome.button_Profile.isDisplayed()){
+  //   /*отладка*/ console.log('\n --> button_Profile.isDisplayed-1 = ' + await SHome.button_Profile.isDisplayed() + '\n');
+  //   await driver.back();
+  //   /*отладка*/ console.log('\n --> button_Profile.isDisplayed-2 = ' + await SHome.button_Profile.isDisplayed() + '\n');
+  //   await driver.pause(5000);
+  // }
+
+  while(!await SHome.bottomNav_Home.isDisplayed()){
+    // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-1 = ' + await SHome.button_Profile.isDisplayed() + '\n');
+
+    // /*отладка*/ console.log('\n --> titleScreen_EnterPinCode-1 = ' +
+    //   await SAuth.titleScreen_EnterPinCode.isDisplayed() + '\n');
+    // await driver.pause(5000);
+    // if (await SAuth.titleScreen_EnterPinCode.isDisplayed()) {
+    //   /*отладка*/ console.log('\n --> titleScreen_EnterPinCode-2 = ' + await SAuth.titleScreen_EnterPinCode.isDisplayed() + '\n');
+    //   await driver.pause(5000);
+    //   await AppUM.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    // }
+
+    // if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+    //   await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    // }
+
+  // await SProf.identificationButton.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+
+    await driver.back();
+
+    // await driver.pause(2000);
+    // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-2 = ' + await SHome.button_Profile.isDisplayed() + '\n');
+    // await driver.pause(5000);
+  }
+  await SHome.bottomNav_Home.click();
+  await SHome.button_Profile.waitForDisplayed({timeout: this.number_WaitTime_Expected});
 }
 async logOutTheApp(){ // appLogOut
   // * Закрыть клавиатуру

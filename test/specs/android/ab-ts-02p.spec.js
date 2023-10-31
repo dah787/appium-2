@@ -20,12 +20,12 @@ describe('ab-ts-02p: Testing of operations | Тестирование опера
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 'o'); // o - operation / e - e2e < typeOfTest
-    // if (i == 0){
-    //   // * Ждем появления кнопки (пропустить рекламу при запуске приложения)
-    //   await SAuth.login_Button.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
-    //   await SAuth.login_Button.click();
-    //   i++;
-    // }
+    if (i == 0){
+      // * Ждем появления кнопки (пропустить рекламу при запуске приложения)
+      await SAuth.button_Login.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
+      await SAuth.button_Login.click();
+      i++;
+    }
 
     // // * Снимок экрана для контроля
     // await driver.saveScreenshot('_view_shots/screen_before_e-lastTest.png');
@@ -119,16 +119,16 @@ it.only('ab-e-tc-04.001p: ! Adding card | Добавление карты /Те�
 
   // > Установить тестовые данные
   const randomChars = await UApp.generateRandomChars(3, 'en');
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  // const phoneNumber = DCard.phoneNumber_5;
   // const phoneNumber_pass = DCard.phoneNumber_5_pass;
   // const cardName = DCard.cardName_Humo_5 + '-' + randomChars;
   // const cardNumber = DCard.cardNumber_Humo_5;
-  // const cardExpiry = DCard.cardValidThrough_Humo_5;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_5;
+  const phoneNumber = DCard.phoneNumber_10;
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
   const cardName = DCard.cardName_Humo_10 + '-' + randomChars;
   const cardNumber = DCard.cardNumber_Humo_10;
-  const cardExpiry = DCard.cardValidThrough_Humo_10;
+  const cardExpiry = DCard.cardValid_Humo_10;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
@@ -277,19 +277,19 @@ it('ab-e-tc-04.002p: ? Editing card | Редактирование карты /�
 
   // > Установить тестовые данные
   const randomChars = await UApp.generateRandomChars(3, 'en');
-  const phoneNumber = DCard.phoneNumber_4_hasCards;
+  const phoneNumber = DCard.phoneNumber_4;
   const phoneNumber_pass = DCard.phoneNumber_4_pass;
   const cardName = DCard.cardName_Humo_4 + '-' + randomChars;
-  // const phoneNumber = DCard.phoneNumber_5_hasCards;
+  // const phoneNumber = DCard.phoneNumber_5;
   // const phoneNumber_pass = DCard.phoneNumber_5_pass;
   // const cardName = DCard.cardName_Humo_5 + '-' + randomChars;
   // const cardNumber = DCard.cardNumber_Humo_5;
-  // const cardExpiry = DCard.cardValidThrough_Humo_5;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_5;
+  // const phoneNumber = DCard.phoneNumber_10;
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
   // const cardName = DCard.cardName_Humo_10 + '-' + randomChars;
   // const cardNumber = DCard.cardNumber_Humo_10;
-  // const cardExpiry = DCard.cardValidThrough_Humo_10;
+  // const cardExpiry = DCard.cardValid_Humo_10;
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
@@ -480,7 +480,7 @@ it('ab-e-tc-04.003p: ? Checking balance | Проверка баланса /ош�
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
 
   // П.1.Выполнить авторизацию пользователя.
@@ -602,7 +602,7 @@ it('ab-u-tc-04.004p: Hide/Show balance | Скрыть/Показать бала�
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
 
   // Пред.1.Выполнить авторизацию пользователя.
@@ -690,18 +690,18 @@ it('ab-e-tc-05.001p: ! Transfer to card by card number | Перевод на к�
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  // const phoneNumber = DCard.phoneNumber_1_hasCards;
+  // const phoneNumber = DCard.phoneNumber_1;
   // const phoneNumber_pass = DCard.phoneNumber_1_pass;
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
   // const cardName = DCard.cardName_Humo_5;
   // const cardNumber = DCard.cardNumber_Humo_5;
-  // const cardExpiry = DCard.cardValidThrough_Humo_5;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_5;
+  // const phoneNumber = DCard.phoneNumber_10;
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
   // const cardName = DCard.cardName_Humo_10;
   // const cardNumber = DCard.cardNumber_Humo_10;
-  // const cardExpiry = DCard.cardValidThrough_Humo_10;
+  // const cardExpiry = DCard.cardValid_Humo_10;
   const cardNumber_Receiver = DCard.cardNumber_Humo_10;
   // const moneyAmount = '1000000';
   const moneyAmount = await UApp.generateRandomChars(6, 'amount');
@@ -917,19 +917,19 @@ it('ab-e-tc-05.002p: ! Transfer to card by phone number | Перевод на к
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  // const phoneNumber = DCard.phoneNumber_1_hasCards;
+  // const phoneNumber = DCard.phoneNumber_1;
   // const phoneNumber_pass = DCard.phoneNumber_1_pass;
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
   // const cardName = DCard.cardName_Humo_5;
   // const cardNumber = DCard.cardNumber_Humo_5;
-  // const cardExpiry = DCard.cardValidThrough_Humo_5;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_5;
+  // const phoneNumber = DCard.phoneNumber_10;
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
   // const cardName = DCard.cardName_Humo_10;
   // const cardNumber = DCard.cardNumber_Humo_10;
-  // const cardExpiry = DCard.cardValidThrough_Humo_10;
-  const phoneNumber_Receiver = DCard.phoneNumber_4_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_10;
+  const phoneNumber_Receiver = DCard.phoneNumber_4;
   // const moneyAmount = '1000000';
   const moneyAmount = await UApp.generateRandomChars(6, 'amount');
 
@@ -1123,17 +1123,17 @@ it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Пере
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
   // const cardName = DCard.cardName_Humo_5;
   // const cardNumber = DCard.cardNumber_Humo_5;
-  // const cardExpiry = DCard.cardValidThrough_Humo_5;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_5;
+  // const phoneNumber = DCard.phoneNumber_10;
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
   // const cardName = DCard.cardName_Humo_10;
   // const cardNumber = DCard.cardNumber_Humo_10;
-  // const cardExpiry = DCard.cardValidThrough_Humo_10;
-  // const phoneNumber_Receiver = DCard.phoneNumber_4_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_10;
+  // const phoneNumber_Receiver = DCard.phoneNumber_4;
   const receiverName = 'Апекс';
   // const moneyAmount = '1000000';
   const moneyAmount = await UApp.generateRandomChars(6, 'amount');
@@ -1337,19 +1337,19 @@ it('ab-e-tc-05.004p: ! Transfer between your accounts/cards | Перевод м�
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  // const phoneNumber = DCard.phoneNumber_1_hasCards;
+  // const phoneNumber = DCard.phoneNumber_1;
   // const phoneNumber_pass = DCard.phoneNumber_1_pass;
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
   // const cardName = DCard.cardName_Humo_5;
   // const cardNumber = DCard.cardNumber_Humo_5;
-  // const cardExpiry = DCard.cardValidThrough_Humo_5;
-  // const phoneNumber = DCard.phoneNumber_10_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_5;
+  // const phoneNumber = DCard.phoneNumber_10;
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
   // const cardName = DCard.cardName_Humo_10;
   // const cardNumber = DCard.cardNumber_Humo_10;
-  // const cardExpiry = DCard.cardValidThrough_Humo_10;
-  // const phoneNumber_Receiver = DCard.phoneNumber_4_hasCards;
+  // const cardExpiry = DCard.cardValid_Humo_10;
+  // const phoneNumber_Receiver = DCard.phoneNumber_4;
   // const moneyAmount = '1000000';
   const moneyAmount = await UApp.generateRandomChars(6, 'amount');
 
@@ -1516,7 +1516,7 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
   // const moneyAmount = '12000';
   const moneyAmount = await UApp.generateRandomChars(5, 'amount');
@@ -1533,25 +1533,25 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
   await SHome.bottomNav_Payments.click();
   // 1.1.Открыт экран Платежи, где доступна кнопка Мобильные операторы.
   // - экран Платежи
-  await expect(SPay.paymentsScreenHeaderRu).toHaveText(SPay.paymentsScreenHeaderRu_Expected);
+  await expect(SPay.titleScreen_Payments_Ru).toHaveText(SPay.titleScreen_Payments_Ru_Expected);
 
   // 2.Нажать кнопку Мобильные операторы.
-  await SPay.mobileOperatorsButtonRu.click();
+  await SPay.item_MobileOperators.click();
   // 2.1.Открыт экран Мобильные операторы, где доступны кнопки операторов.
 
   // 3.Нажать кнопку оператора (любого).
-  await SPay.uzMobileButton.click();
+  await SPay.item_UzMobile_En.click();
   // 3.1.Открыт экран оператора, где доступны поле ввода номера телефона, неактивная кнопка Продолжить.
 
   // 4.Нажать поле ввода номера телефона и ввести валидный номер.
-  await SPay.phoneNumber_Input.click();
+  await SPay.input_PhoneNumber.click();
   await UDev.androidKeyboardTypeIn('999664660'); // ...(phoneNumber)
   // 4.1.В поле ввода отображаются введенные данные, кнопка Продолжить активна.
   // await expect(SPay.paymentScreenInputs[0]).toHaveText('999664660'); // ...(phoneNumber)
-  await expect(SPay.phoneNumber_Input).toHaveText('999664660'); // ...(phoneNumber)
+  await expect(SPay.input_PhoneNumber).toHaveText('999664660'); // ...(phoneNumber)
 
   // 5.Нажать кнопку Продолжить.
-  await SPay.continueButton.click();
+  await SPay.button_Continue.click();
   // 5.1.Открыт экран Платеж, где доступны поле выбора карты, поле ввода суммы платежа, неактивная кнопка Продолжить.
 
   // 6.Нажать поле выбора карты и выбрать карту (любую).
@@ -1574,16 +1574,16 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
   // 6.1.В поле выбора карты отображается выбранная карта.
 
   // 7.Нажать поле ввода суммы платежа и ввести валидное число.
-  await SPay.amountInput.click();
+  await SPay.input_TransferAmount.click();
   await UDev.androidKeyboardTypeIn(moneyAmount);
   // 7.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
   // await expect(SPay.paymentScreenInputs[0]).toHaveText(moneyAmount);
-  await expect(SPay.amountInput).toHaveText(moneyAmount);
+  await expect(SPay.input_TransferAmount).toHaveText(moneyAmount);
   // * Скрыть клавиатуру
   await driver.hideKeyboard();
 
   // 8.Нажать кнопку Продолжить.
-  await SPay.continueButton.click();
+  await SPay.button_Continue.click();
 // -!- ТРЕБУЕТСЯ убрать/повысить лимит платежей --- FAILED ...превышен дневной лимит ---
   // 8.1.Открыт экран чека оплаты, где доступны поле Сумма, кнопка Домой.
 
@@ -1597,19 +1597,19 @@ it('ab-e-tc-06.001p: ! Payment for mobile communication | Оплата моби�
 
 
   // // 4.Ввести валидные данные в поля ввода.
-  // await SPay.phoneNumber_Input.click();
+  // await SPay.input_PhoneNumber.click();
   // await UDev.androidKeyboardTypeIn(phoneNumber);
-  // await SPay.amountInput.click();
+  // await SPay.input_TransferAmount.click();
   // await UDev.androidKeyboardTypeIn(moneyAmount);
   // // 4.1.В полях ввода отображаются введенные значения, кнопка Продолжить активна.
-  // // await expect(SPay.phoneNumber_Input).toHaveText(phoneNumber);
-  // // await expect(SPay.amountInput).toHaveText(moneyAmount);
+  // // await expect(SPay.input_PhoneNumber).toHaveText(phoneNumber);
+  // // await expect(SPay.input_TransferAmount).toHaveText(moneyAmount);
   // // поля phone и amount имеют одинаковые id, поэтому проверяем по их порядку на экране:
   // await expect(SPay.paymentScreenInputs[0]).toHaveText(phoneNumber);
   // await expect(SPay.paymentScreenInputs[1]).toHaveText(moneyAmount);
 
   // // 5.Нажать кнопку Продолжить.
-  // await SPay.continueButton.click();
+  // await SPay.button_Continue.click();
   // // 5.1.Открыт экран чека оплаты, где доступны поле Сумма, кнопка Домой.
   // // - поле Сумма
   // const amountSeparatedThousandths =  await UApp.separateThousandthsOfNumber(moneyAmount);
@@ -1659,7 +1659,7 @@ it.skip('ab-o-d-001: Debug > JavaScript heap out of memory', async () => {
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
   // > Установить тестовые данные
-  const phoneNumber = DCard.phoneNumber_5_hasCards;
+  const phoneNumber = DCard.phoneNumber_5;
   const phoneNumber_pass = DCard.phoneNumber_5_pass;
 
   // П.1.Выполнить авторизацию пользователя.

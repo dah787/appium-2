@@ -10,9 +10,9 @@ text_SmsCodeReceived_Expected = '123456';
 
 /* SELECTORS */
 // экран-1 Registration (for unregistered phone numbers): Приветствие
-get titleSection_AgreeTerms_En(){ // find element by Xpath - (//tagname[@attribute=value])
+get text_AgreeWithTerms_En(){ // find element by Xpath - (//tagname[@attribute=value])
   return $('//android.widget.TextView[@text="I agree with the terms of the public offer"]');}
-get check_AgreeTerms(){
+get check_AgreeWithTerms(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/checkbox"]');}
 get button_Signup(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_sign_up"]');}
