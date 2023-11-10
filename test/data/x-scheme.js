@@ -57,8 +57,8 @@ url bar             -   urlBar_browser
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-ab-authorization.screen --> на 24102025 вводится ВРУЧНУЮ во время паузы | текст Общий баланс
-ab-cards.screen
+ab-authorization.screen --> на 24.10.2023 вводится ВРУЧНУЮ во время паузы | текст Общий баланс
+ab-cards.screen --> на 31.10.2023 переделать тест и экран
 ? ab-cardsReciever.window
 ? ab-cardsSender.window
 ab-general.screen
@@ -67,7 +67,7 @@ ab-home.screen
 ab-login.screen
     ? ab-payments.screen
 ab-profile.screen
-ab-regisration.screen
+ab-regisration.screen --> 01.11.2023 переделал тест и экран
 ab-smsCodeEnter.screen
 ab-support.screen
     ? ab-transferBetweenCards.screen

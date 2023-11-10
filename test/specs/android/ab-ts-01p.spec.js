@@ -17,7 +17,7 @@ const STlg   = require("../../screens/android/dt-telegram.screen");       // scr
 const UApp   = require("../../utils/android/ab-app.utils");               // utilities > App
 const UDev   = require("../../utils/android/dt-device.utils");            // utilities > Device
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231031| /Тестов 11 (частично 5)/', () => {
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231102| /Тестов 11 (частично 4)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
@@ -52,7 +52,7 @@ describe('ab-ts-01p: Testing of operations provision | Тестирование 
     // await driver.terminateApp(SGen.appPackage);
   });
 
-// ab-ts-01p: Тестирование поддержки |вер.20230922| /Тестов 7 (частично 3)/
+// ab-ts-01p: Тестирование поддержки |вер.20230922| /Тестов 7 (частично 2)/
 it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
    * - 2 Стр. выбор языка, выбор языка (Русский) (ш?: П.1)
@@ -187,154 +187,113 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
     }
   }
 });
-it.skip('ab-u-tc-01.002p: !? Contacting bank | Обращение в банк /Тест выполнен частично: -1-Вызов отсутствует в меню, -2-Telegram является каналом.../', async () => {
+it('ab-u-tc-01.002Ap: Call bank (login screen) | Позвонить в банк (экран входа)', async () => {
   /**
-  Parameters
-  на 23.08.2023 автотест выполнен частично:
-  - Вызов отсутствует в меню
-  - Telegram является каналом, к которому нужно присоединиться, выбрать другие параметры
-  - WhatApp на деле подключается к Telegram
-    * > базовые тесты (см. файл ТК 1 (Регистрация)):
-    * - 22 Стр. регист, кнопка "Поддержка": Позитив (ш?: 1)
-    * - ? ... <
-  > Можно осуществить контакты со службой поддержки приложения на экране входа в приложение. <
+  > Можно осуществить контакты со службой поддержки приложения, позвонив в банк (на экране входа в приложение). <
 ПРЕДУСЛОВИЯ:
-  1.Установлены соответствующие мессенджеры (Telegram, WhatsApp, ...) в тестируемом устройстве, а также выполнен вход в аккаунты пользователя.
-  2.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступна кнопка Поддержка.
-ПОСТУСЛОВИЯ: 1.Нет.
+  1.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступна кнопка Поддержка.
+ПОСТУСЛОВИЯ: 1.Выйти из приложения.
   *
 ШАГИ:
   1.Нажать кнопку Поддержка.
-  1.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов: Вызов, Telegram, WhatsApp (возможна другая комбинация контактов).
-  
-  2.Нажать (если присутствует) элемент средства контактов Вызов.
-  2.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов: Вызов, Telegram, WhatsApp (возможна другая комбинация контактов).
+  1.1.Открыто окно Позвонить в банк, где доступен список телефонных номеров службы поддержки.
 
-  3.Нажать кнопку совершения телефонного вызова.
-  3.1.Открыт экран устройства выполнения телефонного вызова, где доступна кнопка завершения вызова.
+  2.Нажать телефонный номер (любой).
+  2.1.Открыт экран устройства для совершения телефонного вызова, где в поле ввода вызываемого номера отображается выбранный номер телефона, а также доступна кнопка совершения телефонного вызова.
 
-  4.Выполнить разговор со службой поддержки и/или нажать кнопку завершения вызова.
-  4.1.Открыт экран устройства со списком выполненных телефонных звонков, а также доступна кнопка устройства Назад.
+  3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
+  3.1.Открыто окно Позвонить в банк, где доступен список телефонных номеров службы поддержки.
 
-  5.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  5.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов.
-
-  6.Нажать (если присутствует) элемент средства контактов Telegram.
-  6.1.Открыт экран приложения Telegram с перепиской со службой поддержки, где отображается предыдущая переписка и доступно поле ввода сообщения.
-
-  7.Выполнить переписку со службой поддержки, и/или ввести соответствующий текст в поле ввода сообщения и отправить его.
-  7.1.Введенный текст отображается в переписке отправленным, а также доступна кнопка устройства Назад.
-
-  8.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  8.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов.
-
-  9.Выполнить шаги 2-8 для каждого доступного средства контакта.
-
-  10.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  10.1.Открыт экран входа в приложение.
+  4.Выполнить шаги 2-3 для каждого телефонного номера.
   *
   */
 
   // > Вывести информацию о тесте в консоль
-  tcNum = 'ab-u-tc-01.002p';
+  tcNum = 'ab-u-tc-01.002Ap';
   /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
 
-  // П.1.Установлены соответствующие мессенджеры (Telegram, WhatsApp, ...) в тестируемом устройстве, а также выполнен вход в аккаунты пользователя.
-  // -?-
-  // П.2.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступна кнопка Поддержка:
+  // П.1.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступна кнопка Поддержка.
+  // - языком интерфейса выбран русский
   await SAuth.selectLanguage(SAuth.text_LanguageRussian_En);
   // - кнопка Поддержка
   await expect(SAuth.button_Support).toBeDisplayed();
-
+  
   // 1.Нажать кнопку Поддержка.
   await SAuth.button_Support.click();
-  // 1.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов: Вызов, Telegram, WhatsApp (возможна другая комбинация контактов):
-  // - окно
-  await expect(SAuth.titleWindow_Support).toBeDisplayed();
-    // // - элемент выбора средств контактов: Вызов
-    // await expect(SAuth.supportContactsListItemCall).toBeDisplayed();
-  // - элемент выбора средств контактов: Telegram
-  await expect(SAuth.item_Telegram).toBeDisplayed();
-  // - элемент выбора средств контактов: WhatsApp
-  await expect(SAuth.item_WhatsApp).toBeDisplayed();
+  // 1.1.Открыто окно Позвонить в банк, где доступен список телефонных номеров службы поддержки.
+  // - окно Позвонить в банк
+  await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_CallBank_Ru_Expected);
+  // * Создать массив видимых элементов.
+  const raw_array = await SSup.items_titleWindow_CallBank;
+  // const raw_array = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  // /*отладка*/ console.log(
+  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
+  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
+  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
+  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
+  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n');
+  let data_array = [];
+  const elementAttributeKey = SSup.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValue = SSup.text_ElementAttributeValue_Part_En_Expected;
+  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+  // /*отладка*/ console.log(
+  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
+  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
+  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
+  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n');
+  // /*отладка*/ await driver.pause(5000);
+  // * Контролируем непустоту массива.
+  if(data_array.length == 0){
+    throw "не сформирован data_array (массив телефонных номеров) = '" + data_array + "'";
+  }
 
-    // // 2.Нажать (если присутствует) элемент средства контактов Вызов.
-    // await SAuth.supportContactsListItemCall.click();
-    // // 2.1.Открыт экран устройства для совершения телефонного вызова, где в поле ввода вызываемого номера отображается номер телефона службы поддержки, а также доступна кнопка совершения телефонного вызова:
-    // // - экран устройства для совершения телефонного вызова
-    // // -?-
-    // // - кнопка совершения телефонного вызова
-    // await expect(DSDial.button_Call).toBeDisplayed();
-    // // - номер телефона службы поддержки
-    // // await expect(DSDial.androidDialerphoneNumber).toBeDisplayed(); // в этом поле номер не читается, поэтому:
-    // // -* скрыть клавиатуру, нажав кнопку Назад и сравниваем номера:
-    // // await driver.back();
-    // // // /*отладка*/ console.log('\n --> phoneNumber = ' + await ASDial.input_Search.getText() + '\n');
-    // // await expect(DSDial.input_Search).toHaveText(SAuth.text_PhoneNumber_Expected);
-    // await expect(DSDial.androidDialerphoneNumber).toHaveText(SAuth.text_PhoneNumber_Expected);
+  let supportContact = '';
+  for(let i = 0; i < data_array.length; i++){
+    // 2.Нажать телефонный номер (любой).
+    // * Сохранить телефонный номер.
+    supportContact = await data_array[i].getText();
+    // * Убрать из телефонного номера любые знаки, кроме цифр.
+    supportContact = await UApp.extractNumbersFromString(supportContact);
+    // supportContact = String(supportContact);
+    // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
+    await data_array[i].click();
+    // 2.1.Открыт экран устройства для совершения телефонного вызова, где в поле ввода вызываемого номера отображается выбранный номер телефона, а также доступна кнопка совершения телефонного вызова.
+    // - экран устройства для совершения телефонного вызова
+    // -?-
+    // - кнопка совершения телефонного вызова
+    await expect(SDial.button_Call).toBeDisplayed();
+    // - номер телефона службы поддержки
+    // /*отладка*/ console.log('\n --> supportContact (in SDial) = ' + await SDial.input_PhoneNumber.getText() + '\n');
+    let dialerPhoneNumber = await SDial.input_PhoneNumber.getText();
+    dialerPhoneNumber = await UApp.extractNumbersFromString(dialerPhoneNumber);
+    // dialerPhoneNumber = String(dialerPhoneNumber);
+    // /*отладка*/ console.log('\n --> dialerPhoneNumber-2 = ' + dialerPhoneNumber + '\n'); await driver.pause(5000);
+    await expect(dialerPhoneNumber).toEqual(supportContact);
     
-    // // пп.3-4 о совершении телефонного звонка автотестированию не подлежат
-
-    // // 5.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
+    // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(3);
-    // // 5.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов:
-    // // - окно > + проверяется в п.1
-    // // - элемент выбора средств контактов: Вызов > + проверяется в п.1
-    // // - элемент выбора средств контактов: Telegram > waitForDisplayed: v.13 не успевает видеть items_titleWindow_CallBank...
-    // await SAuth.item_Telegram.waitForDisplayed({ timeout: 20000 });
+    while(!await SSup.titleWindow_CallBank.isDisplayed()){
+      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+        // * Нажать кнопку Позвонить в банк.
+        await SSup.item_CallBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+        await SSup.item_CallBank.click();
+      }
+      // await driver.pause(1000);
+      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
+        await driver.back();
+      }
+    };
+    // 3.1.Открыто окно Позвонить в банк, где доступен список телефонных номеров службы поддержки.
+    // - окно Позвонить в банк
+    await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_CallBank_Ru_Expected);
 
-  // 6.Нажать (если присутствует) элемент средства контактов Telegram.
-  await SAuth.item_Telegram.click();
-  // 6.1.Открыт экран приложения Telegram с перепиской со службой поддержки, где отображается предыдущая переписка и доступно поле ввода сообщения:
-  // - экран приложения Telegram с перепиской со службой поддержки > waitForDisplayed: v.13 не успевает открыть Telegram (почему-то сначала запускает браузер)
-  await STlg.titleScreen_ApexbankChat_En.waitForDisplayed({ timeout: 20000 });
-  await expect(STlg.titleScreen_ApexbankChat_En).toHaveText(STlg.titleScreen_ApexbankChat_En_Expected);
-  // - кнопка присоединиться к Telegram-каналу
-  await expect(STlg.button_JoinApexbankChat_Ru).toBeDisplayed();
-  // // - поле ввода сообщения
-  // await expect(STlg.input_ChaMessage).toBeDisplayed();
-  
-  // п.7 о совершении переписки автотестированию не подлежит
-
-  // 5a.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  await UDev.androidPressBackButton(2);
-  // 5a.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов:
-  // - окно > + проверяется в п.1
-  // - элемент выбора средств контактов: Вызов > + проверяется в п.1
-  // - элемент выбора средств контактов: Telegram > waitForDisplayed: v.13 не успевает видеть items_titleWindow_CallBank...
-  await SAuth.item_Telegram.waitForDisplayed({ timeout: 20000 });
-
-  // 6a.Нажать (если присутствует) элемент средства контактов WhatsApp.
-  await SAuth.item_WhatsApp.click();
-  // 6a.1.Открыт экран приложения WhatsApp с перепиской со службой поддержки, где отображается предыдущая переписка и доступно поле ввода сообщения:
-  // - экран приложения WhatsApp с перепиской со службой поддержки
-  await STlg.titleScreen_ApexbankChat_En.waitForDisplayed({ timeout: 20000 });
-  await expect(STlg.titleScreen_ApexbankChat_En).toHaveText(STlg.titleScreen_ApexbankChat_En_Expected);
-  // - кнопка присоединиться к WhatsApp-каналу
-  await expect(STlg.button_JoinApexbankChat_Ru).toBeDisplayed();
-  // // - поле ввода сообщения
-  // await expect(STlg.supportContactWhatsAppMessageInput).toBeDisplayed();
-  
-  // п.7a о совершении переписки автотестированию не подлежит
-
-  // 8.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  await UDev.androidPressBackButton(2);
-  // 8.1.Открыто окно Контакт со службой поддержки, где доступны элементы выбора средств контактов:
-  // - окно > + проверяется в п.5
-  // - элемент выбора средств контактов: Вызов > + проверяется в п.5
-  // - элемент выбора средств контактов: Telegram > + проверяется в п.5
-
-  // 9.Выполнить шаги 2-8 для каждого доступного средства контакта.
-  // - шаги 2-8 для каждого > проверяется по мере их доступности
-
-  // 10.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-  // await driver.back();
-  await UDev.androidPressBackButton(1);
-  // 10.1.Открыт экран входа в приложение.
-  // - экран входа в приложение
-  await expect(SAuth.titleScreen_Welcome_Ru).toHaveText(SAuth.titleScreen_Welcome_Ru_Expected);
-  // - кнопка Поддержка
-  await expect(SAuth.button_Support).toBeDisplayed();
+    // 4.Выполнить шаги 2-3 для каждого телефонного номера.
+  }
 });
 it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
   /**
@@ -948,7 +907,7 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
 });
 
 // ab-ts-02p: Тестирование авторизации |вер.20230913| /Тестов 2 (частично 1)/
-it.skip('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
+it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
    * - 2 Стр. выбор языка, выбор языка (Русский) (ш?: П.1)
    * - 15 Стр. регист, кнопка "Далее" (ш?: 1-4)
@@ -956,20 +915,20 @@ it.skip('ab-e-tc-02.001p: ! Registration | Регистрация /Тест вы
    * - ? ... <
   > Можно зарегистрироваться в приложении. <
 ПРЕДУСЛОВИЯ:
-  1.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступны поле кода страны и поле ввода номера телефона.
+  1.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступны поле ввода номера телефона, чекбокс согласия с условиями и неактивная кнопка Продолжить.
 ПОСТУСЛОВИЯ: 1.Выйти из приложения (выполняется в SGen.afterEach).
   *
 ШАГИ:
   1.Нажать поле ввода номера телефона.
   1.1.Открыта клавиатура.
   2.Ввести номер телефона (незарегистрированный ранее) в поле ввода номера телефона.
-  2.1.Закрыта клавиатура. В поле ввода отображается введенный номер, а также доступны чекбокс согласия с условиями и неактивная кнопка Регистрация.
+  2.1.Закрыта клавиатура. В поле ввода отображается введенный номер.
 
   3.Нажать чекбокс согласия с условиями.
-  3.1.Чекбокс согласия отображается отмеченным, кнопка Регистрация активна.
+  3.1.Чекбокс согласия отображается отмеченным, кнопка Продолжить активна.
 
-  4.Нажать кнопку Регистрация.
-  4.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
+  4.Нажать кнопку Продолжить.
+  4.1.Открыт экран Введите код из СМС, где доступны поле ввода кода и неактивная кнопка Продолжить.
   5.Нажать поле ввода кода из СМС.
   5.1.Открыта клавиатура.
 
@@ -978,21 +937,17 @@ it.skip('ab-e-tc-02.001p: ! Registration | Регистрация /Тест вы
   6.Ввести полученный код.
   6.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
 
-  7.Нажать кнопку Подтвердить.
-  7.1.Открыт экран Создайте свой пароль, где доступны поля ввода Создайте пароль, Подтвердите пароль, Введите секретное слово и неактивная кнопка Продолжить.
+    7.Нажать кнопку Подтвердить.
+    7.1.Открыт экран Создайте свой пароль, где доступны поля ввода Создайте пароль, Подтвердите пароль, Введите секретное слово и неактивная кнопка Продолжить.
 
-  8.Ввести создаваемый пароль, подтвердить пароль и ввести секретное слово (в соответствующих полях ввода).
-  8.1.В полях ввода отображаются введенные данные (звездочками) и активна кнопка Продолжить.
+    8.Ввести создаваемый пароль, подтвердить пароль и ввести секретное слово (в соответствующих полях ввода).
+    8.1.В полях ввода отображаются введенные данные (звездочками) и активна кнопка Продолжить.
 
-  9.Нажать кнопку Продолжить.
-  9.1.Открыт экран Поздравляем с регистрацией и кнопка Продолжить.
+    9.Нажать кнопку Продолжить.
+    9.1.Открыт экран Поздравляем с регистрацией и кнопка Продолжить.
 
-  10.Нажать кнопку Продолжить.
-  10.1.Открыт экран Добро пожаловать, где доступны поле кода страны и поле ввода номера телефона.
-
-  *
--?- узнать, как автоматически получить код из СМС, а затем использовать его
--?- продолжить автоматизацию теста, используя валидный код из СМС
+    10.Нажать кнопку Продолжить.
+    10.1.Открыт экран Добро пожаловать, где доступны поле кода страны и поле ввода номера телефона.
   *
   */
 
@@ -1003,6 +958,13 @@ it.skip('ab-e-tc-02.001p: ! Registration | Регистрация /Тест вы
   // /*отладка*/ console.log('\n --> Activity = ' + await driver.getCurrentActivity() + '\n');
   // /*отладка*/ console.log('\n --> this.test.title = ' + this.test.title + '\n'); // wrong
 
+  // * Выйти из приложения (если необходимо)
+  if (
+    !await SAuth.titleScreen_Welcome_En.isDisplayed() &
+    !await SAuth.titleScreen_Welcome_Ru.isDisplayed() &
+    !await SAuth.titleScreen_Welcome_Uz.isDisplayed()
+    ) await SGen.logOutTheApp();
+    
   // П.1. Запустить приложение (автоматически), ...
   await SAuth.selectLanguage(SAuth.text_LanguageRussian_En);
 
@@ -1013,31 +975,27 @@ it.skip('ab-e-tc-02.001p: ! Registration | Регистрация /Тест вы
 
   // 2.Ввести номер телефона (незарегистрированный ранее) в поле ввода номера телефона.
   await UDev.androidKeyboardTypeIn(SReg.text_PhoneNumberToBeRegistered_Expected); // SAuth.phoneNumber_Expected
-  // 2.1.Закрыта клавиатура. В поле ввода отображается введенный номер, а также доступны чекбокс согласия с условиями и неактивная кнопка Регистрация:
+  // 2.1.Закрыта клавиатура. В поле ввода отображается введенный номер.
   // - клавиатура
   // await expect(await driver.isKeyboardShown()).toBe(false); // отключено, т.к. ГитХаб и БраузерСтак не успевают
   // - введенный номер
   await expect(SAuth.input_PhoneNumber).toHaveText(SReg.text_PhoneNumberToBeRegistered_Expected);
-  // - чекбокс согласия с условиями ?
-  // - кнопка Регистрация ?
-  await SReg.button_Signup.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 5000});
 
   // 3.Нажать чекбокс согласия с условиями.
-  await SReg.check_AgreeWithTerms.click();
-  // 3.1.Чекбокс согласия отображается отмеченным, кнопка Регистрация активна:
+  await SAuth.check_AgreeWithTerms.click();
+  // 3.1.Чекбокс согласия отображается отмеченным, кнопка Продолжить активна.
   // - чекбокс
-  await expect(SReg.check_AgreeWithTerms).toBeEnabled();
-  // - кнопка Регистрация
-  await expect(SReg.button_Signup).toBeEnabled();
+  await expect(SAuth.check_AgreeWithTerms).toBeEnabled();
+  // - кнопка Продолжить
+  await expect(SAuth.button_Continue).toBeEnabled();
 
-  // 4.Нажать кнопку Регистрация.
-  await SReg.button_Signup.click();
-  // 4.1.Отображается экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить:
+  // 4.Нажать кнопку Продолжить.
+  await SAuth.button_Continue.click();
+  // 4.1.Открыт экран Введите код из СМС, где доступны поле ввода кода и неактивная кнопка Продолжить.
   // - экран Введите код из СМС
-  await expect(SSms.titleScreen_EnterSmsCode_Ru)
-    .toHaveText(SSms.titleScreen_EnterSmsCode_Ru_Expected);
-  // - поле ввода кода из СМС ?
-  // - кнопка Подтвердить ?
+  await expect(SSms.titleScreen_EnterSmsCode_Ru).toHaveText(SSms.titleScreen_EnterSmsCode_Ru_Expected);
+  // - поле ввода кода ?
+  // - кнопка Продолжить ?
 
   // 5.Нажать поле ввода кода из СМС.
   await SSms.input_SmsCode.click();
@@ -1050,10 +1008,10 @@ it.skip('ab-e-tc-02.001p: ! Registration | Регистрация /Тест вы
   // await UDev.androidKeyboardTypeIn(SReg.text_SmsCodeReceived_Expected);
   const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6); //smsCode_Received
   await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected);
-  // 6.1.В поле ввода отображается введенный код, кнопка Подтвердить активна:
+  // 6.1.В поле ввода отображается введенный код, кнопка Продолжить активна.
   // - введенный код ?
   await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
-  // - кнопка Подтвердить
+  // - кнопка Продолжить
   await expect(SSms.button_Continue).toBeEnabled();
 
 // -?- продолжить автоматизацию теста, используя валидный код из СМС

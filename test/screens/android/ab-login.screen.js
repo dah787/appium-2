@@ -47,8 +47,8 @@ get text_CountryCode(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/left_text"]');} // country_code
 get input_PhoneNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')} // input_phone
-// get button_PhoneNumberInputClear(){
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
+get button_PhoneNumberInputClear(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
 
 get check_AgreeWithTerms(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/checkbox"]');}

@@ -1,6 +1,7 @@
-const SAuth = require("./ab-authorization.screen");  // screen > Authorization
+const SSup  = require("./ab-support.screen"); // screen > Support
 const SHome = require('./ab-home.screen');    // Home screen
-// const SProf = require('./ab-profile.screen'); // Profile screen
+// const SSms  = require('./ab-smsCodeEnter.screen');  // screen > Sms code enter
+// const LogInM  = require('./ab-login.screen'); // Login screen Model
 
 class GeneralScreen {
 
@@ -31,15 +32,26 @@ get button_LogOutConfirm(){
 
 
   
-/* SELECTORS : есть в Login screen Model (наследуемый класс), но logOutTheApp() оттуда их не видит */
-get button_Language_1(){// added on 20230704
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/languageButton"]');}
-get input_PhoneNumber_1(){// added on 20230719
+/* SELECTORS : есть в LogInM (наследуемый класс), но тут оттуда их не видно */
+// экран Войти в ApexBank
+get titleScreen_Welcome_En_1(){ // added on 20231101
+  return $('//android.widget.TextView[@text="Login to Apex Bank"]');}
+get titleScreen_Welcome_Ru_1(){ // added on 20231101
+  return $('//android.widget.TextView[@text="Войти в ApexBank"]');}
+get titleScreen_Welcome_Uz_1(){ // added on 20231101
+  return $('//android.widget.TextView[@text="Apex Bankga kirish"]');}
+
+get button_Language_1(){ // added on 20230704
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_language"]');}
+get button_Support_1(){ // added on 20231101
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_support"]')}
+
+get input_PhoneNumber_1(){ // added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
-get button_PhoneNumberInputClear_1(){// added on 20230719
+get button_PhoneNumberInputClear_1(){ // added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
-  
- 
+
+
 
 /* FUNCTIONS */
 async beforeEach(counter, typeOfTest) {
@@ -90,6 +102,22 @@ async after(){
 }
 
 async goBackToHomeScreen(){
+  // * Проверяем, нужен ли возврат на главный экран
+  if (
+    await this.button_Support_1.isDisplayed() ||
+    await SSup.titleWindow_CallBank.isDisplayed()
+    ){
+    while(
+      !await this.titleScreen_Welcome_En_1.isDisplayed() &
+      !await this.titleScreen_Welcome_Ru_1.isDisplayed() &
+      !await this.titleScreen_Welcome_Uz_1.isDisplayed() &
+      !await SHome.button_Profile.isDisplayed()
+    ){
+      await driver.back();
+    };
+    return;
+  }
+
   // * Закрыть клавиатуру
   if(await driver.isKeyboardShown()) await driver.hideKeyboard();
 
@@ -124,6 +152,14 @@ async goBackToHomeScreen(){
     // await driver.pause(2000);
     // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-2 = ' + await SHome.button_Profile.isDisplayed() + '\n');
     // await driver.pause(5000);
+
+    // * Проверяем, нужен ли возврат на главный экран
+    if (
+        !await this.titleScreen_Welcome_En_1.isDisplayed() &
+        !await this.titleScreen_Welcome_Ru_1.isDisplayed() &
+        !await this.titleScreen_Welcome_Uz_1.isDisplayed()
+      )
+      return;
   }
   await SHome.bottomNav_Home.click();
   await SHome.button_Profile.waitForDisplayed({timeout: this.number_WaitTime_Expected});

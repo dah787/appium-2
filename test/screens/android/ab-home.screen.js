@@ -58,16 +58,10 @@ scrollToElement_Right_Text = 'new UiScrollable(new UiSelector().resourceId("com.
 get layout_CardsList(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderCardsList"]');}
 get items_layout_CardsList(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"]').$$('android.widget.TextView');}
-  // return $$('android.widget.TextView');}
-  // return $('new UiScrollable(new UiSelector().resourceId("com.fincube.apexbank.debug:id/cardsListSmall").setAsHorizontalList(new UiSelector().className("android.widget.TextView"))');}
-  // return $('new UiSelector().resourceId("com.fincube.apexbank.debug:id/cardsListSmall")');}
-  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/listCard"]');}
-  // return $$('//android.widget.TextView[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"]');}
-  // return $$('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"]');}
-  // return $$('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"][@class="android.widget.TextView"]');}
-  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/cardsListSmall"]').$$('android.widget.TextView');}
-  // scrollToElement_Up = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("APEXBANK").className("android.widget.TextView"))';
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderCardsList"]').$$('android.widget.TextView');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderCardsList"]').$$('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
+get items_layout_CardsList_Balances(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderCardsList"]').$$('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBalance"]');}
 get frame_CardViewFront(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');} // ...bank_card_view
 get text_CardName(){
@@ -101,6 +95,8 @@ get button_TransferBetweenCards(){
 // главный экран: нижняя панель навигации
 get bottomNav_Home(){ // navBarHomeTab
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_home"]');}
+get bottomNav_Cards(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_cards"]');}
 get bottomNav_Payments(){ // navBarPaymentsTab
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_payment"]');}
 get bottomNav_History(){

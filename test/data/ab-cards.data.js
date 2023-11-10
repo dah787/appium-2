@@ -25,41 +25,55 @@ cardValid_Uzcard_2 = '03 26';
 phoneNumber_3 = '98 313 11 11'; // +998983131111 Kamoliddin aka
 phoneNumber_3_pass = 'qwerty123';
 cardName_Uzcard_3 = 'Uzcard-3';
-cardNumber_Uzcard_3 = '5614 6871 0840 5300';
+cardNumber_Uzcard_3 = '5614 6871 0840 5300'; // 5614687108405300
 cardValid_Uzcard_3 = '03 26';
 
 phoneNumber_4 = '99 887 72 18'; // 998998877218 Amanov Sardor
 phoneNumber_4_pass = 'qwerty123';
   cardName_Humo_4 = 'Humo-4';
-  cardNumber_Humo_4 = '9860 0901 0173 1322';
+  cardNumber_Humo_4 = '9860 0901 0173 1322'; // 9860090101731322
   cardValid_Humo_4 = '10 26';
 cardName_Uzcard_4 = 'Uzcard-4';
-cardNumber_Uzcard_4 = '5614 6871 0443 3470';
+cardNumber_Uzcard_4 = '5614 6871 0443 3470'; // 5614687104433470
 cardValid_Uzcard_4 = '03 26';
 
 phoneNumber_5 = '99 966 46 60'; // +998999664660 Kuvandikov Anvarbek
 phoneNumber_5_pass = 'qwerty123';
   cardName_Humo_5 = 'Humo-5';
-  cardNumber_Humo_5 = '9860 0901 0197 9368';
+  cardNumber_Humo_5 = '9860 0901 0197 9368'; // 9860090101979368
   cardValid_Humo_5 = '10 26';
 cardName_Uzcard_5 = 'Uzcard-5';
-cardNumber_Uzcard_5 = '5614 6871 0135 7581';
+cardNumber_Uzcard_5 = '5614 6871 0135 7581'; // 5614687101357581
 cardValid_Uzcard_5 = '03 26';
 
 phoneNumber_6 = '99 988 7800'; // +998999887800 Izzat Usmonov
 phoneNumber_6_pass = 'qwerty123A';
   cardName_Humo_6 = 'Humo-6';
-  cardNumber_Humo_6 = '9860 0901 0156 4376';
+  cardNumber_Humo_6 = '9860 0901 0156 4376'; // 9860090101564376
   cardValid_Humo_6 = '10 26';
+cardName_Humo_61 = 'Humo-61';
+cardNumber_Humo_61 = '9860 0966 0164 2901'; // 9860096601642901
+cardValid_Humo_61 = '10 26';
+cardHolder_Humo_61 = 'Izzat Usmonov';
 
+phoneNumber_7 = '...'; // +998... Nodirbek Nematullayev
+phoneNumber_7_pass = '...';
+  cardNumber_Humo_7 = '9860 0966 0172 2885'; // 9860096601722885
+  cardValid_Humo_7 = '11 26';
+  cardHolder_Humo_7 = 'Nodirbek Nematullayev';
+  
 
-
+  
 phoneNumber_10 = '99 392 30 75'; // +998993923075 Alisher Djurayev
 phoneNumber_10_pass = 'Qwerty12';
-  cardName_Humo_10 = 'Humo-10';
-  cardNumber_Humo_10 = '9860 0966 0164 2901';
-  cardValid_Humo_10 = '10 26';
-  cardHolder_Humo_10 = 'Izzat Usmonov';
+  accountName_USD_10 = 'ACCOUNT_USD';
+  accountNumber_USD_10 = '2261 6840 8600 0283 7000'; // 22616840860002837000
+  accountName_UZS_10 = 'ACCOUNT_UZS'
+  accountNumber_UZS_10 = '2261 6000 9600 0283 7000'; // 22616000960002837000
+cardName_Humo_10 = 'Humo-10';
+cardNumber_Humo_10 = '9860 0966 0175 5000'; // 9860096601755000
+cardValid_Humo_10 = '11 26';
+cardHolder_Humo_10 = 'Alisher Djurayev';
 
 
 

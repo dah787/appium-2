@@ -2,39 +2,75 @@ const GenM = require('./ab-general.screen'); // General screen Model
 
 class CardsScreen {
 
+/* CONSTANTS */
+titleScreen_MyCards_Ru_Expected = 'Мои карты';
+titleScreen_AddCard_Ru_Expected = 'Добавить карту';
+
+
+
 /* SELECTORS */
-// экран-1 Мои карты
+// экран Мои карты
+get titleScreen_MyCards(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_may_cards_title"]');}
 get titleScreen_MyCards_Ru(){
   return $('//android.widget.TextView[@text="Мои карты"]');}
-get items_titleScreen_MyCards(){
-  return $$('android.widget.TextView');}
-get button_AddCard(){//addButtonOnMyCardsScreen
+get button_OrderOrAddCard(){ // далее - окно заказа/добавления карты
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/addCardButton"]');}
-get button_AddCard_1(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_add_card"]');}
+get button_MyCards_Ru(){
+  return $('//android.widget.TextView[@text="Карты"]');}
+get button_MyOrders_Ru(){
+  return $('//android.widget.TextView[@text="Мои заявки"]');}
+
 get frame_CardViewFront(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
 get text_CardBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBalance"]');} // ...bank_card_view_balance
 get text_CardName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardName"]');} // ...tvCardBankName
+get text_CardNumber(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardNumber"]');}
+get text_CardDate(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardDate"]');}
+
+get items_titleScreen_MyCards(){
+  // return $$('android.widget.TextView');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/recyclerViewCards"]').$$('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardViewFront"]');}
+get items_titleScreen_MyCards_Balances(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/recyclerViewCards"]').$$('//*[@resource-id="com.fincube.apexbank.debug:id/tvCardBalance"]');}
 waitForScreenDisplayed_myCardsScreen(){
-  this.titleScreen_MyCards_Ru.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
+  this.titleScreen_MyCards.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
 }
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// экран Мои карты > окно заказа/добавления карты
+get button_OrderCard(){ // далее - экран Заказать карту
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_order_card"]');}
+get button_AddCard(){ // далее - экран Добавить карту
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_add_card"]');}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// экран-2 Добавить карту > экран (б/и) ввода данных
+// экран Мои карты > окно заказа/добавления карты > экран Добавить карту
+get titleScreen_AddCard(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
 get input_CardName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/inputEdit_card_name"]');}
 get input_CardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/inputEdit_card_number"]');}
 get input_CardExpiryDate(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/inputEdit_card_expiry_date"]');}
-get button_AddCard_2(){
+get button_AddCard_1(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_add_card"]');}
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+
+
+
+
+
 
 // экран-3 (б/и) действий с картой
 get frame_CardViewBack(){
@@ -72,18 +108,6 @@ scrollToElement_Down = 'new UiScrollable(new UiSelector().scrollable(true)).scro
 waitForScreenDisplayed_cardSettingsScreen(){ // wait_for_screen_displayed(){
   this.image_CardBackground.waitForDisplayed({timeout: GenM.waitTime + 15000});
 }
-
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// // экран-43 Перевод > экран-3 (б/и) чека перевода на карту
-// get amount(){
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_amount"]');}
-// get homeButton(){
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_back_to_home"]');}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 

@@ -204,6 +204,7 @@ async generateRandomCharsOfSet(length, charSet, charType) {
   return str;
 }
 async extractNumbersFromString(value) { // getNumbers(value), removeLetters(value)
+  // /*отладка*/ console.log('\n --> value = ' + value + '\n');
   // const string = value.replace(/[a-z-+()\s]/gi, '');
   const string = value.replace(/[a-zа-я-+();:\s]/gi, '');
   // /*отладка*/ console.log('\n --> string = ' + string + '\n');
@@ -229,82 +230,116 @@ async separateThousandthsOfNumber(value) { // separateThousandths(value)
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // функции, применимые к разным экранам
-async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1/*, elementAttributeValue_2, elementAttributeValue_3, elementAttributeValue_4*/){
-/*
-  Записываем определенные данные из raw_array в data_array, отсеивая уже имеющиеся в массиве data_array данные (название, сумма, номер и срок действия карты).
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  const elementAttributeKey = 'resource-id';
-  const elementAttributeValue_1 = 'com.fincube.apexbank.debug:id/tvCardName';
-  // const elementAttributeValue_2 = 'com.fincube.apexbank.debug:id/tvCardBalance';
-  // const elementAttributeValue_3 = 'com.fincube.apexbank.debug:id/tvCardNumber';
-  // const elementAttributeValue_4 = 'com.fincube.apexbank.debug:id/tvCardDate';
-*/
+async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues){
+  /*
+    Записываем определенные данные из raw_array в data_array, отсеивая уже имеющиеся в массиве data_array данные (напр., название, сумма, номер, срок действия карты, ...).
+  */
+  let cardName = '';
+  let cardBalance = '';
+  let cardNumber = '';
+  let cardDate = '';
+    
   let elementAttributeValue_Current = '';
+  let elements = [];
   // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
-  for(let i = 0, l = raw_array.length; i < l; i++){
-    elementAttributeValue_Current = await raw_array[i].getAttribute(elementAttributeKey);
-    // /*отладка*/ console.log('\n --> [' + i + '] elementAttributeValue_Current = ' + elementAttributeValue_Current + '\n');
-    if(elementAttributeValue_Current == elementAttributeValue_1){
-      // /*отладка*/ console.log(
-      //   '\n --> ' + elementAttributeValue_1       + ' = [' + i + '] elementAttributeValue_1' +
-      //   '\n --> ' + elementAttributeValue_Current + ' = [' + i + '] elementAttributeValue_Current' + '\n');
+  for (let i = 0, l = raw_array.length; i < l; i++) { // перебираем карты
+    // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + raw_array[i]);
+    elements = await raw_array[i].$$('android.widget.TextView');
+    
+    for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
+      elementAttributeValue_Current = await elements[x].getAttribute(elementAttributeKey);
+      // console.log(' --> element ' + x + ' = ' + await elements[x].getText());
 
-      // Проверяем, не добавлены ли уже данные текущего элемента в массив
-      if(await data_array.length > 0){
-        const data_array_0 = [];
-        data_array_0.push(
-          {
-            key_1 : await raw_array[i].getText(),   // название
-            key_2 : await raw_array[i+1].getText(), // сумма
-            key_3 : await raw_array[i+2].getText(), // номер
-            key_4 : await raw_array[i+3].getText()  // срок действия
-          }
-        );
+      switch(elementAttributeValue_Current) {
+        case elementAttributeValues[0]: // if (elementAttributeValue_Current === elementAttributeValues[0])
+          cardName = await elements[x].getText();
+          break;
+        case elementAttributeValues[1]:
+          cardBalance = await elements[x].getText();
+          break;
+        case elementAttributeValues[2]:
+          cardNumber = await elements[x].getText();
+          break;
+        case elementAttributeValues[3]:
+          cardDate = await elements[x].getText();
+          break;
+        default:
+          console.log("! нет элемента с атрибутом = '" + elementAttributeValue_Current + "'");
+          // throw "нет элемента с атрибутом = '" + elementAttributeValue_Current + "'";
+          break;
+      }
+    }
 
-        let notExisted = true;
-        for(let i = 0, l = await data_array.length; i < l; i++){
-          if (
-            data_array[i].key_1 == data_array_0[0].key_1 &
-            data_array[i].key_2 == data_array_0[0].key_2 &
-            data_array[i].key_3 == data_array_0[0].key_3 &
-            data_array[i].key_4 == data_array_0[0].key_4
-            )
-          {
-            notExisted = false;
-            continue; // прерываем цикл 'i', идем к следующему
-          }
+    if ( // если значения элементов текущей карты пустые, прерываем цикл, идем к следующему
+      cardName == '' &
+      cardBalance == '' &
+      cardNumber == '' &
+      cardDate == ''
+    ) continue;
+    
+    if (await data_array.length > 0) { // если массив уже не пустой...
+      const data_array_0 = [];
+      data_array_0.push( // добавляем данные текущей карты в промежуточный массив
+        {
+          key_1 : cardName,
+          key_2 : cardBalance,
+          key_3 : cardNumber,
+          key_4 : cardDate
         }
-
-        if(notExisted){
-          data_array.push(
-            {
-              key_1 : await data_array_0[0].key_1,
-              key_2 : await data_array_0[0].key_2,
-              key_3 : await data_array_0[0].key_3,
-              key_4 : await data_array_0[0].key_4
-            }
-          );
+      );
+      
+      let notExisted = true;
+      for (let i = 0, l = await data_array.length; i < l; i++) {
+        if ( // проверяем, не добавлены ли уже данные текущей карты в массив
+          data_array[i].cardName == data_array_0[0].key_1 &
+          data_array[i].cardBalance == data_array_0[0].key_2 &
+          data_array[i].cardNumber == data_array_0[0].key_3 &
+          data_array[i].cardDate == data_array_0[0].key_4
+          )
+        {
+          notExisted = false;
+          continue; // прерываем цикл, идем к следующему
         }
-      } else {
-        data_array.push(
+      }
+
+      if (notExisted) { // если данные текущей карты пока не добавлены...
+        data_array.push( // добавляем данные текущей карты в массив
           {
-            key_1 : await raw_array[i].getText(),
-            key_2 : await raw_array[i+1].getText(),
-            key_3 : await raw_array[i+2].getText(),
-            key_4 : await raw_array[i+3].getText()
+            cardName : data_array_0[0].key_1,
+            cardBalance : data_array_0[0].key_2,
+            cardNumber : data_array_0[0].key_3,
+            cardDate : data_array_0[0].key_4
           }
         );
       }
+    } else { // если массив пока пустой...
+      data_array.push( // добавляем данные текущей карты в массив
+        {
+          cardName : cardName,
+          cardBalance : cardBalance,
+          cardNumber : cardNumber,
+          cardDate : cardDate
+        }
+      );
     }
+
+    // /*отладка*/ console.log('\n --> elements = ' +
+    //   '\n' + cardName +
+    //   '\n' + cardBalance +
+    //   '\n' + cardNumber +
+    //   '\n' + cardDate
+    // );
   }
+
   // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
   //   console.log('\n --> data_array = ' +
-  //     '\n' + await data_array[i].key_1 +
-  //     '\n' + await data_array[i].key_2 +
-  //     '\n' + await data_array[i].key_3 +
-  //     '\n' + await data_array[i].key_4
+  //     '\n' + await data_array[i].cardName +
+  //     '\n' + await data_array[i].cardBalance +
+  //     '\n' + await data_array[i].cardNumber +
+  //     '\n' + await data_array[i].cardDate
   //   );
   // }
+
 }
 
 
