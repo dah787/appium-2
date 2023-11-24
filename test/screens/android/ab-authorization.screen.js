@@ -1,12 +1,12 @@
-const AppUM   = require('../../utils/android/ab-app.utils');              // Application Utilities
-const DSysM   = require("../../utils/android/dt-device.utils");           // Android Utilities Model
-const HomeM   = require('../../screens/android/ab-home.screen');          // Home screen Model
-const GenM    = require('../../screens/android/ab-general.screen');       // General screen Model
-const LogInM  = require('./ab-login.screen');                             // Login screen Model
-const SSms    = require('../../screens/android/ab-smsCodeEnter.screen');  // screen > Sms code enter
+const AppUM  = require('../../utils/android/ab-app.utils');             // Application Utilities
+const DSysM  = require("../../utils/android/dt-device.utils");          // Android Utilities Model
+const HomeM  = require('../../screens/android/ab-home.screen');         // Home screen Model
+const GenM   = require('../../screens/android/ab-general.screen');      // General screen Model
+const LogInM = require('./ab-login.screen');                            // Login screen Model
+const SSms   = require('../../screens/android/ab-smsCodeEnter.screen'); // screen > Sms code enter
+const UApp   = require("../../utils/android/ab-app.utils");             // utilities > Application
 
 class AuthorizationScreen extends LogInM {
-
 /* CONSTANTS */
 titleScreen_CreatePinCode_Ru_Expected = 'Создайте новый PIN-код';
 titleScreen_EnterPinCode_Ru_Expected = 'Введите свой PIN-код';
@@ -18,7 +18,7 @@ text_PinCodeOTP_Expected = '123456';
 
 /* SELECTORS */
 // экран Создайте новый PIN-код
-get titleScreen_CreatePinCode(){// createPinCodeScreenHeader
+get titleScreen_CreatePinCode(){ // createPinCodeScreenHeader
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
 get titleScreen_CreatePinCode_Ru(){
   return $('//android.widget.TextView[@text="Создайте новый PIN-код"]');}
@@ -26,7 +26,7 @@ get image_PinCodeIcon_3(){ // pin code icon
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_pin_3"]');}
 
 // экран Введите свой PIN-код
-get titleScreen_EnterPinCode(){// screenHeader_Text_enterPinCode
+get titleScreen_EnterPinCode(){ // screenHeader_Text_enterPinCode
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
 get titleScreen_EnterPinCode_Ru(){
   return $('//android.widget.TextView[@text="Введите свой PIN-код"]');}
@@ -108,10 +108,11 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
 
 
   // --- на 24102025 вводится ВРУЧНУЮ во время паузы (ниже)
-  // * Пауза для контроля экрана
-  await driver.pause(30000);
+  // * Пауза для контроля экрана.
+  // await driver.pause(30000);
+  await UApp.smsCodeInput();
 
-
+  
     
     // 6.1.В поле ввода отображается введенный код, кнопка Продолжить активна.
     // - кнопка Продолжить

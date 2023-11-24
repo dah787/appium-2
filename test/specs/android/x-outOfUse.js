@@ -467,6 +467,408 @@ it('ab-e-tc-04.003p: Checking balance | Проверка баланса', async 
 
 
 
+// ab-ts-05p: Тестирование переводов
+// перенесен сюда 16.11.2023
+it('ab-e-tc-05.003p: ! Transfer to card by phone number from contacts | Перевод на карту по номеру телефона из контактов /Тест выполнен частично: требуется автоматически получать код из СМС/', async () => {
+  /** > базовые тесты (см. файл ...) <
+  > Можно выполнить перевод денежных средств с карты на карту по номеру телефона из контактов. <
+ПРЕДУСЛОВИЯ:
+  1.Выполнена авторизация пользователя (уже имеющего карту/карты с денежными средствами) в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в разделе Переводы доступно поле ввода данных получателя.
+ПОСТУСЛОВИЯ: 1.Выйти из приложения (выполняется в SGen.afterEach).
+  *
+ШАГИ:
+  1.Нажать кнопку Контакты в разделе Переводы.
+  1.1.Открыт экран устройства Выберите контакт, где доступны список контактов и кнопка Поиск контактов.
+  2.Нажать кнопку Поиск контактов.
+  2.1.Открыто поле ввода поиска контактов.
+
+  3.Нажать поле ввода поиска контактов.
+  3.1.Открыта клавиатура.
+  4.Ввести запрос поиска требуемого контакта.
+  4.1.В поле ввода отображается введенный запрос, список контактов отфильтрован соответственно запросу.
+
+  5.Нажать элемент требуемого контакта.
+  5.1.Закрыт экран Выберите контакт. Открыт экран Перевод на карту, где отображаются поле выбора карты отправителя, поле выбора карты получателя, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить, а также открыто окно Выберите банк, в котором доступно поле выбора банка получателя.
+
+  6.Нажать поле выбора банка получателя.
+  6.1.Открыт список банков.
+  7.Выбрать банк получателя из списка.
+  7.1.Закрыт список банков. В окне Выберите банк отображается список карт получателя.
+  8.Выбрать карту получателя из списка.
+  8.1.Закрыты список карт и окно Выберите банк. В поле выбора карты получателя отображается выбранная карта.
+
+  9.Нажать поле выбора карты отправителя.
+  9.1.Открыт список карт отправителя.
+  10.Выбрать карту отправителя из списка.
+  10.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
+
+  11.Нажать поле ввода суммы перевода.
+  11.1.Открыта клавиатура.
+  12.Ввести сумму перевода.
+  12.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
+
+  13.Нажать кнопку Продолжить.
+  13.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
+
+  14.Нажать поле ввода кода из СМС.
+  14.1.Открыта клавиатура.
+
+--- ТРЕБУЕТСЯ автоматически получать код из СМС ---
+
+  15.Ввести полученный код.
+  15.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
+
+  16.Нажать кнопку Подтвердить.
+  16.1.Открыт экран..., где доступны...
+
+  *
+-?- узнать, как автоматически получить код из СМС, а затем использовать его
+-?- продолжить автоматизацию теста, используя валидный код из СМС
+  *
+  */
+
+  // > Вывести информацию о тесте в консоль
+  tcNum = 'ab-e-tc-05.003p';
+  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+
+  // > Установить тестовые данные
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
+  const receiverName = 'Апекс-1';
+  const moneyAmount = await UApp.generateRandomChars(4, 'amount');
+
+  // П.1.Выполнить авторизацию пользователя.
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+
+  // // * Сохранить сумму баланса карты до операции. 
+  // const totalBalanceBefore = await SHome.text_TotalBalanceAmount.getText();
+  // const cardBalanceBefore = await SHome.text_CardBalance.getText();
+  // // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
+
+  // 1.Нажать кнопку Контакты в разделе Переводы.
+  await SHome.button_Contacts.click();
+  // 1.1.Открыт экран устройства Выберите контакт, где доступны список контактов и кнопка Поиск контактов.
+  
+  // 2.Нажать кнопку Поиск контактов.
+  await UDev.contactsSearchButton.click();
+  // 2.1.Открыто поле ввода поиска контактов.
+
+  // 3.Нажать поле ввода поиска контактов.
+  await UDev.contactsSearchInput.click();
+  // 3.1.Открыта клавиатура.
+  await expect(await driver.isKeyboardShown()).toBe(true);
+
+  // 4.Ввести запрос поиска требуемого контакта.
+  await UDev.contactsSearchInput.addValue(receiverName);
+  // 4.1.В поле ввода отображается введенный запрос, список контактов отфильтрован соответственно запросу.
+
+  // 5.Нажать элемент требуемого контакта.
+  await UDev.contactName.click();
+  // 5.1.Закрыт экран Выберите контакт. Открыт экран Перевод на карту, где отображаются поле выбора карты отправителя, поле выбора карты получателя, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить, а также открыто окно Выберите банк, в котором доступно поле выбора банка получателя.
+  // - окно Выберите банк
+  await expect(WCardsR.titleWindow_SelectBankOfReceiver).toHaveText(WCardsR.titleWindow_SelectBankOfReceiver_Ru_Expected);
+
+  // 6.Нажать поле выбора банка получателя.
+  await STraTo.button_OpenReceiverBanksList.click();
+  // 6.1.Открыт список банков.
+  // 7.Выбрать банк получателя из списка.
+  // 7.1.Закрыт список банков. В окне Выберите банк отображается список карт получателя.
+  // 8.Выбрать карту получателя из списка.
+  // await STraTo.check_ReceiverCard.click();
+  // * Создать массив видимых элементов.
+  let raw_array = await STraTo.items_titleWindow_ReceiverSelectCard;
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  let data_array = [];
+  const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValue = WCardsS.text_ElementAttributeValue_En_Expected;
+  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  // * Контролируем непустоту массива.
+  if(data_array.length == 0){
+    throw " ! не сформирован data_array (массив карт) = '" + data_array + "'";
+  }
+  // - выбрать карту из списка
+  await data_array[0].click();
+  // 8.1.Закрыты список карт и окно Выберите банк. В поле выбора карты получателя отображается выбранная карта.
+
+  // 9.Нажать поле выбора карты отправителя.
+  await WCardsS.button_OpenSenderCardsList.click();
+  // 9.1.Открыт список карт отправителя.
+  // 10.Выбрать карту отправителя из списка.
+  // * Создать массив видимых элементов.
+  raw_array = await WCardsS.items_TextView_titleWindow_SenderSelectCard;
+  // /*отладка*/ console.log('\n --> raw_array-1 = ' + raw_array);
+  data_array = [];
+  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  /*отладка*/ console.log('\n --> data_array-1 = ' + data_array);
+  // * Контролируем непустоту массива.
+  if(data_array.length == 0){
+    throw " ! не сформирован data_array (массив карт) = '" + data_array + "'";
+  }
+  // - выбрать карту из списка
+  await data_array[1].click();
+  // 10.1.Закрыт список карт. В поле выбора карт отображается выбранная карта.
+
+  // 11.Нажать поле ввода суммы перевода.
+  await STraTo.input_TransferAmount.click();
+  // 11.1.Открыта клавиатура.
+  await expect(await driver.isKeyboardShown()).toBe(true);
+  // 12.Ввести сумму перевода.
+  await UDev.androidKeyboardTypeIn(moneyAmount);
+  // * Скрыть клавиатуру (добавить время для формирования значения SCard.transferTotalAmount)
+  await driver.hideKeyboard();
+  await driver.pause(SGen.number_WaitTime_Expected);
+  // 12.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
+  // - введенное значение
+  // const amountSeparatedThousandths = await UApp.separateThousandthsOfNumber(moneyAmount);
+  // await expect(SCard.input_TransferAmount).toHaveText(amountSeparatedThousandths);
+  await expect(STraTo.input_TransferAmount).toHaveText(moneyAmount);
+  // - комиссия
+  // /*отладка*/ console.log('\n --> ' + 
+  //   'moneyAmount = ' + moneyAmount +
+  //   '\n .transferCommission = ' + await SCard.transferCommission.getText() +
+  //   '\n .transferTotalAmount = ' + await SCard.transferTotalAmount.getText()
+  // );
+  const transferCommissionInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferCommission.getText());
+  const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraTo.text_TransferTotalAmount.getText());
+  // /*отладка*/ console.log('\n --> ' + 
+  //   'moneyAmount = ' + moneyAmount +
+  //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
+  //   '\n transferTotalAmountInNumbers = ' + transferTotalAmountInNumbers
+  // );
+  // - итоговая сумма
+  const amountInNumbers = Number(moneyAmount) + transferCommissionInNumbers;
+  await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
+
+  // 13.Нажать кнопку Продолжить.
+  await STraTo.button_Continue.click();
+  // 13.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
+
+
+
+
+
+
+
+
+return;//выдает ошибку Инвалид параметерс...
+
+
+
+
+
+
+
+  // 14.Нажать поле ввода кода из СМС.
+  await SSms.input_SmsCode.click();
+  // 14.1.Открыта клавиатура.
+  await expect(await driver.isKeyboardShown()).toBe(true);
+
+// --- ТРЕБУЕТСЯ автоматически получать код из СМС ---
+
+  // 15.Ввести полученный код.
+  const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6);
+  await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected);
+  // 15.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
+  // - введенный код ?
+  await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
+  // - кнопка Подтвердить
+  await expect(SSms.button_Continue).toBeEnabled();
+
+  // 16.Нажать кнопку Подтвердить.
+  await SSms.button_Continue.click();
+  // 16.1.Открыт экран..., где доступны...
+
+// -?- продолжить автоматизацию теста, используя валидный код из СМС
+  // ...
+
+});
+it('ab-e-tc-05.004p: -*- Transfer between your accounts/cards | Перевод между своими счетами/картами /частичен/', async () => {
+  /**
+  > Можно выполнить перевод денежных средств между своими счетами/картами. <
+ПРЕДУСЛОВИЯ:
+  1.Выполнена авторизация пользователя (уже имеющего карты с денежными средствами) в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в разделе Переводы доступна кнопка Переводы между своими счетами.
+ПОСТУСЛОВИЯ: 1.Выйти из приложения (выполняется в SGen.afterEach).
+  *
+ШАГИ:
+  1.Нажать кнопку Переводы между своими счетами/картами.
+  1.1.Открыт экран (Перевод) Между своими счетами/картами, где доступны поле выбора счета/карты отправки, поле выбора счета/карты получения, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить.
+
+  2.Нажать поле выбора карты отправки.
+  2.1.Открыт список карт отправки.
+  3.Выбрать карту отправки из списка.
+  3.1.Закрыт список карт. В поле выбора карт отправки отображается выбранная карта.
+
+  4.Нажать поле выбора карты получения.
+  4.1.Открыт список карт получения.
+  5.Выбрать карту получения из списка.
+  5.1.Закрыт список карт. В поле выбора карт получения отображается выбранная карта.
+
+  6.Нажать поле ввода суммы перевода.
+  6.1.Открыта клавиатура.
+  7.Ввести сумму перевода.
+  7.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия,( в поле итога - итоговая сумма,) кнопка Продолжить активна.
+
+  8.Нажать кнопку Продолжить.
+  8.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
+
+-?- ОШИБКА после нажатия кнопки Продолжить ---
+
+  9.Нажать поле ввода кода из СМС.
+  9.1.Открыта клавиатура.
+
+--- ТРЕБУЕТСЯ автоматически получать код из СМС ---
+
+  10.Ввести полученный код.
+  10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
+
+  11.Нажать кнопку Подтвердить.
+  11.1.Открыт экран..., где доступны...
+
+  *
+-?- узнать, как автоматически получить код из СМС, а затем использовать его
+-?- продолжить автоматизацию теста, используя валидный код из СМС
+  *
+  */
+
+  // > Вывести информацию о тесте в консоль
+  tcNum = 'ab-e-tc-05.004p';
+  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+
+  // > Установить тестовые данные
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
+
+  // const moneyAmount = '1000000';
+  const moneyAmount = await UApp.generateRandomChars(4, 'amount');
+
+  // П.1.Выполнить авторизацию пользователя.
+  await SAuth.customerAuthorization(
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+
+  // * Сохранить сумму баланса карты до операции. 
+  const totalBalanceBefore = await SHome.text_TotalBalanceAmount.getText();
+  // const cardBalanceBefore = await SHome.text_CardBalance.getText();
+  // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
+
+  // 1.Нажать кнопку Переводы между своими счетами/картами.
+  await SHome.button_TransferBetweenCards.click();
+  // 1.1.Открыт экран (Перевод) Между своими счетами/картами, где доступны поле выбора счета/карты отправки, поле выбора счета/карты получения, поле ввода суммы перевода, поле комиссии, неактивная кнопка Продолжить.
+
+  // - - - - - - - - - - - - - - - - - - - - -
+  // console.log('\n\n\n' + await STraBe.button_FromCardsSelect_cardNumber.getText() + '\n\n\n');
+  // console.log('\n\n\n' + await $('//*[@resource-id="com.fincube.apexbank.debug:id/fromField_transferOwnCard"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]').getText() + '\n\n\n');
+  // console.log('\n\n\n' + await STraBe.button_FromCardsSelect.$('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_number"]').getText() + '\n\n\n');
+  // NO > console.log('\n\n\n' + (await STraBe.button_FromCardsSelect.STraBe.text_CardNumber).getText() + '\n\n\n');
+  // - - - - - - - - - - - - - - - - - - - - -
+
+  // 2.Нажать поле выбора карты отправки.
+  await STraBe.button_FromCardsSelect.click();
+  // 2.1.Открыт список карт отправки.
+  // 3.Выбрать карту отправки из списка.
+  // * Создать массив видимых элементов.
+  let raw_array = await WCardsS.items_TextView_titleWindow_SenderSelectCard;
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  let data_array = [];
+  const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValue = WCardsS.text_ElementAttributeValue_En_Expected;
+  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  // * Контролируем непустоту массива.
+  if(data_array.length == 0){
+    throw " ! не сформирован data_array (массив карт) = '" + data_array + "'";
+  }
+  // - выбрать карту из списка
+  await data_array[1].click();
+  // 3.1.Закрыт список карт. В поле выбора карт отправки отображается выбранная карта.
+
+  // 4.Нажать поле выбора карты получения.
+  await STraBe.button_ToCardsSelect.click();
+  // 4.1.Открыт список карт получения.
+  // 5.Выбрать карту получения из списка.
+  // * Создать массив видимых элементов.
+  raw_array = await WCardsS.items_TextView_titleWindow_SenderSelectCard;
+  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  data_array = [];
+  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  // * Контролируем непустоту массива.
+  if(data_array.length == 0){
+    throw " ! не сформирован data_array (массив карт) = '" + data_array + "'";
+  }
+  // - выбрать карту из списка
+  await data_array[0].click();
+  // 5.1.Закрыт список карт. В поле выбора карт получения отображается выбранная карта.
+
+  // 6.Нажать поле ввода суммы перевода.
+  await STraBe.input_TransferAmount.click();
+  // 6.1.Открыта клавиатура.
+  await expect(await driver.isKeyboardShown()).toBe(true);
+  // 7.Ввести сумму перевода.
+  await UDev.androidKeyboardTypeIn(moneyAmount);
+  // * Скрыть клавиатуру (добавить время для формирования значения SCard.transferTotalAmount)
+  await driver.hideKeyboard();
+  // 7.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
+  // - введенное значение
+  // const amountSeparatedThousandths = await UApp.separateThousandthsOfNumber(moneyAmount);
+  // await expect(SCard.input_TransferAmount).toHaveText(amountSeparatedThousandths);
+  // await expect(STraBe.input_TransferAmount).toHaveText(moneyAmount);
+  let input_TransferAmount = await UApp.extractNumbersFromString(await STraBe.input_TransferAmount.getText());
+  input_TransferAmount = String(input_TransferAmount);
+  await expect(input_TransferAmount).toEqual(moneyAmount);
+      // // - комиссия
+      // // /*отладка*/ console.log('\n --> ' + 
+      // //   'moneyAmount = ' + moneyAmount +
+      // //   '\n .transferCommission = ' + await SCard.transferCommission.getText() +
+      // //   '\n .transferTotalAmount = ' + await SCard.transferTotalAmount.getText()
+      // // );
+      // const transferCommissionInNumbers = await UApp.extractNumbersFromString(await text_TransferCommission.getText());
+      // const transferTotalAmountInNumbers = await UApp.extractNumbersFromString(await STraBe.text_TransferTotalAmount.getText());
+      // // /*отладка*/ console.log('\n --> ' + 
+      // //   'moneyAmount = ' + moneyAmount +
+      // //   '\n transferCommissionInNumbers = ' + transferCommissionInNumbers +
+      // //   '\n transferTotalAmountInNumbers = ' + transferTotalAmountInNumbers
+      // // );
+      // // - итоговая сумма
+      // const amountInNumbers = Number(moneyAmount) + transferCommissionInNumbers;
+      // await expect(transferTotalAmountInNumbers).toStrictEqual(amountInNumbers);
+
+  // 8.Нажать кнопку Продолжить.
+  await STraBe.button_Continue.click();
+  // 8.1.Открыт экран Введите код из СМС, где доступны поле ввода кода из СМС и неактивная кнопка Подтвердить.
+
+// -?- ОШИБКА после нажатия кнопки Продолжить ---
+
+    //   // 9.Нажать поле ввода кода из СМС.
+    //   await SSms.input_SmsCode.click();
+    //   // 9.1.Открыта клавиатура.
+    //   await expect(await driver.isKeyboardShown()).toBe(true);
+
+    // // -!- ТРЕБУЕТСЯ автоматически получать код из СМС ---
+
+    //   // 10.Ввести полученный код.
+    //   const text_SmsCodeReceived_Expected = await UApp.generateRandomChars(6);
+    //   await UDev.androidKeyboardTypeIn(text_SmsCodeReceived_Expected);
+    //   // 10.1.В поле ввода отображается введенный код, кнопка Подтвердить активна.
+    //   // - введенный код ?
+    //   await expect(SSms.input_SmsCode).toHaveText(text_SmsCodeReceived_Expected);
+    //   // - кнопка Подтвердить
+    //   await expect(SSms.button_Continue).toBeEnabled();
+
+    //   // 11.Нажать кнопку Подтвердить.
+    //   await SSms.button_Continue.click();
+    //   // 11.1.Открыт экран..., где доступны...
+
+// -?- продолжить автоматизацию теста, используя валидный код из СМС
+  // ...
+
+});
+
+
+
+
+
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 it.skip('ab-o-d-001: Debug > JavaScript heap out of memory', async () => {
 /*

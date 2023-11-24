@@ -106,7 +106,7 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
     // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
-    throw "languagesList не сформирован: data_array = '" + data_array + "'";
+    throw " ! languagesList не сформирован: data_array = '" + data_array + "'";
     // throw data_array;
   }
 
@@ -248,7 +248,7 @@ it('ab-u-tc-01.002Ap: Call bank (login screen) | Позвонить в банк 
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
-    throw "не сформирован data_array (массив телефонных номеров) = '" + data_array + "'";
+    throw " ! не сформирован data_array (массив телефонных номеров) = '" + data_array + "'";
   }
 
   let supportContact = '';
@@ -372,7 +372,7 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
-    throw "не сформирован data_array (массив телефонных номеров) = '" + data_array + "'";
+    throw " ! не сформирован data_array (массив телефонных номеров) = '" + data_array + "'";
   }
 
   let supportContact = '';
@@ -494,7 +494,7 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
-    throw "не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
+    throw " ! не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
   }
 
   for(let i = 0; i < data_array.length; i++){
@@ -613,7 +613,7 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
-    throw "не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
+    throw " ! не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
   }
 
   for(let i = 0; i < data_array.length; i++){
@@ -719,7 +719,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
-    throw "не сформирован data_array (массив доп.ресурсов) = '" + data_array + "'";
+    throw " ! не сформирован data_array (массив доп.ресурсов) = '" + data_array + "'";
   }
   // /*отладка*/ for (let i = 0; i < data_array.length; i++) {
   //   console.log('data_array[' + i + ']' + await data_array[i].getText());
@@ -779,7 +779,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
 
     } else {
       // /*отладка*/ console.log('\n --> в supportContact нет искомого содержимого: ' + supportContact + '\n');
-      throw "в supportContact нет искомого содержимого = '" + supportContact + "'";
+      throw " ! в supportContact нет искомого содержимого = '" + supportContact + "'";
     }
 
     // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
@@ -875,7 +875,7 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
-    throw "не сформирован data_array (массив вопросов) = '" + data_array + "'";
+    throw " ! не сформирован data_array (массив вопросов) = '" + data_array + "'";
   }
   // /*отладка*/ for (let i = 0; i < data_array.length; i++) {
   //   console.log('data_array[' + i + ']' + await data_array[i].getText());
@@ -1017,7 +1017,7 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
   // ...
 });
-it('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
+it.only('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
  * - 2 Стр. выбор языка, выбор языка (Русский) (ш10: П.1)
  * - 59 Стр. аутентификации, поле "Пароль":валидный (ш10: 1-5)
@@ -1260,7 +1260,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
   // * Контролируем непустоту массива.
   if(data_array.length == 0){
     // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
-    throw "не сформирован data_array (массив языков) = '" + data_array + "'";
+    throw " ! не сформирован data_array (массив языков) = '" + data_array + "'";
   }
 
   let elementIndex = 0;
@@ -1474,18 +1474,22 @@ it.skip('ab-s-d-003: Debug > System/OTP message', async () => {
 /* EOF describe */
 });
 
-// * Пауза для контроля экрана
+//    * Пауза для контроля экрана
 // await driver.pause(5000);
 // await CardM.cardBalance.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
-// *.Нажать кнопку Назад
+//    * Нажать кнопку Назад
 // await driver.back();
 // await UDev.androidPressBackButton(1);
-// *.Скрыть клавиатуру
+//    * Скрыть клавиатуру
 // await driver.hideKeyboard();
-// * Прокрутить до элемента
+//    * Прокрутить до элемента
 // await $(`android=${CardM.scrollToElement_Up}`);
-// * Открыть отчет
+//    * Открыть отчет
 // npx allure open
+//    * Если открыт экран Введите свой PIN-код
+// if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+//   await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+// }
 
 /* to start run : npx wdio config/wdio.android.conf.js
 - - - - - - - - - - - - - - - - - - - - - - - - - - - */

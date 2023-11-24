@@ -9,8 +9,8 @@ text_ElementAttributeValue_En_Expected = 'com.fincube.apexbank.debug:id/select_c
 
 /* SELECTORS */
 // экран ...
-get button_OpenSenderCardsList(){//далее - окно Выберите карту отправителя
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
+// get button_OpenSenderCardsList(){//далее - окно Выберите карту отправителя
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
 get text_SenderCardName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_name"]');}
 get text_SenderCardNumber(){
@@ -21,8 +21,8 @@ get text_SenderCardBalance(){
 // экран ... > окно Выберите карту отправителя
 get titleWindow_SenderSelectCard_Ru(){
   return $('//android.widget.TextView[@text="Карты"]');}
-get items_TextView_titleWindow_SenderSelectCard(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
+get items_Window_SelectCardOfSender_CardNumber(){
+  return $$('//*[@resource-id="com.fincube.apexbank.debug:id/select_card_number"]');}
 
 
 

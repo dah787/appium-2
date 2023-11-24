@@ -13,9 +13,10 @@ get titleScreen_TransferBetweenCards_Ru(){
 // get buttons_CardsSelect(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]').$$('android.view.ViewGroup');}
 
-get button_FromCardsSelect(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/fromField_transferOwnCard"]');}
-get button_ToCardsSelect(){
+get button_OpenCardsList_From(){// поле Откуда (далее - окно Выберите карту (отправителя))
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/fromField_transferOwnCard"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/fromField_transferOwnCard"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
+get button_OpenCardsList_To(){// поле Куда (далее - окно Выберите карту (получателя))
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/toField_transferOwnCard"]');}
 
 get text_CardNumber(){
@@ -38,6 +39,12 @@ get text_TransferTotalAmount(){
 
 get button_Continue(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/buttonContinue_transferOwnCard"]');}
+
+// экран Перевод на карту > окно Платеж обрабатывается
+get titleScreen_TransferProcessing(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvProcessing"]');}
+get button_BackToHome(){// далее - экран Главный
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnBackToHome"]');}
 
 // экран Перевод > экран (б/и) чека перевода на карту
 get text_Amount(){

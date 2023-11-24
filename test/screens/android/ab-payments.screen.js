@@ -34,18 +34,10 @@ get button_Continue(){
 // экран Платежи > экран Мобильные операторы > экран мобильного оператора > экран Платеж
 get titleScreen_Payment(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
-get titleScreen_PaymentRu(){
+get titleScreen_Payment_Ru(){
   return $('//android.widget.TextView[@text="Платеж"]');}
-// get cardSelectLabel(){
-  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_label"]');}
-// get cardsSelectButton(){
-  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
-// get cardSelectionCheck(){
-  // return $$('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
-
-// get cardsList(){
-  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
-
+get button_OpenCardsList_From(){//далее - окно Выберите карту получателя
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
 get input_TransferAmount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]');}
 // get paymentScreenInputs(){

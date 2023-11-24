@@ -14,7 +14,8 @@ text_CardBalanceHidingSymbols_En_Expected = '******';
 /* SELECTORS */
 // главный экран: блок Профиль
 get layout_Profile(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/profileLayout"]');}
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/profileLayout"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/toolbar"]');}
 get button_Profile(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/profileButton"]');}
 // get text_ProfileNameNadiaPage_En(){
@@ -44,7 +45,8 @@ get button_AddCard(){
 
 // главный экран: блок Общий баланс (already have card): Сумма общего баланса
 get text_TotalBalanceAmount(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotalBalance"]');} // ...tvBalance
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotalBalance"]');} // ...tvBalance
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTotalBalanceBig"]');}
 get button_ShowHideBalanceAmount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnHideShowBalance"]');}
 // https://www.automationtestinghub.com/appium-scroll-examples/

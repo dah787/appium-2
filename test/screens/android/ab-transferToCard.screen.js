@@ -2,7 +2,6 @@ class TransferToCardScreen {
 
 /* CONSTANTS */
 titleScreen_TransferToCard_Ru_Expected = 'Перевод на карту';
-titleWindow_ReceiverSelectBank_Ru_Expected = 'Выберите банк';
 
 // text_ElementAttributeKey_En_Expected      = 'resource-id';
 // text_ElementAttributeValue_En_Expected    = 'com.fincube.apexbank.debug:id/select_card_number';
@@ -15,8 +14,8 @@ titleWindow_ReceiverSelectBank_Ru_Expected = 'Выберите банк';
 get titleScreen_TransferToCard_Ru(){
   return $('//android.widget.TextView[@text="Перевод на карту"]');}
 
-// get button_OpenSenderCardsList(){// поле Откуда (далее - окно Выберите карту (отправителя))
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
+get button_OpenCardsList_From(){// поле Откуда (далее - окно Выберите карту (отправителя))
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/fromField_transferCard"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/select_bank_card_layout"]');}
 // get text_SenderCardName(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_name"]');}
 // get text_SenderCardNumber(){
@@ -24,8 +23,9 @@ get titleScreen_TransferToCard_Ru(){
 // get text_SenderCardBalance(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_balance"]');}
 
-get button_OpenReceiverBanksList(){// поле Куда (далее - окно Выберите банк (получателя))
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]');}
+get button_OpenCardsList_To(){// поле Куда (далее - окно Выберите банк (получателя)) button_OpenCardsList_From
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/toField_transferCard"]');}
+
 get text_ReceiverCardNumber(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/to_card_number"]');}
 
@@ -46,14 +46,18 @@ get button_Continue(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/layout"]').$$('android.widget.TextView');}
 
 // экран Перевод на карту > окно Выберите банк (получателя)
-get titleWindow_ReceiverSelectBank(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTitle"]');}
-get button_OpenReceiverCardsList(){// далее - окно Выберите карту (получателя)
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]');}
+// get titleWindow_ReceiverSelectBank(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTitle"]');}
+// get button_OpenReceiverCardsList(){// далее - окно Выберите карту (получателя)
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]');}
+// get items_Window_SelectBankOfReceiver_TextView(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]').$$('android.widget.TextView');}
 
 // экран Перевод на карту > окно Выберите банк > окно Выберите карту (получателя)
 get titleWindow_ReceiverSelectCard(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTitle"]');}
+// get items_titleWindow_ReceiverSelectBank(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]').$$('android.widget.TextView');}
 get text_ReceiverCardName(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_card_name"]');}
 get text_ReceiverCardNumber(){
@@ -63,6 +67,11 @@ get check_ReceiverCard(){
 get items_titleWindow_ReceiverSelectCard(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardsRecyclerView"]').$$('android.widget.TextView');}
 
+// экран Перевод на карту > окно Платеж обрабатывается
+get titleScreen_TransferProcessing(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvProcessing"]');}
+get button_BackToHome(){// далее - экран Главный
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnBackToHome"]');}
 
 
 

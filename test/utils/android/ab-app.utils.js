@@ -1,5 +1,8 @@
+const SAuth = require("../../screens/android/ab-authorization.screen"); // screen > Authorization
+const SSms  = require('../../screens/android/ab-smsCodeEnter.screen');  // screen > Sms code enter
+
 class AppUtilities {
-  
+
 /* SELECTORS */
 // https://www.automationtestinghub.com/appium-scroll-examples/
 // https://russianblogs.com/article/88992310695/
@@ -216,6 +219,8 @@ async roundNumber(value, precision) {
   return Math.round(value * multiplier) / multiplier;
 }
 async separateThousandthsOfNumber(value) { // separateThousandths(value)
+  // /*отладка*/ console.log('\n --> value = ' + value + '\n');
+  // /*отладка*/ console.log('\n --> typeof(value) = ' + typeof(value) + '\n');
   const symbolsArray = value.split('');
   let string = '';
 
@@ -230,116 +235,33 @@ async separateThousandthsOfNumber(value) { // separateThousandths(value)
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // функции, применимые к разным экранам
-async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues){
-  /*
-    Записываем определенные данные из raw_array в data_array, отсеивая уже имеющиеся в массиве data_array данные (напр., название, сумма, номер, срок действия карты, ...).
-  */
-  let cardName = '';
-  let cardBalance = '';
-  let cardNumber = '';
-  let cardDate = '';
-    
-  let elementAttributeValue_Current = '';
-  let elements = [];
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
-  for (let i = 0, l = raw_array.length; i < l; i++) { // перебираем карты
-    // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + raw_array[i]);
-    elements = await raw_array[i].$$('android.widget.TextView');
-    
-    for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
-      elementAttributeValue_Current = await elements[x].getAttribute(elementAttributeKey);
-      // console.log(' --> element ' + x + ' = ' + await elements[x].getText());
-
-      switch(elementAttributeValue_Current) {
-        case elementAttributeValues[0]: // if (elementAttributeValue_Current === elementAttributeValues[0])
-          cardName = await elements[x].getText();
-          break;
-        case elementAttributeValues[1]:
-          cardBalance = await elements[x].getText();
-          break;
-        case elementAttributeValues[2]:
-          cardNumber = await elements[x].getText();
-          break;
-        case elementAttributeValues[3]:
-          cardDate = await elements[x].getText();
-          break;
-        default:
-          console.log("! нет элемента с атрибутом = '" + elementAttributeValue_Current + "'");
-          // throw "нет элемента с атрибутом = '" + elementAttributeValue_Current + "'";
-          break;
+async smsCodeInput() { // предварительно установить фокус на поле ввода
+  // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+  // * Ждем, пока поле ввода не будет заполнено
+  let i = 0;
+  while (
+    // await SSms.input_SmsCode.getText() == '6 цифр' ||
+    // (await SSms.input_SmsCode.getText()).length < 6 ||
+    i < 100
+    ){
+      if (await SSms.input_SmsCode.getText() == '6 цифр') {
+        await driver.pause(500);
+      } else if ((await SSms.input_SmsCode.getText()).length == 6) {
+        break;
       }
-    }
-
-    if ( // если значения элементов текущей карты пустые, прерываем цикл, идем к следующему
-      cardName == '' &
-      cardBalance == '' &
-      cardNumber == '' &
-      cardDate == ''
-    ) continue;
-    
-    if (await data_array.length > 0) { // если массив уже не пустой...
-      const data_array_0 = [];
-      data_array_0.push( // добавляем данные текущей карты в промежуточный массив
-        {
-          key_1 : cardName,
-          key_2 : cardBalance,
-          key_3 : cardNumber,
-          key_4 : cardDate
-        }
-      );
-      
-      let notExisted = true;
-      for (let i = 0, l = await data_array.length; i < l; i++) {
-        if ( // проверяем, не добавлены ли уже данные текущей карты в массив
-          data_array[i].cardName == data_array_0[0].key_1 &
-          data_array[i].cardBalance == data_array_0[0].key_2 &
-          data_array[i].cardNumber == data_array_0[0].key_3 &
-          data_array[i].cardDate == data_array_0[0].key_4
-          )
-        {
-          notExisted = false;
-          continue; // прерываем цикл, идем к следующему
-        }
-      }
-
-      if (notExisted) { // если данные текущей карты пока не добавлены...
-        data_array.push( // добавляем данные текущей карты в массив
-          {
-            cardName : data_array_0[0].key_1,
-            cardBalance : data_array_0[0].key_2,
-            cardNumber : data_array_0[0].key_3,
-            cardDate : data_array_0[0].key_4
-          }
-        );
-      }
-    } else { // если массив пока пустой...
-      data_array.push( // добавляем данные текущей карты в массив
-        {
-          cardName : cardName,
-          cardBalance : cardBalance,
-          cardNumber : cardNumber,
-          cardDate : cardDate
-        }
-      );
-    }
-
-    // /*отладка*/ console.log('\n --> elements = ' +
-    //   '\n' + cardName +
-    //   '\n' + cardBalance +
-    //   '\n' + cardNumber +
-    //   '\n' + cardDate
-    // );
+    i++;
+    // /*отладка*/ console.log('\n --> i = ' + i + '\n');
+    // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
   }
-
-  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
-  //   console.log('\n --> data_array = ' +
-  //     '\n' + await data_array[i].cardName +
-  //     '\n' + await data_array[i].cardBalance +
-  //     '\n' + await data_array[i].cardNumber +
-  //     '\n' + await data_array[i].cardDate
-  //   );
-  // }
-
+  // /*отладка*/ console.log('\n --> i = ' + i + '\n');
+  // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+  // await driver.pause(15000);
+}
+      // почему-то не видит SAuth
+async ifEnterYourCodeScreenOpen() { // если открыт экран Введите свой PIN-код
+  if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+    await this.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+  }
 }
 
 

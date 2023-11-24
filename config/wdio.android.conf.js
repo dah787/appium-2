@@ -20,8 +20,8 @@ config.specs = [
   // path.join(process.cwd(),'test/specs/android/ab-ts-11p*.spec.js')
 
   // path.join(process.cwd(),'test/specs/android/*.*')
-  // path.join(process.cwd(),'test/specs/android/ab-ts-01p.spec.js')
-  path.join(process.cwd(),'test/specs/android/ab-ts-02p.spec.js')
+  path.join(process.cwd(),'test/specs/android/ab-ts-01p.spec.js')
+  // path.join(process.cwd(),'test/specs/android/ab-ts-02p.spec.js')
 ];
 
 // ============
@@ -52,8 +52,8 @@ config.capabilities = [{
   "appium:deviceName": "Pixel 7 v.13",   // 1080*2400, 420 dpi, 6.31", x86_64 < "Pixel_7_API_33"
 
   "appium:automationName": "UiAutomator2",
-  "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.64-debug.apk"),
-  // "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.65-debug.apk"),
+  // "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.64-debug.apk"),
+  "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.68-debug.apk"),
   "appium:autoGrantPermissions": true
 }];
 

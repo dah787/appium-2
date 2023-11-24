@@ -56,7 +56,7 @@ cardNumber_Humo_61 = '9860 0966 0164 2901'; // 9860096601642901
 cardValid_Humo_61 = '10 26';
 cardHolder_Humo_61 = 'Izzat Usmonov';
 
-phoneNumber_7 = '...'; // +998... Nodirbek Nematullayev
+phoneNumber_7 = '90 933 9371'; // +998... Nodirbek Nematullayev
 phoneNumber_7_pass = '...';
   cardNumber_Humo_7 = '9860 0966 0172 2885'; // 9860096601722885
   cardValid_Humo_7 = '11 26';
@@ -74,6 +74,26 @@ cardName_Humo_10 = 'Humo-10';
 cardNumber_Humo_10 = '9860 0966 0175 5000'; // 9860096601755000
 cardValid_Humo_10 = '11 26';
 cardHolder_Humo_10 = 'Alisher Djurayev';
+  cardName_Uzcard_10 = 'Uzcard-10';
+  cardNumber_Uzcard_10 = '5614 6871 0039 0898'; // 5614687100390898
+  cardValid_Uzcard_10 = '11 26';
+  cardHolder_Uzcard_10 = 'Alisher Djurayev';
+cardName_Humo_101 = 'Humo-101';
+cardNumber_Humo_101 = '9860 0966 0169 1080'; // 9860096601691080
+cardValid_Humo_101 = '11 26';
+cardHolder_Humo_101 = 'Alisher Djurayev';
+  cardName_Humo_102 = 'Humo-102';
+  cardNumber_Humo_102 = '9860 0966 0169 9109'; // 9860096601699109
+  cardValid_Humo_102 = '11 26';
+  cardHolder_Humo_102 = 'Alisher Djurayev';
+cardName_Uzcard_101 = 'Uzcard-101';
+cardNumber_Uzcard_101 = '5614 6871 0039 2704'; // 5614687100392704
+cardValid_Uzcard_101 = '11 26';
+cardHolder_Uzcard_101 = 'Alisher Djurayev';
+  cardName_Uzcard_102 = 'Uzcard-102';
+  cardNumber_Uzcard_102 = '5614 6871 0040 1844'; // 5614687100401844
+  cardValid_Uzcard_102 = '11 26';
+  cardHolder_Uzcard_102 = 'Alisher Djurayev';
 
 
 
