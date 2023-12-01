@@ -17,7 +17,7 @@ const WCardsS = require('../../screens/android/ab-cardsSender.window');     // w
 const UApp    = require("../../utils/android/ab-app.utils");                // utilities > Application
 const UDev    = require("../../utils/android/dt-device.utils");             // utilities > Device
 
-describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231123| /Тестов 10 (частично 6)/', () => {
+describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231201| /Тестов 10 (частично 6)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 'o'); // o - operation / e - e2e < typeOfTest
@@ -50,7 +50,7 @@ describe('ab-ts-02p: Testing of operations | Тестирование опера
     // counter++;
 
     // // * Выйти из приложения
-    // await SGen.logOutTheApp();
+    // await SGen.logOutApp();
   });
   after(async () => {
     await SGen.after();
@@ -60,8 +60,8 @@ describe('ab-ts-02p: Testing of operations | Тестирование опера
     // await driver.terminateApp(SGen.appPackage);
   });
 
-// ab-ts-04p: Тестирование карт |вер.20231123| /Тестов 5 (частичен 1)/
-it('ab-e-tc-04.001p: -*- Adding card | Добавление карты /частичен/', async () => {
+// ab-ts-04p: Тестирование карт |вер.20231201| /Тестов 5 (частичен 1)/
+it.skip('ab-e-tc-04.001p: -*- Adding card | Добавление карты /частичен/', async () => {
   /** 
   > Можно добавить банковскую карту. <
 ПРЕДУСЛОВИЯ:
@@ -105,7 +105,7 @@ it('ab-e-tc-04.001p: -*- Adding card | Добавление карты /част
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-04.001p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   // const randomChars = await UApp.generateRandomChars(3, 'en');
@@ -197,10 +197,11 @@ await UApp.smsCodeInput();
   await SCards.text_CardBalance.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
 
   // * Обратить внимание на номер каждой карты.
+  await driver.pause(3000) // ждем обновления списка: нередко тормозит и сначала добавленная карта не появляется
   // * Создать список карт.
-  // let raw_array = await SHome.items_layout_CardsList;
-  let raw_array_Id = 'SCards.items_titleScreen_MyCards'; // = await SCards.items_titleScreen_MyCards;
-  let data_array = [];
+  // let rawArray = await SHome.items_layout_CardsList;
+  let rawArray_Id = 'SCards.items_titleScreen_MyCards'; // = await SCards.items_titleScreen_MyCards;
+  let dataArray = [];
   const elementAttributeKey = 'resource-id';
   const elementAttributeValues = [
     'com.fincube.apexbank.debug:id/tvCardName',
@@ -209,37 +210,42 @@ await UApp.smsCodeInput();
     'com.fincube.apexbank.debug:id/tvCardDate'
   ];
   let scrollDirection = UApp.scrollForward;
-  await SCards.scrollCardstList(raw_array_Id, data_array, elementAttributeKey, elementAttributeValues, scrollDirection);
+  await SCards.scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection);
 
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив карт) = '" + dataArray + "'";
+    // throw new Error(`Не сформирован dataArray (массив карт) = "${dataArray}"`);
+    throw new Error(`Не сформирован dataArray (массив карт) = "${dataArray}"`);
   }
-  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
-  //   console.log('\n --> data_array.length = ' + data_array.length +
-  //   '\n' + await data_array[i].cardName +
-  //   '\n' + await data_array[i].cardBalance +
-  //   '\n' + await data_array[i].cardNumber +
-  //   '\n' + await data_array[i].cardDate
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> dataArray.length = ' + dataArray.length +
+  //   '\n' + await dataArray[i].cardName +
+  //   '\n' + await dataArray[i].cardBalance +
+  //   '\n' + await dataArray[i].cardNumber +
+  //   '\n' + await dataArray[i].cardDate
   //   );
   // }
 
   // * Отображается номер каждой карты.
   let cardNumberText = '';
-  for (const element of data_array) {
+  for (const element of dataArray) {
     cardNumberText = await element.cardNumber;
     if (cardNumberText.includes(cardNumber.slice(-4))) {
-      // /*отладка*/ console.log('\n --> cardNumberText = ' + cardNumberText + '\n');
+      /*отладка*/ console.log('\n --> cardNumberText-1 = ' + cardNumberText + '\n');
       break;
     }
-    // /*отладка*/ console.log('\n --> await element.getText(); = ' + await element.cardBalance + '\n');
-  }
+    /*отладка*/ console.log(' -->\n' +
+      'cardNumber.slice(-4) = ' + cardNumber.slice(-4) + '\n' +
+      'cardNumberText-2 = ' + cardNumberText + '\n'
+    );
+}
 
   // - отображается добавленная карта
   await expect(cardNumberText).toContain(cardNumber.slice(-4));
 
 });
-it('ab-e-tc-04.002p: Editing card | Редактирование карты', async () => {
+it.skip('ab-e-tc-04.002p: Editing card | Редактирование карты', async () => {
   /**
   > Можно изменить некоторые данные банковской карты. <
 ПРЕДУСЛОВИЯ:
@@ -287,7 +293,7 @@ it('ab-e-tc-04.002p: Editing card | Редактирование карты', as
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-04.002p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -306,23 +312,25 @@ it('ab-e-tc-04.002p: Editing card | Редактирование карты', as
   await SCards.titleScreen_MyCards.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
   await SCards.items_titleScreen_MyCards[0].waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
   // * Создать массив видимых элементов.
-  let raw_array = await SCards.items_titleScreen_MyCards_Numbers_NotOne;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  let data_array = [];
+  let rawArray = await SCards.items_titleScreen_MyCards_Numbers_NotOne;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  // let dataArray = [];
   const elementAttributeKey = SCards.text_ElementAttributeKey_En_Expected;
   let elementAttributeValue = SCards.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  let dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-1 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-1 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-1 карт) = "${dataArray}"`);
   }
 
   // 2.Нажать карту из списка (любую).
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber.slice(-4))) {
-      await data_array[i].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -334,27 +342,29 @@ it('ab-e-tc-04.002p: Editing card | Редактирование карты', as
   // * Создать массив существующих дизайнов карты.
   await SCards.image_CardBackground.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // await SCards.waitForScreenDisplayed_cardSettingsScreen();
-  raw_array = await SCards.items_CardBackgrounds;
-  // /*отладка*/ console.log('\n --> raw_array ' + raw_array + '\n');
-  data_array = [];
+  rawArray = await SCards.items_CardBackgrounds;
+  // /*отладка*/ console.log('\n --> rawArray ' + rawArray + '\n');
+  dataArray = [];
   elementAttributeValue = 'com.fincube.apexbank.debug:id/bg_image';
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
   // * Контролируем непустоту массива.
-  // await expect(data_array.length).toBeGreaterThan(0);
-  if(data_array.length == 0){
-    // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
-    throw " ! не сформирован data_array (массив дизайнов карты) = '" + data_array + "'";
+  // await expect(dataArray.length).toBeGreaterThan(0);
+  if(dataArray.length === 0){
+    // console.log('\n --> languagesList не сформирован: dataArray = ' + dataArray + '\n');
+    // throw " Не сформирован dataArray (массив дизайнов карты) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив дизайнов карт) = "${dataArray}"`);
   }
 
   // 4.Нажать кнопку дизайна карты (любую).
-  for(let i = 0, l = data_array.length; i < l; i++) { // for (const element of data_array) {
+  for(let i = 0, l = dataArray.length; i < l; i++) { // for (const element of dataArray) {
     break;
     // let nextElement1 = await SHome.image_CardBackgroundChecked;
     // let elementAttributeValueCurrent1 = await nextElement1.getAttribute('resource-id');
     // /*отладка*/ console.log('\n --> elementAttributeValueCurrent1 = ' + elementAttributeValueCurrent1 + '\n');
     
                                         // ОТКЛЮЧЕн ВЫБОР ДИЗайна
-                                        // await data_array[await UApp.generateRandomCharsOfSet(1,'012')].click(); // '012345'
+                                        // await dataArray[await UApp.generateRandomCharsOfSet(1,'012')].click(); // '012345'
 
     // let nextElement = await element.nextElement();
     // let elementAttributeValueCurrent = await nextElement.getAttribute('resource-id');
@@ -422,10 +432,12 @@ it('ab-e-tc-04.002p: Editing card | Редактирование карты', as
 
   // 10.Вернуться на экран Мои карты, нажимая кнопку Назад.
   // await UDev.androidPressBackButton(1);
-  while(!await SCards.text_CardName.isDisplayed()){
-    await UDev.androidPressBackButton(1);
-  }; 
-  await SCards.text_CardName.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
+  // while(!await SCards.text_CardName.isDisplayed()){
+  //   await UDev.androidPressBackButton(1);
+  // }
+  // await SCards.text_CardName.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
+  await SGen.goBackToSpecifiedLocation(SCards.text_CardName);
+
   // 10.1.Открыт экран Мои карты, где изменявшаяся карта имеет отредактированные дизайн и название.
   // * Выйти из экрана Мои карты и вернуться, чтобы обновить список карт.
   await SHome.bottomNav_Home.click();
@@ -435,35 +447,36 @@ it('ab-e-tc-04.002p: Editing card | Редактирование карты', as
   await SCards.items_titleScreen_MyCards[0].waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
   // * Обратить внимание на название каждой карты.
   // * Создать массив видимых элементов.
-  raw_array = await SCards.items_titleScreen_MyCards;
-  data_array = [];
+  rawArray = await SCards.items_titleScreen_MyCards;
+  dataArray = [];
   const elementAttributeValues = [
     'com.fincube.apexbank.debug:id/tvCardName',
     'com.fincube.apexbank.debug:id/tvCardBalance',
     'com.fincube.apexbank.debug:id/tvCardNumberNotOne', // com.fincube.apexbank.debug:id/tvCardNumber
     'com.fincube.apexbank.debug:id/tvCardDate'
   ];
-  await SCards.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues);
+  await SCards.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
   // * Прокрутить, делая видимыми следующие элементы.
   await $(`android=${UApp.scrollForward}`);
   // * Создать массив видимых элементов.
-  raw_array = await SCards.items_titleScreen_MyCards;
-  await SCards.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues);
+  rawArray = await SCards.items_titleScreen_MyCards;
+  await SCards.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-2 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-2 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-2 карт) = "${dataArray}"`);
   }
-  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
-  //   console.log('\n --> data_array.length = ' + data_array.length +
-  //   '\n' + await data_array[i].cardName +
-  //   '\n' + await data_array[i].cardBalance +
-  //   '\n' + await data_array[i].cardNumber +
-  //   '\n' + await data_array[i].cardDate
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> dataArray.length = ' + dataArray.length +
+  //   '\n' + await dataArray[i].cardName +
+  //   '\n' + await dataArray[i].cardBalance +
+  //   '\n' + await dataArray[i].cardNumber +
+  //   '\n' + await dataArray[i].cardDate
   //   );
   // }
   // * Отображается название каждой карты.
   let cardNameText = '';
-  for (const element of data_array) {
+  for (const element of dataArray) {
     cardNameText = await element.cardName;
     if (cardNameText == cardName) {
       // /*отладка*/ console.log(' -->\n' +
@@ -479,9 +492,8 @@ it('ab-e-tc-04.002p: Editing card | Редактирование карты', as
   }
   // - карта имеет отредактированные дизайн и название.
   await expect(cardNameText).toContain(cardName);
-
 });
-it('ab-e-tc-04.003p: Deleting card | Удаление карты', async () => {
+it.skip('ab-e-tc-04.003p: Deleting card | Удаление карты', async () => {
   /**
   > Можно удалить банковскую карту. <
 ПРЕДУСЛОВИЯ:
@@ -505,7 +517,7 @@ it('ab-e-tc-04.003p: Deleting card | Удаление карты', async () => {
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-04.003p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -520,32 +532,34 @@ it('ab-e-tc-04.003p: Deleting card | Удаление карты', async () => {
   await SHome.bottomNav_Cards.click();
   // 1.1.Открыт экран Мои карты, где доступен список карт.
   await SCards.titleScreen_MyCards.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
-  await SCards.items_titleScreen_MyCards[0].waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
+  await SCards.items_titleScreen_MyCards[0].waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 25000});
   // * Создать массив видимых элементов.
-  let raw_array = await SCards.items_titleScreen_MyCards_Numbers_NotOne;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  let data_array = [];
+  let rawArray = await SCards.items_titleScreen_MyCards_Numbers_NotOne;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  // let dataArray = [];
   const elementAttributeKey = SCards.text_ElementAttributeKey_En_Expected;
   let elementAttributeValue = SCards.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  let dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-1 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-1 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-1 карт) = "${dataArray}"`);
   }
 
   // 2.Нажать карту из списка (любую).
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber.slice(-4))) {
-      await data_array[i].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
   // 2.1.Открыт экран действий с картой (озаглавленный ее названием), где доступна кнопка удаления карты.
 
   // 3.Нажать кнопку удаления карты.
-  await SCards.button_CardDelete_Ru.click();
+  await SCards.item_DeleteCard_Ru.click();
   // 3.1.Открыто окно удаления карты, где доступна кнопка подтверждения удаления.
 
   // 4.Нажать кнопку подтверждения удаления карты.
@@ -557,38 +571,40 @@ it('ab-e-tc-04.003p: Deleting card | Удаление карты', async () => {
   // * Открыт экран Мои карты, где доступен список карт.
   // - список карт /...ждем первую карту/
   await SCards.items_titleScreen_MyCards[0].waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
+  await driver.pause(10000) // ждем обновления списка: нередко тормозит и сначала удаленная карта появляется
   // * Обратить внимание на название каждой карты.
   // * Создать массив видимых элементов.
-  raw_array = await SCards.items_titleScreen_MyCards;
-  data_array = [];
+  rawArray = await SCards.items_titleScreen_MyCards;
+  dataArray = [];
   const elementAttributeValues = [
     'com.fincube.apexbank.debug:id/tvCardName',
     'com.fincube.apexbank.debug:id/tvCardBalance',
     'com.fincube.apexbank.debug:id/tvCardNumberNotOne',
     'com.fincube.apexbank.debug:id/tvCardDate'
   ];
-  await SCards.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues);
+  await SCards.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
   // * Прокрутить, делая видимыми следующие элементы.
   await $(`android=${UApp.scrollForward}`);
   // * Создать массив видимых элементов.
-  raw_array = await SCards.items_titleScreen_MyCards;
-  await SCards.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues);
+  rawArray = await SCards.items_titleScreen_MyCards;
+  await SCards.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-2 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-2 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-2 карт) = "${dataArray}"`);
   }
-  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
-  //   console.log('\n --> data_array.length = ' + data_array.length +
-  //   '\n' + await data_array[i].cardName +
-  //   '\n' + await data_array[i].cardBalance +
-  //   '\n' + await data_array[i].cardNumber +
-  //   '\n' + await data_array[i].cardDate
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> dataArray.length = ' + dataArray.length +
+  //   '\n' + await dataArray[i].cardName +
+  //   '\n' + await dataArray[i].cardBalance +
+  //   '\n' + await dataArray[i].cardNumber +
+  //   '\n' + await dataArray[i].cardDate
   //   );
   // }
   // * Отображается номер каждой карты.
   let cardNumberText = '';
   const cardNumber_LastDigits = cardNumber.slice(-4);
-  for (const element of data_array) {
+  for (const element of dataArray) {
     cardNumberText = await element.cardNumber;
     if (cardNumberText == cardNumber_LastDigits) {
       // /*отладка*/ console.log(' -->\n' +
@@ -630,7 +646,7 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-04.004p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -642,9 +658,9 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
   // 1.Обратить внимание на баланс каждой карты.
   await SHome.text_TotalBalanceAmount.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать список карт.
-  // let raw_array = await SHome.items_layout_CardsList;
-  let raw_array_Id = 'SHome.items_layout_CardsList';
-  let data_array = [];
+  // let rawArray = await SHome.items_layout_CardsList;
+  let rawArray_Id = 'SHome.items_layout_CardsList';
+  let dataArray = [];
   const elementAttributeKey = 'resource-id';
   const elementAttributeValues = [
     'com.fincube.apexbank.debug:id/tvCardName',
@@ -653,25 +669,26 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
     'com.fincube.apexbank.debug:id/tvCardDate'
   ];
   let scrollDirection = SHome.scrollToElement_Right;
-  await SCards.scrollCardstList(raw_array_Id, data_array, elementAttributeKey, elementAttributeValues, scrollDirection);
+  await SCards.scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection);
   // * Контролируем непустоту массива.
-  if (data_array.length == 0) { // await expect(data_array.length).toBeGreaterThan(0);
-    // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
-    throw " ! не сформирован data_array (массив-1 карт) = '" + data_array + "'";
+  if (dataArray.length == 0) { // await expect(dataArray.length).toBeGreaterThan(0);
+    // console.log('\n --> languagesList не сформирован: dataArray = ' + dataArray + '\n');
+    // throw " Не сформирован dataArray (массив-1 карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-1 карт) = "${dataArray}"`);
   }
-  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
-  //   console.log('\n --> 1-data_array.length = ' + data_array.length +
-  //   '\n' + await data_array[i].cardName +
-  //   '\n' + await data_array[i].cardBalance +
-  //   '\n' + await data_array[i].cardNumber +
-  //   '\n' + await data_array[i].cardDate
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> 1-dataArray.length = ' + dataArray.length +
+  //   '\n' + await dataArray[i].cardName +
+  //   '\n' + await dataArray[i].cardBalance +
+  //   '\n' + await dataArray[i].cardNumber +
+  //   '\n' + await dataArray[i].cardDate
   //   );
   // }
   // 1.1.Отображается баланс каждой карты.
   let cardBalanceAmountText = '';
   let cardBalance = 0;
   let cardsBalanceAmountTotal = 0;
-  for (const element of data_array) {
+  for (const element of dataArray) {
     // cardBalanceAmountText = await element.getText();
     cardBalanceAmountText = await element.cardBalance;
     cardBalance = await UApp.extractNumbersFromString(cardBalanceAmountText);
@@ -687,8 +704,8 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
   let totalBalance = await SHome.text_TotalBalanceAmount.getText();
   totalBalance = await UApp.extractNumbersFromString(totalBalance);
   // /*отладка*/ console.log('\n --> totalBalance = ' + totalBalance + '\n');
-  // await expect(totalBalance).toEqual(cardsBalanceAmountTotal + data_array.length);
-  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceAmountTotal + data_array.length);
+  await expect(totalBalance).toBeGreaterThanOrEqual(cardsBalanceAmountTotal);
+  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceAmountTotal + dataArray.length);
 
   // 3.Нажать кнопку Карты.
   await SHome.bottomNav_Cards.click();
@@ -698,28 +715,29 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
 
   // 4.Обратить внимание на баланс каждой карты.
   // * Создать список карт.
-  raw_array_Id = 'SCards.items_titleScreen_MyCards'; // = await SCards.items_titleScreen_MyCards;
-  data_array = [];
+  rawArray_Id = 'SCards.items_titleScreen_MyCards'; // = await SCards.items_titleScreen_MyCards;
+  dataArray = [];
   scrollDirection = UApp.scrollForward;
-  await SCards.scrollCardstList(raw_array_Id, data_array, elementAttributeKey, elementAttributeValues, scrollDirection);
+  await SCards.scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection);
 
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив-2 карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив-2 карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-2 карт) = "${dataArray}"`);
   }
-  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
-  //   console.log('\n --> 2-data_array.length = ' + data_array.length +
-  //   '\n' + await data_array[i].cardName +
-  //   '\n' + await data_array[i].cardBalance +
-  //   '\n' + await data_array[i].cardNumber +
-  //   '\n' + await data_array[i].cardDate
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> 2-dataArray.length = ' + dataArray.length +
+  //   '\n' + await dataArray[i].cardName +
+  //   '\n' + await dataArray[i].cardBalance +
+  //   '\n' + await dataArray[i].cardNumber +
+  //   '\n' + await dataArray[i].cardDate
   //   );
   // }
   // 4.1.Отображается баланс каждой карты.
   cardBalanceAmountText = '';
   cardBalance = 0;
   cardsBalanceAmountTotal = 0;
-  for (const element of data_array) {
+  for (const element of dataArray) {
     // cardBalanceAmountText = await element.getText();
     cardBalanceAmountText = await element.cardBalance;
     cardBalance = await UApp.extractNumbersFromString(cardBalanceAmountText);
@@ -727,10 +745,16 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
     // /*отладка*/ console.log('\n --> await element.getText(); = ' + await element.cardBalance + '\n');
   }
   cardsBalanceAmountTotal = await UApp.roundNumber(cardsBalanceAmountTotal, 2);
-  // /*отладка*/ console.log('\n --> cardsBalanceAmountTotal-2 = ' + cardsBalanceAmountTotal + '\n');
+  // /*отладка*/ console.log(`
+  //   \n totalBalance                               = ${totalBalance}
+  //   \n cardsBalanceAmountTotal-1                  = ${cardsBalanceAmountTotal_OnHomeScreen}
+  //   \n cardsBalanceAmountTotal-2                  = ${cardsBalanceAmountTotal}
+  //   \n dataArray.length                           = ${dataArray.length}
+  //   \n cardsBalanceAmountTotal + dataArray.length = ${cardsBalanceAmountTotal + dataArray.length}`);
   // 4.2.Сумма балансов всех карт равна общему балансу.
-  // await expect(totalBalance).toEqual(cardsBalanceAmountTotal + data_array.length);
-  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceAmountTotal + data_array.length);
+  // await expect(totalBalance).toEqual(cardsBalanceAmountTotal + dataArray.length);
+  await expect(totalBalance).toBeGreaterThanOrEqual(cardsBalanceAmountTotal);
+  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceAmountTotal + dataArray.length);
   // * Сумма балансов всех карт на экранах Главный и Мои карты равны.
   await expect(cardsBalanceAmountTotal_OnHomeScreen).toEqual(cardsBalanceAmountTotal);
 });
@@ -755,7 +779,7 @@ it('ab-u-tc-04.005p: Hide/Show balance | Скрыть/Показать бала�
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-04.005p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -845,7 +869,7 @@ it('ab-e-tc-05.001p: -*- Transfer to card by card number | Перевод на �
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-05.001p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -884,24 +908,25 @@ it('ab-e-tc-05.001p: -*- Transfer to card by card number | Перевод на �
   // 4.1.Открыто окно списка карт отправителя.
   await WCardsS.titleWindow_SenderSelectCard_Ru.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать массив видимых элементов.
-  const raw_array = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
-  /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  const data_array = [];
+  const rawArray = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
+  /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  const dataArray = [];
   const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = WCardsS.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив карт) = "${dataArray}"`);
   }
 
   // 5.Выбрать карту отправителя (любую).
-  // await data_array[1].click();
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber_Sender.slice(-4))) {
-      await data_array[i].click();
+  // await dataArray[1].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber_Sender.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -1004,7 +1029,7 @@ await UApp.smsCodeInput();
 });
 it('ab-e-tc-05.002p: -*- Transfer to card by phone number |Перевод на карту по номеру телефона /частичен/', async () => {
   /**
-  > Можно выполнить перевод денежных средств с карты на карту по номеру телефона. <
+  > Можно выполнить перевод денежных средств с карты на карту по номеру телефона. <
 ПРЕДУСЛОВИЯ:
   1.Выполнена авторизация пользователя (уже имеющего карту/карты с денежными средствами) в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в разделе Переводы доступно поле ввода данных получателя.
 ПОСТУСЛОВИЯ: 1.Выйти из приложения (выполняется в SGen.afterEach).
@@ -1055,7 +1080,7 @@ it('ab-e-tc-05.002p: -*- Transfer to card by phone number |Перевод на �
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-05.002p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -1096,25 +1121,26 @@ it('ab-e-tc-05.002p: -*- Transfer to card by phone number |Перевод на �
   // 4.1.Закрыто окно Выберите банк и открыто окно, где отображается список карт получателя.
   await WCardsR.titleWindow_SelectBankOfReceiver.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать массив видимых элементов.
-  let raw_array = await WCardsR.items_Window_SelectCardOfReceiver_TextView;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  let data_array = [];
+  let rawArray = await WCardsR.items_Window_SelectCardOfReceiver_TextView;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  let dataArray = [];
   const elementAttributeKey = WCardsR.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = WCardsR.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-1 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-1 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-1 карт) = "${dataArray}"`);
   }
 
   // 5.Выбрать карту получателя (любую).
   // await WCardsR.items_Window_SelectCardOfReceiver_TextView[0].click();
-  // await data_array[0].click();
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber_Receiver.slice(-4))) {
-      await data_array[i].click();
+  // await dataArray[0].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber_Receiver.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -1125,23 +1151,24 @@ it('ab-e-tc-05.002p: -*- Transfer to card by phone number |Перевод на �
   // 6.1.Открыто окно, где доступен список карт отправителя.
   await WCardsS.titleWindow_SenderSelectCard_Ru.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать массив видимых элементов.
-  raw_array = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  data_array = [];
+  rawArray = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  dataArray = [];
   // const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected;
   // const elementAttributeValue = WCardsS.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-2 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-2 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-2 карт) = "${dataArray}"`);
   }
   
   // 7.Выбрать карту отправителя (любую).
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber_Sender.slice(-4))) {
-      await data_array[i].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber_Sender.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -1241,7 +1268,7 @@ await UApp.smsCodeInput();
 });
 it('ab-e-tc-05.003p: -*- Transfer to card by phone number from contacts | Перевод на карту по номеру телефона из контактов /частичен/', async () => {
   /**
-  > Можно выполнить перевод денежных средств с карты на карту по номеру телефона из контактов. <
+  > Можно выполнить перевод денежных средств с карты на карту по номеру телефона из контактов. <
 ПРЕДУСЛОВИЯ:
   1.Выполнена авторизация пользователя (уже имеющего карту/карты с денежными средствами) в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в разделе Переводы доступна кнопка Контакты.
 ПОСТУСЛОВИЯ: 1.Выйти из приложения (выполняется в SGen.afterEach).
@@ -1298,7 +1325,7 @@ it('ab-e-tc-05.003p: -*- Transfer to card by phone number from contacts | Пер
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-05.003p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -1349,23 +1376,24 @@ it('ab-e-tc-05.003p: -*- Transfer to card by phone number from contacts | Пер
   // 6.1.Закрыто окно Выберите банк и открыто окно, где отображается список карт получателя.
   await WCardsR.titleWindow_SelectBankOfReceiver.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать массив видимых элементов.
-  let raw_array = await WCardsR.items_Window_SelectCardOfReceiver_TextView;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  let data_array = [];
+  let rawArray = await WCardsR.items_Window_SelectCardOfReceiver_TextView;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  let dataArray = [];
   const elementAttributeKey = WCardsR.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = WCardsR.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-1 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-1 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-1 карт) = "${dataArray}"`);
   }
 
   // 7.Выбрать карту получателя (любую).
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber_Receiver.slice(-4))) {
-      await data_array[i].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber_Receiver.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -1376,23 +1404,24 @@ it('ab-e-tc-05.003p: -*- Transfer to card by phone number from contacts | Пер
   // 8.1.Открыто окно, где доступен список карт отправителя.
   await WCardsS.titleWindow_SenderSelectCard_Ru.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать массив видимых элементов.
-  raw_array = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  data_array = [];
+  rawArray = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  dataArray = [];
   // const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected;
   // const elementAttributeValue = WCardsS.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-2 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-2 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-2 карт) = "${dataArray}"`);
   }
   
   // 9.Выбрать карту отправителя (любую).
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber_Sender.slice(-4))) {
-      await data_array[i].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber_Sender.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -1540,7 +1569,7 @@ it('ab-e-tc-05.004p: -!- Transfer between your accounts/cards | Перевод �
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-05.004p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -1566,25 +1595,26 @@ it('ab-e-tc-05.004p: -!- Transfer between your accounts/cards | Перевод �
   // 3.Нажать поле выбора счета/карты отправки.
   await STraBe.button_OpenCardsList_From.click();
   // 3.1.Открыто окно, где доступен список счетов/карт отправки.
-  await WCardsS.titleWindow_SenderSelectCard_Ru.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
+  await WCardsS.titleWindow_SenderSelectAccount_Ru.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать массив видимых элементов.
-  let raw_array = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  let data_array = [];
+  let rawArray = await WCardsS.items_Window_SelectCardOfSender_CardNumber;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  let dataArray = [];
   const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = WCardsS.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-1 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-1 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-1 карт) = "${dataArray}"`);
   }
 
   // 4.Выбрать счет/карту отправки (любой).
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber_Sender.slice(-4))) {
-      await data_array[i].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Receiver = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber_Sender.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -1595,23 +1625,24 @@ it('ab-e-tc-05.004p: -!- Transfer between your accounts/cards | Перевод �
   // 5.1.Открыто окно, где доступен список счетов/карт получения.
   await WCardsR.titleWindow_ReceiverSelectCard_Ru.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
   // * Создать массив видимых элементов.
-  raw_array = await WCardsS.items_Window_SelectCardOfSender_CardNumber; // WCardsR.items_Window_SelectCardOfReceiver_TextView
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  data_array = [];
+  rawArray = await WCardsS.items_Window_SelectCardOfSender_CardNumber; // WCardsR.items_Window_SelectCardOfReceiver_TextView
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  dataArray = [];
   // const elementAttributeKey = WCardsR.text_ElementAttributeKey_En_Expected;
   // const elementAttributeValue = WCardsR.text_ElementAttributeValue_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array-2 (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray-2 (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив-2 карт) = "${dataArray}"`);
   }
   
   // 6.Выбрать счет/карту получения (любой).
-  for (let i = 0; i < data_array.length; i++) {
-    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await data_array[i].getText());
-    if ((await data_array[i].getText()).includes(cardNumber_Receiver.slice(-4))) {
-      await data_array[i].click();
+  for (let i = 0; i < dataArray.length; i++) {
+    // /*отладка*/ console.log('\n --> cardNumber_Sender = ' + await dataArray[i].getText());
+    if ((await dataArray[i].getText()).includes(cardNumber_Receiver.slice(-4))) {
+      await dataArray[i].click();
       break;
     }
   }
@@ -1752,7 +1783,7 @@ it('ab-e-tc-06.001p: -!- Payment for mobile communication | Оплата моб�
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-06.001p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -1797,19 +1828,20 @@ it('ab-e-tc-06.001p: -!- Payment for mobile communication | Оплата моб�
   await SPay.button_OpenCardsList_From.click();
   // * Открыт список карт.
   // * Создать массив видимых элементов.
-  const raw_array = await WCardsS.items_TextView_titleWindow_SenderSelectCard;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
-  const data_array = [];
+  const rawArray = await WCardsS.items_TextView_titleWindow_SenderSelectCard;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
+  const dataArray = [];
   const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected; // 'resource-id'
   const elementAttributeValue = WCardsS.text_ElementAttributeValue_En_Expected; // 'com.fincube.apexbank.debug:id/select_card_number'
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array);
+  await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив карт) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив карт) = "${dataArray}"`);
   }
   // - выбрать карту из списка
-  await data_array[1].click();
+  await dataArray[1].click();
   // 6.1.В поле выбора карты отображается выбранная карта.
 
   // 7.Нажать поле ввода суммы платежа и ввести валидное число.

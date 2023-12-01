@@ -1,7 +1,7 @@
 
 
 
-
+const DCard   = driver.pause(5000);
 
 
 

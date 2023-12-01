@@ -17,7 +17,7 @@ const STlg   = require("../../screens/android/dt-telegram.screen");       // scr
 const UApp   = require("../../utils/android/ab-app.utils");               // utilities > App
 const UDev   = require("../../utils/android/dt-device.utils");            // utilities > Device
 
-describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231102| /Тестов 11 (частично 4)/', () => {
+describe('ab-ts-01p: Testing of operations provision | Тестирование обеспечения операций |вер.20231129| /Тестов 11 (частично 4)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 's'); // s - support / e - e2e < typeOfTest
@@ -42,7 +42,7 @@ describe('ab-ts-01p: Testing of operations provision | Тестирование 
     // counter++;
 
     // // * Выйти из приложения
-    // await SGen.logOutTheApp();
+    // await SGen.logOutApp();
   });
   after(async () => {
     await SGen.after();
@@ -52,7 +52,7 @@ describe('ab-ts-01p: Testing of operations provision | Тестирование 
     // await driver.terminateApp(SGen.appPackage);
   });
 
-// ab-ts-01p: Тестирование поддержки |вер.20230922| /Тестов 7 (частично 2)/
+// ab-ts-01p: Тестирование поддержки |вер.20231129| /Тестов 7 (частично 2)/
 it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
    * - 2 Стр. выбор языка, выбор языка (Русский) (ш?: П.1)
@@ -79,7 +79,7 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-01.001p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
   // /*отладка*/ console.log('\n --> Package = ' + await driver.getCurrentPackage() + '\n');
   // /*отладка*/ console.log('\n --> Activity = ' + await driver.getCurrentActivity() + '\n');
   // /*отладка*/ console.log('\n --> this.test.title = ' + this.test.title + '\n'); // wrong
@@ -96,22 +96,22 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
   await SAuth.button_Language.click();
 
   await SAuth.item_LanguageEnglish.waitForDisplayed({timeout: 5000});
-  // const raw_array = await $$('android.widget.TextView');
-  const raw_array = await SAuth.items_TextView_titleWindow_Languages;
+  // const rawArray = await $$('android.widget.TextView');
+  const rawArray = await SAuth.items_TextView_titleWindow_Languages;
   const elementAttributeKey = 'resource-id';
-  let  data_array = [];
-  let data_array_elems = [];
-  await SAuth.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, SAuth.text_English_En_LoginScreen, SAuth.text_Russian_En_LoginScreen, SAuth.text_Uzbek_En_LoginScreen, 'Kz');
+  let  dataArray = [];
+  let dataArray_elems = [];
+  await SAuth.generateLanguagesList(rawArray, dataArray, dataArray_elems, elementAttributeKey, SAuth.text_English_En_LoginScreen, SAuth.text_Russian_En_LoginScreen, SAuth.text_Uzbek_En_LoginScreen, 'Kz');
 
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
-    throw " ! languagesList не сформирован: data_array = '" + data_array + "'";
-    // throw data_array;
+  if(dataArray.length === 0){
+    // console.log('\n --> languagesList не сформирован: dataArray = ' + dataArray + '\n');
+    // throw " ! languagesList не сформирован: dataArray = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив языков) = "${dataArray}"`);
   }
 
   let elementIndex = 0;
-  for (const element of data_array) {
+  for (const element of dataArray) {
     // /*отладка*/ console.log('\n --> elementIndex = ' + elementIndex + '\n');
     // /*отладка*/ console.log('\n --> element = ' + element + '\n');
     // 2.Нажать кнопку выбора языка интерфейса.
@@ -121,7 +121,7 @@ it.skip('ab-u-tc-01.001p: Language selection | Выбор языка', async () 
       // - окно
       await expect(SAuth.titleWindow_Languages).toBeDisplayed();
       // - элементы выбора языков
-      for (const element of data_array_elems) {
+      for (const element of dataArray_elems) {
         await expect(element).toBeDisplayed();
       }
       // 2.2.Отображается галочка на элементе текущего выбора языка.
@@ -210,7 +210,7 @@ it('ab-u-tc-01.002Ap: Call bank (login screen) | Позвонить в банк 
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-01.002Ap';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // П.1.Выполнен запуск приложения, языком интерфейса выбран русский, открыт экран входа в приложение, где доступна кнопка Поддержка.
   // - языком интерфейса выбран русский
@@ -224,43 +224,47 @@ it('ab-u-tc-01.002Ap: Call bank (login screen) | Позвонить в банк 
   // - окно Позвонить в банк
   await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_CallBank_Ru_Expected);
   // * Создать массив видимых элементов.
-  const raw_array = await SSup.items_titleWindow_CallBank;
-  // const raw_array = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  const rawArray = await SSup.items_titleWindow_CallBank;
+  // const rawArray = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
-  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
-  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
-  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
-  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n --> ' + await rawArray[0].getAttribute('resource-id') + ' = rawArray[0]' +
+  //   '\n --> ' + await rawArray[1].getAttribute('resource-id') + ' = rawArray[1]' +
+  //   '\n --> ' + await rawArray[2].getAttribute('resource-id') + ' = rawArray[2]' +
+  //   '\n --> ' + await rawArray[3].getAttribute('resource-id') + ' = rawArray[3]' +
+  //   '\n --> ' + await rawArray[4].getAttribute('resource-id') + ' = rawArray[4]' +
   //   '\n');
-  let data_array = [];
+  // let dataArray = [];
   const elementAttributeKey = SSup.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = SSup.text_ElementAttributeValue_Part_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+  
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  const dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray + ' | dataArray.length = '+dataArray.length);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
-  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
-  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
-  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n --> ' + await dataArray[0].getAttribute('resource-id') + ' = dataArray[0]' +
+  //   '\n --> ' + await dataArray[1].getAttribute('resource-id') + ' = dataArray[1]' +
+  //   '\n --> ' + await dataArray[2].getAttribute('resource-id') + ' = dataArray[2]' +
+  //   '\n --> ' + await dataArray[3].getAttribute('resource-id') + ' = dataArray[3]' +
   //   '\n');
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив телефонных номеров) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив телефонных номеров) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив телефонных номеров) = "${dataArray}"`);
   }
 
   let supportContact = '';
-  for(let i = 0; i < data_array.length; i++){
+  for(let i = 0; i < dataArray.length; i++){
     // 2.Нажать телефонный номер (любой).
     // * Сохранить телефонный номер.
-    supportContact = await data_array[i].getText();
+    supportContact = await dataArray[i].getText();
     // * Убрать из телефонного номера любые знаки, кроме цифр.
     supportContact = await UApp.extractNumbersFromString(supportContact);
     // supportContact = String(supportContact);
     // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
-    await data_array[i].click();
+    await dataArray[i].click();
     // 2.1.Открыт экран устройства для совершения телефонного вызова, где в поле ввода вызываемого номера отображается выбранный номер телефона, а также доступна кнопка совершения телефонного вызова.
     // - экран устройства для совершения телефонного вызова
     // -?-
@@ -275,19 +279,7 @@ it('ab-u-tc-01.002Ap: Call bank (login screen) | Позвонить в банк 
     await expect(dialerPhoneNumber).toEqual(supportContact);
     
     // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
-    // await UDev.androidPressBackButton(3);
-    while(!await SSup.titleWindow_CallBank.isDisplayed()){
-      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
-        // * Нажать кнопку Позвонить в банк.
-        await SSup.item_CallBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
-        await SSup.item_CallBank.click();
-      }
-      // await driver.pause(1000);
-      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
-        await driver.back();
-      }
-    };
+    await SGen.goBackToSpecifiedLocation(SSup.titleWindow_CallBank);
     // 3.1.Открыто окно Позвонить в банк, где доступен список телефонных номеров службы поддержки.
     // - окно Позвонить в банк
     await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_CallBank_Ru_Expected);
@@ -327,7 +319,7 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-01.003p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -348,43 +340,45 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
   // - окно Позвонить в банк
   await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_CallBank_Ru_Expected);
   // * Создать массив видимых элементов.
-  const raw_array = await SSup.items_titleWindow_CallBank;
-  // const raw_array = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  const rawArray = await SSup.items_titleWindow_CallBank;
+  // const rawArray = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
-  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
-  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
-  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
-  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n --> ' + await rawArray[0].getAttribute('resource-id') + ' = rawArray[0]' +
+  //   '\n --> ' + await rawArray[1].getAttribute('resource-id') + ' = rawArray[1]' +
+  //   '\n --> ' + await rawArray[2].getAttribute('resource-id') + ' = rawArray[2]' +
+  //   '\n --> ' + await rawArray[3].getAttribute('resource-id') + ' = rawArray[3]' +
+  //   '\n --> ' + await rawArray[4].getAttribute('resource-id') + ' = rawArray[4]' +
   //   '\n');
-  let data_array = [];
+    // let dataArray = [];
   const elementAttributeKey = SSup.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = SSup.text_ElementAttributeValue_Part_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+    // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  const dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray + ' | dataArray.length = '+dataArray.length);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
-  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
-  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
-  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n --> ' + await dataArray[0].getAttribute('resource-id') + ' = dataArray[0]' +
+  //   '\n --> ' + await dataArray[1].getAttribute('resource-id') + ' = dataArray[1]' +
+  //   '\n --> ' + await dataArray[2].getAttribute('resource-id') + ' = dataArray[2]' +
+  //   '\n --> ' + await dataArray[3].getAttribute('resource-id') + ' = dataArray[3]' +
   //   '\n');
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив телефонных номеров) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив телефонных номеров) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив телефонных номеров) = "${dataArray}"`);
   }
 
   let supportContact = '';
-  for(let i = 0; i < data_array.length; i++){
+  for(let i = 0; i < dataArray.length; i++){
     // 3.Нажать телефонный номер (любой).
     // * Сохранить телефонный номер.
-    supportContact = await data_array[i].getText();
+    supportContact = await dataArray[i].getText();
     // * Убрать из телефонного номера любые знаки, кроме цифр.
     supportContact = await UApp.extractNumbersFromString(supportContact);
     // supportContact = String(supportContact);
     // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
-    await data_array[i].click();
+    await dataArray[i].click();
     // 3.1.Открыт экран устройства для совершения телефонного вызова, где в поле ввода вызываемого номера отображается выбранный номер телефона, а также доступна кнопка совершения телефонного вызова.
     // - экран устройства для совершения телефонного вызова
     // -?-
@@ -400,18 +394,19 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
     
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(3);
-    while(!await SSup.titleWindow_CallBank.isDisplayed()){
-      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
-        // * Нажать кнопку Позвонить в банк.
-        await SSup.item_CallBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
-        await SSup.item_CallBank.click();
-      }
-      // await driver.pause(1000);
-      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
-        await driver.back();
-      }
-    };
+    // while(!await SSup.titleWindow_CallBank.isDisplayed()){
+    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //     // * Нажать кнопку Позвонить в банк.
+    //     await SSup.item_CallBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+    //     await SSup.item_CallBank.click();
+    //   }
+    //   // await driver.pause(1000);
+    //   if(!await SSup.titleWindow_CallBank.isDisplayed()) {
+    //     await driver.back();
+    //   }
+    // }
+    await SGen.goBackToSpecifiedLocation(SSup.titleWindow_CallBank, SSup.item_CallBank);
     // 4.1.Открыто окно Позвонить в банк, где доступен список телефонных номеров службы поддержки.
     // - окно Позвонить в банк
     await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_CallBank_Ru_Expected);
@@ -449,7 +444,7 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-01.004p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -470,36 +465,38 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
   // - окно Написать в банк
   await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_WriteToBank_Ru_Expected);
   // * Создать массив видимых элементов.
-  const raw_array = await SSup.items_titleWindow_CallBank;
-  // const raw_array = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  const rawArray = await SSup.items_titleWindow_CallBank;
+  // const rawArray = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
-  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
-  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
-  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
-  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n --> ' + await rawArray[0].getAttribute('resource-id') + ' = rawArray[0]' +
+  //   '\n --> ' + await rawArray[1].getAttribute('resource-id') + ' = rawArray[1]' +
+  //   '\n --> ' + await rawArray[2].getAttribute('resource-id') + ' = rawArray[2]' +
+  //   '\n --> ' + await rawArray[3].getAttribute('resource-id') + ' = rawArray[3]' +
+  //   '\n --> ' + await rawArray[4].getAttribute('resource-id') + ' = rawArray[4]' +
   //   '\n');
-  let data_array = [];
+    // const dataArray = [];
   const elementAttributeKey = SSup.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = SSup.text_ElementAttributeValue_Part_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+    // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  const dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray + ' | dataArray.length = '+dataArray.length);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
-  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
-  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
-  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n --> ' + await dataArray[0].getAttribute('resource-id') + ' = dataArray[0]' +
+  //   '\n --> ' + await dataArray[1].getAttribute('resource-id') + ' = dataArray[1]' +
+  //   '\n --> ' + await dataArray[2].getAttribute('resource-id') + ' = dataArray[2]' +
+  //   '\n --> ' + await dataArray[3].getAttribute('resource-id') + ' = dataArray[3]' +
   //   '\n');
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив мессенджеров) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив мессенджеров) = "${dataArray}"`);
   }
 
-  for(let i = 0; i < data_array.length; i++){
+  for(let i = 0; i < dataArray.length; i++){
     // 3.Нажать мессенджер (любой).
-    await data_array[i].click();
+    await dataArray[i].click();
     // 3.1.Открыт в выбранном мессенджере экран переписки со службой поддержки, где отображается предыдущая переписка, доступно поле ввода сообщения.
     await STlg.titleScreen_ApexbankChat_En.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
     // - экран переписки со службой поддержки
@@ -510,18 +507,19 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
     
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(2);
-    while(!await SSup.titleWindow_CallBank.isDisplayed()){
-      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
-        // * Нажать кнопку Написать в банк.
-        await SSup.item_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
-        await SSup.item_WriteToBank.click();
-      }
-      // await driver.pause(1000);
-      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
-        await driver.back();
-      }
-    };
+    // while(!await SSup.titleWindow_CallBank.isDisplayed()){
+    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //     // * Нажать кнопку Написать в банк.
+    //     await SSup.item_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+    //     await SSup.item_WriteToBank.click();
+    //   }
+    //   // await driver.pause(1000);
+    //   if(!await SSup.titleWindow_CallBank.isDisplayed()) {
+    //     await driver.back();
+    //   }
+    // }
+    await SGen.goBackToSpecifiedLocation(SSup.titleWindow_CallBank, SSup.item_WriteToBank);
     // 4.1.Открыто окно Написать в банк, где доступен список мессенджеров (с аккаунтами службы поддержки банка).
     // - окно Написать в банк
     await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_WriteToBank_Ru_Expected);
@@ -562,7 +560,7 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-01.005p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -589,36 +587,38 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
   // - окно Написать в банк
   await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_WriteToBank_Ru_Expected);
   // * Создать массив видимых элементов.
-  const raw_array = await SSup.items_titleWindow_CallBank;
-  // const raw_array = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  const rawArray = await SSup.items_titleWindow_CallBank;
+  // const rawArray = await $('//*[@resource-id="com.fincube.apexbank.debug:id/design_bottom_sheet"]').$$('android.widget.TextView');
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
-  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
-  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
-  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
-  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n --> ' + await rawArray[0].getAttribute('resource-id') + ' = rawArray[0]' +
+  //   '\n --> ' + await rawArray[1].getAttribute('resource-id') + ' = rawArray[1]' +
+  //   '\n --> ' + await rawArray[2].getAttribute('resource-id') + ' = rawArray[2]' +
+  //   '\n --> ' + await rawArray[3].getAttribute('resource-id') + ' = rawArray[3]' +
+  //   '\n --> ' + await rawArray[4].getAttribute('resource-id') + ' = rawArray[4]' +
   //   '\n');
-  let data_array = [];
+  // let dataArray = [];
   const elementAttributeKey = SSup.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = SSup.text_ElementAttributeValue_Part_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  const dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray + ' | dataArray.length = '+dataArray.length);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
-  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
-  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
-  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
+  //   '\n --> ' + await dataArray[0].getAttribute('resource-id') + ' = dataArray[0]' +
+  //   '\n --> ' + await dataArray[1].getAttribute('resource-id') + ' = dataArray[1]' +
+  //   '\n --> ' + await dataArray[2].getAttribute('resource-id') + ' = dataArray[2]' +
+  //   '\n --> ' + await dataArray[3].getAttribute('resource-id') + ' = dataArray[3]' +
   //   '\n');
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив мессенджеров) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив мессенджеров) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив мессенджеров) = "${dataArray}"`);
   }
 
-  for(let i = 0; i < data_array.length; i++){
+  for(let i = 0; i < dataArray.length; i++){
     // 4.Нажать мессенджер (любой).
-    await data_array[i].click();
+    await dataArray[i].click();
     // 4.1.Открыт в выбранном мессенджере экран переписки со службой поддержки, где отображается предыдущая переписка, доступно поле ввода сообщения.
     await STlg.titleScreen_ApexbankChat_En.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
     // - экран переписки со службой поддержки
@@ -629,18 +629,19 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
     
     // 5.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(2);
-    while(!await SSup.titleWindow_CallBank.isDisplayed()){
-      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
-        // * Нажать кнопку Написать в банк.
-        await SSup.button_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
-        await SSup.button_WriteToBank.click();
-      }
-      // await driver.pause(1000);
-      if(!await SSup.titleWindow_CallBank.isDisplayed()) {
-        await driver.back();
-      }
-    };
+    // while(!await SSup.titleWindow_CallBank.isDisplayed()){
+    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //     // * Нажать кнопку Написать в банк.
+    //     await SSup.button_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
+    //     await SSup.button_WriteToBank.click();
+    //   }
+    //   // await driver.pause(1000);
+    //   if(!await SSup.titleWindow_CallBank.isDisplayed()) {
+    //     await driver.back();
+    //   }
+    // }
+    await SGen.goBackToSpecifiedLocation(SSup.titleWindow_CallBank, SSup.button_WriteToBank);
     // 5.1.Открыто окно Написать в банк, где доступен список мессенджеров (с аккаунтами службы поддержки банка).
     // - окно Написать в банк
     await expect(SSup.titleWindow_CallBank).toHaveText(SSup.titleWindow_WriteToBank_Ru_Expected);
@@ -675,7 +676,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-01.006p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -695,47 +696,49 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
   // * Прокрутить, делая видимыми следующие элементы
   await $(`android=${UApp.scrollForward}`);
   // * Создать массив видимых элементов.
-  let raw_array = await SSup.items_titleSection_AdditionalLinks;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  let rawArray = await SSup.items_titleSection_AdditionalLinks;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
-  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
-  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
-  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
-  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n --> ' + await rawArray[0].getAttribute('resource-id') + ' = rawArray[0]' +
+  //   '\n --> ' + await rawArray[1].getAttribute('resource-id') + ' = rawArray[1]' +
+  //   '\n --> ' + await rawArray[2].getAttribute('resource-id') + ' = rawArray[2]' +
+  //   '\n --> ' + await rawArray[3].getAttribute('resource-id') + ' = rawArray[3]' +
+  //   '\n --> ' + await rawArray[4].getAttribute('resource-id') + ' = rawArray[4]' +
   //   '\n');
-  let data_array = [];
+  // let dataArray = [];
   const elementAttributeKey = SSup.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = SSup.text_ElementAttributeValue_Part_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  const dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray + ' | dataArray.length = '+dataArray.length);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
-  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
-  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
-  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
-  //   '\n --> ' + await data_array[4].getAttribute('resource-id') + ' = data_array[4]' +
+  //   '\n --> ' + await dataArray[0].getAttribute('resource-id') + ' = dataArray[0]' +
+  //   '\n --> ' + await dataArray[1].getAttribute('resource-id') + ' = dataArray[1]' +
+  //   '\n --> ' + await dataArray[2].getAttribute('resource-id') + ' = dataArray[2]' +
+  //   '\n --> ' + await dataArray[3].getAttribute('resource-id') + ' = dataArray[3]' +
+  //   '\n --> ' + await dataArray[4].getAttribute('resource-id') + ' = dataArray[4]' +
   //   '\n');
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив доп.ресурсов) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив доп.ресурсов) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив доп.ресурсов) = "${dataArray}"`);
   }
-  // /*отладка*/ for (let i = 0; i < data_array.length; i++) {
-  //   console.log('data_array[' + i + ']' + await data_array[i].getText());
+  // /*отладка*/ for (let i = 0; i < dataArray.length; i++) {
+  //   console.log('dataArray[' + i + ']' + await dataArray[i].getText());
   // }
   // /*отладка*/ await driver.pause(5000);
 
   let supportContact = '';
-  for (let i = 0; i < data_array.length; i++) {
+  for (let i = 0; i < dataArray.length; i++) {
     // 2.Нажать ресурс (любой).
     // * Сохранить название мессенджера.
-    supportContact = await data_array[i].getAttribute('resource-id'); // ...getText();
+    supportContact = await dataArray[i].getAttribute('resource-id'); // ...getText();
     // /*отладка*/ console.log('\n --> supportContact = ' + supportContact + '\n');
 
     if(supportContact.includes(SGen.text_Telegram_En_Expected)){
       // /*отладка*/ console.log('\n --> supportContact.includes(Tg) = ' + supportContact + '\n');
-      await data_array[i].click();
+      await dataArray[i].click();
       // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
       await STlg.titleScreen_ApexbankChat_En_1.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
       // - экран переписки со службой поддержки
@@ -743,7 +746,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
 
     } else if(supportContact.includes(SGen.text_LinkedIn_En_Expected)){
       // /*отладка*/ console.log('\n --> supportContact.includes(LinkedIn) = ' + supportContact + '\n');
-      await data_array[i].click();
+      await dataArray[i].click();
       // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
       await SChrom.urlBar_browser.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
       // - адрес ресурса
@@ -752,7 +755,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
 
     } else if(supportContact.includes(SGen.text_Instagram_En_Expected)){
       // /*отладка*/ console.log('\n --> supportContact.includes(Instagram) = ' + supportContact + '\n');
-      await data_array[i].click();
+      await dataArray[i].click();
       // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
       await SChrom.urlBar_browser.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
       // - адрес ресурса
@@ -761,7 +764,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
 
     } else if(supportContact.includes(SGen.text_Facebook_En_Expected)){
       // /*отладка*/ console.log('\n --> supportContact.includes(Facebook) = ' + supportContact + '\n');
-      await data_array[i].click();
+      await dataArray[i].click();
       // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
       await SChrom.urlBar_browser.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
       // - адрес ресурса
@@ -770,7 +773,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
 
     } else if(supportContact.includes(SGen.text_WebSite_En_Expected)){
       // /*отладка*/ console.log('\n --> supportContact.includes(WebSite) = ' + supportContact + '\n');
-      await data_array[i].click();
+      await dataArray[i].click();
       // 2.1.Открыт экран ресурса банка, где отображается соответствующая информация.
       await SChrom.urlBar_browser.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
       // - адрес ресурса
@@ -779,20 +782,22 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
 
     } else {
       // /*отладка*/ console.log('\n --> в supportContact нет искомого содержимого: ' + supportContact + '\n');
-      throw " ! в supportContact нет искомого содержимого = '" + supportContact + "'";
+      // throw " ! в supportContact нет искомого содержимого = '" + supportContact + "'";
+      throw new Error(`Нет искомого содержимого (в supportContact) = "${supportContact}"`);
     }
 
     // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(1);
-    while(!await SSup.titleSection_AdditionalLinks.isDisplayed()){
-      if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-        await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
-      }
-      await driver.pause(1000);
-      if(!await SSup.titleSection_AdditionalLinks.isDisplayed()) {
-        await driver.back();
-      }
-    };
+    // while(!await SSup.titleSection_AdditionalLinks.isDisplayed()){
+    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //   }
+    //   await driver.pause(1000);
+    //   if(!await SSup.titleSection_AdditionalLinks.isDisplayed()) {
+    //     await driver.back();
+    //   }
+    // }
+    await SGen.goBackToSpecifiedLocation(SSup.titleSection_AdditionalLinks);
     // 3.1.Открыт экран Поддержка, где в разделе Дополнительная связь доступен список ресурсов банка.
     // - список ресурсов банка (заголовок)
     // ! см. внутри while выше
@@ -826,7 +831,7 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-01.007p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -850,44 +855,46 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
   // // * Прокрутить, делая видимыми следующие элементы
   // await $(`android=${UApp.scrollForward}`);
   // * Создать массив видимых элементов.
-  let raw_array = await SSup.items_titleScreen_Faq;
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array);
+  let rawArray = await SSup.items_titleScreen_Faq;
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await raw_array[0].getAttribute('resource-id') + ' = raw_array[0]' +
-  //   '\n --> ' + await raw_array[1].getAttribute('resource-id') + ' = raw_array[1]' +
-  //   '\n --> ' + await raw_array[2].getAttribute('resource-id') + ' = raw_array[2]' +
-  //   '\n --> ' + await raw_array[3].getAttribute('resource-id') + ' = raw_array[3]' +
-  //   '\n --> ' + await raw_array[4].getAttribute('resource-id') + ' = raw_array[4]' +
+  //   '\n --> ' + await rawArray[0].getAttribute('resource-id') + ' = rawArray[0]' +
+  //   '\n --> ' + await rawArray[1].getAttribute('resource-id') + ' = rawArray[1]' +
+  //   '\n --> ' + await rawArray[2].getAttribute('resource-id') + ' = rawArray[2]' +
+  //   '\n --> ' + await rawArray[3].getAttribute('resource-id') + ' = rawArray[3]' +
+  //   '\n --> ' + await rawArray[4].getAttribute('resource-id') + ' = rawArray[4]' +
   //   '\n');
-  let data_array = [];
+  // let dataArray = [];
   const elementAttributeKey = SSup.text_ElementAttributeKey_En_Expected;
   const elementAttributeValue = SSup.text_ElementAttributeValue_SupportFaq_En_Expected;
-  await UApp.generateElementList(raw_array, data_array, elementAttributeKey, elementAttributeValue);
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array + ' | data_array.length = '+data_array.length);
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  const dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray + ' | dataArray.length = '+dataArray.length);
   // /*отладка*/ console.log(
-  //   '\n --> ' + await data_array[0].getAttribute('resource-id') + ' = data_array[0]' +
-  //   '\n --> ' + await data_array[1].getAttribute('resource-id') + ' = data_array[1]' +
-  //   '\n --> ' + await data_array[2].getAttribute('resource-id') + ' = data_array[2]' +
-  //   '\n --> ' + await data_array[3].getAttribute('resource-id') + ' = data_array[3]' +
-  //   '\n --> ' + await data_array[4].getAttribute('resource-id') + ' = data_array[4]' +
-  //   '\n --> ' + await data_array[5].getText() + ' = data_array[5].getText()' +
+  //   '\n --> ' + await dataArray[0].getAttribute('resource-id') + ' = dataArray[0]' +
+  //   '\n --> ' + await dataArray[1].getAttribute('resource-id') + ' = dataArray[1]' +
+  //   '\n --> ' + await dataArray[2].getAttribute('resource-id') + ' = dataArray[2]' +
+  //   '\n --> ' + await dataArray[3].getAttribute('resource-id') + ' = dataArray[3]' +
+  //   '\n --> ' + await dataArray[4].getAttribute('resource-id') + ' = dataArray[4]' +
+  //   '\n --> ' + await dataArray[5].getText() + ' = dataArray[5].getText()' +
   //   '\n');
   // /*отладка*/ await driver.pause(5000);
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    throw " ! не сформирован data_array (массив вопросов) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив вопросов) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив вопросов) = "${dataArray}"`);
   }
-  // /*отладка*/ for (let i = 0; i < data_array.length; i++) {
-  //   console.log('data_array[' + i + ']' + await data_array[i].getText());
+  // /*отладка*/ for (let i = 0; i < dataArray.length; i++) {
+  //   console.log('dataArray[' + i + ']' + await dataArray[i].getText());
   // }
   // /*отладка*/ await driver.pause(5000);
-  for(let i=0; i<data_array.length; i++){
-    if(!data_array[i].isDisplayed()){
+  for(let i=0; i<dataArray.length; i++){
+    if(!dataArray[i].isDisplayed()){
       // * Прокрутить, делая видимыми следующие элементы
       await $(`android=${UApp.scrollForward}`);
     }
     // 3.Нажать вопрос (любой).
-    await data_array[i].click();
+    await dataArray[i].click();
     // 3.1.Отображается ответ (под вопросом).
     if(await SSup.item_FaqReply.isDisplayed()){
       // - Отображается ответ
@@ -896,7 +903,7 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
     }
     
     // 4.Нажать вопрос (повторно).
-    await data_array[i].click();
+    await dataArray[i].click();
     // 4.1.Скрыт ответ.
     // - Скрыт ответ
     // await driver.pause(500);
@@ -953,7 +960,7 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-02.001p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
   // /*отладка*/ console.log('\n --> Package = ' + await driver.getCurrentPackage() + '\n');
   // /*отладка*/ console.log('\n --> Activity = ' + await driver.getCurrentActivity() + '\n');
   // /*отладка*/ console.log('\n --> this.test.title = ' + this.test.title + '\n'); // wrong
@@ -963,7 +970,7 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
     !await SAuth.titleScreen_Welcome_En.isDisplayed() &
     !await SAuth.titleScreen_Welcome_Ru.isDisplayed() &
     !await SAuth.titleScreen_Welcome_Uz.isDisplayed()
-    ) await SGen.logOutTheApp();
+    ) await SGen.logOutApp();
     
   // П.1. Запустить приложение (автоматически), ...
   await SAuth.selectLanguage(SAuth.text_LanguageRussian_En);
@@ -1017,7 +1024,7 @@ it('ab-e-tc-02.001p: ! Registration | Регистрация /Тест выпо�
 // -?- продолжить автоматизацию теста, используя валидный код из СМС
   // ...
 });
-it.only('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
+it('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
 /** > базовые тесты (см. файл ТК 1 (Регистрация)):
  * - 2 Стр. выбор языка, выбор языка (Русский) (ш10: П.1)
  * - 59 Стр. аутентификации, поле "Пароль":валидный (ш10: 1-5)
@@ -1064,7 +1071,7 @@ it.only('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-02.002p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -1108,7 +1115,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-e-tc-03.001p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   // const phoneNumber = DCard.phoneNumber_5;
@@ -1172,7 +1179,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   await SProf.Items_TextView_TitleWindow_LoginOrRegister[3].click();
   // 4.1.Открыт экран сканирования лица камерой устройства, где доступны текст убедиться пользователю о том, что его лицо находится в выделенном пространстве и область выделенного пространства.
   // - экран сканирования лица (заголовок)
-  // await expect(SProf.titleWindow_FaceScanner_Ru_Expected).toHaveText(SProf.titleWindow_FaceScanner_Ru_Expected);
+  // await expect(SProf.titleWindow_FaceScanner_Ru).toHaveText(SProf.titleWindow_FaceScanner_Ru_Expected);
   // - область выделенного пространства
   await SProf.frame_FaceScanner.waitForDisplayed({timeout:SGen.number_WaitTime_Expected + 180000});
 
@@ -1230,7 +1237,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
 
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-u-tc-03.002p';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -1250,21 +1257,22 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
 
   // * Создать массив существующих языков.
   await SProf.languagesListItemEn.waitForDisplayed({timeout: 5000});
-  const raw_array = await $$('android.widget.LinearLayout'); // android.widget.TextView
-  // const raw_array = await SProf.languagesListItems;
-  const data_array = [];
-  const data_array_elems = [];
+  const rawArray = await $$('android.widget.LinearLayout'); // android.widget.TextView
+  // const rawArray = await SProf.languagesListItems;
+  const dataArray = [];
+  const dataArray_elems = [];
   const elementAttributeKey = 'resource-id';
 
-  await SAuth.generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey, SAuth.text_LanguageEnglish_En, SAuth.text_LanguageRussian_En, SAuth.text_LanguageUzbek_En, 'kz');
+  await SAuth.generateLanguagesList(rawArray, dataArray, dataArray_elems, elementAttributeKey, SAuth.text_LanguageEnglish_En, SAuth.text_LanguageRussian_En, SAuth.text_LanguageUzbek_En, 'kz');
   // * Контролируем непустоту массива.
-  if(data_array.length == 0){
-    // console.log('\n --> languagesList не сформирован: data_array = ' + data_array + '\n');
-    throw " ! не сформирован data_array (массив языков) = '" + data_array + "'";
+  if(dataArray.length === 0){
+    // console.log('\n --> languagesList не сформирован: dataArray = ' + dataArray + '\n');
+    // throw " Не сформирован dataArray (массив языков) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив языков) = "${dataArray}"`);
   }
 
   let elementIndex = 0;
-  for (const element of data_array) {
+  for (const element of dataArray) {
     // /*отладка*/ console.log('\n --> elementIndex ' + elementIndex + '\n');
     // /*отладка*/ console.log('\n --> element ' + element + '\n');
     
@@ -1275,7 +1283,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
       // - окно
       await expect(SProf.languagesListTitle).toBeDisplayed();
       // - элементы выбора языков
-      for (const element of data_array_elems) {
+      for (const element of dataArray_elems) {
         await expect(element).toBeDisplayed();
       }
       // 2.2.Отображаются галочка на элементе текущего выбора языка и неактивная кнопка Сохранить (на выбранном языке).
@@ -1359,7 +1367,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
 it.skip('ab-s-d-001: Debug', async () => {
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-s-d-001';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   const phoneNumber = '99 392 30 75';
   // 1.Нажать поле ввода номера телефона.
@@ -1395,7 +1403,7 @@ it.skip('ab-s-d-001: Debug', async () => {
 it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-s-d-002';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;
@@ -1407,28 +1415,28 @@ it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
   
   // 1.Обратить внимание на баланс каждой карты.
   /*
-    1.Считываем видимые данные окна и записываем в массив data_array (название, сумма, номер и срок действия карты).
+    1.Считываем видимые данные окна и записываем в массив dataArray (название, сумма, номер и срок действия карты).
     2.Прокручиваем окно, делая видимыми следующие данные.
-    3.Считываем видимые данные окна и записываем в массив data_array, отсеивая уже имеющиеся в массиве данные.
+    3.Считываем видимые данные окна и записываем в массив dataArray, отсеивая уже имеющиеся в массиве данные.
   */
   
   // *.Создать массив видимых элементов.
-  let raw_array = await SHome.items_layout_CardsList;
-  const data_array = [];
+  let rawArray = await SHome.items_layout_CardsList;
+  const dataArray = [];
   const elementAttributeKey = 'resource-id';
   const elementAttributeValue_1 = 'com.fincube.apexbank.debug:id/tvCardName';
   // const elementAttributeValue_2 = 'com.fincube.apexbank.debug:id/tvCardBalance';
   // const elementAttributeValue_3 = 'com.fincube.apexbank.debug:id/tvCardNumber';
   // const elementAttributeValue_4 = 'com.fincube.apexbank.debug:id/tvDCardate';
   
-  await UApp.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1/*, elementAttributeValue_2, elementAttributeValue_3, elementAttributeValue_4*/);
+  await UApp.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValue_1/*, elementAttributeValue_2, elementAttributeValue_3, elementAttributeValue_4*/);
 
   // * Прокрутить, делая видимыми следующие элементы
   await $(`android=${SHome.scrollToElement_Right}`);
 
   // *.Создать массив видимых элементов.
-  raw_array = await SHome.items_layout_CardsList;
-  await UApp.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValue_1/*, elementAttributeValue_2, elementAttributeValue_3, elementAttributeValue_4*/);
+  rawArray = await SHome.items_layout_CardsList;
+  await UApp.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValue_1/*, elementAttributeValue_2, elementAttributeValue_3, elementAttributeValue_4*/);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // return;
@@ -1436,7 +1444,7 @@ it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
 it.skip('ab-s-d-003: Debug > System/OTP message', async () => {
   // > Вывести информацию о тесте в консоль
   tcNum = 'ab-s-d-003';
-  /*отладка*/ console.log('\n --> tcNum = ' + tcNum + '\n');
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
 
   // > Установить тестовые данные
   const phoneNumber = DCard.phoneNumber_10;

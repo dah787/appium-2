@@ -74,7 +74,7 @@ get Items_EditText_TitleWindow_LoginOrRegister(){// loginOrRegisterScreenEditTex
   return $$('android.widget.EditText');}
 
 // экран Профиль > экран Вход или регистрация (сервис myID) > экран сканирования лица
-get titleWindow_FaceScanner_Ru_Expected(){ // faceScannerScreenHeaderRu
+get titleWindow_FaceScanner_Ru(){ // faceScannerScreenHeaderRu
   return $('//android.widget.TextView[@text="Убедитесь, что Ваше лицо находится в выделенном пространстве"]');}
 get frame_FaceScanner(){ // faceScannerArea
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/myidFaceGraphic"]');}

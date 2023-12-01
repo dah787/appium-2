@@ -126,13 +126,13 @@ get button_Confirm_CardDelete(){
 
 
 /* FUNCTIONS */
-async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues){
+async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues){
   /*
-    Записываем определенные данные из raw_array в data_array, отсеивая уже имеющиеся в массиве data_array данные (напр., название, сумма, номер, срок действия карты, ...).
+    Записываем определенные данные из rawArray в dataArray, отсеивая уже имеющиеся в массиве dataArray данные (напр., название, сумма, номер, срок действия карты, ...).
     
-    1.Считываем видимые данные окна и записываем в массив data_array (напр., название, сумма, номер, срок действия карты, ...).
+    1.Считываем видимые данные окна и записываем в массив dataArray (напр., название, сумма, номер, срок действия карты, ...).
     2.Прокручиваем окно, делая видимыми следующие данные.
-    3.Считываем видимые данные окна и записываем в массив data_array, отсеивая уже имеющиеся в массиве данные.
+    3.Считываем видимые данные окна и записываем в массив dataArray, отсеивая уже имеющиеся в массиве данные.
   */
   let cardName = '';
   let cardBalance = '';
@@ -141,10 +141,10 @@ async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttr
     
   let elementAttributeValue_Current = '';
   let elements = [];
-  // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
-  for (let i = 0, l = raw_array.length; i < l; i++) { // перебираем карты
-    // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + raw_array[i]);
-    elements = await raw_array[i].$$('android.widget.TextView');
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray + '\n');
+  for (let i = 0, l = rawArray.length; i < l; i++) { // перебираем карты
+    // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + rawArray[i]);
+    elements = await rawArray[i].$$('android.widget.TextView');
     
     for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
       elementAttributeValue_Current = await elements[x].getAttribute(elementAttributeKey);
@@ -177,9 +177,9 @@ async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttr
       cardDate == ''
     ) continue;
     
-    if (await data_array.length > 0) { // если массив уже не пустой...
-      const data_array_0 = [];
-      data_array_0.push( // добавляем данные текущей карты в промежуточный массив
+    if (await dataArray.length > 0) { // если массив уже не пустой...
+      const dataArray_0 = [];
+      dataArray_0.push( // добавляем данные текущей карты в промежуточный массив
         {
           key_1 : cardName,
           key_2 : cardBalance,
@@ -189,12 +189,12 @@ async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttr
       );
       
       let notExisted = true;
-      for (let i = 0, l = await data_array.length; i < l; i++) {
+      for (let i = 0, l = await dataArray.length; i < l; i++) {
         if ( // проверяем, не добавлены ли уже данные текущей карты в массив
-          data_array[i].cardName == data_array_0[0].key_1 &
-          data_array[i].cardBalance == data_array_0[0].key_2 &
-          data_array[i].cardNumber == data_array_0[0].key_3 &
-          data_array[i].cardDate == data_array_0[0].key_4
+          dataArray[i].cardName == dataArray_0[0].key_1 &
+          dataArray[i].cardBalance == dataArray_0[0].key_2 &
+          dataArray[i].cardNumber == dataArray_0[0].key_3 &
+          dataArray[i].cardDate == dataArray_0[0].key_4
           )
         {
           notExisted = false;
@@ -203,17 +203,17 @@ async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttr
       }
 
       if (notExisted) { // если данные текущей карты пока не добавлены...
-        data_array.push( // добавляем данные текущей карты в массив
+        dataArray.push( // добавляем данные текущей карты в массив
           {
-            cardName : data_array_0[0].key_1,
-            cardBalance : data_array_0[0].key_2,
-            cardNumber : data_array_0[0].key_3,
-            cardDate : data_array_0[0].key_4
+            cardName : dataArray_0[0].key_1,
+            cardBalance : dataArray_0[0].key_2,
+            cardNumber : dataArray_0[0].key_3,
+            cardDate : dataArray_0[0].key_4
           }
         );
       }
     } else { // если массив пока пустой...
-      data_array.push( // добавляем данные текущей карты в массив
+      dataArray.push( // добавляем данные текущей карты в массив
         {
           cardName : cardName,
           cardBalance : cardBalance,
@@ -231,60 +231,102 @@ async generateCardstList(raw_array, data_array, elementAttributeKey, elementAttr
     // );
   }
 
-  // /*отладка*/ for (let i = 0, l = data_array.length; i < l; i++) {
-  //   console.log('\n --> data_array = ' +
-  //     '\n' + await data_array[i].cardName +
-  //     '\n' + await data_array[i].cardBalance +
-  //     '\n' + await data_array[i].cardNumber +
-  //     '\n' + await data_array[i].cardDate
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> dataArray = ' +
+  //     '\n' + await dataArray[i].cardName +
+  //     '\n' + await dataArray[i].cardBalance +
+  //     '\n' + await dataArray[i].cardNumber +
+  //     '\n' + await dataArray[i].cardDate
   //   );
   // }
 
 }
-// async name(raw_array_Id, raw_array) {
-//   /*отладка*/ console.log('\n --> raw_array_Id = ' + raw_array_Id);
-//   if (raw_array_Id == 'SHome.items_layout_CardsList') {
-//     /*отладка*/ console.log('\n --> raw_array_Id-101 = ' + raw_array_Id);
-//     raw_array = await SHome.items_layout_CardsList;
-//     /*отладка*/ console.log('\n --> raw_array-101 = ' + raw_array);
-//   } else {
-//     /*отладка*/ console.log('\n --> raw_array_Id-102 = ' + raw_array_Id);
-//     raw_array = await this.items_titleScreen_MyCards;
-//     /*отладка*/ console.log('\n --> raw_array-102 = ' + raw_array);
+// async scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
+  
+//   let rawArray = [];
+//   // await this.name(rawArray_Id, rawArray);
+//   // if (rawArray_Id == 'SHome.items_layout_CardsList') {
+//   //   rawArray = await SHome.items_layout_CardsList;
+//   // } else {
+//   //   rawArray = await this.items_titleScreen_MyCards;
+//   // }
+//   switch (rawArray_Id) {
+//     case 'SHome.items_layout_CardsList':
+//       rawArray = await SHome.items_layout_CardsList;
+//       break;
+//     case 'SCards.items_titleScreen_MyCards':
+//       rawArray = await this.items_titleScreen_MyCards;
+//       break;
+
+//     default:
+//       console.log('\n --> в scrollCardstList нет элемента: ' + rawArray_Id + '\n');
+//       break;
+//   }
+//   // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
+  
+//   // *1-создать массив объектов карт
+//   // * Создать массив видимых элементов.
+//   await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+
+//   let lastCard = [];
+//   while (lastCard !== await dataArray[dataArray.length - 1]) {// *5-сравнить последний объект с запомненным
+//     // *2-запомнить последний объект массива
+//     lastCard = await dataArray[dataArray.length - 1];
+//     // /*отладка*/ console.log('\n --> lastCard-dataArray.length = ' + dataArray.length +
+//     //   '\n' + await lastCard.cardName +
+//     //   '\n' + await lastCard.cardBalance +
+//     //   '\n' + await lastCard.cardNumber +
+//     //   '\n' + await lastCard.cardDate
+//     // );
+    
+//     // *3-прокрутить элементы
+//     // * Прокрутить, делая видимыми следующие элементы.
+//     await $(`android=${scrollDirection}`);
+
+//     // *4-дополнить массив объектов
+//     // * Создать массив видимых элементов.
+//     // /*отладка*/ console.log('\n --> rawArray-121 = ' + rawArray + '\n');
+//     // await this.name(rawArray_Id, rawArray);
+//     // if (rawArray_Id == 'SHome.items_layout_CardsList') {
+//     //   rawArray = await SHome.items_layout_CardsList;
+//     // } else {
+//     //   rawArray = await this.items_titleScreen_MyCards;
+//     // }
+//     switch (rawArray_Id) {
+//       case 'SHome.items_layout_CardsList':
+//         rawArray = await SHome.items_layout_CardsList;
+//         break;
+//       case 'SCards.items_titleScreen_MyCards':
+//         rawArray = await this.items_titleScreen_MyCards;
+//         break;
+  
+//       default:
+//         console.log('\n --> в scrollCardstList нет элемента: ' + rawArray_Id + '\n');
+//         break;
+//     }
+//     // /*отладка*/ console.log('\n --> rawArray-122 = ' + rawArray + '\n'); await driver.pause(10000);
+//     await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
 //   }
 // }
-async scrollCardstList(raw_array_Id, data_array, elementAttributeKey, elementAttributeValues, scrollDirection) {
-  
-  let raw_array = [];
-  // await this.name(raw_array_Id, raw_array);
-  // if (raw_array_Id == 'SHome.items_layout_CardsList') {
-  //   raw_array = await SHome.items_layout_CardsList;
-  // } else {
-  //   raw_array = await this.items_titleScreen_MyCards;
+async scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
+  let rawArray = await this.getRawArray(rawArray_Id);
+  // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
+  // if (!rawArray) {
+  //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
+  //   return;
   // }
-  switch (raw_array_Id) {
-    case 'SHome.items_layout_CardsList':
-      raw_array = await SHome.items_layout_CardsList;
-      break;
-    case 'SCards.items_titleScreen_MyCards':
-      raw_array = await this.items_titleScreen_MyCards;
-      break;
 
-    default:
-      console.log('\n --> в scrollCardstList нет элемента: ' + raw_array_Id + '\n');
-      break;
-  }
-  // /*отладка*/ console.log('\n --> raw_array-11 = ' + raw_array + '\n'); await driver.pause(10000);
-  
   // *1-создать массив объектов карт
   // * Создать массив видимых элементов.
-  await this.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues);
+  await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
 
+  // let lastCard = await dataArray[dataArray.length - 1];
   let lastCard = [];
-  while (lastCard !== await data_array[data_array.length - 1]) {// *5-сравнить последний объект с запомненным
+
+  while (lastCard !== await dataArray[dataArray.length - 1]) {// *5-сравнить последний объект с запомненным
     // *2-запомнить последний объект массива
-    lastCard = await data_array[data_array.length - 1];
-    // /*отладка*/ console.log('\n --> lastCard-data_array.length = ' + data_array.length +
+    lastCard = await dataArray[dataArray.length - 1];
+    // /*отладка*/ console.log('\n --> lastCard-dataArray.length = ' + dataArray.length +
     //   '\n' + await lastCard.cardName +
     //   '\n' + await lastCard.cardBalance +
     //   '\n' + await lastCard.cardNumber +
@@ -297,27 +339,26 @@ async scrollCardstList(raw_array_Id, data_array, elementAttributeKey, elementAtt
 
     // *4-дополнить массив объектов
     // * Создать массив видимых элементов.
-    // /*отладка*/ console.log('\n --> raw_array-121 = ' + raw_array + '\n');
-    // await this.name(raw_array_Id, raw_array);
-    // if (raw_array_Id == 'SHome.items_layout_CardsList') {
-    //   raw_array = await SHome.items_layout_CardsList;
-    // } else {
-    //   raw_array = await this.items_titleScreen_MyCards;
+    rawArray = await this.getRawArray(rawArray_Id);
+    // /*отладка*/ console.log('\n --> rawArray-12 = ' + rawArray + '\n'); await driver.pause(10000);
+    // if (!rawArray) {
+    //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
+    //   return;
     // }
-    switch (raw_array_Id) {
-      case 'SHome.items_layout_CardsList':
-        raw_array = await SHome.items_layout_CardsList;
-        break;
-      case 'SCards.items_titleScreen_MyCards':
-        raw_array = await this.items_titleScreen_MyCards;
-        break;
-  
-      default:
-        console.log('\n --> в scrollCardstList нет элемента: ' + raw_array_Id + '\n');
-        break;
-    }
-    // /*отладка*/ console.log('\n --> raw_array-122 = ' + raw_array + '\n'); await driver.pause(10000);
-    await this.generateCardstList(raw_array, data_array, elementAttributeKey, elementAttributeValues);
+    
+    await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+  }
+}
+async getRawArray(rawArray_Id) {
+  switch (rawArray_Id) {
+    case 'SHome.items_layout_CardsList':
+      return await SHome.items_layout_CardsList;
+    case 'SCards.items_titleScreen_MyCards':
+      return await this.items_titleScreen_MyCards;
+    default:
+      console.log(`\n --> Нет элемента (в scrollCardstList): ${rawArray_Id}\n`);
+      // return null;
+      return;
   }
 }
 

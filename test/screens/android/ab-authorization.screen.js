@@ -11,7 +11,7 @@ class AuthorizationScreen extends LogInM {
 titleScreen_CreatePinCode_Ru_Expected = 'Создайте новый PIN-код';
 titleScreen_EnterPinCode_Ru_Expected = 'Введите свой PIN-код';
 
-text_PinCode_Expected = '0123';
+text_PinCode_Expected = '0123'; // * продублировано в GenM
 text_PinCodeOTP_Expected = '123456';
 
 
@@ -26,7 +26,7 @@ get image_PinCodeIcon_3(){ // pin code icon
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_pin_3"]');}
 
 // экран Введите свой PIN-код
-get titleScreen_EnterPinCode(){ // screenHeader_Text_enterPinCode
+get titleScreen_EnterPinCode(){ // * продублировано в GenM
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
 get titleScreen_EnterPinCode_Ru(){
   return $('//android.widget.TextView[@text="Введите свой PIN-код"]');}
@@ -36,19 +36,19 @@ get titleScreen_EnterPinCode_Ru(){
 /* FUNCTIONS : e2e */
 async customerAuthorization(language, phoneNumber, password, pinCode) {
   // П.1. Запустить приложение (автоматически), ...
-  // * Проверяем, нужна ли авторизация
+  // * Проверяем, нужна ли авторизация.
   if (
     !await this.titleScreen_Welcome_En.isDisplayed() &
     !await this.titleScreen_Welcome_Ru.isDisplayed() &
     !await this.titleScreen_Welcome_Uz.isDisplayed()
     ) return;
 
-  // * Проверяем, нужен ли только пин-код
+  // * Проверяем, нужен ли только пин-код.
   if (!await this.titleScreen_EnterPinCode.isDisplayed()) {
-    // * Выбираем язык интерфейса
+    // * Выбираем язык интерфейса.
     await this.selectLanguage(language);
     
-    // * Очистить поле ввода и чекбокс
+    // * Очистить поле ввода и чекбокс.
     await this.input_PhoneNumber.clearValue();
     let isChecked = await this.check_AgreeWithTerms.getAttribute('checked');
     // console.log( 'isChecked-1 = ' + isChecked );
@@ -58,7 +58,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
       await this.check_AgreeWithTerms.click();
       // isChecked = await this.check_AgreeWithTerms.getAttribute('checked');
       // console.log( 'isChecked-2 = ' + isChecked );
-    };
+    }
     // isChecked = await this.check_AgreeWithTerms.getAttribute('checked');
     // console.log( 'isChecked-3 = ' + isChecked );
     // await driver.pause(10000);
@@ -123,7 +123,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
     // 7.1.Открыт экран входа в приложение, где доступны поле кода страны, поле номера телефона, поле ввода пароля и неактивная кнопка Продолжить.
 
     // 8.Нажать поле ввода пароля.
-    // * Ждем появления поля
+    // * Ждем появления поля.
     await this.input_Password.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 10000});
     await this.input_Password.click();
     // 8.1.Открыта клавиатура.
@@ -160,21 +160,9 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // await AppUM.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
   await HomeM.layout_Profile.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
   // 12.1.Открыт главный экран приложения (активна кнопка Главная панели навигации).
-  // + элемент профиля клиента
+  // + элементы профиля клиента
   await expect(HomeM.layout_Profile).toBeExisting();
-  // + кнопка профиля пользователя
   await expect(HomeM.button_Profile).toBeExisting();
-            // // +
-            // if(await HomeM.titleSection_TotalBalance_Ru.isDisplayed()) {
-            //   // - текст Общий баланс  
-            //   await expect(HomeM.titleSection_TotalBalance_Ru).toHaveText(HomeM.titleSection_TotalBalance_Ru_Expected);
-            //   // - сумма общего баланса -?-
-            // } else {
-            //   // - кнопка Заказать карту
-            //   await expect(HomeM.button_OrderCard).toBeExisting();
-            //   // - кнопка Добавить карту
-            //   await expect(HomeM.button_AddCard).toBeExisting();
-            // }
 }
 
 

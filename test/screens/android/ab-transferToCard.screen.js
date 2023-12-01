@@ -53,19 +53,19 @@ get button_Continue(){
 // get items_Window_SelectBankOfReceiver_TextView(){
 //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]').$$('android.widget.TextView');}
 
-// экран Перевод на карту > окно Выберите банк > окно Выберите карту (получателя)
-get titleWindow_ReceiverSelectCard(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTitle"]');}
-// get items_titleWindow_ReceiverSelectBank(){
-//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]').$$('android.widget.TextView');}
-get text_ReceiverCardName(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_card_name"]');}
-get text_ReceiverCardNumber(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_card_number"]');}
-get check_ReceiverCard(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
-get items_titleWindow_ReceiverSelectCard(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardsRecyclerView"]').$$('android.widget.TextView');}
+// // экран Перевод на карту > окно Выберите банк > окно Выберите карту (получателя)
+// get titleWindow_ReceiverSelectCard(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvTitle"]');}
+// // get items_titleWindow_ReceiverSelectBank(){
+// //   return $('//*[@resource-id="com.fincube.apexbank.debug:id/banksRecyclerView"]').$$('android.widget.TextView');}
+// get text_ReceiverCardName(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_card_name"]');}
+// get text_ReceiverCardNumber(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/select_card_number"]');}
+// get check_ReceiverCard(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_check"]');}
+// get items_titleWindow_ReceiverSelectCard(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/bankCardsRecyclerView"]').$$('android.widget.TextView');}
 
 // экран Перевод на карту > окно Платеж обрабатывается
 get titleScreen_TransferProcessing(){

@@ -18,9 +18,11 @@ get text_SenderCardNumber(){
 get text_SenderCardBalance(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/selection_card_balance"]');}
 
-// экран ... > окно Выберите карту отправителя
+// экран ... > окно Выберите карту (выбора карты или счета) отправителя
 get titleWindow_SenderSelectCard_Ru(){
   return $('//android.widget.TextView[@text="Карты"]');}
+get titleWindow_SenderSelectAccount_Ru(){
+  return $('//android.widget.TextView[@text="Счета"]');}
 get items_Window_SelectCardOfSender_CardNumber(){
   return $$('//*[@resource-id="com.fincube.apexbank.debug:id/select_card_number"]');}
 

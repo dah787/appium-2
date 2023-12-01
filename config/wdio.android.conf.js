@@ -1,10 +1,10 @@
 /* to start run : npx wdio config/wdio.android.conf.js
 - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-const config  = require('./wdio.shared.conf');
-const path    = require('path');
-const allure  = require('allure-commandline');
-const video   = require('wdio-video-reporter'); // import video from 'wdio-video-reporter';
+const config = require('./wdio.shared.conf');
+const path   = require('path');
+const allure = require('allure-commandline');
+const video  = require('wdio-video-reporter'); // import video from 'wdio-video-reporter';
 
 // ====================
 // Runner Configuration
@@ -20,8 +20,8 @@ config.specs = [
   // path.join(process.cwd(),'test/specs/android/ab-ts-11p*.spec.js')
 
   // path.join(process.cwd(),'test/specs/android/*.*')
-  path.join(process.cwd(),'test/specs/android/ab-ts-01p.spec.js')
-  // path.join(process.cwd(),'test/specs/android/ab-ts-02p.spec.js')
+  // path.join(process.cwd(),'test/specs/android/ab-ts-01p.spec.js')
+  path.join(process.cwd(),'test/specs/android/ab-ts-02p.spec.js')
 ];
 
 // ============
@@ -48,8 +48,10 @@ config.capabilities = [{
   // "appium:deviceName": "Pixel 6a v.12L",   // 1080*2400, 420 dpi, 6.13", x86_64 < "Pixel_6a_API_32"
 
   "appium:platformVersion": "13.0",
-  // "appium:deviceName": "Pixel 6a v.13",   // 1080*2400, 420 dpi, 6.13", x86_64 < "Pixel_6a_API_33"
   "appium:deviceName": "Pixel 7 v.13",   // 1080*2400, 420 dpi, 6.31", x86_64 < "Pixel_7_API_33"
+
+  // "appium:platformVersion": "14.0",
+  // "appium:deviceName": "Medium Phone API 34",   // 1080*2400, 420 dpi, 6.4", x86_64 < "Phone_API_34"
 
   "appium:automationName": "UiAutomator2",
   // "appium:app": path.join(process.cwd(), "app/android/Apexbank-1.0.64-debug.apk"),

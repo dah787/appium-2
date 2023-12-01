@@ -31,23 +31,23 @@ get button_Login(){
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // экран Войти в ApexBank
-get titleScreen_Welcome_En(){ // find element by Xpath - (//tagname[@attribute=value])
+get titleScreen_Welcome_En(){ // * продублировано в GenM
   return $('//android.widget.TextView[@text="Login to Apex Bank"]');} // "Welcome"
-get titleScreen_Welcome_Ru(){//welcomeScreenHeaderRu
+get titleScreen_Welcome_Ru(){ // * продублировано в GenM
   return $('//android.widget.TextView[@text="Войти в ApexBank"]');} // "Добро пожаловать"
-get titleScreen_Welcome_Uz(){
+get titleScreen_Welcome_Uz(){ // * продублировано в GenM
   return $('//android.widget.TextView[@text="Apex Bankga kirish"]');} // 'Xush kelibsiz'
 
-get button_Language(){ // далее - окно Языки
+get button_Language(){ // далее - окно Языки // * продублировано в GenM
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_language"]')}
-get button_Support(){ // далее - окно Поддержка
+get button_Support(){ // далее - окно Поддержка // * продублировано в GenM
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/btn_support"]')}
 
 get text_CountryCode(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/left_text"]');} // country_code
-get input_PhoneNumber(){
+get input_PhoneNumber(){ // * продублировано в GenM
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input"]')} // input_phone
-get button_PhoneNumberInputClear(){
+get button_PhoneNumberInputClear(){ // * продублировано в GenM
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
 
 get check_AgreeWithTerms(){
@@ -216,14 +216,14 @@ async selectLanguage(language) { // appLanguageChoose
 
 
 /* FUNCTIONS : elements */
-async generateLanguagesList(raw_array, data_array, data_array_elems, elementAttributeKey,
-  language_1, language_2, language_3, language_4) { // appLanguagesList(raw_array, ...)
+async generateLanguagesList(rawArray, dataArray, dataArray_elems, elementAttributeKey,
+  language_1, language_2, language_3, language_4) { // appLanguagesList(rawArray, ...)
   let elementIndex = 0;
   let elementAttributeText = '';
-  for (const element of raw_array) {
+  for (const element of rawArray) {
     elementAttributeText = await element.getAttribute(elementAttributeKey);
 
-    // /*отладка*/ console.log('\n --> raw_array = ' + raw_array + '\n');
+    // /*отладка*/ console.log('\n --> rawArray = ' + rawArray + '\n');
     // /*отладка*/ console.log('\n --> language_1 = ' + language_1 + '-' + language_2 + '-' + language_3 + '-' + language_4 + '\n');
     // /*отладка*/ console.log('\n --> await elementAttributeText.endsWith(en) = ' + await elementAttributeText.endsWith('en') + '\n');
     // /*отладка*/ console.log('\n --> await elementAttributeText.endsWith(ru) = ' + await elementAttributeText.endsWith('ru') + '\n');
@@ -246,12 +246,12 @@ async generateLanguagesList(raw_array, data_array, data_array_elems, elementAttr
       elementIndex = elementAttributeText.indexOf('_');
       elementAttributeText = elementAttributeText.slice(elementIndex + 1)
       // /*отладка*/ console.log('\n --> elementAttributeText-1 = ' + elementAttributeText + '\n');
-      data_array.push(elementAttributeText);
-      data_array_elems.push(element);
+      dataArray.push(elementAttributeText);
+      dataArray_elems.push(element);
     }
   }
-  // /*отладка*/ console.log('\n --> data_array = ' + data_array + '\n');
-  // /*отладка*/ console.log('\n --> data_array_elems[1] = ' + await data_array_elems[1].getAttribute(elementAttributeKey) + '\n');
+  // /*отладка*/ console.log('\n --> dataArray = ' + dataArray + '\n');
+  // /*отладка*/ console.log('\n --> dataArray_elems[1] = ' + await dataArray_elems[1].getAttribute(elementAttributeKey) + '\n');
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
