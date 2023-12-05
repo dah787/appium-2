@@ -22,6 +22,33 @@ get button_Continue(){
 
 
 
+/* FUNCTIONS */
+async smsCodeInput() { // предварительно установить фокус на поле ввода
+  // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+  // * Ждем, пока поле ввода не будет заполнено
+  let i = 0;
+  while (
+    // await SSms.input_SmsCode.getText() == '6 цифр' ||
+    // (await SSms.input_SmsCode.getText()).length < 6 ||
+    i < 100
+    ){
+      const smsCodeText = await this.input_SmsCode.getText();
+      if (smsCodeText == '6 цифр') {
+        await driver.pause(500);
+      } else if (smsCodeText.length == 6) {
+        break;
+      }
+    i++;
+    // /*отладка*/ console.log('\n --> i = ' + i + '\n');
+    // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+  }
+  // /*отладка*/ console.log('\n --> i = ' + i + '\n');
+  // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+  // await driver.pause(15000);
+}
+
+
+
 /* EOF class */
 }
 

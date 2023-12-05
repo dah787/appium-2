@@ -110,10 +110,11 @@ get button_CardNameInputClear(){
 get button_Confirm(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/button_confirm"]');}
 // https://www.automationtestinghub.com/appium-scroll-examples/
-scrollToElement_Up = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("APEXBANK").className("android.widget.TextView"))';
-scrollToElement_Up_CardName = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/bank_card_view_name"))';
-scrollToElement_Middle = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/input"))';
-scrollToElement_Down = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/button_confirm"))';
+  scrollTo_CardViewFront = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/bank_card_front_view"))';
+  scrollToElement_Up = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("APEXBANK").className("android.widget.TextView"))';  
+  scrollToElement_Up_CardName = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/bank_card_view_name"))';
+  scrollToElement_Middle = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/input"))';
+  scrollToElement_Down = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/button_confirm"))';
 
 waitForScreenDisplayed_cardSettingsScreen(){ // wait_for_screen_displayed(){
   this.image_CardBackground.waitForDisplayed({timeout: GenM.waitTime + 15000});}
@@ -308,7 +309,7 @@ async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttrib
 //     await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
 //   }
 // }
-async scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
+async scrollCardstList_Old(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
   let rawArray = await this.getRawArray(rawArray_Id);
   // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
   // if (!rawArray) {
@@ -348,6 +349,54 @@ async scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttri
     
     await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
   }
+}
+async scrollCardstList(rawArray_Id, elementAttributeKey, elementAttributeValues, scrollDirection) {
+  let rawArray = await this.getRawArray(rawArray_Id);
+  // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
+  // if (!rawArray) {
+  //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
+  //   return;
+  // }
+  
+  // Verify that rawArray is an array.
+  if (!Array.isArray(rawArray)) {
+    throw new Error('Invalid rawArray. Must be an array of elements.');
+  }
+
+  const array = [];
+  // *1-создать массив объектов карт
+  // * Создать массив видимых элементов.
+  await this.generateCardstList(rawArray, array, elementAttributeKey, elementAttributeValues);
+
+  // let lastCard = await array[array.length - 1];
+  let lastCard = [];
+
+  while (lastCard !== await array[array.length - 1]) {// *5-сравнить последний объект с запомненным
+    // *2-запомнить последний объект массива
+    lastCard = await array[array.length - 1];
+    // /*отладка*/ console.log('\n --> lastCard-array.length = ' + array.length +
+    //   '\n' + await lastCard.cardName +
+    //   '\n' + await lastCard.cardBalance +
+    //   '\n' + await lastCard.cardNumber +
+    //   '\n' + await lastCard.cardDate
+    // );
+    
+    // *3-прокрутить элементы
+    // * Прокрутить, делая видимыми следующие элементы.
+    await $(`android=${scrollDirection}`);
+
+    // *4-дополнить массив объектов
+    // * Создать массив видимых элементов.
+    rawArray = await this.getRawArray(rawArray_Id);
+    // /*отладка*/ console.log('\n --> rawArray-12 = ' + rawArray + '\n'); await driver.pause(10000);
+    // if (!rawArray) {
+    //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
+    //   return;
+    // }
+    
+    await this.generateCardstList(rawArray, array, elementAttributeKey, elementAttributeValues);
+  }
+  return array;
 }
 async getRawArray(rawArray_Id) {
   switch (rawArray_Id) {

@@ -1,9 +1,6 @@
-// const SAuth = require("./ab-authorization.screen");               // screen > Authorization
-const SHome = require('./ab-home.screen');                        // Home screen
+const SPin  = require('../android/ab-pinCodeEnter.screen');       // screen > Pin code enter
+const SHome = require('../android/ab-home.screen');               // screen > Home
 const SSup  = require("../../screens/android/ab-support.screen"); // screen > Support
-// const SSms  = require('./ab-smsCodeEnter.screen');  // screen > Sms code enter
-// const LogInM  = require('./ab-login.screen'); // Login screen Model
-const UApp  = require("../../utils/android/ab-app.utils");        // utilities > App
 
 class GeneralScreen {
 
@@ -19,9 +16,6 @@ text_Telegram_En_Expected = 'Tg';
 text_WebSite_En_Expected = 'WebSite';
 
 number_WaitTime_Expected = 5000;
-
-/* CONSTANTS : есть в SAuth, но тут оттуда их не видно */
-text_PinCode_Expected_SAuth = '0123';
 
 
 
@@ -55,11 +49,6 @@ get input_PhoneNumber_LogInM(){ // added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/input_phone"]')}
 get button_PhoneNumberInputClear_LogInM(){ // added on 20230719
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/clear_text_image"]');}
-
-/* SELECTORS : есть в SAuth, но тут оттуда их не видно */
-// экран Введите свой PIN-код
-get titleScreen_EnterPinCode_SAuth(){ // screenHeader_Text_enterPinCode
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
 
 
 
@@ -147,42 +136,18 @@ async logOutApp(){ // appLogOut
   }
 }
 
-// async goBackToSpecifiedLocation(specifiedLocation, clickElement) {
-//   // * Вернуться к указанному месту (предыдущему), нажимая кнопку устройства Назад.
-//   while(!await specifiedLocation.isDisplayed()){
-//     if(await this.titleScreen_EnterPinCode_SAuth.isDisplayed()){
-//       await UApp.appKeyboardTypeIn(this.text_PinCode_Expected_SAuth);
-//       // * Перейти к указанному месту.
-//       await clickElement.waitForDisplayed({timeout: this.number_WaitTime_Expected});
-//       await clickElement.click();
-//     }
-//     if(!await specifiedLocation.isDisplayed()) {
-//       await driver.back();
-//     }
-//   }
-//   // *1 Открыто указанное место.
-// }
 async goBackToSpecifiedLocation(specifiedLocation, clickElement) {
    // * Вернуться к указанному месту (предыдущему), нажимая кнопку устройства Назад.
   const isSpecifiedLocationVisible = async () => await specifiedLocation.isDisplayed();
 
   while (!await isSpecifiedLocationVisible()) {
-    await this.handleEnterPinCodeScreen(clickElement);
+    await SPin.handleEnterPinCodeScreen(clickElement);
 
     if (!await isSpecifiedLocationVisible()) {
       await driver.back();
     }
   }
   // *1 Открыто указанное место.
-}
-async handleEnterPinCodeScreen(clickElement) {
-  if (await this.titleScreen_EnterPinCode_SAuth.isDisplayed()) {
-    await UApp.appKeyboardTypeIn(this.text_PinCode_Expected_SAuth);
-
-    // * Перейти к указанному месту.
-    await clickElement.waitForDisplayed({ timeout: this.number_WaitTime_Expected });
-    await clickElement.click(); 
-  }
 }
 async goBackToHomeScreen(){
   // * Проверяем, нужен ли возврат на главный экран
@@ -216,15 +181,15 @@ async goBackToHomeScreen(){
     // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-1 = ' + await SHome.button_Profile.isDisplayed() + '\n');
 
     // /*отладка*/ console.log('\n --> titleScreen_EnterPinCode-1 = ' +
-    //   await SAuth.titleScreen_EnterPinCode.isDisplayed() + '\n');
+    //   await SPin.titleScreen_EnterPinCode.isDisplayed() + '\n');
     // await driver.pause(5000);
-    // if (await SAuth.titleScreen_EnterPinCode.isDisplayed()) {
-    //   /*отладка*/ console.log('\n --> titleScreen_EnterPinCode-2 = ' + await SAuth.titleScreen_EnterPinCode.isDisplayed() + '\n');
+    // if (await SPin.titleScreen_EnterPinCode.isDisplayed()) {
+    //   /*отладка*/ console.log('\n --> titleScreen_EnterPinCode-2 = ' + await SPin.titleScreen_EnterPinCode.isDisplayed() + '\n');
     //   await driver.pause(5000);
     //   await AppUM.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
     // }
 
-    // if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
+    // if(await SPin.titleScreen_EnterPinCode.isDisplayed()){
     //   await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
     // }
 

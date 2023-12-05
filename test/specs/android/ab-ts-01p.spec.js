@@ -5,6 +5,7 @@ const DCard  = require('../../data/ab-cards.data');                       // dat
 const SAuth  = require("../../screens/android/ab-authorization.screen");  // screen > Authorization
 const SGen   = require('../../screens/android/ab-general.screen');        // screen > General
 const SHome  = require('../../screens/android/ab-home.screen');           // screen > Home
+const SPin   = require('../../screens/android/ab-pinCodeEnter.screen');   // screen > Pin code enter
 const SProf  = require('../../screens/android/ab-profile.screen');        // screen > Profile
 const SReg   = require("../../screens/android/ab-regisration.screen");    // screen > Registration
 const SSms   = require('../../screens/android/ab-smsCodeEnter.screen');   // screen > Sms code enter
@@ -326,7 +327,7 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -395,8 +396,8 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(3);
     // while(!await SSup.titleWindow_CallBank.isDisplayed()){
-    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //   if(await SPin.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SPin.text_PinCode_Expected);
     //     // * Нажать кнопку Позвонить в банк.
     //     await SSup.item_CallBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
     //     await SSup.item_CallBank.click();
@@ -451,7 +452,7 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -508,8 +509,8 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
     // 4.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(2);
     // while(!await SSup.titleWindow_CallBank.isDisplayed()){
-    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //   if(await SPin.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SPin.text_PinCode_Expected);
     //     // * Нажать кнопку Написать в банк.
     //     await SSup.item_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
     //     await SSup.item_WriteToBank.click();
@@ -567,7 +568,7 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -630,8 +631,8 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
     // 5.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(2);
     // while(!await SSup.titleWindow_CallBank.isDisplayed()){
-    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //   if(await SPin.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SPin.text_PinCode_Expected);
     //     // * Нажать кнопку Написать в банк.
     //     await SSup.button_WriteToBank.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
     //     await SSup.button_WriteToBank.click();
@@ -683,7 +684,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -789,8 +790,8 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
     // 3.Вернуться к предыдущему состоянию приложения, нажимая кнопку устройства Назад.
     // await UDev.androidPressBackButton(1);
     // while(!await SSup.titleSection_AdditionalLinks.isDisplayed()){
-    //   if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-    //     await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+    //   if(await SPin.titleScreen_EnterPinCode.isDisplayed()){
+    //     await UApp.appKeyboardTypeIn(SPin.text_PinCode_Expected);
     //   }
     //   await driver.pause(1000);
     //   if(!await SSup.titleSection_AdditionalLinks.isDisplayed()) {
@@ -838,7 +839,7 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -1078,7 +1079,7 @@ it('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1,1-7.Выполнить авторизацию пользователя (в приложении).
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 });
 
 // ab-ts-03p: Тестирование профиля |вер.20230913| /Тестов 2 (частично 1)/
@@ -1124,7 +1125,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
   await SHome.button_Profile.click();
@@ -1194,7 +1195,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   // * Вернуться на экран Открыт экран Возможности, нажимая кнопку Назад.
   await UDev.androidPressBackButton(3);
   // if(await SAuth.enterPinCodeScreenHeader.waitForDisplayed({timeout: SGen.number_WaitTime_Expected})) {
-  //   await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+  //   await UApp.appKeyboardTypeIn(SPin.text_PinCode_Expected);
   // }
   // await SProf.identificationButton.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
   // // - экран Возможности
@@ -1246,7 +1247,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // Пред.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
   await SHome.button_Profile.click();
@@ -1411,7 +1412,7 @@ it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
   
   // 1.Обратить внимание на баланс каждой карты.
   /*
@@ -1452,7 +1453,7 @@ it.skip('ab-s-d-003: Debug > System/OTP message', async () => {
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.customerAuthorization(
-    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SAuth.text_PinCode_Expected);
+    SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   await driver.openNotifications();
   await driver.pause(5000);
@@ -1495,8 +1496,8 @@ it.skip('ab-s-d-003: Debug > System/OTP message', async () => {
 //    * Открыть отчет
 // npx allure open
 //    * Если открыт экран Введите свой PIN-код
-// if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-//   await UApp.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+// if(await SPin.titleScreen_EnterPinCode.isDisplayed()){
+//   await UApp.appKeyboardTypeIn(SPin.text_PinCode_Expected);
 // }
 
 /* to start run : npx wdio config/wdio.android.conf.js

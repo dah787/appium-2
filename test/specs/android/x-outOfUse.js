@@ -1337,3 +1337,13 @@ await driver.saveScreenshot('view_shots/customerAuth_afterStep_' + 71 + '.png');
 
 
 
+
+// https://www.automationtestinghub.com/appium-scroll-examples/
+// https://russianblogs.com/article/88992310695/
+scrollToElement_Horizontal = 'new UiScrollable(new UiSelector().scrollable(true)).setAsHorizontalList().scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/tvCardBalance"))';
+// scrollToElement_Right_Text_1 = 'new UiScrollable(new UiSelector().resourceId("com.fincube.apexbank.debug:id/cardsListSmall")).setAsHorizontalList().scrollToEnd(1)';
+scrollToElement_Right = 'new UiScrollable(new UiSelector().resourceId("com.fincube.apexbank.debug:id/cardsListSmall")).setAsHorizontalList().scrollForward()';
+scrollToElement_Right_Text = 'new UiScrollable(new UiSelector().resourceId("com.fincube.apexbank.debug:id/cardsListSmall")).setAsHorizontalList().scrollIntoView(new UiSelector().text("t").className("android.widget.TextView"))';
+scrollTo_WalletSection = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/holderWallets"))';
+scrollTo_WalletSectionTitle = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("Кошелёк").className("android.widget.TextView"))';
+

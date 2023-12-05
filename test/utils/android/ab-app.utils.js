@@ -1,5 +1,4 @@
-const SAuth = require("../../screens/android/ab-authorization.screen"); // screen > Authorization
-const SSms  = require('../../screens/android/ab-smsCodeEnter.screen');  // screen > Sms code enter
+const SPin  = require('../../screens/android/ab-pinCodeEnter.screen');  // screen > Pin code enter
 
 class AppUtilities {
 
@@ -388,33 +387,32 @@ async separateThousandthsOfNumber(value) { // separateThousandths(value)
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // функции, применимые к разным экранам
-async smsCodeInput() { // предварительно установить фокус на поле ввода
-  // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
-  // * Ждем, пока поле ввода не будет заполнено
-  let i = 0;
-  while (
-    // await SSms.input_SmsCode.getText() == '6 цифр' ||
-    // (await SSms.input_SmsCode.getText()).length < 6 ||
-    i < 100
-    ){
-      const smsCodeText = await SSms.input_SmsCode.getText();
-      if (smsCodeText == '6 цифр') {
-        await driver.pause(500);
-      } else if (smsCodeText.length == 6) {
-        break;
-      }
-    i++;
-    // /*отладка*/ console.log('\n --> i = ' + i + '\n');
-    // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
-  }
-  // /*отладка*/ console.log('\n --> i = ' + i + '\n');
-  // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
-  // await driver.pause(15000);
-}
-      // почему-то не видит SAuth
+// async smsCodeInput() { // предварительно установить фокус на поле ввода
+//   // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+//   // * Ждем, пока поле ввода не будет заполнено
+//   let i = 0;
+//   while (
+//     // await SSms.input_SmsCode.getText() == '6 цифр' ||
+//     // (await SSms.input_SmsCode.getText()).length < 6 ||
+//     i < 100
+//     ){
+//       const smsCodeText = await SSms.input_SmsCode.getText();
+//       if (smsCodeText == '6 цифр') {
+//         await driver.pause(500);
+//       } else if (smsCodeText.length == 6) {
+//         break;
+//       }
+//     i++;
+//     // /*отладка*/ console.log('\n --> i = ' + i + '\n');
+//     // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+//   }
+//   // /*отладка*/ console.log('\n --> i = ' + i + '\n');
+//   // /*отладка*/ console.log('\n --> input_SmsCode.getText = ' + await SSms.input_SmsCode.getText() + '\n');
+//   // await driver.pause(15000);
+// }
 async ifEnterYourCodeScreenOpen() { // если открыт экран Введите свой PIN-код
-  if(await SAuth.titleScreen_EnterPinCode.isDisplayed()){
-    await this.appKeyboardTypeIn(SAuth.text_PinCode_Expected);
+  if(await SPin.titleScreen_EnterPinCode.isDisplayed()){
+    await this.appKeyboardTypeIn(SPin.text_PinCode_Expected);
   }
 }
 

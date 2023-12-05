@@ -51,7 +51,8 @@ get input_TransferAmount(){
 get amount(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/transferred_amount"]');}
 get homeButton(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/back_to_home"]');}
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/back_to_home"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/btnBackToHome"]');}
 
 
 

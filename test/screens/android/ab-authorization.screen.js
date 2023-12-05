@@ -1,17 +1,18 @@
-const AppUM  = require('../../utils/android/ab-app.utils');             // Application Utilities
-const DSysM  = require("../../utils/android/dt-device.utils");          // Android Utilities Model
-const HomeM  = require('../../screens/android/ab-home.screen');         // Home screen Model
-const GenM   = require('../../screens/android/ab-general.screen');      // General screen Model
-const LogInM = require('./ab-login.screen');                            // Login screen Model
+// const UApp  = require('../../utils/android/ab-app.utils');             // Application Utilities
+// const UDev  = require("../../utils/android/dt-device.utils");          // Android Utilities Model
+
+const HomeM  = require('../../screens/android/ab-home.screen');         // screen > Home
+const GenM   = require('../../screens/android/ab-general.screen');      // screen > General
+const LogInM = require('./ab-login.screen');                            // screen > Login
+const SPin   = require('../../screens/android/ab-pinCodeEnter.screen'); // screen > Pin code enter
 const SSms   = require('../../screens/android/ab-smsCodeEnter.screen'); // screen > Sms code enter
-const UApp   = require("../../utils/android/ab-app.utils");             // utilities > Application
+
+const UApp    = require("../../utils/android/ab-app.utils");            // utilities > Application
+const UDev    = require("../../utils/android/dt-device.utils");         // utilities > Device
 
 class AuthorizationScreen extends LogInM {
 /* CONSTANTS */
 titleScreen_CreatePinCode_Ru_Expected = 'Создайте новый PIN-код';
-titleScreen_EnterPinCode_Ru_Expected = 'Введите свой PIN-код';
-
-text_PinCode_Expected = '0123'; // * продублировано в GenM
 text_PinCodeOTP_Expected = '123456';
 
 
@@ -24,12 +25,6 @@ get titleScreen_CreatePinCode_Ru(){
   return $('//android.widget.TextView[@text="Создайте новый PIN-код"]');}
 get image_PinCodeIcon_3(){ // pin code icon
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_pin_3"]');}
-
-// экран Введите свой PIN-код
-get titleScreen_EnterPinCode(){ // * продублировано в GenM
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
-get titleScreen_EnterPinCode_Ru(){
-  return $('//android.widget.TextView[@text="Введите свой PIN-код"]');}
 
 
 
@@ -44,7 +39,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
     ) return;
 
   // * Проверяем, нужен ли только пин-код.
-  if (!await this.titleScreen_EnterPinCode.isDisplayed()) {
+  if (!await SPin.titleScreen_EnterPinCode.isDisplayed()) {
     // * Выбираем язык интерфейса.
     await this.selectLanguage(language);
     
@@ -69,7 +64,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
     await expect(await driver.isKeyboardShown()).toBe(true);
     
     // 2.Ввести номер телефона (уже зарегистрированный) в поле ввода номера телефона.
-    await DSysM.androidKeyboardTypeIn(phoneNumber);
+    await UDev.androidKeyboardTypeIn(phoneNumber);
     // await driver.sendKeys(['9','9','9','6','6','4','6','6','0']); // для БраузерСтак
     // 2.1.Закрыта клавиатура. В поле ввода отображается введенный номер.
     // - клавиатура
@@ -103,14 +98,14 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // --- ТРЕБУЕТСЯ автоматически получать код из СМС ---
 
     // 6.Ввести код.
-    // await DSysM.androidKeyboardTypeIn(text_PinCodeOTP_Expected);
+    // await UDev.androidKeyboardTypeIn(text_PinCodeOTP_Expected);
 
 
 
   // --- на 24102025 вводится ВРУЧНУЮ во время паузы (ниже)
   // * Пауза для контроля экрана.
   // await driver.pause(30000);
-  await UApp.smsCodeInput();
+  await SSms.smsCodeInput();
 
   
     
@@ -130,7 +125,7 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
     await expect(await driver.isKeyboardShown()).toBe(true);
 
     // 9.Ввести пароль.
-    await DSysM.androidKeyboardTypeIn(password);
+    await UDev.androidKeyboardTypeIn(password);
     // 9.1.В поле ввода введенный пароль отображается звездочками, кнопка Продолжить активна.
     // - пароль отображается звездочками ?
     // - кнопка Продолжить
@@ -144,20 +139,20 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
     // - символ пин-кода (проверяем одну иконку)
     await expect(await this.image_PinCodeIcon_3.isEnabled()).toBe(true);
     // - клавиатура приложения (проверяем одну клавишу)
-    await expect(await AppUM.appKeyboardKey_3.isEnabled()).toBe(true);
+    await expect(await UApp.appKeyboardKey_3.isEnabled()).toBe(true);
 
     // 11.Ввести пин-код.
-    await AppUM.appKeyboardTypeIn(pinCode);
-    // await AppUM.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
+    await UApp.appKeyboardTypeIn(pinCode);
+    // await UApp.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
     // 11.1.Символы пин-кода активируются по мере ввода, а после ввода последнего символа пин-кода открывается экран Введите свой PIN-код.
     // - символы пин-кода ?
     // - экран Введите свой PIN-код
-    await expect(this.titleScreen_EnterPinCode).toHaveText(this.titleScreen_EnterPinCode_Ru_Expected);
+    await expect(SPin.titleScreen_EnterPinCode).toHaveText(SPin.titleScreen_EnterPinCode_Ru_Expected);
   }
 
   // 12.Ввести пин-код.
-  await AppUM.appKeyboardTypeIn(pinCode);
-  // await AppUM.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
+  await UApp.appKeyboardTypeIn(pinCode);
+  // await UApp.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
   await HomeM.layout_Profile.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
   // 12.1.Открыт главный экран приложения (активна кнопка Главная панели навигации).
   // + элементы профиля клиента
