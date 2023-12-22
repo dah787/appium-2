@@ -4,12 +4,12 @@ const UApp = require("../../utils/android/ab-app.utils");         // utilities >
 class PinCodeEnterScreen {
 
 /* CONSTANTS */
-titleScreen_EnterPinCode_Ru_Expected = 'Введите свой PIN-код';
+titleScreen_EnterPinCode_Ru_Expected = 'Подтвердите код доступа'; // (до версии 1.0.74 - Введите свой PIN-код)
 text_PinCode_Expected = '0123';
 
 
 /* SELECTORS */
-// экран Введите свой PIN-код
+// экран Подтвердите код доступа (до версии 1.0.74 - Введите свой PIN-код)
 get titleScreen_EnterPinCode(){ // * продублировано в GenM
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
 get titleScreen_EnterPinCode_Ru(){

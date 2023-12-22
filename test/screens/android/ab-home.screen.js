@@ -1,6 +1,15 @@
 class HomeScreen {
 
 /* CONSTANTS */
+text_ElementAttributeKey_En_Expected = 'resource-id';
+// text_ElementAttributeValue_En_Expected = 'com.fincube.apexbank.debug:id/tvCardNumberNotOne';
+array_ElementAttributeValues_En_Expected = [
+  'com.fincube.apexbank.debug:id/tvCardName',
+  'com.fincube.apexbank.debug:id/tvCardBalance',
+  'com.fincube.apexbank.debug:id/tvCardNumber',
+  'com.fincube.apexbank.debug:id/tvCardDate'
+];
+
 titleSection_TotalBalance_Ru_Expected = 'Общий баланс';
 
 text_BalanceHidingSymbols_En_Expected = '--.-- UZS';
@@ -10,6 +19,15 @@ text_CardBalanceHidingSymbols_En_Expected = '******';
 
 
 /* SELECTORS */
+// экран Главный : окно push-уведомления (напр., Нажмите, чтобы перевести на)
+get window_PushNotification(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clipboardHint"]');}
+get titleWindow_PushNotification(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clipboardHint"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/tv_title"]');}
+get button_GotIt(){
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/clipboardHint"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/iv_icon_send"]');}
+
+
 // экран Главный: раздел Профиль
 get layout_Profile(){
   // return $('//*[@resource-id="com.fincube.apexbank.debug:id/profileLayout"]');}
@@ -105,11 +123,11 @@ get button_TransferBetweenCards(){
 get titleSection_Wallet_Ru(){
   return $('//android.widget.TextView[@text="Кошелёк"]');}
 get text_AccountBalance_1(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderActive"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountBalance1"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderWallets"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountBalance1"]');}
 get text_AccountNumber_1(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderActive"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountNumber1"]');}
-get items_titleSection_Wallet_AccountsList_Numbers(){
-  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderActive"]').$$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountNumber1"]');}
+  return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderWallets"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountNumber1"]');}
+// get items_titleSection_Wallet_AccountsList_Numbers(){
+//   return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderWallets"]').$$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountNumber1"]');}
 
   scrollTo_WalletSection = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().resourceId("com.fincube.apexbank.debug:id/holderWallets"))';
   scrollTo_WalletSectionTitle = 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("Кошелёк").className("android.widget.TextView"))';
@@ -125,18 +143,18 @@ get items_titleSection_Wallet_AccountsList_Numbers(){
 
 
 // экран Главный: нижняя панель навигации
-get bottomNav_Home(){ // navBarHomeTab
+get bottomNav_Home(){ // далее - экран главный
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_home"]');}
-get bottomNav_Cards(){
+get bottomNav_Cards(){ // далее - экран карт
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_cards"]');}
-get bottomNav_Payments(){ // navBarPaymentsTab
+get bottomNav_Payments(){ // далее - экран платежей
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_payment"]');}
-get bottomNav_History(){
+get bottomNav_History(){ // далее - экран истории операций
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_history"]');}
-get bottomNav_Support(){
+get bottomNav_Support(){ // далее - экран поддержки
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/navigation_chat"]');}
 
-  
+
 
 /* EOF class */
 }

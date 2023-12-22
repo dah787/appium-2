@@ -1,35 +1,45 @@
 // const UApp  = require('../../utils/android/ab-app.utils');             // Application Utilities
 // const UDev  = require("../../utils/android/dt-device.utils");          // Android Utilities Model
 
-const HomeM  = require('../../screens/android/ab-home.screen');         // screen > Home
+// const HomeM  = require('../../screens/android/ab-home.screen');         // screen > Home
+const SHome  = require('../../screens/android/ab-home.screen');         // screen > Home
 const GenM   = require('../../screens/android/ab-general.screen');      // screen > General
 const LogInM = require('./ab-login.screen');                            // screen > Login
 const SPin   = require('../../screens/android/ab-pinCodeEnter.screen'); // screen > Pin code enter
 const SSms   = require('../../screens/android/ab-smsCodeEnter.screen'); // screen > Sms code enter
 
-const UApp    = require("../../utils/android/ab-app.utils");            // utilities > Application
-const UDev    = require("../../utils/android/dt-device.utils");         // utilities > Device
+const UApp   = require("../../utils/android/ab-app.utils");             // utilities > Application
+const UDev   = require("../../utils/android/dt-device.utils");          // utilities > Device
 
 class AuthorizationScreen extends LogInM {
 /* CONSTANTS */
-titleScreen_CreatePinCode_Ru_Expected = 'Создайте новый PIN-код';
+titleScreen_CreatePinCode_Ru_Expected = 'Придумайте код доступа'; // (до 1.0.74 - Создайте новый PIN-код)
 text_PinCodeOTP_Expected = '123456';
 
 
 
 /* SELECTORS */
-// экран Создайте новый PIN-код
+// экран Придумайте код доступа (до версии 1.0.74 - Создайте новый PIN-код)
 get titleScreen_CreatePinCode(){ // createPinCodeScreenHeader
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/tv_pin_code"]');}
 get titleScreen_CreatePinCode_Ru(){
-  return $('//android.widget.TextView[@text="Создайте новый PIN-код"]');}
+  return $('//android.widget.TextView[@text="Придумайте код доступа"]');}
 get image_PinCodeIcon_3(){ // pin code icon
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/iv_pin_3"]');}
+
+// экран Придумайте код доступа : окно Save password to Google?
+get window_SavePasswordToGoogle(){
+  return $('//*[@resource-id="android:id/autofill_save"]');}
+get titleWindow_SavePasswordToGoogle_En(){
+  return $('//android.widget.TextView[@text="Save password to Google?"]');}
+get button_SaveNo(){
+  return $('//*[@resource-id="android:id/autofill_save_no"]');}
 
 
 
 /* FUNCTIONS : e2e */
-async customerAuthorization(language, phoneNumber, password, pinCode) {
+// async customerAuthorization(language, phoneNumber, password, pinCode) {
+async authorizeUser(language, phoneNumber, password, pinCode) {
   // П.1. Запустить приложение (автоматически), ...
   // * Проверяем, нужна ли авторизация.
   if (
@@ -153,11 +163,139 @@ async customerAuthorization(language, phoneNumber, password, pinCode) {
   // 12.Ввести пин-код.
   await UApp.appKeyboardTypeIn(pinCode);
   // await UApp.appKeyboardTypeIn(['0','1','2','3']); // для БраузерСтак
-  await HomeM.layout_Profile.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
+  await SHome.layout_Profile.waitForDisplayed({timeout: GenM.number_WaitTime_Expected + 15000});
   // 12.1.Открыт главный экран приложения (активна кнопка Главная панели навигации).
   // + элементы профиля клиента
-  await expect(HomeM.layout_Profile).toBeExisting();
-  await expect(HomeM.button_Profile).toBeExisting();
+  await expect(SHome.layout_Profile).toBeExisting();
+  await expect(SHome.button_Profile).toBeExisting();
+
+
+
+
+
+
+
+
+
+  // * Закрыть окно push-уведомления (если открыто).
+  // https://webdriver.io/docs/boilerplates/#webdriverioappium-boilerplate
+  // https://webdriver.io/docs/api/element/touchAction
+//   if (await HomeM.window_PushNotification.isDisplayed()) {
+//     // await driver.execute('mobile:swipe', { direction: 'up' });
+
+// /*отладка*/ console.log(`\n --> push-1 = ${await HomeM.window_PushNotification.isDisplayed()} \n`);
+
+//     // await HomeM.window_PushNotification.click();
+//           // * Прокрутить элемент (выполняя swipe/смахивание).
+//           // await $(`android=${HomeM.scrollToElement_Right}`);
+//     // await HomeM.window_PushNotification.touchScroll(1,1);
+//     // const screen = HomeM.window_PushNotification;
+//     // const otherElement = HomeM.text_TotalBalanceAmount;
+//     // await screen.touchAction([
+//     //     'press',
+//     //     { action: 'moveTo', element: otherElement },
+//     //     'release'
+//     // ]);
+//     // await screen.touchAction([
+//     //   'press',
+//     //   { action: 'moveTo', x: 200, y: 300 },
+//     //   'release'
+//     // ]);
+//     // await screen.dragAndDrop(otherElement);
+
+//     // await driver.touchAction([
+//     //   { action: 'press', x: 500, y: 1500 },
+//     //   { action: 'moveTo', x: 500, y: 1000 },
+//     //   'release',
+//     // ]);
+
+//     // Use WebdriverIO mobile selectors to locate the push notification element
+    
+//     /*1*/const pushNotification = await $('//*[@resource-id="com.fincube.apexbank.debug:id/clipboardHint"]');
+//     // /*2*/const pushNotification = await driver.$('android.widget.FrameLayout[@resource-id="com.fincube.apexbank.debug:id/clipboardHint"]');
+//     /*отладка*/ console.log(`\n --> pushNotification = ${pushNotification} \n`);
+
+//     // Get the coordinates of the push notification element
+//     // const { x, y } = await HomeM.window_PushNotification.getLocation();
+//     const { x, y } = await pushNotification.getLocation();
+//     /*отладка*/ console.log(`\n --> x = ${x}, y = ${y} \n`);
+
+
+
+//     // -*- Use the mobile
+//     // await driver.executeScript(
+//     //   'mobile: swipe', // ...'mobile: swipe' not known...
+//     //   [
+//     //     { start_x: x, start_y: y },
+//     //     { end_x: x, end_y: y - 50 }, // Adjust the y-coordinate as needed
+//     //     1000, // Swipe duration in milliseconds
+//     //   ]
+//     // );
+
+
+//     // -*- Use the mobile
+//     // await driver.touchScroll({
+//     //   "xoffset": 10,
+//     //   "yoffset": 100,
+//     //   "element": pushNotification
+//     // });
+//     await driver.touchScroll(10, 100, '//*[@resource-id="com.fincube.apexbank.debug:id/clipboardHint"]');
+//     // await driver.touchPerform([
+//     //   { action: 'press', options: { x: 21, y: 63 }},
+//     //   { action: 'moveTo', options: { x: 50, y: 100 }},
+//     //   { action: 'release' },
+//     //   { action: 'perform' }
+//     // ]);
+
+//     // -1- Use the mobile
+//     // await driver.touchPerform([
+//     //   { action: 'press', options: { x, y } },
+//     //   // { action: 'wait', options: { ms: 500 } },
+//     //   { action: 'moveTo', options: { x, y: y-50 } }, // Adjust the y-coordinate as needed / 3 - 500
+//     //   // 'release',
+//     //   { action: 'release' }
+//     // ]);
+   
+//     // // -2- Use the mobile: performTouchAction command to perform a swipe gesture
+//     // await driver.executeScript(
+//     //   'mobile: performTouchAction',
+//     //   [
+//     //     {
+//     //       action: 'press',
+//     //       options: { x, y },
+//     //     },
+//     //     {
+//     //       action: 'moveTo',
+//     //       options: { x, y: y - 500 }, // Adjust the y-coordinate as needed
+//     //     },
+//     //     'release',
+//     //   ]
+//     // );
+
+//     // -3- Check for and handle push notification if present
+//     // const notificationView = await driver.$('android.widget.FrameLayout[@resource-id="com.fincube.apexbank.debug:id/clipboardHint"]');
+//     // if (await notificationView.isDisplayed()) {
+//       // Swipe notification off the screen
+//       // await driver.touchPerform([
+//       //   { action: 'press', options: { x: '50', y: '100' } },
+//       //   { action: 'moveTo', options: { x: '500', y: '100' } },
+//       //   { action: 'release' },
+//       // ]);
+//     // }
+        
+
+
+
+
+
+
+
+// /*отладка*/ console.log(`\n --> push-2 = ${await HomeM.window_PushNotification.isDisplayed()} \n`);
+// await driver.pause(15000);
+//   }
+
+  await SHome.text_TotalBalanceAmount.waitForDisplayed(20000);
+  
 }
 
 

@@ -327,7 +327,7 @@ it('ab-u-tc-01.003p: Call bank | Позвонить в банк', async () => {
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -452,7 +452,7 @@ it('ab-u-tc-01.004p: ? Write to bank | Написать в банк /Тест в
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -568,7 +568,7 @@ it('ab-u-tc-01.005p: ? Write to bank (offices and ATMs) | Написать в б
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -684,7 +684,7 @@ it('ab-u-tc-01.006p: ? Additional communication | Дополнительная �
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -839,7 +839,7 @@ it('ab-u-tc-01.007p: ? Frequently asked questions | Частые вопросы 
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку Поддержка.
   await SHome.bottomNav_Support.click();
@@ -1079,7 +1079,7 @@ it('ab-e-tc-02.002p: Authorization | Авторизация', async () => {
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1,1-7.Выполнить авторизацию пользователя (в приложении).
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 });
 
 // ab-ts-03p: Тестирование профиля |вер.20230913| /Тестов 2 (частично 1)/
@@ -1125,7 +1125,7 @@ it('ab-e-tc-03.001p: ! Identification in MyID | Идентификация в My
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
   await SHome.button_Profile.click();
@@ -1247,7 +1247,7 @@ it.skip('ab-u-tc-03.002p: Language selection | Выбор языка', async () 
   // const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // Пред.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+  await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   // 1.Нажать кнопку профиля пользователя.
   await SHome.button_Profile.click();
@@ -1411,7 +1411,7 @@ it.skip('ab-s-d-002: Debug > Сводный массив', async () => {
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(
+  await SAuth.authorizeUser(
     SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
   
   // 1.Обратить внимание на баланс каждой карты.
@@ -1452,7 +1452,7 @@ it.skip('ab-s-d-003: Debug > System/OTP message', async () => {
   const phoneNumber_pass = DCard.phoneNumber_10_pass;
 
   // П.1.Выполнить авторизацию пользователя.
-  await SAuth.customerAuthorization(
+  await SAuth.authorizeUser(
     SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
 
   await driver.openNotifications();

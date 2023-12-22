@@ -81,7 +81,7 @@ async afterEach(counter, tcNum) {
   // /*отладка*/ console.log('\n --> counter-afterEach = ' + counter + '\n');
 
   // * Открыть главный экран
-  await this.goBackToHomeScreen();
+  await this.returnToHomeScreen();
 
   // * Выйти из приложения
   // await this.logOutApp();
@@ -149,8 +149,8 @@ async goBackToSpecifiedLocation(specifiedLocation, clickElement) {
   }
   // *1 Открыто указанное место.
 }
-async goBackToHomeScreen(){
-  // * Проверяем, нужен ли возврат на главный экран
+async returnToHomeScreen(){
+  // * Проверяем, нужен ли возврат на главный экран.
   if (
     await this.button_Support_LogInM.isDisplayed() ||
     await SSup.titleWindow_CallBank.isDisplayed()
@@ -166,7 +166,7 @@ async goBackToHomeScreen(){
     return;
   }
 
-  // * Закрыть клавиатуру
+  // * Закрыть клавиатуру.
   if(await driver.isKeyboardShown()) await driver.hideKeyboard();
 
   // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-0 = ' + await SHome.button_Profile.isDisplayed() + '\n');
@@ -177,6 +177,7 @@ async goBackToHomeScreen(){
   //   await driver.pause(5000);
   // }
 
+  // /*отладка*/ let i = 0;
   while(!await SHome.bottomNav_Home.isDisplayed()){
     // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-1 = ' + await SHome.button_Profile.isDisplayed() + '\n');
 
@@ -198,17 +199,19 @@ async goBackToHomeScreen(){
     await driver.back();
 
     // await driver.pause(2000);
-    // /*отладка*/ console.log('\n --> button_Profile.isDisplayed-2 = ' + await SHome.button_Profile.isDisplayed() + '\n');
+    // /*отладка*/ console.log(`\n --> button_Profile.isDisplayed-2-${i} = ${await SHome.button_Profile.isDisplayed()}\n`);
     // await driver.pause(5000);
 
     // * Проверяем, нужен ли возврат на главный экран
     if (
-        !await this.titleScreen_Welcome_En_LogInM.isDisplayed() &
-        !await this.titleScreen_Welcome_Ru_LogInM.isDisplayed() &
-        !await this.titleScreen_Welcome_Uz_LogInM.isDisplayed()
-      )
-      return;
+        await this.titleScreen_Welcome_En_LogInM.isDisplayed() ||
+        await this.titleScreen_Welcome_Ru_LogInM.isDisplayed() ||
+        await this.titleScreen_Welcome_Uz_LogInM.isDisplayed()
+      ) return;
+      
+    // /*отладка*/ i++;
   }
+  // /*отладка*/ console.log('\n --> i-1 = ' + i + '\n');
   await SHome.bottomNav_Home.click();
   await SHome.button_Profile.waitForDisplayed({timeout: this.number_WaitTime_Expected});
 }

@@ -1,5 +1,6 @@
-const GenM  = require('./ab-general.screen');                  // General screen Model
-const SHome = require('../../screens/android/ab-home.screen'); // screen > Home
+const GenM    = require('./ab-general.screen');                         // General screen Model
+const SHome   = require('../../screens/android/ab-home.screen');        // screen > Home
+const WCardsS = require('../../screens/android/ab-cardsSender.window'); // window > Cards of sender
 
 class CardsScreen {
 /* CONSTANTS */
@@ -8,7 +9,9 @@ titleScreen_AddCard_Ru_Expected = 'Добавить карту';
 
 text_ElementAttributeKey_En_Expected = 'resource-id';
 text_ElementAttributeValue_En_Expected = 'com.fincube.apexbank.debug:id/tvCardNumberNotOne';
-
+text_ElementAttributeValue_En_Expected_Name = 'com.fincube.apexbank.debug:id/tvCardName';
+text_ElementAttributeValue_En_Expected_Number = 'com.fincube.apexbank.debug:id/tvCardNumber';
+text_ElementAttributeValue_En_Expected_Balance = 'com.fincube.apexbank.debug:id/tvCardBalance';
 
 
 /* SELECTORS */
@@ -127,7 +130,7 @@ get button_Confirm_CardDelete(){
 
 
 /* FUNCTIONS */
-async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues){
+async addCardsTotList(rawArray, dataArray, elementAttributeKey, elementAttributeValues){
   /*
     Записываем определенные данные из rawArray в dataArray, отсеивая уже имеющиеся в массиве dataArray данные (напр., название, сумма, номер, срок действия карты, ...).
     
@@ -135,18 +138,23 @@ async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttrib
     2.Прокручиваем окно, делая видимыми следующие данные.
     3.Считываем видимые данные окна и записываем в массив dataArray, отсеивая уже имеющиеся в массиве данные.
   */
-  let cardName = '';
-  let cardBalance = '';
-  let cardNumber = '';
-  let cardDate = '';
-    
+   // * Verify that rawArray is an array.
+   if (!Array.isArray(rawArray)) {
+    throw new Error('Invalid rawArray. Must be an array of elements.');
+  }
+
+  // const dataArray = [];
   let elementAttributeValue_Current = '';
-  let elements = [];
+  // let elements = [];
   // /*отладка*/ console.log('\n --> rawArray = ' + rawArray + '\n');
   for (let i = 0, l = rawArray.length; i < l; i++) { // перебираем карты
+    const elements = await rawArray[i].$$('android.widget.TextView');
+    let cardName = '';
+    let cardBalance = '';
+    let cardNumber = '';
+    let cardDate = '';
     // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + rawArray[i]);
-    elements = await rawArray[i].$$('android.widget.TextView');
-    
+        
     for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
       elementAttributeValue_Current = await elements[x].getAttribute(elementAttributeKey);
       // /*отладка*/ console.log(' --> element ' + x + ' = ' + await elements[x].getText());
@@ -165,7 +173,7 @@ async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttrib
           cardDate = await elements[x].getText();
           break;
         default:
-          console.log("! нет элемента с атрибутом = '" + elementAttributeValue_Current + "'");
+          console.log(`\n --> Нет элемента с атрибутом: ${elementAttributeValue_Current}\n`);
           // throw " ! нет элемента с атрибутом = '" + elementAttributeValue_Current + "'";
           break;
       }
@@ -178,7 +186,7 @@ async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttrib
       cardDate == ''
     ) continue;
     
-    if (await dataArray.length > 0) { // если массив уже не пустой...
+    if (dataArray.length > 0) { // если массив уже не пустой...
       const dataArray_0 = [];
       dataArray_0.push( // добавляем данные текущей карты в промежуточный массив
         {
@@ -190,7 +198,7 @@ async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttrib
       );
       
       let notExisted = true;
-      for (let i = 0, l = await dataArray.length; i < l; i++) {
+      for (let i = 0, l = dataArray.length; i < l; i++) {
         if ( // проверяем, не добавлены ли уже данные текущей карты в массив
           dataArray[i].cardName == dataArray_0[0].key_1 &
           dataArray[i].cardBalance == dataArray_0[0].key_2 &
@@ -240,94 +248,215 @@ async generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttrib
   //     '\n' + await dataArray[i].cardDate
   //   );
   // }
+  return dataArray;
 
 }
-// async scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
-  
-//   let rawArray = [];
-//   // await this.name(rawArray_Id, rawArray);
-//   // if (rawArray_Id == 'SHome.items_layout_CardsList') {
-//   //   rawArray = await SHome.items_layout_CardsList;
-//   // } else {
-//   //   rawArray = await this.items_titleScreen_MyCards;
-//   // }
-//   switch (rawArray_Id) {
-//     case 'SHome.items_layout_CardsList':
-//       rawArray = await SHome.items_layout_CardsList;
-//       break;
-//     case 'SCards.items_titleScreen_MyCards':
-//       rawArray = await this.items_titleScreen_MyCards;
-//       break;
+async getRawArray(rawArrayKey) { // * Получить массив видимых элементов.
+  const rawArrays = { // редактировать по мере задействования в различных тестах
+    'SHome.items_layout_CardsList': SHome.items_layout_CardsList,
+    'SCards.items_titleScreen_MyCards': this.items_titleScreen_MyCards,
+    'WCardsS.items_titleWindow_SenderSelectCard': WCardsS.items_titleWindow_SenderSelectCard,
+  };
 
-//     default:
-//       console.log('\n --> в scrollCardstList нет элемента: ' + rawArray_Id + '\n');
-//       break;
-//   }
-//   // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
-  
-//   // *1-создать массив объектов карт
-//   // * Создать массив видимых элементов.
-//   await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+  const selectedRawArray = rawArrays[rawArrayKey];
 
-//   let lastCard = [];
-//   while (lastCard !== await dataArray[dataArray.length - 1]) {// *5-сравнить последний объект с запомненным
-//     // *2-запомнить последний объект массива
-//     lastCard = await dataArray[dataArray.length - 1];
-//     // /*отладка*/ console.log('\n --> lastCard-dataArray.length = ' + dataArray.length +
-//     //   '\n' + await lastCard.cardName +
-//     //   '\n' + await lastCard.cardBalance +
-//     //   '\n' + await lastCard.cardNumber +
-//     //   '\n' + await lastCard.cardDate
-//     // );
-    
-//     // *3-прокрутить элементы
-//     // * Прокрутить, делая видимыми следующие элементы.
-//     await $(`android=${scrollDirection}`);
+  if (selectedRawArray === undefined) {
+    console.log(`\n --> Нет элемента (в generateCardstList): ${rawArrayKey}\n`);
+    return;
+  }
 
-//     // *4-дополнить массив объектов
-//     // * Создать массив видимых элементов.
-//     // /*отладка*/ console.log('\n --> rawArray-121 = ' + rawArray + '\n');
-//     // await this.name(rawArray_Id, rawArray);
-//     // if (rawArray_Id == 'SHome.items_layout_CardsList') {
-//     //   rawArray = await SHome.items_layout_CardsList;
-//     // } else {
-//     //   rawArray = await this.items_titleScreen_MyCards;
-//     // }
-//     switch (rawArray_Id) {
-//       case 'SHome.items_layout_CardsList':
-//         rawArray = await SHome.items_layout_CardsList;
-//         break;
-//       case 'SCards.items_titleScreen_MyCards':
-//         rawArray = await this.items_titleScreen_MyCards;
-//         break;
-  
-//       default:
-//         console.log('\n --> в scrollCardstList нет элемента: ' + rawArray_Id + '\n');
-//         break;
-//     }
-//     // /*отладка*/ console.log('\n --> rawArray-122 = ' + rawArray + '\n'); await driver.pause(10000);
-//     await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
-//   }
-// }
-async scrollCardstList_Old(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
-  let rawArray = await this.getRawArray(rawArray_Id);
-  // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
-  // if (!rawArray) {
-  //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
-  //   return;
-  // }
-
-  // *1-создать массив объектов карт
-  // * Создать массив видимых элементов.
-  await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
-
-  // let lastCard = await dataArray[dataArray.length - 1];
+  return await selectedRawArray;
+}
+async generateCardstList(rawArrayKey, elementAttributeKey, elementAttributeValues, scrollDirection) {
+  const array = [];
   let lastCard = [];
 
-  while (lastCard !== await dataArray[dataArray.length - 1]) {// *5-сравнить последний объект с запомненным
+  // * Получить массив видимых элементов.
+  let rawArray = await this.getRawArray(rawArrayKey);
+  
+  // * Verify that rawArray is an array.
+  if (!Array.isArray(rawArray)) {
+    throw new Error('Invalid rawArray. Must be an array of elements.');
+  }
+  
+  // *1-создать массив объектов карт.
+  // * Добавить элементы в массив.
+  await this.addCardsTotList(rawArray, array, elementAttributeKey, elementAttributeValues);
+  
+  do {
     // *2-запомнить последний объект массива
-    lastCard = await dataArray[dataArray.length - 1];
-    // /*отладка*/ console.log('\n --> lastCard-dataArray.length = ' + dataArray.length +
+    lastCard = await array[array.length - 1];
+    // /*отладка*/ console.log('\n --> lastCard-array.length = ' + array.length +
+    //   '\n' + await lastCard.cardName +
+    //   '\n' + await lastCard.cardBalance +
+    //   '\n' + await lastCard.cardNumber +
+    //   '\n' + await lastCard.cardDate
+    // );
+    
+    // *3-прокрутить элементы
+    // * Прокрутить, делая видимыми следующие элементы.
+    await $(`android=${scrollDirection}`);
+    // * Получить массив видимых элементов.
+    rawArray = await this.getRawArray(rawArrayKey);
+
+    // *4-дополнить массив объектов
+    // * Добавить элементы в массив.
+    await this.addCardsTotList(rawArray, array, elementAttributeKey, elementAttributeValues);
+
+  } while (lastCard !== await array[array.length - 1]); // *5-сравнить последний объект с запомненным
+
+  return array;
+}
+
+
+
+
+async x_addCardsTotList(rawArray, dataArray, elementAttributeKey, elementAttributeValues){
+  /*
+    Записываем определенные данные из rawArray в dataArray, отсеивая уже имеющиеся в массиве dataArray данные (напр., название, сумма, номер, срок действия карты, ...).
+    
+    1.Считываем видимые данные окна и записываем в массив dataArray (напр., название, сумма, номер, срок действия карты, ...).
+    2.Прокручиваем окно, делая видимыми следующие данные.
+    3.Считываем видимые данные окна и записываем в массив dataArray, отсеивая уже имеющиеся в массиве данные.
+  */
+   // * Verify that rawArray is an array.
+   if (!Array.isArray(rawArray)) {
+    throw new Error('Invalid rawArray. Must be an array of elements.');
+  }
+
+  // const dataArray = [];
+  let elementAttributeValue_Current = '';
+  let elements = [];
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray + '\n');
+  for (let i = 0, l = rawArray.length; i < l; i++) { // перебираем карты
+    let cardName = '';
+    let cardBalance = '';
+    let cardNumber = '';
+    let cardDate = '';
+    // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + rawArray[i]);
+    elements = await rawArray[i].$$('android.widget.TextView');
+    
+    for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
+      elementAttributeValue_Current = await elements[x].getAttribute(elementAttributeKey);
+      // /*отладка*/ console.log(' --> element ' + x + ' = ' + await elements[x].getText());
+
+      switch(elementAttributeValue_Current) {
+        case elementAttributeValues[0]: // if (elementAttributeValue_Current === elementAttributeValues[0])
+          cardName = await elements[x].getText();
+          break;
+        case elementAttributeValues[1]:
+          cardBalance = await elements[x].getText();
+          break;
+        case elementAttributeValues[2]:
+          cardNumber = await elements[x].getText();
+          break;
+        case elementAttributeValues[3]:
+          cardDate = await elements[x].getText();
+          break;
+        default:
+          console.log(`\n --> Нет элемента с атрибутом: ${elementAttributeValue_Current}\n`);
+          // throw " ! нет элемента с атрибутом = '" + elementAttributeValue_Current + "'";
+          break;
+      }
+    }
+
+    if ( // если значения элементов текущей карты пустые, прерываем цикл, идем к следующему
+      cardName == '' &
+      cardBalance == '' &
+      cardNumber == '' &
+      cardDate == ''
+    ) continue;
+    
+    if (dataArray.length > 0) { // если массив уже не пустой...
+      const dataArray_0 = [];
+      dataArray_0.push( // добавляем данные текущей карты в промежуточный массив
+        {
+          key_1 : cardName,
+          key_2 : cardBalance,
+          key_3 : cardNumber,
+          key_4 : cardDate
+        }
+      );
+      
+      let notExisted = true;
+      for (let i = 0, l = dataArray.length; i < l; i++) {
+        if ( // проверяем, не добавлены ли уже данные текущей карты в массив
+          dataArray[i].cardName == dataArray_0[0].key_1 &
+          dataArray[i].cardBalance == dataArray_0[0].key_2 &
+          dataArray[i].cardNumber == dataArray_0[0].key_3 &
+          dataArray[i].cardDate == dataArray_0[0].key_4
+          )
+        {
+          notExisted = false;
+          continue; // прерываем цикл, идем к следующему
+        }
+      }
+
+      if (notExisted) { // если данные текущей карты пока не добавлены...
+        dataArray.push( // добавляем данные текущей карты в массив
+          {
+            cardName : dataArray_0[0].key_1,
+            cardBalance : dataArray_0[0].key_2,
+            cardNumber : dataArray_0[0].key_3,
+            cardDate : dataArray_0[0].key_4
+          }
+        );
+      }
+    } else { // если массив пока пустой...
+      dataArray.push( // добавляем данные текущей карты в массив
+        {
+          cardName : cardName,
+          cardBalance : cardBalance,
+          cardNumber : cardNumber,
+          cardDate : cardDate
+        }
+      );
+    }
+
+    // /*отладка*/ console.log('\n --> elements = ' +
+    //   '\n' + cardName +
+    //   '\n' + cardBalance +
+    //   '\n' + cardNumber +
+    //   '\n' + cardDate
+    // );
+  }
+
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> dataArray = ' +
+  //     '\n' + await dataArray[i].cardName +
+  //     '\n' + await dataArray[i].cardBalance +
+  //     '\n' + await dataArray[i].cardNumber +
+  //     '\n' + await dataArray[i].cardDate
+  //   );
+  // }
+  return dataArray;
+
+}
+async x_generateCardstList(rawArrayKey, elementAttributeKey, elementAttributeValues, scrollDirection) {
+  let rawArray = await this.getRawArray(rawArrayKey);
+  // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
+  // if (!rawArray) {
+  //   console.log(`\n --> Element not found in generateCardstList: ${rawArrayKey}\n`);
+  //   return;
+  // }
+  
+  // Verify that rawArray is an array.
+  if (!Array.isArray(rawArray)) {
+    throw new Error('Invalid rawArray. Must be an array of elements.');
+  }
+
+  const array = [];
+  // *1-создать массив объектов карт
+  // * Создать массив видимых элементов.
+  await this.addCardsTotList(rawArray, array, elementAttributeKey, elementAttributeValues);
+
+  // let lastCard = await array[array.length - 1];
+  let lastCard = [];
+
+  while (lastCard !== await array[array.length - 1]) {// *5-сравнить последний объект с запомненным
+    // *2-запомнить последний объект массива
+    lastCard = await array[array.length - 1];
+    // /*отладка*/ console.log('\n --> lastCard-array.length = ' + array.length +
     //   '\n' + await lastCard.cardName +
     //   '\n' + await lastCard.cardBalance +
     //   '\n' + await lastCard.cardNumber +
@@ -340,17 +469,139 @@ async scrollCardstList_Old(rawArray_Id, dataArray, elementAttributeKey, elementA
 
     // *4-дополнить массив объектов
     // * Создать массив видимых элементов.
-    rawArray = await this.getRawArray(rawArray_Id);
+    rawArray = await this.getRawArray(rawArrayKey);
     // /*отладка*/ console.log('\n --> rawArray-12 = ' + rawArray + '\n'); await driver.pause(10000);
     // if (!rawArray) {
-    //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
+    //   console.log(`\n --> Element not found in generateCardstList: ${rawArrayKey}\n`);
     //   return;
     // }
     
-    await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+    await this.addCardsTotList(rawArray, array, elementAttributeKey, elementAttributeValues);
   }
+  return array;
 }
-async scrollCardstList(rawArray_Id, elementAttributeKey, elementAttributeValues, scrollDirection) {
+async generateCardstList_O(rawArray, dataArray, elementAttributeKey, elementAttributeValues){
+  /*
+    Записываем определенные данные из rawArray в dataArray, отсеивая уже имеющиеся в массиве dataArray данные (напр., название, сумма, номер, срок действия карты, ...).
+    
+    1.Считываем видимые данные окна и записываем в массив dataArray (напр., название, сумма, номер, срок действия карты, ...).
+    2.Прокручиваем окно, делая видимыми следующие данные.
+    3.Считываем видимые данные окна и записываем в массив dataArray, отсеивая уже имеющиеся в массиве данные.
+  */
+   // Verify that rawArray is an array.
+   if (!Array.isArray(rawArray)) {
+    throw new Error('Invalid rawArray. Must be an array of elements.');
+  }
+
+  // const dataArray = [];
+  let elementAttributeValue_Current = '';
+  let elements = [];
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray + '\n');
+  for (let i = 0, l = rawArray.length; i < l; i++) { // перебираем карты
+    let cardName = '';
+    let cardBalance = '';
+    let cardNumber = '';
+    let cardDate = '';
+    // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + rawArray[i]);
+    elements = await rawArray[i].$$('android.widget.TextView');
+    
+    for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
+      elementAttributeValue_Current = await elements[x].getAttribute(elementAttributeKey);
+      // /*отладка*/ console.log(' --> element ' + x + ' = ' + await elements[x].getText());
+
+      switch(elementAttributeValue_Current) {
+        case elementAttributeValues[0]: // if (elementAttributeValue_Current === elementAttributeValues[0])
+          cardName = await elements[x].getText();
+          break;
+        case elementAttributeValues[1]:
+          cardBalance = await elements[x].getText();
+          break;
+        case elementAttributeValues[2]:
+          cardNumber = await elements[x].getText();
+          break;
+        case elementAttributeValues[3]:
+          cardDate = await elements[x].getText();
+          break;
+        default:
+          console.log(`\n --> Нет элемента с атрибутом: ${elementAttributeValue_Current}\n`);
+          // throw " ! нет элемента с атрибутом = '" + elementAttributeValue_Current + "'";
+          break;
+      }
+    }
+
+    if ( // если значения элементов текущей карты пустые, прерываем цикл, идем к следующему
+      cardName == '' &
+      cardBalance == '' &
+      cardNumber == '' &
+      cardDate == ''
+    ) continue;
+    
+    if (dataArray.length > 0) { // если массив уже не пустой...
+      const dataArray_0 = [];
+      dataArray_0.push( // добавляем данные текущей карты в промежуточный массив
+        {
+          key_1 : cardName,
+          key_2 : cardBalance,
+          key_3 : cardNumber,
+          key_4 : cardDate
+        }
+      );
+      
+      let notExisted = true;
+      for (let i = 0, l = dataArray.length; i < l; i++) {
+        if ( // проверяем, не добавлены ли уже данные текущей карты в массив
+          dataArray[i].cardName == dataArray_0[0].key_1 &
+          dataArray[i].cardBalance == dataArray_0[0].key_2 &
+          dataArray[i].cardNumber == dataArray_0[0].key_3 &
+          dataArray[i].cardDate == dataArray_0[0].key_4
+          )
+        {
+          notExisted = false;
+          continue; // прерываем цикл, идем к следующему
+        }
+      }
+
+      if (notExisted) { // если данные текущей карты пока не добавлены...
+        dataArray.push( // добавляем данные текущей карты в массив
+          {
+            cardName : dataArray_0[0].key_1,
+            cardBalance : dataArray_0[0].key_2,
+            cardNumber : dataArray_0[0].key_3,
+            cardDate : dataArray_0[0].key_4
+          }
+        );
+      }
+    } else { // если массив пока пустой...
+      dataArray.push( // добавляем данные текущей карты в массив
+        {
+          cardName : cardName,
+          cardBalance : cardBalance,
+          cardNumber : cardNumber,
+          cardDate : cardDate
+        }
+      );
+    }
+
+    // /*отладка*/ console.log('\n --> elements = ' +
+    //   '\n' + cardName +
+    //   '\n' + cardBalance +
+    //   '\n' + cardNumber +
+    //   '\n' + cardDate
+    // );
+  }
+
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> dataArray = ' +
+  //     '\n' + await dataArray[i].cardName +
+  //     '\n' + await dataArray[i].cardBalance +
+  //     '\n' + await dataArray[i].cardNumber +
+  //     '\n' + await dataArray[i].cardDate
+  //   );
+  // }
+  return dataArray;
+
+}
+async scrollCardstList_O(rawArray_Id, elementAttributeKey, elementAttributeValues, scrollDirection) {
   let rawArray = await this.getRawArray(rawArray_Id);
   // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
   // if (!rawArray) {
@@ -398,17 +649,309 @@ async scrollCardstList(rawArray_Id, elementAttributeKey, elementAttributeValues,
   }
   return array;
 }
-async getRawArray(rawArray_Id) {
+async getRawArray_000(rawArray_Id) {
   switch (rawArray_Id) {
     case 'SHome.items_layout_CardsList':
       return await SHome.items_layout_CardsList;
     case 'SCards.items_titleScreen_MyCards':
       return await this.items_titleScreen_MyCards;
+    case 'WCardsS.items_titleWindow_SenderSelectCard':
+      return await WCardsS.items_titleWindow_SenderSelectCard;
     default:
-      console.log(`\n --> Нет элемента (в scrollCardstList): ${rawArray_Id}\n`);
+      console.log(`\n --> Нет элемента (в generateCardstList): ${rawArray_Id}\n`);
       // return null;
       return;
   }
+}
+
+async generateCardstList_Single(rawArray, elementAttributeKey, elementAttributeValues){
+  /*
+    Записываем определенные данные из rawArray в dataArray, отсеивая уже имеющиеся в массиве dataArray данные (напр., название, сумма, номер, срок действия карты, ...).
+    
+    1.Считываем видимые данные окна и записываем в массив dataArray (напр., название, сумма, номер, срок действия карты, ...).
+    2.Прокручиваем окно, делая видимыми следующие данные.
+    3.Считываем видимые данные окна и записываем в массив dataArray, отсеивая уже имеющиеся в массиве данные.
+  */
+   // Verify that rawArray is an array.
+   if (!Array.isArray(rawArray)) {
+    throw new Error('Invalid rawArray. Must be an array of elements.');
+  }
+
+  const dataArray = [];
+  let elementAttributeValue_Current = '';
+  let elements = [];
+  // /*отладка*/ console.log('\n --> rawArray = ' + rawArray + '\n');
+  for (let i = 0, l = rawArray.length; i < l; i++) { // перебираем карты
+    let cardName = '';
+    let cardBalance = '';
+    let cardNumber = '';
+    let cardDate = '';
+    // /*отладка*/ console.log('\n --> card ' +  i + ' = '  + rawArray[i]);
+    elements = await rawArray[i].$$('android.widget.TextView');
+    
+    for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
+      elementAttributeValue_Current = await elements[x].getAttribute(elementAttributeKey);
+      // /*отладка*/ console.log(' --> element ' + x + ' = ' + await elements[x].getText());
+
+      switch(elementAttributeValue_Current) {
+        case elementAttributeValues[0]: // if (elementAttributeValue_Current === elementAttributeValues[0])
+          cardName = await elements[x].getText();
+          break;
+        case elementAttributeValues[1]:
+          cardBalance = await elements[x].getText();
+          break;
+        case elementAttributeValues[2]:
+          cardNumber = await elements[x].getText();
+          break;
+        case elementAttributeValues[3]:
+          cardDate = await elements[x].getText();
+          break;
+        default:
+          console.log(`\n --> Нет элемента с атрибутом: ${elementAttributeValue_Current}\n`);
+          // throw " ! нет элемента с атрибутом = '" + elementAttributeValue_Current + "'";
+          break;
+      }
+    }
+
+    if ( // если значения элементов текущей карты пустые, прерываем цикл, идем к следующему
+      cardName == '' &
+      cardBalance == '' &
+      cardNumber == '' &
+      cardDate == ''
+    ) continue;
+    
+    if (dataArray.length > 0) { // если массив уже не пустой...
+      const dataArray_0 = [];
+      dataArray_0.push( // добавляем данные текущей карты в промежуточный массив
+        {
+          key_1 : cardName,
+          key_2 : cardBalance,
+          key_3 : cardNumber,
+          key_4 : cardDate
+        }
+      );
+      
+      let notExisted = true;
+      for (let i = 0, l = dataArray.length; i < l; i++) {
+        if ( // проверяем, не добавлены ли уже данные текущей карты в массив
+          dataArray[i].cardName == dataArray_0[0].key_1 &
+          dataArray[i].cardBalance == dataArray_0[0].key_2 &
+          dataArray[i].cardNumber == dataArray_0[0].key_3 &
+          dataArray[i].cardDate == dataArray_0[0].key_4
+          )
+        {
+          notExisted = false;
+          continue; // прерываем цикл, идем к следующему
+        }
+      }
+
+      if (notExisted) { // если данные текущей карты пока не добавлены...
+        dataArray.push( // добавляем данные текущей карты в массив
+          {
+            cardName : dataArray_0[0].key_1,
+            cardBalance : dataArray_0[0].key_2,
+            cardNumber : dataArray_0[0].key_3,
+            cardDate : dataArray_0[0].key_4
+          }
+        );
+      }
+    } else { // если массив пока пустой...
+      dataArray.push( // добавляем данные текущей карты в массив
+        {
+          cardName : cardName,
+          cardBalance : cardBalance,
+          cardNumber : cardNumber,
+          cardDate : cardDate
+        }
+      );
+    }
+
+    // /*отладка*/ console.log('\n --> elements = ' +
+    //   '\n' + cardName +
+    //   '\n' + cardBalance +
+    //   '\n' + cardNumber +
+    //   '\n' + cardDate
+    // );
+  }
+
+  // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+  //   console.log('\n --> dataArray = ' +
+  //     '\n' + await dataArray[i].cardName +
+  //     '\n' + await dataArray[i].cardBalance +
+  //     '\n' + await dataArray[i].cardNumber +
+  //     '\n' + await dataArray[i].cardDate
+  //   );
+  // }
+  return dataArray;
+
+}
+async scrollCardstList_OLD(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
+  
+  let rawArray = [];
+  // await this.name(rawArray_Id, rawArray);
+  // if (rawArray_Id == 'SHome.items_layout_CardsList') {
+  //   rawArray = await SHome.items_layout_CardsList;
+  // } else {
+  //   rawArray = await this.items_titleScreen_MyCards;
+  // }
+  switch (rawArray_Id) {
+    case 'SHome.items_layout_CardsList':
+      rawArray = await SHome.items_layout_CardsList;
+      break;
+    case 'SCards.items_titleScreen_MyCards':
+      rawArray = await this.items_titleScreen_MyCards;
+      break;
+
+    default:
+      console.log('\n --> в scrollCardstList нет элемента: ' + rawArray_Id + '\n');
+      break;
+  }
+  // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
+  
+  // *1-создать массив объектов карт
+  // * Создать массив видимых элементов.
+  await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+
+  let lastCard = [];
+  while (lastCard !== await dataArray[dataArray.length - 1]) {// *5-сравнить последний объект с запомненным
+    // *2-запомнить последний объект массива
+    lastCard = await dataArray[dataArray.length - 1];
+    // /*отладка*/ console.log('\n --> lastCard-dataArray.length = ' + dataArray.length +
+    //   '\n' + await lastCard.cardName +
+    //   '\n' + await lastCard.cardBalance +
+    //   '\n' + await lastCard.cardNumber +
+    //   '\n' + await lastCard.cardDate
+    // );
+    
+    // *3-прокрутить элементы
+    // * Прокрутить, делая видимыми следующие элементы.
+    await $(`android=${scrollDirection}`);
+
+    // *4-дополнить массив объектов
+    // * Создать массив видимых элементов.
+    // /*отладка*/ console.log('\n --> rawArray-121 = ' + rawArray + '\n');
+    // await this.name(rawArray_Id, rawArray);
+    // if (rawArray_Id == 'SHome.items_layout_CardsList') {
+    //   rawArray = await SHome.items_layout_CardsList;
+    // } else {
+    //   rawArray = await this.items_titleScreen_MyCards;
+    // }
+    switch (rawArray_Id) {
+      case 'SHome.items_layout_CardsList':
+        rawArray = await SHome.items_layout_CardsList;
+        break;
+      case 'SCards.items_titleScreen_MyCards':
+        rawArray = await this.items_titleScreen_MyCards;
+        break;
+  
+      default:
+        console.log('\n --> в scrollCardstList нет элемента: ' + rawArray_Id + '\n');
+        break;
+    }
+    // /*отладка*/ console.log('\n --> rawArray-122 = ' + rawArray + '\n'); await driver.pause(10000);
+    await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+  }
+}
+async scrollCardstList_OLD_1(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection) {
+  let rawArray = await this.getRawArray(rawArray_Id);
+  // /*отладка*/ console.log('\n --> rawArray-11 = ' + rawArray + '\n'); await driver.pause(10000);
+  // if (!rawArray) {
+  //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
+  //   return;
+  // }
+
+  // *1-создать массив объектов карт
+  // * Создать массив видимых элементов.
+  await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+
+  // let lastCard = await dataArray[dataArray.length - 1];
+  let lastCard = [];
+
+  while (lastCard !== await dataArray[dataArray.length - 1]) {// *5-сравнить последний объект с запомненным
+    // *2-запомнить последний объект массива
+    lastCard = await dataArray[dataArray.length - 1];
+    // /*отладка*/ console.log('\n --> lastCard-dataArray.length = ' + dataArray.length +
+    //   '\n' + await lastCard.cardName +
+    //   '\n' + await lastCard.cardBalance +
+    //   '\n' + await lastCard.cardNumber +
+    //   '\n' + await lastCard.cardDate
+    // );
+    
+    // *3-прокрутить элементы
+    // * Прокрутить, делая видимыми следующие элементы.
+    await $(`android=${scrollDirection}`);
+
+    // *4-дополнить массив объектов
+    // * Создать массив видимых элементов.
+    rawArray = await this.getRawArray(rawArray_Id);
+    // /*отладка*/ console.log('\n --> rawArray-12 = ' + rawArray + '\n'); await driver.pause(10000);
+    // if (!rawArray) {
+    //   console.log(`\n --> Element not found in scrollCardstList: ${rawArray_Id}\n`);
+    //   return;
+    // }
+    
+    await this.generateCardstList(rawArray, dataArray, elementAttributeKey, elementAttributeValues);
+  }
+}
+async generateCardsList_GPT(rawArray, dataArray, elementAttributeKey, elementAttributeValues) {
+  for (let i = 0, l = rawArray.length; i < l; i++) {// перебираем карты
+  // for (const rawCard of rawArray) {
+    let cardName = '';
+    let cardBalance = '';
+    let cardNumber = '';
+    let cardDate = '';
+
+    const elements = await rawArray[i].$$('android.widget.TextView');
+
+    for (let x = 0; x < elements.length; x++) { // перебираем элементы текущей карты
+    // for (const element of elements) {
+      const elementAttributeValue = await elements[x].getAttribute(elementAttributeKey);
+
+      switch (elementAttributeValue) {
+        case elementAttributeValues[0]:
+          cardName = await elements[x].getText();
+          break;
+        case elementAttributeValues[1]:
+          cardBalance = await elements[x].getText();
+          break;
+        case elementAttributeValues[2]:
+          cardNumber = await elements[x].getText();
+          break;
+        case elementAttributeValues[3]:
+          cardDate = await elements[x].getText();
+          break;
+        default:
+          console.log(`! нет элемента с атрибутом = '${elementAttributeValue}'`);
+          break;
+      }
+    }
+
+    if (!(cardName === '' && cardBalance === '' && cardNumber === '' && cardDate === '')) {
+      const cardData = {
+        cardName,
+        cardBalance,
+        cardNumber,
+        cardDate,
+      };
+
+      const isCardDataNotExists = dataArray.every(existingData => {
+        return Object.keys(existingData).every(key => existingData[key] !== cardData[key]);
+      });
+
+      if (isCardDataNotExists) {
+        dataArray.push(cardData);
+      }
+    }
+  }
+}
+
+
+
+/* FUNCTIONS */
+// сохранить балансы карт/счетов
+async saveMoneySourceBalance(moneySourceNumber, moneySourceName) {
+  moneySourceNumber
+  moneySourceName
 }
 
 

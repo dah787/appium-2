@@ -864,8 +864,154 @@ it('ab-e-tc-05.004p: -*- Transfer between your accounts/cards | Перевод �
 
 });
 
+// ab-ts-05p: Тестирование платежей
+// перенесен сюда 21.12.2023
+it('ab-e-tc-06.001p: -!- Payment for mobile communication (from card) | Оплата мобильной связи (с карты) /Тест выполнен частично: требуется убрать лимит платежей/', async () => {
+  /**
+  > Можно выполнить оплату услуг мобильной связи (с карты). <
+ПРЕДУСЛОВИЯ:
+  1.Выполнена авторизация пользователя (уже имеющего карту/карты с денежными средствами) в приложении, языком интерфейса выбран русский, открыт главный экран приложения (активна кнопка Главная панели навигации), где в панели навигации доступна кнопка Платежи.
+ПОСТУСЛОВИЯ: 1.Выйти из приложения (выполняется в SGen.afterEach).
+  *
+ШАГИ:
+  1.Нажать кнопку Платежи в панели навигации.
+  1.1.Открыт экран Платежи, где доступна кнопка Мобильные операторы.
 
+  2.Нажать кнопку Мобильные операторы.
+  2.1.Открыт экран Мобильные операторы, где доступны кнопки операторов.
 
+  3.Нажать кнопку оператора (любого).
+  3.1.Открыт экран оператора, где доступны поле ввода номера телефона, неактивная кнопка Продолжить.
+
+  4.Нажать поле ввода номера телефона и ввести валидный номер.
+  4.1.В поле ввода отображаются введенные данные, кнопка Продолжить активна.
+
+  5.Нажать кнопку Продолжить.
+  5.1.Открыт экран Платеж, где доступны поле выбора карты, поле ввода суммы платежа, неактивная кнопка Продолжить.
+
+  6.Нажать поле выбора карты и выбрать карту (любую).
+  6.1.В поле выбора карты отображается выбранная карта.
+
+  7.Нажать поле ввода суммы платежа и ввести валидное число.
+  7.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
+
+  8.Нажать кнопку Продолжить.
+// -!- ТРЕБУЕТСЯ убрать/повысить лимит платежей --- FAILED ...превышен дневной лимит ---
+  8.1.Открыт экран чека оплаты, где доступны поле Сумма, кнопка Домой.
+
+  9.Нажать кнопку Домой.
+  9.1.Открыт главный экран приложения (активна кнопка Главная панели навигации), где в разделе Общий баланс доступен Общий баланс, а также балансы по картам.
+  *
+  */
+
+  // > Вывести информацию о тесте в консоль
+  tcNum = 'ab-e-tc-06.001p';
+  /*отладка*/ console.log(`\n --> tcNum = ${tcNum} \n`);
+
+  // > Установить тестовые данные
+  const phoneNumber = DCard.phoneNumber_10;
+  const phoneNumber_pass = DCard.phoneNumber_10_pass;
+  const moneyAmount = '500';
+  // const moneyAmount = await UApp.generateRandomChars(4, 'amount');
+
+  // П.1.Выполнить авторизацию пользователя.
+  await SAuth.customerAuthorization(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
+
+  // * Сохранить сумму баланса карты до операции.
+  await SHome.text_TotalBalanceAmount.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
+  let totalBalanceBefore = await SHome.text_TotalBalanceAmount.getText();
+  totalBalanceBefore = await UApp.extractNumbersFromString(totalBalanceBefore);
+  // const cardBalanceBefore = await SHome.text_CardBalance.getText();
+  // /*отладка*/ console.log('\n --> totalBalanceBefore = ' + totalBalanceBefore + '\n');
+
+  // 1.Нажать кнопку Платежи в панели навигации.
+  await SHome.bottomNav_Payments.click();
+  // 1.1.Открыт экран Платежи, где доступна кнопка Мобильные операторы.
+  // - экран Платежи
+  await expect(SPay.titleScreen_Payments_Ru).toHaveText(SPay.titleScreen_Payments_Ru_Expected);
+
+  // 2.Нажать кнопку Мобильные операторы.
+  await SPay.item_MobileOperators.click();
+  // 2.1.Открыт экран Мобильные операторы, где доступны кнопки операторов.
+
+  // 3.Нажать кнопку оператора (любого).
+  await SPay.item_UzMobile_En.click();
+  // 3.1.Открыт экран оператора, где доступны поле ввода номера телефона, неактивная кнопка Продолжить.
+
+  // 4.Нажать поле ввода номера телефона и ввести валидный номер.
+  await SPay.input_PhoneNumber.click();
+  await UDev.androidKeyboardTypeIn('999664660'); // ...(phoneNumber)
+  // 4.1.В поле ввода отображаются введенные данные, кнопка Продолжить активна.
+  // await expect(SPay.paymentScreenInputs[0]).toHaveText('999664660'); // ...(phoneNumber)
+  await expect(SPay.input_PhoneNumber).toHaveText('999664660'); // ...(phoneNumber)
+
+  // 5.Нажать кнопку Продолжить.
+  await SPay.button_Continue.click();
+  // 5.1.Открыт экран Платеж, где доступны поле выбора карты, поле ввода суммы платежа, неактивная кнопка Продолжить.
+
+  // 6.Нажать поле выбора карты и выбрать карту (любую).
+  await SPay.button_OpenCardsList_From.click();
+  // * Открыт список карт.
+  // * Создать массив видимых элементов.
+  // const rawArray = await WCardsS.items_TextView_titleWindow_SenderSelectCard;
+  await driver.pause(1000);
+  const rawArray = await WCardsS.items_Window_SelectAccountOfSender_AccountName;
+  /*отладка*/ console.log(`\n --> rawArray = "${rawArray}"`);
+  // const dataArray = [];
+  const elementAttributeKey = WCardsS.text_ElementAttributeKey_En_Expected; // 'resource-id'
+  const elementAttributeValue = 'com.fincube.apexbank.debug:id/select_card_name'; // WCardsS..text_ElementAttributeValue_En_Expected_Number; // 'com.fincube.apexbank.debug:id/select_card_number'
+  // await UApp.generateElementList(rawArray, dataArray, elementAttributeKey, elementAttributeValue);
+  const dataArray = await UApp.generateElementList(rawArray, elementAttributeKey, elementAttributeValue);
+  /*отладка*/ console.log(`\n --> dataArray= "${dataArray}"`);
+  // * Контролируем непустоту массива.
+  if(dataArray.length === 0){
+    // throw " Не сформирован dataArray (массив карт) = '" + dataArray + "'";
+    throw new Error(`Не сформирован dataArray (массив карт) = "${dataArray}"`);
+  }
+  // - выбрать карту из списка
+  await dataArray[1].click();
+  // 6.1.В поле выбора карты отображается выбранная карта.
+
+  // 7.Нажать поле ввода суммы платежа и ввести валидное число.
+  await SPay.input_TransferAmount.click();
+  await UDev.androidKeyboardTypeIn(moneyAmount);
+  // 7.1.В поле ввода отображаются введенное значение, в поле комиссии - комиссия, в поле итога - итоговая сумма, кнопка Продолжить активна.
+  // await expect(SPay.paymentScreenInputs[0]).toHaveText(moneyAmount);
+  // await expect(input_TransferAmount).toHaveText(moneyAmount);
+  let input_TransferAmount = await UApp.extractNumbersFromString(await SPay.input_TransferAmount.getText());
+  input_TransferAmount = String(input_TransferAmount);
+  await expect(input_TransferAmount).toEqual(moneyAmount);
+  // * Скрыть клавиатуру
+  await driver.hideKeyboard();
+
+  // 8.Нажать кнопку Продолжить.
+  await SPay.button_Continue.click();
+  // 8.1.Открыт экран чека оплаты, где доступны поле Сумма, кнопка Домой.
+  await SPay.homeButton.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 20000});
+
+  // 9.Нажать кнопку Домой.
+  await SPay.homeButton.click();
+  // 9.1.Открыт главный экран приложения (активна кнопка Главная панели навигации), где в разделе Общий баланс доступен Общий баланс, а также балансы по картам.
+  // - сумма Общий баланс
+  await SHome.text_TotalBalanceAmount.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 10000});
+
+  // * Сохранить сумму баланса карты после операции.
+  // const cardBalanceAfter = await SHome.text_CardBalance.getText();
+  let totalBalanceAfter = await SHome.text_TotalBalanceAmount.getText();
+  totalBalanceAfter = await UApp.extractNumbersFromString(totalBalanceAfter);
+
+  // * Сумма баланса по карте уменьшена на сумму платежа.
+  // const cardBalanceBeforeInNumbers = await UApp.extractNumbersFromString(cardBalanceBefore);
+  // const cardBalanceAfterInNumbers = await UApp.extractNumbersFromString(cardBalanceAfter);
+  const moneyAmountInNumbers = await UApp.extractNumbersFromString(moneyAmount);
+  // /*отладка*/ console.log(
+  //   'cardBalanceBeforeInNumbers = ' + cardBalanceBeforeInNumbers +
+  //   '\n cardBalanceAfterInNumbers = ' + cardBalanceAfterInNumbers +
+  //   '\n      moneyAmountInNumbers =     ' + moneyAmountInNumbers
+  // );
+  await expect(totalBalanceAfter).toEqual(totalBalanceBefore - moneyAmountInNumbers);
+
+});
 
 
 
