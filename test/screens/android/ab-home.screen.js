@@ -124,6 +124,7 @@ get titleSection_Wallet_Ru(){
   return $('//android.widget.TextView[@text="Кошелёк"]');}
 get text_AccountBalance_1(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderWallets"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountBalance1"]');}
+  // return $('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountBalance1"]');}
 get text_AccountNumber_1(){
   return $('//*[@resource-id="com.fincube.apexbank.debug:id/holderWallets"]').$('//*[@resource-id="com.fincube.apexbank.debug:id/tvAccountNumber1"]');}
 // get items_titleSection_Wallet_AccountsList_Numbers(){

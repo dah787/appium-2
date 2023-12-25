@@ -19,7 +19,7 @@ const WCardsS = require('../../screens/android/ab-cardsSender.window');     // w
 const UApp    = require("../../utils/android/ab-app.utils");                // utilities > Application
 const UDev    = require("../../utils/android/dt-device.utils");             // utilities > Device
 
-describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231222| /Тестов 11 (частично 6)/', () => {
+describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231225| /Тестов 11 (частично 6)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 'o'); // o - operation / e - e2e < typeOfTest
@@ -1761,7 +1761,7 @@ await SSms.smsCodeInput();
 
 });
 
-// ab-ts-06p: Тестирование платежей |вер.20231222| /Тестов 2 (частичен 1)/
+// ab-ts-06p: Тестирование платежей |вер.20231225| /Тестов 2 (частичен 1)/
 it('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оплата мобильной связи (со счета)', async () => {
   /**
   > Можно выполнить оплату услуг мобильной связи (с карты или счета). <
@@ -2111,7 +2111,7 @@ it.only('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оп
   
   const moneySourceName = 'ACCOUNT_UZS ** 7000'; // название карты или счете
   const moneySourceNumber = DCard.cardNumber_Humo_10; // номер карты или счете
-  const moneySourceField = 'cardName'; // 'cardNumber'; // поле карты или счете
+  const moneySourceField = 'cardNumber'; // 'cardName'; // поле карты или счете
   const moneyAmount = '500'; // ...= await UApp.generateRandomChars(4, 'amount');
 
   // П.1.Выполнить авторизацию пользователя.
@@ -2120,23 +2120,27 @@ it.only('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оп
   // 1.Обратить внимание на карты в разделах Баланс или Мои карты, на счета в разделе Кошелек.
   const scrollTo = SHome.scrollTo_MonitoringSection;
   const moneyBalanceElement = SHome.text_AccountBalance_1;
+  const elementForGo = SHome.bottomNav_Cards; // ''; // 
   // await SHome.bottomNav_Cards.click();
   // 1.1.Отображаются балансы карт, счетов.
-  const moneyBalanceBefore = await SPayM.goAndGetBalance(scrollTo, moneyBalanceElement);
+  const moneyBalanceBefore = await SPayM.goAndGetBalance(scrollTo, moneyBalanceElement, elementForGo,
+    moneySourceName, moneySourceNumber, moneySourceField);
+
+
+
+
+  // const elementForGo = SHome.bottomNav_Cards; // SPay.homeButton;
+  // await SPayM.goAndCheckBalance(scrollTo, moneyBalanceElement, elementForGo, moneyBalanceBefore, moneyAmount);
+
+
+
+
+
 
   // 2.Нажать кнопку Платежи в панели навигации.
   await SHome.bottomNav_Payments.click();
   // 2.1.Открыт экран Платежи, где доступна кнопка Мобильные операторы.
   
-
-
-
-// await SGen.returnToHomeScreen();
-// return;
-
-
-
-
   // 3.Нажать кнопку Мобильные операторы.
   await SPay.item_PaymentReceiver(paymentReceiver).click();
   // 3.1.Открыт экран Мобильные операторы, где доступны кнопки операторов.
@@ -2172,7 +2176,7 @@ it.only('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оп
 
   // 11.Нажать кнопку возврата на главный экран.
   // await SPayM.goHomeAndCheckBalance(moneyBalanceBefore, moneyAmount);
-  const elementForGo = SHome.bottomNav_Cards; // SPay.homeButton;
+  // const elementForGo = SHome.bottomNav_Cards; // SPay.homeButton;
   await SPayM.goAndCheckBalance(scrollTo, moneyBalanceElement, elementForGo, moneyBalanceBefore, moneyAmount);
   // 11.1.Открыт главный экран приложения, где в соответствующем разделе отображается баланс выбранных ранее карты/счета отправки платежа, уменьшенный на итоговую сумму перевода.
   

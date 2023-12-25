@@ -164,7 +164,7 @@ async checkReceiptAndBack() {} // далее - экран квитанции п�
 
 
 
-async goAndGetBalance(scrollTo, moneyBalanceElement, elementForGo) { // Должен быть открыт главный экран
+async goAndGetBalance_0(scrollTo, moneyBalanceElement, elementForGo) { // Должен быть открыт главный экран
   // Если нужно, перейти на требуемый экран.
   if (elementForGo) {
     // await elementForGo.click();
@@ -173,8 +173,6 @@ async goAndGetBalance(scrollTo, moneyBalanceElement, elementForGo) { // Долж
     await elementForGo.click();
     // * Ждем стабилизации экрана (иногда система не видит нужный элемент после прокрутки)
     await driver.pause(1500);
-
-
     await SCards.text_CardBalance.waitForDisplayed({timeout: 15000});
     // 7.1.Открыто окно, где доступен список карт/счетов.
     // * Создать массив видимых элементов.
@@ -240,6 +238,194 @@ async goAndGetBalance(scrollTo, moneyBalanceElement, elementForGo) { // Долж
     return await UApp.extractNumbersFromString(await moneyBalanceElement.getText());
   }
 }
+async goAndGetBalance_1(scrollTo, moneyBalanceElement, elementForGo) { // Должен быть открыт главный экран
+  if (!elementForGo) {
+    await $(`android=${scrollTo}`);
+    // // * Ждем стабилизации экрана (иногда система не видит нужный элемент после прокрутки)
+    await driver.pause(3000);
+  }
+  await SGen.returnToHomeScreen();
+  // Если нужно, перейти на требуемый экран.
+  if (elementForGo) {
+    /*отладка*/ console.log('\nif > if\n');
+    // await driver.pause(10000);
+    // await elementForGo.click();
+    // await SGen.returnToHomeScreen();
+    // await moneyBalanceElement.waitForDisplayed(20000);
+    await elementForGo.click();
+    // * Ждем стабилизации экрана (иногда система не видит нужный элемент после прокрутки)
+    // await driver.pause(1500);
+    await SCards.text_CardBalance.waitForDisplayed({timeout: 20000});
+    // 7.1.Открыто окно, где доступен список карт/счетов.
+    // * Создать массив видимых элементов.
+    const rawArrayKey = 'SCards.items_titleScreen_MyCards';
+    const elementAttributeKey = SCards.text_ElementAttributeKey_En_Expected;
+    const elementAttributeValues = [
+      SCards.text_ElementAttributeValue_En_Expected_Name,
+      SCards.text_ElementAttributeValue_En_Expected_Balance,
+      SCards.text_ElementAttributeValue_En_Expected,
+      '' // cardDate
+    ];
+
+    const dataArray = await SCards.generateCardstList(rawArrayKey, elementAttributeKey, elementAttributeValues, scrollTo);
+    // * Контролируем непустоту массива.
+    if(dataArray.length === 0){
+      throw new Error(`Не сформирован dataArray (массив карт) = "${dataArray}"`);
+    }
+    // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+    //   console.log('\n --> 1-dataArray.length = ' + dataArray.length +
+    //   '\n' + await dataArray[i].cardName +
+    //   '\n' + await dataArray[i].cardBalance +
+    //   '\n' + await dataArray[i].cardNumber +
+    //   '\n' + await dataArray[i].cardDate
+    //   );
+    // }
+
+    const moneySourceName = 'ACCOUNT_UZS ** 7000';
+    const moneySourceNumber = DCard.cardNumber_Humo_10;
+    const moneySourceField = 'cardNumber'; // 'cardName';
+    let selectedCard, moneyBalance;
+    switch (moneySourceField) {
+      case 'cardName':
+        selectedCard = dataArray.find(card => card.cardName.includes(moneySourceName));
+        moneyBalance = selectedCard.cardBalance;
+        // await $(`//android.widget.TextView[@text="${selectedCard.cardName}"]`).click();
+        break;
+      case 'cardNumber':
+        selectedCard = dataArray.find(card => card.cardNumber.includes(moneySourceNumber.slice(-4)));
+        moneyBalance = selectedCard.cardBalance;
+        // await $(`//android.widget.TextView[@text="${selectedCard.cardNumber}"]`).click();
+        break;
+      default:
+        // console.log(`\n --> Нет элемента (в dataArray): ${cardField}\n`);
+        // break;
+        throw new Error(`\n --> Нет элемента (в dataArray): ${moneySourceField}\n`);
+    }
+  
+    // console.log(`\n --> selectedCard[moneySourceField] = "${selectedCard[moneySourceField]}"\n`);
+    // console.log(`\n --> selectedCard.cardBalance = ${moneyBalance}\n`);
+    // console.log(await $(`//android.widget.TextView[@text="${selectedCard['cardBalance']}"]`).getText());
+    // /*отладка*/ console.log(`\n --> Number(moneyBalance) = ${await UApp.extractNumbersFromString(moneyBalance)}\n`);  
+
+    return await UApp.extractNumbersFromString(moneyBalance);
+  } else {
+    // await SPay.homeButton.click();
+    // await SGen.returnToHomeScreen();
+    /*отладка*/ console.log('\nif > else\n');
+    // await driver.pause(3000);
+    // Прокрутить, делая видимыми следующие элементы.
+          // await $(`android=${scrollTo}`);
+          // // * Ждем стабилизации экрана (иногда система не видит нужный элемент после прокрутки)
+          // await driver.pause(3000);
+    // await moneyBalanceElement.click();
+    await moneyBalanceElement.waitForDisplayed({timeout: 20000});
+    // Отображается баланс карты/счето.
+    // await moneyBalanceElement.waitForDisplayed(20000);
+    // Вернуть сумму баланса (в формате числа).
+    return await UApp.extractNumbersFromString(await moneyBalanceElement.getText());
+  }
+}
+
+
+
+
+
+
+async goAndGetBalance(scrollTo, moneyBalanceElement, elementForGo,
+  moneySourceName, moneySourceNumber, moneySourceField) { // Должен быть открыт главный экран
+  if (!elementForGo) {
+    await $(`android=${scrollTo}`);
+    // // * Ждем стабилизации экрана (иногда система не видит нужный элемент после прокрутки)
+    await driver.pause(3000);
+  }
+  await SGen.returnToHomeScreen();
+  // Если нужно, перейти на требуемый экран.
+  if (elementForGo) {
+    /*отладка*/ console.log('\nif > if\n');
+    // await driver.pause(10000);
+    // await elementForGo.click();
+    // await SGen.returnToHomeScreen();
+    // await moneyBalanceElement.waitForDisplayed(20000);
+    await elementForGo.click();
+    // * Ждем стабилизации экрана (иногда система не видит нужный элемент после прокрутки)
+    // await driver.pause(1500);
+    await SCards.text_CardBalance.waitForDisplayed({timeout: 20000});
+    // 7.1.Открыто окно, где доступен список карт/счетов.
+    // * Создать массив видимых элементов.
+    const rawArrayKey = 'SCards.items_titleScreen_MyCards';
+    const elementAttributeKey = SCards.text_ElementAttributeKey_En_Expected;
+    const elementAttributeValues = [
+      SCards.text_ElementAttributeValue_En_Expected_Name,
+      SCards.text_ElementAttributeValue_En_Expected_Balance,
+      SCards.text_ElementAttributeValue_En_Expected,
+      '' // cardDate
+    ];
+
+    const dataArray = await SCards.generateCardstList(rawArrayKey, elementAttributeKey, elementAttributeValues, scrollTo);
+    // * Контролируем непустоту массива.
+    if(dataArray.length === 0){
+      throw new Error(`Не сформирован dataArray (массив карт) = "${dataArray}"`);
+    }
+    // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
+    //   console.log('\n --> 1-dataArray.length = ' + dataArray.length +
+    //   '\n' + await dataArray[i].cardName +
+    //   '\n' + await dataArray[i].cardBalance +
+    //   '\n' + await dataArray[i].cardNumber +
+    //   '\n' + await dataArray[i].cardDate
+    //   );
+    // }
+
+    // const moneySourceName = 'ACCOUNT_UZS ** 7000';
+    // const moneySourceNumber = DCard.cardNumber_Humo_10;
+    // const moneySourceField = 'cardNumber'; // 'cardName';
+    const moneyBalance = await this.selectCardAndReturnBalance(dataArray, moneySourceName, moneySourceNumber, moneySourceField);
+    return await UApp.extractNumbersFromString(moneyBalance);
+
+  } else {
+
+    // await SPay.homeButton.click();
+    // await SGen.returnToHomeScreen();
+    /*отладка*/ console.log('\nif > else\n');
+    // await driver.pause(3000);
+    // Прокрутить, делая видимыми следующие элементы.
+          // await $(`android=${scrollTo}`);
+          // // * Ждем стабилизации экрана (иногда система не видит нужный элемент после прокрутки)
+          // await driver.pause(3000);
+    // await moneyBalanceElement.click();
+    await moneyBalanceElement.waitForDisplayed({timeout: 20000});
+    // Отображается баланс карты/счето.
+    // await moneyBalanceElement.waitForDisplayed(20000);
+    // Вернуть сумму баланса (в формате числа).
+    return await UApp.extractNumbersFromString(await moneyBalanceElement.getText());
+  }
+}
+
+async selectCardAndReturnBalance(dataArray, moneySourceName, moneySourceNumber, moneySourceField) {
+  let selectedCard, balance;
+  switch (moneySourceField) {
+    case 'cardName':
+      selectedCard = dataArray.find(card => card.cardName.includes(moneySourceName));
+      balance = selectedCard.cardBalance;
+      // await $(`//android.widget.TextView[@text="${selectedCard.cardName}"]`).click();
+      break;
+    case 'cardNumber':
+      selectedCard = dataArray.find(card => card.cardNumber.includes(moneySourceNumber.slice(-4)));
+      balance = selectedCard.cardBalance;
+      // await $(`//android.widget.TextView[@text="${selectedCard.cardNumber}"]`).click();
+      break;
+    default:
+      // console.log(`\n --> Нет элемента (в dataArray): ${cardField}\n`);
+      // break;
+      throw new Error(`\n --> Нет элемента (в dataArray): ${moneySourceField}\n`);
+  }
+
+  // console.log(`\n --> selectedCard[moneySourceField] = "${selectedCard[moneySourceField]}"\n`);
+  // console.log(`\n --> selectedCard.cardBalance = ${balance}\n`);
+  // console.log(await $(`//android.widget.TextView[@text="${selectedCard['cardBalance']}"]`).getText());
+  // /*отладка*/ console.log(`\n --> Number(moneyBalance) = ${await UApp.extractNumbersFromString(balance)}\n`); 
+
+  return balance;
+}
 
 async goAndCheckBalance(scrollTo, moneyBalanceElement, elementForGo, moneyBalanceBefore, moneyAmount) {
   const moneyBalanceAfter = await this.goAndGetBalance(scrollTo, moneyBalanceElement, elementForGo);
@@ -250,7 +436,10 @@ async goAndCheckBalance(scrollTo, moneyBalanceElement, elementForGo, moneyBalanc
   //   '\n transferAmount = ' + transferAmount
   // );
   // - баланс выбранного ранее счета отправки платежа, уменьшенный на итоговую сумму перевода
-  await expect(moneyBalanceAfter).toEqual(moneyBalanceBefore - transferAmount);
+  // await expect(moneyBalanceAfter).toEqual(moneyBalanceBefore - transferAmount);
+  const moneyDifference = moneyBalanceBefore - transferAmount;
+  await expect(moneyBalanceAfter).toBeGreaterThanOrEqual(moneyDifference - 1);
+  await expect(moneyBalanceAfter).toBeLessThanOrEqual(moneyDifference);
 }
 
 

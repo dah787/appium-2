@@ -294,7 +294,7 @@ async authorizeUser(language, phoneNumber, password, pinCode) {
 // await driver.pause(15000);
 //   }
 
-  await SHome.text_TotalBalanceAmount.waitForDisplayed(20000);
+  await SHome.text_TotalBalanceAmount.waitForDisplayed({timeout: 20000});
   
 }
 
