@@ -19,7 +19,7 @@ const WCardsS = require('../../screens/android/ab-cardsSender.window');     // w
 const UApp    = require("../../utils/android/ab-app.utils");                // utilities > Application
 const UDev    = require("../../utils/android/dt-device.utils");             // utilities > Device
 
-describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231225| /Тестов 11 (частично 6)/', () => {
+describe('ab-ts-02p: Testing of operations | Тестирование операций |вер.20231226| /Тестов 11 (частично 6)/', () => {
   let counter = 0, tcNum = '', i = 0;
   beforeEach(async () => {
     await SGen.beforeEach(counter, 'o'); // o - operation / e - e2e < typeOfTest
@@ -62,7 +62,7 @@ describe('ab-ts-02p: Testing of operations | Тестирование опера
     // await driver.terminateApp(SGen.appPackage);
   });
 
-// ab-ts-04p: Тестирование карт |вер.20231211| /Тестов 5 (частичен 1)/
+// ab-ts-04p: Тестирование карт |вер.20231226| /Тестов 5 (частичен 1)/
 it.skip('ab-e-tc-04.001p: -*- Adding card | Добавление карты /частичен/', async () => {
   /** 
   > Можно добавить банковскую карту. <
@@ -636,7 +636,7 @@ it.skip('ab-e-tc-04.003p: Deleting card | Удаление карты', async ()
     await expect(cardNumberText).not.toContain(cardNumber_LastDigits);
   }
 });
-it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async () => {
+it.only('ab-e-tc-04.004p: Checking balance | Проверка баланса', async () => {
   /**
   > Можно проверить балансы карт и общий баланс. <
 ПРЕДУСЛОВИЯ:
@@ -669,29 +669,23 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
 
   // П.1.Выполнить авторизацию пользователя.
   await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
-  await SHome.text_TotalBalanceAmount.waitForDisplayed({timeout: SGen.number_WaitTime_Expected + 15000});
+  await SHome.text_TotalBalanceAmount.waitForDisplayed({timeout: 25000});
 
   // 1.Обратить внимание на баланс каждой карты.
-  // * Создать список карт.
-  // let rawArray = await SHome.items_layout_CardsList;
-  let rawArray_Id = 'SHome.items_layout_CardsList';
-  // let dataArray = [];
-  // const elementAttributeKey = 'resource-id';
-  // const elementAttributeValues = [
-  //   'com.fincube.apexbank.debug:id/tvCardName',
-  //   'com.fincube.apexbank.debug:id/tvCardBalance',
-  //   'com.fincube.apexbank.debug:id/tvCardNumber',
-  //   'com.fincube.apexbank.debug:id/tvCardDate'
-  // ];
-  const elementAttributeKey = SHome.text_ElementAttributeKey_En_Expected;
-  const elementAttributeValues = SHome.array_ElementAttributeValues_En_Expected;
-  let scrollDirection = SHome.scrollToElement_Right;
-  // await SCards.scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection);
-  let dataArray = await SCards.scrollCardstList(rawArray_Id, elementAttributeKey, elementAttributeValues, scrollDirection);
+  // * Создать массив видимых элементов.
+  let rawArrayKey = 'SHome.items_layout_CardsList';
+  const elementAttributeKey = SCards.text_ElementAttributeKey_En_Expected;
+  const elementAttributeValues = [
+    SCards.text_ElementAttributeValue_En_Expected_Name,
+    SCards.text_ElementAttributeValue_En_Expected_Balance,
+    SCards.text_ElementAttributeValue_En_Expected,
+    SCards.text_ElementAttributeValue_En_Expected_Date // ''
+  ];
+  let scrollTo = SHome.scrollToElement_Right;
+
+  let dataArray = await SCards.generateCardstList(rawArrayKey, elementAttributeKey, elementAttributeValues, scrollTo);
   // * Контролируем непустоту массива.
-  if (dataArray.length == 0) { // await expect(dataArray.length).toBeGreaterThan(0);
-    // console.log('\n --> languagesList не сформирован: dataArray = ' + dataArray + '\n');
-    // throw " Не сформирован dataArray (массив-1 карт) = '" + dataArray + "'";
+  if (dataArray.length === 0) {
     throw new Error(`Не сформирован dataArray (массив-1 карт) = "${dataArray}"`);
   }
   // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
@@ -703,27 +697,15 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
   //   );
   // }
   // 1.1.Отображается баланс каждой карты.
-  let cardBalanceAmountText = '';
-  let cardBalance = 0;
-  let cardsBalanceAmountTotal = 0;
-  for (const element of dataArray) {
-    // cardBalanceAmountText = await element.getText();
-    cardBalanceAmountText = await element.cardBalance;
-    cardBalance = await UApp.extractNumbersFromString(cardBalanceAmountText);
-    cardsBalanceAmountTotal += cardBalance;
-    // /*отладка*/ console.log('\n --> await element.getText(); = ' + await element.cardBalance + '\n');
-  }
-  cardsBalanceAmountTotal = await UApp.roundNumber(cardsBalanceAmountTotal, 2);
-  const cardsBalanceAmountTotal_OnHomeScreen = cardsBalanceAmountTotal;
-  // /*отладка*/ console.log('\n --> cardsBalanceAmountTotal-1 = ' + cardsBalanceAmountTotal + '\n');
+  const cardsBalanceTotal_OnHomeScreen = await SCards.sumUpBalances(dataArray);
 
   // 2.Обратить внимание на общий баланс.
   // 2.1.Отображается общий баланс, равный сумме балансов всех карт.
   let totalBalance = await SHome.text_TotalBalanceAmount.getText();
   totalBalance = await UApp.extractNumbersFromString(totalBalance);
   // /*отладка*/ console.log('\n --> totalBalance = ' + totalBalance + '\n');
-  await expect(totalBalance).toBeGreaterThanOrEqual(cardsBalanceAmountTotal);
-  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceAmountTotal + dataArray.length);
+  await expect(totalBalance).toBeGreaterThanOrEqual(cardsBalanceTotal_OnHomeScreen);
+  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceTotal_OnHomeScreen + dataArray.length);
 
   // 3.Нажать кнопку Карты.
   await SHome.bottomNav_Cards.click();
@@ -732,15 +714,13 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
   await SCards.text_CardBalance.waitForDisplayed({timeout: SGen.number_WaitTime_Expected});
 
   // 4.Обратить внимание на баланс каждой карты.
-  // * Создать список карт.
-  rawArray_Id = 'SCards.items_titleScreen_MyCards'; // = await SCards.items_titleScreen_MyCards;
-  // dataArray = [];
-  scrollDirection = UApp.scrollForward;
-  // await SCards.scrollCardstList(rawArray_Id, dataArray, elementAttributeKey, elementAttributeValues, scrollDirection);
-  dataArray = await SCards.scrollCardstList(rawArray_Id, elementAttributeKey, elementAttributeValues, scrollDirection);
+  // * Создать массив видимых элементов.
+  rawArrayKey = 'SCards.items_titleScreen_MyCards';
+  scrollTo = UApp.scrollForward;
+
+  dataArray = await SCards.generateCardstList(rawArrayKey, elementAttributeKey, elementAttributeValues, scrollTo);
   // * Контролируем непустоту массива.
-  if(dataArray.length === 0){
-    // throw " Не сформирован dataArray (массив-2 карт) = '" + dataArray + "'";
+  if (dataArray.length === 0) {
     throw new Error(`Не сформирован dataArray (массив-2 карт) = "${dataArray}"`);
   }
   // /*отладка*/ for (let i = 0, l = dataArray.length; i < l; i++) {
@@ -752,29 +732,19 @@ it('ab-e-tc-04.004p: Checking balance | Проверка баланса', async 
   //   );
   // }
   // 4.1.Отображается баланс каждой карты.
-  cardBalanceAmountText = '';
-  cardBalance = 0;
-  cardsBalanceAmountTotal = 0;
-  for (const element of dataArray) {
-    // cardBalanceAmountText = await element.getText();
-    cardBalanceAmountText = await element.cardBalance;
-    cardBalance = await UApp.extractNumbersFromString(cardBalanceAmountText);
-    cardsBalanceAmountTotal += cardBalance;
-    // /*отладка*/ console.log('\n --> await element.getText(); = ' + await element.cardBalance + '\n');
-  }
-  cardsBalanceAmountTotal = await UApp.roundNumber(cardsBalanceAmountTotal, 2);
+  const cardsBalanceTotal_OnMyCardsScreen = await SCards.sumUpBalances(dataArray);
   // /*отладка*/ console.log(`
-  //   \n totalBalance                               = ${totalBalance}
-  //   \n cardsBalanceAmountTotal-1                  = ${cardsBalanceAmountTotal_OnHomeScreen}
-  //   \n cardsBalanceAmountTotal-2                  = ${cardsBalanceAmountTotal}
-  //   \n dataArray.length                           = ${dataArray.length}
-  //   \n cardsBalanceAmountTotal + dataArray.length = ${cardsBalanceAmountTotal + dataArray.length}`);
+  //   \n totalBalance                                          = ${totalBalance}
+  //   \n cardsBalanceTotal_OnHomeScreen-1                      = ${cardsBalanceTotal_OnHomeScreen}
+  //   \n cardsBalanceTotal_OnMyCardsScreen-2                   = ${cardsBalanceTotal_OnMyCardsScreen}
+  //   \n dataArray.length                                      = ${dataArray.length}
+  //   \n cardsBalanceTotal_OnMyCardsScreen + dataArray.length  = ${cardsBalanceTotal_OnMyCardsScreen + dataArray.length}`);
   // 4.2.Сумма балансов всех карт равна общему балансу.
   // await expect(totalBalance).toEqual(cardsBalanceAmountTotal + dataArray.length);
-  await expect(totalBalance).toBeGreaterThanOrEqual(cardsBalanceAmountTotal);
-  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceAmountTotal + dataArray.length);
+  await expect(totalBalance).toBeGreaterThanOrEqual(cardsBalanceTotal_OnMyCardsScreen);
+  await expect(totalBalance).toBeLessThanOrEqual(cardsBalanceTotal_OnMyCardsScreen + dataArray.length);
   // * Сумма балансов всех карт на экранах Главный и Мои карты равны.
-  await expect(cardsBalanceAmountTotal_OnHomeScreen).toEqual(cardsBalanceAmountTotal);
+  await expect(cardsBalanceTotal_OnHomeScreen).toEqual(cardsBalanceTotal_OnMyCardsScreen);
 });
 it('ab-u-tc-04.005p: Hide/Show balance | Скрыть/Показать баланс', async () => {
   /**
@@ -2055,7 +2025,7 @@ it.skip('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оп
   
 });
 
-it.only('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оплата мобильной связи (со счета)', async () => {
+it('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оплата мобильной связи (со счета)', async () => {
   /**
   > Можно выполнить оплату услуг мобильной связи (с карты или счета). <
 ПРЕДУСЛОВИЯ:
@@ -2118,9 +2088,9 @@ it.only('ab-e-tc-06.001p: Payment for mobile communication (from account) | Оп
   await SAuth.authorizeUser(SAuth.text_LanguageRussian_En, phoneNumber, phoneNumber_pass, SPin.text_PinCode_Expected);
   
   // 1.Обратить внимание на карты в разделах Баланс или Мои карты, на счета в разделе Кошелек.
-  const scrollTo = SHome.scrollTo_MonitoringSection;
-  const moneyBalanceElement = SHome.text_AccountBalance_1;
-  const elementForGo = SHome.bottomNav_Cards; // ''; // 
+  const scrollTo = SHome.scrollTo_MonitoringSection; // элемент, к которому требуется прокрутка экрана
+  const moneyBalanceElement = SHome.text_AccountBalance_1; // элемент баланса источника оплаты
+  const elementForGo = SHome.bottomNav_Cards; // ''; // элемент для перехода на экран мои карты
   // await SHome.bottomNav_Cards.click();
   // 1.1.Отображаются балансы карт, счетов.
   const moneyBalanceBefore = await SPayM.goAndGetBalance(scrollTo, moneyBalanceElement, elementForGo,

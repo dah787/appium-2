@@ -1,6 +1,7 @@
 const GenM    = require('./ab-general.screen');                         // General screen Model
 const SHome   = require('../../screens/android/ab-home.screen');        // screen > Home
 const WCardsS = require('../../screens/android/ab-cardsSender.window'); // window > Cards of sender
+const UApp    = require("../../utils/android/ab-app.utils");            // utilities > Application
 
 class CardsScreen {
 /* CONSTANTS */
@@ -12,6 +13,7 @@ text_ElementAttributeValue_En_Expected = 'com.fincube.apexbank.debug:id/tvCardNu
 text_ElementAttributeValue_En_Expected_Name = 'com.fincube.apexbank.debug:id/tvCardName';
 text_ElementAttributeValue_En_Expected_Number = 'com.fincube.apexbank.debug:id/tvCardNumber';
 text_ElementAttributeValue_En_Expected_Balance = 'com.fincube.apexbank.debug:id/tvCardBalance';
+text_ElementAttributeValue_En_Expected_Date = 'com.fincube.apexbank.debug:id/tvCardDate';
 
 
 /* SELECTORS */
@@ -307,6 +309,25 @@ async generateCardstList(rawArrayKey, elementAttributeKey, elementAttributeValue
 
   return array;
 }
+async sumUpBalances(dataArray) {
+  let balanceTotal = 0;
+  for (const element of dataArray) {
+    let balanceAsText = await element.cardBalance;
+    let balanceAsNumber = await UApp.extractNumbersFromString(balanceAsText);
+    balanceTotal += balanceAsNumber;
+    // /*отладка*/ console.log('\n --> await element.getText(); = ' + await element.cardBalance + '\n');
+  }
+  // /*отладка*/ console.log('\n --> cardsBalanceAmountTotal-1 = ' + balanceTotal + '\n');
+    return await UApp.roundNumber(balanceTotal, 2);
+}
+
+
+
+
+
+
+
+
 
 
 

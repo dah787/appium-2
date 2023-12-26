@@ -180,10 +180,10 @@ async authorizeUser(language, phoneNumber, password, pinCode) {
   // * Закрыть окно push-уведомления (если открыто).
   // https://webdriver.io/docs/boilerplates/#webdriverioappium-boilerplate
   // https://webdriver.io/docs/api/element/touchAction
-//   if (await HomeM.window_PushNotification.isDisplayed()) {
+//   if (await SHome.window_PushNotification.isDisplayed()) {
 //     // await driver.execute('mobile:swipe', { direction: 'up' });
 
-// /*отладка*/ console.log(`\n --> push-1 = ${await HomeM.window_PushNotification.isDisplayed()} \n`);
+// /*отладка*/ console.log(`\n --> push-1 = ${await SHome.window_PushNotification.isDisplayed()} \n`);
 
 //     // await HomeM.window_PushNotification.click();
 //           // * Прокрутить элемент (выполняя swipe/смахивание).
@@ -290,8 +290,9 @@ async authorizeUser(language, phoneNumber, password, pinCode) {
 
 
 
-// /*отладка*/ console.log(`\n --> push-2 = ${await HomeM.window_PushNotification.isDisplayed()} \n`);
+// /*отладка*/ console.log(`\n --> push-2 = ${await SHome.window_PushNotification.isDisplayed()} \n`);
 // await driver.pause(15000);
+//                                                 return
 //   }
 
   await SHome.text_TotalBalanceAmount.waitForDisplayed({timeout: 20000});
